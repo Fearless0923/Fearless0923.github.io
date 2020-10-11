@@ -156,7 +156,7 @@
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <h1 id="PHP（一）"><a href="#PHP（一）" class="headerlink" title="PHP（一）***"></a>PHP（一）***</h1><ul>
+                <h1 id="PHP（一）"><a href="#PHP（一）" class="headerlink" title="PHP（一）"></a>PHP（一）</h1><ul>
 <li><p>PHP（全称：PHP：Hypertext Preprocessor，即”PHP：超文本预处理器”）是一种通用开源脚本语言。</p>
 </li>
 <li><p>PHP 文件可包含文本、HTML、JavaScript代码和 PHP 代码</p>
@@ -164,6 +164,7 @@
 <li><p>PHP 代码在服务器上执行，结果以纯 HTML 形式返回给浏览器</p>
 </li>
 <li><p>PHP 文件的默认文件扩展名是 “.php”</p>
+<p>[TOC]</p>
 </li>
 </ul>
 <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>变量是用于存储信息的”容器”。（php与C语言比较类似）</p>
@@ -176,9 +177,9 @@
 <li>赋一个文本值给变量时，需在文本值两侧加上引号。</li>
 </ul>
 <h3 id="PHP-变量作用域"><a href="#PHP-变量作用域" class="headerlink" title="PHP 变量作用域"></a>PHP 变量作用域</h3><p>变量的作用域是脚本中变量可被引用/使用的部分。</p>
-<h5 id="Global-全局变量作用域"><a href="#Global-全局变量作用域" class="headerlink" title="Global:全局变量作用域"></a>Global:全局变量作用域</h5><p>除了函数外，全局变量(即在函数外声明，无法在函数内声明的变量。同理:在函数内声明,无法在函数外声明的变量为局部变量。<strong>因此可以在不同函数中使用相同的变量名称，因为这些函数内定义的变量名是局部变量，只作用于该函数内。</strong>关于局部变量和全局变量的优先级，因为在PHP中函数都有自己单独的作用域，所以在局部变量的优先级要大于全局变量（在你不声明这个变量之前），声明之后此变量就变成了局部变量如果修改值那么全局变量的值也会改变。)可以被脚本中的任何部分访问，要在一个函数中访问一个全局变量，需要使用 global 关键字。</p>
+<h5 id="Global-全局变量作用域"><a href="#Global-全局变量作用域" class="headerlink" title="Global:全局变量作用域"></a><strong>Global:全局变量作用域</strong></h5><p>除了函数外，全局变量(即在函数外声明，无法在函数内声明的变量。同理:在函数内声明,无法在函数外声明的变量为局部变量。<strong>因此可以在不同函数中使用相同的变量名称，因为这些函数内定义的变量名是局部变量，只作用于该函数内。</strong>关于局部变量和全局变量的优先级，因为在PHP中函数都有自己单独的作用域，所以在局部变量的优先级要大于全局变量（在你不声明这个变量之前），声明之后此变量就变成了局部变量如果修改值那么全局变量的值也会改变。)可以被脚本中的任何部分访问，要在一个函数中访问一个全局变量，需要使用 global 关键字。</p>
 <p>在源代码中，global $x,$y;    $y=$x+$y; 和 $GLOBALS[‘y’]=$GLOBALS[‘x’]+$GLOBALS[‘y’]; 是等效的。</p>
-<h5 id="Static-静态作用域"><a href="#Static-静态作用域" class="headerlink" title="Static :静态作用域"></a>Static :静态作用域</h5><p>当一个函数完成时，它的所有变量通常都会被删除。但有时候您希望某个局部变量不要被删除可以在您第一次声明变量时使用 <strong>static</strong> 关键字。每次调用该函数时，该变量将会保留着函数前一次被调用时的值。</p>
+<h5 id="Static-静态作用域"><a href="#Static-静态作用域" class="headerlink" title="Static :静态作用域"></a><strong>Static :静态作用域</strong></h5><p>当一个函数完成时，它的所有变量通常都会被删除。但有时候您希望某个局部变量不要被删除可以在您第一次声明变量时使用 <strong>static</strong> 关键字。每次调用该函数时，该变量将会保留着函数前一次被调用时的值。</p>
 <h5 id="local-局部变量的作用域"><a href="#local-局部变量的作用域" class="headerlink" title="local:局部变量的作用域"></a><strong>local:局部变量的作用域</strong></h5><p>在 PHP 函数内部声明的变量是局部变量，仅能在函数内部访问。</p>
 <h5 id="parameter：参数作用域"><a href="#parameter：参数作用域" class="headerlink" title="parameter：参数作用域"></a><strong>parameter：参数作用域</strong></h5><p>参数是通过调用代码将值传递给函数的局部变量。</p>
 <h2 id="PHP-echo-和-print-语句"><a href="#PHP-echo-和-print-语句" class="headerlink" title="PHP echo 和 print 语句"></a>PHP echo 和 print 语句</h2><ul>
@@ -224,7 +225,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">echo strpos(&quot;what a handsome boy!&quot;,&quot;handsome&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
 <p>上面的代码将输出：7</p>
-<p>**在上面的实例中，字符串 “handsome” 的位置是 7。之所以是 7而不是 8 的原因是，字符串中第一个字符的位置是 0，而不是 1。</p>
+<p>在上面的实例中，字符串 “handsome” 的位置是 7。之所以是 7而不是 8 的原因是，字符串中第一个字符的位置是 0，而不是 1。</p>
 
             </div>
 
