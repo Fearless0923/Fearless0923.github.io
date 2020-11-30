@@ -176,7 +176,7 @@
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/2.jpg" alt="2"></p>
 <p>查找源代码验证了猜测</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/3.jpg" alt="3"></p>
-<p><strong>注意:*<em>这里要输入正确的账号和密码才能绕过账号密码判断，进入处理<code>User-Agent</code>部分。**</em>17关对密码进行了更改,故此处记得用新密码，或者在靶场初页面重置，否则无法登录*</strong>，本人用admin登录了半天登不进去，后来才反应过来17关改密码了…………</p>
+<p>注意:这里要输入正确的账号和密码才能绕过账号密码判断，进入处理<code>User-Agent</code>部分。<strong>17关对密码进行了更改,故此处记得用新密码，或者在靶场初页面重置，否则无法登录</strong>，本人用admin登录了半天登不进去，后来才反应过来17关改密码了…………</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/4.jpg" alt="4"></p>
 <h3 id="（一）hackbar插件"><a href="#（一）hackbar插件" class="headerlink" title="（一）hackbar插件:"></a>（一）hackbar插件:</h3><h3 id="extractvalue（）"><a href="#extractvalue（）" class="headerlink" title="extractvalue（）"></a>extractvalue（）</h3><h4 id="1-试探"><a href="#1-试探" class="headerlink" title="1.试探"></a>1.试探</h4><p>先试单引号</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/7.jpg" alt="7"></p>
@@ -198,8 +198,8 @@
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/12.jpg" alt="12"></p>
 <p>也可使用时间盲注。</p>
 <h3 id="二-HTTP-Header-Live"><a href="#二-HTTP-Header-Live" class="headerlink" title="(二)HTTP Header Live"></a>(二)HTTP Header Live</h3><p>HTTP Header Live是Firefox中的插件，可在其中对user-agent 进行修改。</p>
-<h3 id><a href="#" class="headerlink" title></a><img src="/2020/11/26/sqli-labs%E5%9B%9B/13.jpg" alt="13"></h3><h3 id="（三）Live-HTTP-headers"><a href="#（三）Live-HTTP-headers" class="headerlink" title="（三）Live HTTP headers"></a>（三）Live HTTP headers</h3><p>Live HTTP headers也是Firefox里的插件，但是需要安装低版本火狐，测试安装的是45.0版本浏览器。<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22146195/article/details/103537148%E8%BF%99%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%9C%89%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%E3%80%82">https://blog.csdn.net/qq_22146195/article/details/103537148这篇博客有详细教程。</a></p>
-<h3 id="四-Burp-Suite"><a href="#四-Burp-Suite" class="headerlink" title="(四)Burp Suite"></a>(四)Burp Suite</h3><p>Burp Suite 是用于攻击web 应用程序的集成平台，包含许多工具,且这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。**<em>安装burp suite需要java环境**</em></p>
+<h3 id><a href="#" class="headerlink" title></a><img src="/2020/11/26/sqli-labs%E5%9B%9B/13.jpg" alt="13"></h3><h3 id="（三）Live-HTTP-headers"><a href="#（三）Live-HTTP-headers" class="headerlink" title="（三）Live HTTP headers"></a>（三）Live HTTP headers</h3><p>Live HTTP headers也是Firefox里的插件，但是需要安装低版本火狐，测试安装的是45.0版本浏览器。这篇博客有详细教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22146195/article/details/103537148">火狐浏览器安装Live HTTP headers步骤记录</a></p>
+<h3 id="四-Burp-Suite"><a href="#四-Burp-Suite" class="headerlink" title="(四)Burp Suite"></a>(四)Burp Suite</h3><p>Burp Suite 是用于攻击web 应用程序的集成平台，包含许多工具,且这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。<strong>安装burp suite需要java环境</strong></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/14.jpg" alt="14"></p>
 <p>类似工具还有很多不一一列举。</p>
 <h1 id="Less-19"><a href="#Less-19" class="headerlink" title="Less-19"></a>Less-19</h1><p>基于头部的Referer POST报错注入</p>
@@ -235,6 +235,20 @@
 <h2 id="法五：延时注入"><a href="#法五：延时注入" class="headerlink" title="法五：延时注入"></a>法五：延时注入</h2><p><code>uname=admin&#39; and if(length(database())=8,1,sleep(5))-- #</code><img src="/2020/11/26/sqli-labs%E5%9B%9B/28.jpg" alt="28"></p>
 <p>用burp suite 抓包报错会一直延时，hackbar正常延时，报错页面如下：</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/29.jpg" alt="29"></p>
+<h1 id="Less-21"><a href="#Less-21" class="headerlink" title="Less-21"></a>Less-21</h1><p>基于base64编码单引号和括号的Cookie注入</p>
+<p>本关和Less-20相似，cookie从username获得值之后，再次刷新时会从cookie中获取username,再进行查询,只是cookie的uname值需经过base64编码。</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/32.jpg" alt="32"></p>
+<p>推荐一个编码器<a target="_blank" rel="noopener" href="https://base64.us/">Base64 在线编码解码</a>，admin的编码为YWRtaW4=</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/31.jpg" alt="31"></p>
+<p>单引号报错：</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/33.jpg" alt="33"></p>
+<p><code>&#39;)</code>也报错，用#注释后回显正常。其余操作与20关相同，将命令编码即可。</p>
+<h1 id="Less-22"><a href="#Less-22" class="headerlink" title="Less-22"></a>Less-22</h1><p>登录成功后显示的是21关的图片，应该是作者弄错了。</p>
+<p>双引号报错</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/34.jpg" alt="34"></p>
+<p>注释后回显正常</p>
+<p><img src="/2020/11/26/sqli-labs%E5%9B%9B/35.jpg" alt="35"></p>
+<p>接下去就跟21类似。</p>
 
             </div>
 
