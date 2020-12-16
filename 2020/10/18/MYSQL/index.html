@@ -24,7 +24,7 @@
           content: ' ';
           position: fixed;
           top: 0;
-          background: url('/img/bg.jpg') center 0 no-repeat;
+          background: url('/img/bg.gif') center 0 no-repeat;
           right: 0;
           bottom: 0;
           left: 0;
@@ -156,21 +156,8 @@
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><p>数据库是按照数据结构来组织、存储和管理数据的仓库。每个数据库都有一个或多个不同的 API 用于创建，访问，管理，搜索和复制所保存的数据。</p>
-<p>关系数据库管理系统的特点：</p>
-<ul>
-<li><p>1.数据以表格的形式出现</p>
-</li>
-<li><p>2.每行为各种记录名称</p>
-</li>
-<li><p>3.每列为记录名称所对应的数据域</p>
-</li>
-<li><p>4.许多的行和列组成一张表单</p>
-</li>
-<li><p>5.若干的表单组成database</p>
-</li>
-<li><p><a href="#mysql">MySQL</a></p>
-<ul>
+                <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><ul>
+<li><a href="#mysql">MySQL</a><ul>
 <li><a href="#mysql%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93">MySQL创建数据库</a><ul>
 <li><a href="#%E4%BD%BF%E7%94%A8-mysqladmin-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93">使用 mysqladmin 创建数据库</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-php%E8%84%9A%E6%9C%AC-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93">使用 PHP脚本 创建数据库</a></li>
@@ -193,6 +180,7 @@
 </ul>
 </li>
 <li><a href="#mysql-%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E8%A1%A8">MySQL 删除数据表</a></li>
+<li><a href="#mysql-%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE">MySQL 删除数据</a></li>
 <li><a href="#mysql-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE">MySQL 查询数据</a><ul>
 <li><a href="#%E9%80%9A%E8%BF%87%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6">通过命令提示符</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8php%E8%84%9A%E6%9C%AC-1">使用PHP脚本</a></li>
@@ -202,8 +190,17 @@
 <li><a href="#%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AA%97%E5%8F%A3">命令提示窗口</a></li>
 </ul>
 </li>
+<li><a href="#mysql%E6%94%B9%E6%95%B0%E6%8D%AE">MySQL改数据</a><br>数据库是按照数据结构来组织、存储和管理数据的仓库。每个数据库都有一个或多个不同的 API 用于创建，访问，管理，搜索和复制所保存的数据。</li>
 </ul>
 </li>
+</ul>
+<p>关系数据库管理系统的特点：</p>
+<ul>
+<li>1.数据以表格的形式出现</li>
+<li>2.每行为各种记录名称</li>
+<li>3.每列为记录名称所对应的数据域</li>
+<li>4.许多的行和列组成一张表单</li>
+<li>5.若干的表单组成database</li>
 </ul>
 <h2 id="MySQL创建数据库"><a href="#MySQL创建数据库" class="headerlink" title="MySQL创建数据库"></a>MySQL创建数据库</h2><p>简单命令如下：数据名为BLACKPINK</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@host]# mysql -u root -p   </span><br><span class="line">Enter password:******  # 登录后进入终端</span><br><span class="line"></span><br><span class="line">mysql&gt; create DATABASE BLACKPINK;</span><br></pre></td></tr></table></figure>
@@ -259,6 +256,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$sql &#x3D; &quot;CREATE TABLE blackpink_tbl( &quot;.</span><br><span class="line">        &quot;blackpink_id INT NOT NULL AUTO_INCREMENT, &quot;.</span><br><span class="line">        &quot;blackpink VARCHAR(100) NOT NULL, &quot;.</span><br><span class="line">        &quot;blackpink VARCHAR(40) NOT NULL, &quot;.</span><br><span class="line">        &quot;submission_date DATE, &quot;.</span><br><span class="line">        &quot;PRIMARY KEY ( blackpink_id ))ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8; &quot;;</span><br><span class="line">mysqli_select_db( $conn, &#39;blackpink&#39; );</span><br></pre></td></tr></table></figure>
 
 <h2 id="MySQL-删除数据表"><a href="#MySQL-删除数据表" class="headerlink" title="MySQL 删除数据表"></a>MySQL 删除数据表</h2><p>语法与创建数据表类似，将create换成drop即可。</p>
+<h2 id="MySQL-删除数据"><a href="#MySQL-删除数据" class="headerlink" title="MySQL 删除数据"></a>MySQL 删除数据</h2><p>删除&lt;满足条件的&gt;行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete from &lt;表名&gt; [where &lt;删除条件&gt;]</span><br></pre></td></tr></table></figure>
+
 <h2 id="MySQL-查询数据"><a href="#MySQL-查询数据" class="headerlink" title="MySQL 查询数据"></a>MySQL 查询数据</h2><p>语法如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT column_name,column_name</span><br><span class="line">FROM table_name</span><br><span class="line">[WHERE Clause]</span><br><span class="line">[LIMIT N][ OFFSET M]</span><br></pre></td></tr></table></figure>
 
@@ -274,12 +274,18 @@
 <li><p>通过OFFSET指定SELECT语句开始查询的数据偏移量(默认情况下偏移量为0)</p>
 </li>
 </ul>
-<h4 id="通过命令提示符"><a href="#通过命令提示符" class="headerlink" title="通过命令提示符"></a>通过命令提示符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from runoob_tbl;</span><br></pre></td></tr></table></figure>
+<h4 id="通过命令提示符"><a href="#通过命令提示符" class="headerlink" title="通过命令提示符"></a>通过命令提示符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">1.精确（条件）查询</span><br><span class="line">select &lt;列名&gt; from &lt;表名&gt; [where &lt;查询条件表达试&gt;] [order by &lt;排序的列名&gt;[asc或desc]]</span><br><span class="line"></span><br><span class="line">2.查询所有数据行和列</span><br><span class="line">select * from &lt;表&gt;</span><br><span class="line"></span><br><span class="line">3.查询部分行列--条件查询</span><br><span class="line">select i,j,k from a where f&#x3D;5</span><br><span class="line">&#x2F;&#x2F;查询表a中f&#x3D;5的所有行，并显示i,j,k３列</span><br><span class="line"></span><br><span class="line">4.在查询中使用ＡＳ更改列名</span><br><span class="line">select name as 姓名 from a where xingbie&#x3D;&#39;男&#39;</span><br><span class="line">&#x2F;&#x2F;查询a表中性别为男的所有行，显示name列，并将name列改名为（姓名）显示</span><br><span class="line"></span><br><span class="line">5.查询空行</span><br><span class="line">select name from a where email is null</span><br><span class="line">&#x2F;&#x2F;查询表a中email为空的所有行，并显示name列；SQL语句中用is null或者is not null来判断是否为空行</span><br><span class="line"></span><br><span class="line">6.在查询中使用常量</span><br><span class="line">select name, &#39;唐山&#39; as 地址 from Student</span><br><span class="line">&#x2F;&#x2F;查询表a，显示name列，并添加地址列，其列值都为&#39;唐山&#39;</span><br><span class="line"></span><br><span class="line">7.查询返回限制行数</span><br><span class="line">select top 6 name from a</span><br><span class="line">&#x2F;&#x2F;查询表a，显示列name的前６行，top为关键字</span><br><span class="line">select top 60 percent name from a</span><br><span class="line">&#x2F;&#x2F;查询表a，显示列name的60%，percent为关键字</span><br><span class="line"></span><br><span class="line">8.查询排序（关键字：order by , asc , desc）</span><br><span class="line">例：select name from a where chengji&gt;&#x3D;60 order by desc</span><br><span class="line">&#x2F;&#x2F;查询a表中chengji大于等于60的所有行，并按降序显示name列；默认为ＡＳＣ升序</span><br><span class="line"></span><br><span class="line">9.模糊查询</span><br><span class="line">使用like进行模糊查询</span><br><span class="line">注意：like运算副只用于字符串，所以仅与char和varchar数据类型联合使用</span><br><span class="line">select * from a where name like &#39;赵%&#39;</span><br><span class="line">&#x2F;&#x2F;查询显示表a中，name字段第一个字为赵的记录</span><br><span class="line"></span><br><span class="line">使用between在某个范围内进行查询</span><br><span class="line">select * from a where nianling between 18 and 20</span><br><span class="line">&#x2F;&#x2F;查询显示表a中nianling在18到20之间的记录</span><br><span class="line"></span><br><span class="line">使用in在列举值内进行查询</span><br><span class="line">select name from a where address in (&#39;北京&#39;,&#39;上海&#39;,&#39;唐山&#39;)</span><br><span class="line">&#x2F;&#x2F;查询表a中address值为北京或者上海或者唐山的记录，显示name字段</span><br><span class="line"></span><br><span class="line">10.分组查询</span><br><span class="line">使用group by进行分组查询</span><br><span class="line">select studentID as 学员编号,AVG(score) as 平均成绩 (注释:这里的score是列名)</span><br><span class="line">from score (注释:这里的score是表名)</span><br><span class="line">group by studentID</span><br><span class="line">&#x2F;&#x2F;在表score中查询，按strdentID字段分组，显示strdentID字段和score字段的平均值；select语句中只允许被分组的列和为每个分组返回的一个值的表达式，例如用一个列名作为参数的聚合函数</span><br><span class="line"></span><br><span class="line">使用having子句进行分组筛选</span><br><span class="line">select studentID as 学员编号,AVG(score) as 平均成绩 (注释:这里的score是列名)</span><br><span class="line">from score (注释:这里的score是表名)</span><br><span class="line">group by studentID</span><br><span class="line">having count(score)&gt;1</span><br><span class="line">&#x2F;&#x2F;接上面例子，显示分组后count(score)&gt;1的行，由于where只能在没有分组时使用，分组后只能使用having来限制条件。</span><br><span class="line"></span><br><span class="line">11.多表联接查询</span><br><span class="line">内联接：</span><br><span class="line">在where子句中指定联接条件</span><br><span class="line">select a.name,b.chengji from a,b where a.name&#x3D;b.name</span><br><span class="line">&#x2F;&#x2F;查询表a和表b中name字段相等的记录，并显示表a中的name字段和表b中的chengji字段</span><br><span class="line"></span><br><span class="line">在from子句中使用join…on</span><br><span class="line">select a.name,b.chengji from a inner join b on (a.name&#x3D;b.name)</span><br><span class="line"></span><br><span class="line">外联接：</span><br><span class="line">左外联接查询</span><br><span class="line">select s.name,c.courseID,c.score from strdents as s left outer join score as c</span><br><span class="line">on s.scode&#x3D;c.strdentID</span><br><span class="line">&#x2F;&#x2F;在strdents表和score表中查询满足on条件的行，条件为score表的strdentID与strdents表中的sconde相同</span><br><span class="line"></span><br><span class="line">右外联接查询</span><br><span class="line">select s.name,c.courseID,c.score from strdents as s right outer join score as c</span><br><span class="line">on s.scode&#x3D;c.strdentID</span><br><span class="line">&#x2F;&#x2F;在strdents表和score表中查询满足on条件的行，条件为strdents表中的sconde与score表的strdentID相同</span><br></pre></td></tr></table></figure>
 
 <h4 id="使用PHP脚本-1"><a href="#使用PHP脚本-1" class="headerlink" title="使用PHP脚本"></a>使用PHP脚本</h4><p>使用 <strong>mysqli_query()</strong> 及 <strong>SQL SELECT</strong> 命令来获取数据。</p>
 <p>通过  <strong>mysqli_fetch_array()</strong> 来使用或输出所有查询的数据，该函数从结果集中取得一行作为关联数组，或数字数组，或二者兼有 返回根据从结果集取得的行生成的数组，如果没有更多行则返回 false。</p>
-<h2 id="MySQL-插入数据"><a href="#MySQL-插入数据" class="headerlink" title="MySQL 插入数据"></a>MySQL 插入数据</h2><p> <strong>INSERT INTO</strong> SQL语句</p>
+<h2 id="MySQL-插入数据"><a href="#MySQL-插入数据" class="headerlink" title="MySQL 插入数据"></a>MySQL 插入数据</h2><p>插入单行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO table_name ( field1, field2,...fieldN )</span><br><span class="line">                       VALUES</span><br><span class="line">                       ( value1, value2,...valueN );</span><br></pre></td></tr></table></figure>
+
+<p>将现有表数据添加到一个已有表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into &lt;已有的新表&gt; (列名) select &lt;原表列名&gt; from &lt;原表名&gt;</span><br></pre></td></tr></table></figure>
+
+<p>直接拿现有表数据创建一个新表并填充</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &lt;新建表列名&gt; into &lt;新建表名&gt; from &lt;源表名&gt;</span><br></pre></td></tr></table></figure>
 
 <h4 id="命令提示窗口"><a href="#命令提示窗口" class="headerlink" title="命令提示窗口"></a>命令提示窗口</h4><p>实例:</p>
 <p>如果数据是字符型，必须使用单引号或者双引号，如：”福州”。</p>
@@ -290,6 +296,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+--------------+-----------------+------------------+-----------------+</span><br><span class="line">| blackpink_id | blackpink_title | blackpink_author | submission_date |</span><br><span class="line">+--------------+-----------------+------------------+-----------------+</span><br><span class="line">|            1 | 大学            | 福州             | 2020-10-17      |</span><br><span class="line">|            2 | 中学            | 漳州             | 2014-09-01      |</span><br><span class="line">|            3 | 小学            | 江都             | 2008-09-01      |</span><br><span class="line">+--------------+-----------------+------------------+-----------------+</span><br></pre></td></tr></table></figure>
 
 <p>同样也可使用PHP脚本插入数据。</p>
+<h2 id="MySQL改数据"><a href="#MySQL改数据" class="headerlink" title="MySQL改数据"></a>MySQL改数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update &lt;表名&gt; set &lt;列名&#x3D;更新值&gt; [where &lt;更新条件&gt;]</span><br></pre></td></tr></table></figure>
+
 
             </div>
 
