@@ -1,0 +1,573 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>DVWA||Command Injection - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="DVWA||Command Injection">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-26 21:49" pubdate>
+        January 26, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DVWA||Command Injection</h1>
+            
+            <div class="markdown-body">
+              <p>命令注入攻击的常见场景为：仅仅需要输入数据的场合，攻击者构造数据同时输入了恶意命令代码，而系统对此并未过滤，恶意命令代码一并执行，最终导致信息泄露或者正常数据的破坏；PHP命令注入攻击漏洞是PHP应用程序中常见的脚本漏洞之一。命令注入和代码注入不同，代码注入的目的在于将外部代码注入应用程序本身，并随程序执行；命令攻击的对象是服务器的宿主机。因此用户可以通过构造特殊的输入来达到入侵目的。</p>
+<p>先介绍一下<code>ping</code>:</p>
+<p>Ping是潜水艇人员的专用术语，表示回应的声纳脉冲，在网络中Ping是TCP/IP工具。是用来检测网络的连通情况和分析网络速度。</p>
+<p><img src="/2021/01/26/dvwa4/3.jpg" srcset="/img/loading.gif" alt="3"></p>
+<p>ping返回信息的含义</p>
+<table>
+<thead>
+<tr>
+<th>返回信息</th>
+<th>分析</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Request timed out</td>
+<td>(1)对方已关机，或者网络上没有这个地址                                                                                    (2)对方与本机不在同一网段内                                                                                                 (3)对方确实存在，但设置了ICMP数据包过滤(比如防火墙设置)，可以用带参数 -a 的Ping命令探测对方，如果能得到对方的<code>NETBIOS</code>名称，则说明对方是存在的，有防火墙设置，如果得不到就如(1),(2)                                                                                          (4)错误设置IP地址(TCP/IP设置中，设置了一个与网卡IP地址处于同一子网的IP地址)</td>
+</tr>
+<tr>
+<td>Destination host Unreachable</td>
+<td>(1)对方与本机不在同一网段内，而本机未设置默认的路由                                        　(2) 网线 出了故障                                                                                                                                  <strong>本回应与<code>time out</code>的区别：<code>timeout</code>：所经过的路由器的路由表中具有到达目标的路由，而目标因为其他原因不可到达，本回应：路由表中连到达目标的路由都没有</strong></td>
+</tr>
+<tr>
+<td>Bad IP address</td>
+<td>这个信息表示您可能没有连接到DNS服务器，所以无法解析这个IP地址，也可能是IP地址不存在。</td>
+</tr>
+<tr>
+<td>Source quench received</td>
+<td>对方或中途的服务器繁忙无法回应</td>
+</tr>
+<tr>
+<td>Unknown host</td>
+<td>该远程主机的名字不能被域名服务器(DNS)转换成IP地址。可能是域名服务器有故障，或者其名字不正确，或者网络管理员的系统与远程主机之间的通信线路有故障</td>
+</tr>
+<tr>
+<td>No answer</td>
+<td>本地系统有一条通向中心主机的路由，但却接收不到它发给中心主机的任何信息。原因可能是：中心主机没有工作;本地或中心主机网络配置不正确;本地或中心的路由器没有工作;通信线路有故障;中心主机存在路由选择问题</td>
+</tr>
+<tr>
+<td>no rout to host</td>
+<td>网卡工作不正常</td>
+</tr>
+<tr>
+<td>transmit fai led，error code</td>
+<td>10043网卡驱动不正常</td>
+</tr>
+<tr>
+<td>unknown host name</td>
+<td>DNS配置不正确</td>
+</tr>
+</tbody></table>
+<p>详情：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hezeyujiang/article/details/79504038">ping命令详解</a></p>
+<p>输入ip，程序调用系统命令ping这个ip。在ip后面加<code>&amp;&amp;、&amp;、|、||</code>命令拼接符号再跟上自己需要执行的系统命令就构成了命令注入</p>
+<table>
+<thead>
+<tr>
+<th align="center">A&amp;B</th>
+<th align="center">A&amp;&amp;B</th>
+<th align="center">A|B</th>
+<th align="center">A||B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">AB之间无制约关系</td>
+<td align="center">A执行成功才执行B</td>
+<td align="center">A的输出作为B的输出</td>
+<td align="center">A执行失败才执行B</td>
+</tr>
+</tbody></table>
+<h2 id="low"><a href="#low" class="headerlink" title="low"></a>low</h2><p>源码出现了一个函数：<code>stristr( php_uname( &#39;s&#39; ), &#39;Windows NT&#39; )</code></p>
+<p><code>stristr() </code>函数搜索字符串在另一字符串中的第一次出现，返回字符串的剩余部分（从匹配点），如果未找到所搜索的字符串，返回 FALSE。</p>
+<p>格式：</p>
+<pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">stristr</span><span class="hljs-params">(string,search,before_search)</span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><em>string</em></td>
+<td align="left">必需。规定被搜索的字符串。</td>
+</tr>
+<tr>
+<td align="left"><em>search</em></td>
+<td align="left">必需。规定要搜索的字符串。如果该参数是数字，则搜索匹配该数字对应的 ASCII 值的字符。</td>
+</tr>
+<tr>
+<td align="left"><em>before_search</em></td>
+<td align="left">可选。默认值为 “false” 的布尔值。如果设置为 “true”，它将返回 <em>search</em> 参数第一次出现之前的字符串部分。</td>
+</tr>
+</tbody></table>
+<p><code>php_uname()</code>:</p>
+<p>返回运行php的操作系统的相关描述，本关参数mode可取：<code>a</code>包含所有模式</p>
+<table>
+<thead>
+<tr>
+<th align="center">s</th>
+<th align="center">n</th>
+<th align="center">r</th>
+<th align="center">v</th>
+<th align="center">m</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">操作系统名称</td>
+<td align="center">主机名</td>
+<td align="center">版本</td>
+<td align="center">版本信息</td>
+<td align="center">机器类型</td>
+</tr>
+</tbody></table>
+<p>从源码来看，本关对ip参数并未做任何的过滤。</p>
+<p>先测试一下本地端</p>
+<p><img src="/2021/01/26/dvwa4/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p><code>bytes</code>：数据包大小，也就是字节</p>
+<p><code>time</code>值：响应往返时间，这个时间越小，说明连接这个地址速度越快。</p>
+<p><code>TTL</code>值：<code>Time To Live</code>,表示DNS记录在DNS服务器上存在的时间，它是IP协议包的一个值，告诉路由器该数据包何时需要被丢弃。可以通过Ping返回的TTL值大小，粗略地判断目标系统类型是Windows系列还是UNIX/Linux系列,<strong>通常情况下，Linux系统的TTL值为64或255，WindowsNT/2000/XP系统的TTL值为128，Windows98系统的TTL值为32，UNIX主机的TTL值为255</strong>，上图为Linux下的测试结果。</p>
+<p><code>Sent</code>发送多个秒包、</p>
+<p><code>Received </code>收到多个回应包</p>
+<p><code>Lost </code>丢弃了多少个包，<code>lost=0</code>时即为网络状态良好</p>
+<p>响应时间<code>Minmum</code> 最小值、<code>MAXimun </code>最大值、<code>Average </code>平均值</p>
+<p>测看看它能不能执行任意命令:<code>127.0.0.1&amp;&amp;echo 小天才</code></p>
+<img src="/2021/01/26/dvwa4/2.jpg" srcset="/img/loading.gif" alt="2" style="zoom:80%;">
+
+<p>看来是可以的。本关并无过滤，执行其他命令皆可</p>
+<h2 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h2><pre><code class="hljs php">$substitutions = <span class="hljs-keyword">array</span>( <span class="hljs-string">&#x27;&amp;&amp;&#x27;</span> =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;;&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, ）；</code></pre>
+
+<p>源码中执行了以上过滤操作，跟黑名单差不多，可使用<code>&amp;</code>,<code>&amp;;&amp;</code>( <code>;</code>会被替换为空字符,故执行后又会变成<code>&amp;&amp;</code>)</p>
+<h2 id="high"><a href="#high" class="headerlink" title="high"></a>high</h2><pre><code class="hljs php">$substitutions = <span class="hljs-keyword">array</span>( <span class="hljs-string">&#x27;&amp;&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;;&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;|  &#x27;</span> =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;$&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;(&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;)&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;`&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;||&#x27;</span> =&gt; <span class="hljs-string">&#x27;&#x27;</span>, );</code></pre>
+
+<p>本关只是把黑名单的范围扩大了。但仔细观察可以发现<code>&#39;|  &#39; =&gt; &#39;&#39;</code>中|后面有一个空格，所以<code>|</code>并没有被过滤。</p>
+<h2 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h2><p>分析源码：</p>
+<p>熟悉的<code>Anti-CSRF token </code>不再介绍，源码中还进行如下限制</p>
+<pre><code class="hljs arcade"><span class="hljs-comment">// Check IF each octet is an integer </span>
+
+ <span class="hljs-keyword">if</span>( ( is_numeric( <span class="hljs-symbol">$octet</span>[<span class="hljs-number">0</span>] ) ) &amp;&amp; ( is_numeric( <span class="hljs-symbol">$octet</span>[<span class="hljs-number">1</span>] ) ) &amp;&amp; ( is_numeric( <span class="hljs-symbol">$octet</span>[<span class="hljs-number">2</span>] ) ) &amp;&amp; ( is_numeric( <span class="hljs-symbol">$octet</span>[<span class="hljs-number">3</span>] ) ) &amp;&amp; ( sizeof( <span class="hljs-symbol">$octet</span> ) == <span class="hljs-number">4</span> ) ) &#123; 
+
+     <span class="hljs-comment">// If all 4 octets are int&#x27;s put the IP back together. </span>
+
+     <span class="hljs-symbol">$target</span> = <span class="hljs-symbol">$octet</span>[<span class="hljs-number">0</span>] . <span class="hljs-string">&#x27;.&#x27;</span> . <span class="hljs-symbol">$octet</span>[<span class="hljs-number">1</span>] . <span class="hljs-string">&#x27;.&#x27;</span> . <span class="hljs-symbol">$octet</span>[<span class="hljs-number">2</span>] . <span class="hljs-string">&#x27;.&#x27;</span> . <span class="hljs-symbol">$octet</span>[<span class="hljs-number">3</span>];</code></pre>
+
+<p>只有数字.数字.数字.数字的格式才行。相当于黑名单。</p>
+<p> <code>stripslashes()</code>：删除字符串string中的反斜杠</p>
+<p><code>is_numeric()</code>和<code>explode()</code>在之前的SQL注入模块都讲过了，不再赘述。</p>
+<p>发现每个模块的impossible里似乎都有这几个家伙。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然此漏洞很厉害，可以直接执行系统命令，但这个漏洞应该不常见（毕竟这么明显，又能让用户执行cmd）</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/24/png/">
+                        <span class="hidden-mobile">二次渲染&&png结构分析</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
