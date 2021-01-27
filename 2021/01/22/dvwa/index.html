@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yu ting">
   <meta name="keywords" content="">
-  <title>DVWA||SQL注入 - liquor&#39;s blog</title>
+  <title>DVWA||SQL注入andSQL盲注 - liquor&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="DVWA||SQL注入">
+            <span class="h2" id="subtitle" title="DVWA||SQL注入andSQL盲注">
               
             </span>
 
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.4k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      16
        分钟
     </span>
   
@@ -224,10 +224,10 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">DVWA||SQL注入</h1>
+            <h1 style="display: none">DVWA||SQL注入andSQL盲注</h1>
             
             <div class="markdown-body">
-              <h1 id="dvwa"><a href="#dvwa" class="headerlink" title="dvwa"></a>dvwa</h1><h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h4 id="low"><a href="#low" class="headerlink" title="low"></a>low</h4><p>先挑熟悉的sql注入下手，单引号注入,报错：<code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;&#39;admin&#39;&#39;&#39; at line 1</code>推测为单引号注入，查看源代码:</p>
+              <h1 id="dvwa"><a href="#dvwa" class="headerlink" title="dvwa"></a>dvwa</h1><h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h4 id="low"><a href="#low" class="headerlink" title="low"></a>low</h4><p>先挑熟悉的sql注入下手，单引号注入,报错：<code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;&#39;admin&#39;&#39;&#39; at line 1</code>推测为单引号注入，查看源代码:</p>
 <p><img src="/2021/01/22/dvwa/3.jpg" srcset="/img/loading.gif" alt="3"></p>
 <p>确定为单引号注入，源代码中用了<code>$_REQUEST获取id参数，$_REQUEST 包含了 $_GET，$_POST 和 $_COOKIE </code>的数组，没有进行过滤，开始查字段：</p>
 <p><code>1&#39; order by 2#</code>回显正常:</p>
@@ -285,6 +285,20 @@ CSRF攻击是源于Web的隐式身份验证机制。Web的身份验证机制虽�
 <li>提供给预处理语句的参数不需要用引号括起来，驱动程序会自动处理。如果应用程序只使用预处理语句，可以确保不会发生SQL 注入。（然而，如果查询的其他部分是由未转义的输入来构建的，则仍存在 SQL 注入的风险）。</li>
 </ul>
 <p>详情见：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/leezhxing/p/5282437.html">PDO防SQL注入原理分析</a></p>
+<h2 id="SQL-Injection-1"><a href="#SQL-Injection-1" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h3 id="low-1"><a href="#low-1" class="headerlink" title="low"></a>low</h3><p>试探</p>
+<p><img src="/2021/01/22/dvwa/13.jpg" srcset="/img/loading.gif" alt="13"></p>
+<p>单引号注入，没有任何过滤，思路讲过了，也可以用sqlmap跑。</p>
+<h3 id="medium-1"><a href="#medium-1" class="headerlink" title="medium"></a>medium</h3><p>POST型，抓包，F12都可，</p>
+<p>源代码中用了<code>mysql_escape_string()</code>对单引号，双引号，反斜杠等过滤，碰到过滤的字符记得进制转换一下，步骤不再赘述。</p>
+<h3 id="high-1"><a href="#high-1" class="headerlink" title="high"></a>high</h3><p>将操作页面和显示页面分开，将提交的值传递到显示页面的cookie字段中。</p>
+<p>sql语句中增加了<code>limit 1</code>:限定了输出结果条数。</p>
+<pre><code class="hljs angelscript"><span class="hljs-comment">// Might sleep a random amount</span>
+       <span class="hljs-keyword">if</span>( rand( <span class="hljs-number">0</span>, <span class="hljs-number">5</span> ) == <span class="hljs-number">3</span> ) &#123;
+           sleep( rand( <span class="hljs-number">2</span>, <span class="hljs-number">4</span> ) );
+       &#125;</code></pre>
+
+<p>随机执行sleep()函数，延迟的时间是随机在2-4s，这会时间盲注测试造成干扰，故本关可用布尔盲注。</p>
+<h3 id="impossible-1"><a href="#impossible-1" class="headerlink" title="impossible"></a>impossible</h3><p><code>is_numeric()</code>限制数字查询,<code>Anti-CSRF token</code>防御,<code>PDO</code>防SQL注入,sql语句的<code>limit 1</code>这些家伙又出现了，不赘述辽~~</p>
 
             </div>
             <hr>
