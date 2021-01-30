@@ -278,7 +278,19 @@
 <h1 id="Pass-02-MIME验证"><a href="#Pass-02-MIME验证" class="headerlink" title="Pass-02(MIME验证)"></a>Pass-02(MIME验证)</h1><p>提示显示进行MIME校验：</p>
 <p>MIME(Multipurpose Internet Mail  Extensions)多用途互联网邮件扩展类型。是设定某种扩展名的文件用一种应用程序来打开的方式类型，当该扩展名文件被访问的时候，浏览器会自动使用指定应用程序来打开。多用于指定一些客户端自定义的文件名，以及一些媒体文件打开方式。在HTTP中，MIME类型被定义在Content-Type header中。</p>
 <p>常见类型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">audio&#x2F;mpeg -&gt; .mp3</span><br><span class="line">application&#x2F;msword -&gt; .doc</span><br><span class="line">application&#x2F;octet-stream -&gt; .exe</span><br><span class="line">application&#x2F;pdf -&gt; .pdf</span><br><span class="line">application&#x2F;x-javascript -&gt; .js</span><br><span class="line">application&#x2F;x-rar -&gt; .rar</span><br><span class="line">application&#x2F;zip -&gt; .zip</span><br><span class="line">image&#x2F;gif -&gt; .gif</span><br><span class="line">image&#x2F;jpeg -&gt; .jpg &#x2F; .jpeg</span><br><span class="line">image&#x2F;png -&gt; .png</span><br><span class="line">text&#x2F;plain -&gt; .txt</span><br><span class="line">text&#x2F;html -&gt; .html</span><br><span class="line">video&#x2F;mp4 -&gt; .mp4</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs xl"><span class="hljs-function"><span class="hljs-title">audio</span>/mpeg -&gt;</span> .mp3
+<span class="hljs-function"><span class="hljs-title">application</span>/msword -&gt;</span> .doc
+<span class="hljs-function"><span class="hljs-title">application</span>/octet-stream -&gt;</span> .exe
+<span class="hljs-function"><span class="hljs-title">application</span>/pdf -&gt;</span> .pdf
+<span class="hljs-function"><span class="hljs-title">application</span>/x-javascript -&gt;</span> .js
+<span class="hljs-function"><span class="hljs-title">application</span>/x-rar -&gt;</span> .rar
+<span class="hljs-function"><span class="hljs-title">application</span>/zip -&gt;</span> .zip
+<span class="hljs-function"><span class="hljs-title">image</span>/gif -&gt;</span> .gif
+<span class="hljs-function"><span class="hljs-title">image</span>/jpeg -&gt;</span> .jpg / .jpeg
+<span class="hljs-function"><span class="hljs-title">image</span>/png -&gt;</span> .png
+<span class="hljs-function"><span class="hljs-title">text</span>/plain -&gt;</span> .txt
+<span class="hljs-function"><span class="hljs-title">text</span>/html -&gt;</span> .html
+<span class="hljs-function"><span class="hljs-title">video</span>/mp4 -&gt;</span> .mp4</code></pre>
 
 <p>查看源码：</p>
 <p><img src="/2021/01/24/upload/7.jpg" srcset="/img/loading.gif" alt="7"></p>
@@ -290,7 +302,10 @@
 <img src="/2021/01/24/upload/9.jpg" srcset="/img/loading.gif" alt="9" style="zoom:50%;">
 
 <p>本关属于黑名单验证</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">黑名单过滤的缺点：</span><br><span class="line">    攻击者可以从黑名单中找到Web开发者忽略的扩展名</span><br><span class="line">    没有进行大小写转换，诸如.PHP扩展名不在黑名单里，依旧会被服务器接收</span><br><span class="line">    windows系统下，如果文件名以&quot;.&quot;或空格结尾会自动取出。asp.转化为asp</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs jboss-cli">黑名单过滤的缺点：
+    攻击者可以从黑名单中找到Web开发者忽略的扩展名
+    没有进行大小写转换，诸如<span class="hljs-string">.PHP</span>扩展名不在黑名单里，依旧会被服务器接收
+    windows系统下，如果文件名以<span class="hljs-string">&quot;.&quot;</span>或空格结尾会自动取出。asp.转化为asp</code></pre>
 
 <p>本关将常用脚本语言的shell文件后缀全部禁止，Apache解析顺序是从右到左开始解析文件后缀，如果最右侧扩展名不能识别的话，就继续往左判断，直到遇到可以解析的文件后缀为止。而且Apache的httpd.conf中可以进行配置，规定哪些文件后缀是以php格式来解析的。本关的解法就从这得来，尝试用php3,phtml绕过：</p>
 <p>一样先抓包，改后缀名，本关上传一句话木马，因为通过这种方式上传的文件服务器会修改文件名，故蚁剑连接时文件名记得换。</p>
@@ -304,7 +319,7 @@
 <h1 id="Pass-07-黑名单验证–空格绕过"><a href="#Pass-07-黑名单验证–空格绕过" class="headerlink" title="Pass-07(黑名单验证–空格绕过)"></a>Pass-07(<strong>黑名单验证–空格绕过</strong>)</h1><p>从源码中可以看到，服务器端对文件后缀名仅仅是进行了去除末尾的”.”以及小写转换操作。但是并没有进行去除空格的操作,(<strong>windows系统中会将文件扩展名后的空格做空处理，防止文件被当成另一种不可识别的文件类型。故可利用这个特性来绕过这一关的黑名单</strong>)直接上传，抓包，加空格，访问。</p>
 <h1 id="Pass-08（黑名单验证–点号绕过）"><a href="#Pass-08（黑名单验证–点号绕过）" class="headerlink" title="Pass-08（黑名单验证–点号绕过）"></a>Pass-08（黑名单验证–点号绕过）</h1><p>观察代码，没有进行点号去除(<strong>windows系统对于文件后缀名后面跟的”.”会自动去除，不管是添加一个还是多个效果都是一样的</strong>)，利用此点，抓包，加点。</p>
 <h1 id="Pass-09-黑名单验证–特殊字符-DATA绕过"><a href="#Pass-09-黑名单验证–特殊字符-DATA绕过" class="headerlink" title="Pass-09(黑名单验证–特殊字符::$DATA绕过)"></a>Pass-09(黑名单验证–特殊字符::$DATA绕过)</h1><p>代码少了对<code>::$DATA</code>的处理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DATA(NTFS文件系统的存储数据流的一个属性)NTFS文件系统包括对备用数据流的支持,备用数据流允许文件包含多个数据流，每个文件至少有一个数据流。在Windows中，这个默认数据流称为：$DATA,当我们访问1.php::$DATA 时，就是请求 1.php 本身的数据，如果a.php 还包含了其他的数据流，比如a.php:lake2.php，请求1.php:lake2.php::$DATA，则是请求1.php中的流数据lake2.php的流数据内容。</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">DATA</span><span class="hljs-params">(NTFS文件系统的存储数据流的一个属性)</span><span class="hljs-title">NTFS</span></span>文件系统包括对备用数据流的支持,备用数据流允许文件包含多个数据流，每个文件至少有一个数据流。在Windows中，这个默认数据流称为：<span class="hljs-variable">$DATA</span>,当我们访问<span class="hljs-number">1</span><span class="hljs-selector-class">.php</span>::<span class="hljs-variable">$DATA</span> 时，就是请求 <span class="hljs-number">1</span><span class="hljs-selector-class">.php</span> 本身的数据，如果<span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.php</span> 还包含了其他的数据流，比如<span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.php</span>:lake2.php，请求<span class="hljs-number">1</span><span class="hljs-selector-class">.php</span>:lake2<span class="hljs-selector-class">.php</span>::<span class="hljs-variable">$DATA</span>，则是请求<span class="hljs-number">1</span>.php中的流数据lake2.php的流数据内容。</code></pre>
 
 <p>故本关可解：抓包，改后缀(加上::$DATA)，访问(<strong>服务器端会对文件进行重命名,且文件为正常的php文件，故一样可用蚁剑连接</strong>)</p>
 <h1 id="Pass-10（黑名单-单次处理）"><a href="#Pass-10（黑名单-单次处理）" class="headerlink" title="Pass-10（黑名单-单次处理）"></a>Pass-10（黑名单-单次处理）</h1><p>从源代码看，貌似前几关的漏洞都没有了，观察代码：</p>
@@ -314,13 +329,13 @@
 <p>而前面几关都是做完所有的防绕过处理之后得到的文件名进行拼接的。所以我们只需构造一个<strong>经过所有的防绕过操作之后不在黑名单中，并且经过去除末尾”.”号之后拼接还能被解析的后缀</strong>，故本关可在文件后缀加上<code>. .</code>一个点应付一次去点，一个空格应付一个去空格，这样就可以了</p>
 <h1 id="Pass-11（黑名单-双写绕过"><a href="#Pass-11（黑名单-双写绕过" class="headerlink" title="Pass-11（黑名单-双写绕过)"></a>Pass-11（黑名单-双写绕过)</h1><p>本关的关键在str_ireplace（）函数</p>
 <p>语法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str_ireplace(find,replace,string,count)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs reasonml">str<span class="hljs-constructor">_ireplace(<span class="hljs-params">find</span>,<span class="hljs-params">replace</span>,<span class="hljs-params">string</span>,<span class="hljs-params">count</span>)</span></code></pre>
 
 <p>此函数用于替换字符串中的一些字符（不区分大小写），比如本关源代码中<code>str_ireplace($deny_ext,&quot;&quot;, $file_name)</code>便是将<strong>文件名中含有黑名单字符串的那一部分替换为空</strong>，具体用法：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_string_str_ireplace.asp">str_irplace函数</a></p>
 <p>利用此特性便可构造<code>.pphphp</code>后缀，当匹配到第一个p时不满足，匹配到第二个就能匹配到php且被去除，这里在匹配完成之后就不会对剩下的继续进行匹配了，因此剩下的p和hp自然就组合为了php。完美绕过str_ireplace（）函数的过滤。</p>
 <h1 id="Pass-12（白名单-0x00截断-GET型"><a href="#Pass-12（白名单-0x00截断-GET型" class="headerlink" title="Pass-12（白名单-0x00截断-GET型)"></a>Pass-12（白名单-0x00截断-GET型)</h1><p>提示里说上传路径可控，查看源码，判断为白名单验证，但是路径可控是什么意思?</p>
 <p>截断原理：chr()是一个用来返回参数所对应的字符的函数，故chr（）表示空，<strong>当一个字符串中存在空字符时，会导致空字符后面的字符被丢弃（误把它当成结束符），后面的数据直接忽略，这就导致漏洞产生</strong>，与之相关还有一个知识点：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%00是对ascii码中的0对应的字符编码后的结果，0x00则是%00解码成的16进制。当url中的参数是通过GET方式获取时，%00会被自动解码。当通过POST方式获取时，不会自动解码，%00只会原样被当成字符串来输出。所以通过POST方式请求时，我们需要手动将它的十六进制改写为0x00。 </span><br></pre></td></tr></table></figure>
+<pre><code class="hljs angelscript">%<span class="hljs-number">00</span>是对ascii码中的<span class="hljs-number">0</span>对应的字符编码后的结果，<span class="hljs-number">0x00</span>则是%<span class="hljs-number">00</span>解码成的<span class="hljs-number">16</span>进制。当url中的参数是通过GET方式获取时，%<span class="hljs-number">00</span>会被自动解码。当通过POST方式获取时，不会自动解码，%<span class="hljs-number">00</span>只会原样被当成字符串来输出。所以通过POST方式请求时，我们需要手动将它的十六进制改写为<span class="hljs-number">0x00</span>。</code></pre>
 
 <p>截断还需满足 </p>
 <ul>
@@ -372,31 +387,50 @@
 <p>上图为cmd方法制图片马。格式：<code>copy 1.jpg/b+1.php 2.jpg </code>（参数/b指定以二进制格式复制、合并文件(图片)，参数/a指定以ASCI1格式复制、合并文件( php文件)）.</p>
 <p>但是一张图片不能被解析成php执行，故图片马不能直接上传。但是本关任务中第二点提到了使用<a target="_blank" rel="noopener" href="http://127.0.0.1/upload-labs/include.php">文件包含漏洞</a>能运行图片马中的恶意代码。故我们可以新建一个文件包含漏洞页面来模拟真实环境。</p>
 <p>在上传目录中新建一个include.php文件，写入如下代码 </p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$file = $_GET[ <span class="string">&#x27;page&#x27;</span> ] ;</span><br><span class="line"><span class="keyword">include</span> ($file);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+$file = $_GET[ <span class="hljs-string">&#x27;page&#x27;</span> ] ;
+<span class="hljs-keyword">include</span> ($file);
+<span class="hljs-meta">?&gt;</span></code></pre>
 
-<p>再用蚁剑连接</p>
+<p>再用蚁剑连接(<strong>jpg格式的文件无法直接与蚁剑连接，要借助文件包含获取已知的PHP，asp，aspx……文件来连接蚁剑</strong>)</p>
 <p><img src="/2021/01/24/upload/16.jpg" srcset="/img/loading.gif" alt="16"></p>
 <h1 id="Pass-15-白名单-图片马-getimagesize"><a href="#Pass-15-白名单-图片马-getimagesize" class="headerlink" title="Pass-15(白名单-图片马-getimagesize())"></a>Pass-15(白名单-图片马-getimagesize())</h1><p>了解一下提示中提到的<code>getimagesize()</code>函数:</p>
 <p>获取图像大小及相关信息，成功返回一个数组，失败则返回 FALSE 并产生一条 E_WARNING 级的错误信息。语法格式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array getimagesize ( string $filename [, array &amp;$imageinfo ] )</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs smali">array getimagesize ( string $filename [,<span class="hljs-built_in"> array </span>&amp;$imageinfo ] )</code></pre>
 
 <p><code>getimagesize() </code>函数将测定任何 <code>GIF，JPG，PNG，SWF，SWC，PSD，TIFF，BMP，IFF，JP2，JPX，JB2，JPC，XBM 或 WBMP</code> 图像文件的大小并返回图像的尺寸以及文件类型及图片高度与宽度。详情：<a target="_blank" rel="noopener" href="https://www.runoob.com/php/php-getimagesize.html">getimagesize()函数</a></p>
 <p>接下来在目录里创建一个php文件来测试该函数返回数组的各个值的含义。代码:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$local_jpg &#x3D;&#39;.&#x2F;00.jpg&#39;;</span><br><span class="line">$img_data &#x3D; getimagesize($local_jpg);&#x2F;&#x2F;getimagesize()函数对本地图片00.jpg进行检查</span><br><span class="line">var_dump($img_data );&#x2F;&#x2F;打印检查结果的数组</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+$local_jpg =<span class="hljs-string">&#x27;./00.jpg&#x27;</span>;
+$img_data = getimagesize($local_jpg);<span class="hljs-comment">//getimagesize()函数对本地图片00.jpg进行检查</span>
+var_dump($img_data );<span class="hljs-comment">//打印检查结果的数组</span>
+<span class="hljs-meta">?&gt;</span></code></pre>
 
 <p>运行：</p>
 <p><img src="/2021/01/24/upload/17.jpg" srcset="/img/loading.gif" alt="17"></p>
 <p>索引的含义：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">索引0 &gt;&gt;图像宽度的像素值</span><br><span class="line"></span><br><span class="line">索引1 &gt;&gt;图像高度的像素值</span><br><span class="line"></span><br><span class="line">索引2 &gt;&gt;图像的类型，1 &#x3D; GIF，2 &#x3D; JPG，3 &#x3D; PNG，4 &#x3D; SWF，5 &#x3D; PSD，6 &#x3D; BMP，7 &#x3D; TIFF(intel byte order)，8 &#x3D; TIFF(motorola byte order)，9 &#x3D; JPC，10 &#x3D; JP2，11 &#x3D; JPX，12 &#x3D; JB2，13 &#x3D; SWC，14 &#x3D; IFF，15 &#x3D; WBMP，16 &#x3D; XBM</span><br><span class="line"></span><br><span class="line">索引3 &gt;&gt;一个宽度和高度的字符串</span><br><span class="line"></span><br><span class="line">索引 bits &gt;&gt;图像的每种颜色的位数，二进制格式</span><br><span class="line"></span><br><span class="line">索引 channels &gt;&gt;图像的通道值&#x2F;&#x2F;本次测试没有</span><br><span class="line"></span><br><span class="line">索引 mime &gt;&gt;图像的 MIME 信息，此信息可以用来在 HTTP Content-type 头信息中发送正确的信息</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs angelscript">索引<span class="hljs-number">0</span> &gt;&gt;图像宽度的像素值
+
+索引<span class="hljs-number">1</span> &gt;&gt;图像高度的像素值
+
+索引<span class="hljs-number">2</span> &gt;&gt;图像的类型，<span class="hljs-number">1</span> = GIF，<span class="hljs-number">2</span> = JPG，<span class="hljs-number">3</span> = PNG，<span class="hljs-number">4</span> = SWF，<span class="hljs-number">5</span> = PSD，<span class="hljs-number">6</span> = BMP，<span class="hljs-number">7</span> = TIFF(<span class="hljs-built_in">int</span>el byte order)，<span class="hljs-number">8</span> = TIFF(motorola byte order)，<span class="hljs-number">9</span> = JPC，<span class="hljs-number">10</span> = JP2，<span class="hljs-number">11</span> = JPX，<span class="hljs-number">12</span> = JB2，<span class="hljs-number">13</span> = SWC，<span class="hljs-number">14</span> = IFF，<span class="hljs-number">15</span> = WBMP，<span class="hljs-number">16</span> = XBM
+
+索引<span class="hljs-number">3</span> &gt;&gt;一个宽度和高度的字符串
+
+索引 bits &gt;&gt;图像的每种颜色的位数，二进制格式
+
+索引 channels &gt;&gt;图像的通道值<span class="hljs-comment">//本次测试没有</span>
+
+索引 mime &gt;&gt;图像的 MIME 信息，此信息可以用来在 HTTP Content-type 头信息中发送正确的信息</code></pre>
 
 <p>源代码:</p>
 <p><img src="/2021/01/24/upload/18.jpg" srcset="/img/loading.gif" alt="18"></p>
 <p>并未做其它更多的过滤操作，所以上一关的图片马依然可用。</p>
 <h1 id="Pass-16-白名单-图片马-exif-imagetype"><a href="#Pass-16-白名单-图片马-exif-imagetype" class="headerlink" title="Pass-16(白名单-图片马-exif_imagetype())"></a>Pass-16(白名单-图片马-exif_imagetype())</h1><p>提示中换了一个函数：exif_imagetype()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">读取一个图像的第一个字节并检查其签名，恰当的签名则返回一个对应的常量，否则返回 FALSE。返回值跟getimagesize() 返回的数组中的索引 2 的值是一样的(pass-15中讲的)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs isbl">读取一个图像的第一个字节并检查其签名，恰当的签名则返回一个对应的常量，否则返回 <span class="hljs-variable"><span class="hljs-literal">FALSE</span></span>。返回值跟<span class="hljs-function"><span class="hljs-title">getimagesize</span>() 返回的数组中的索引 <span class="hljs-number">2</span> 的值是一样的(<span class="hljs-variable">pass</span>-<span class="hljs-number">15</span>中讲的)</span></code></pre>
 
 <p>语法格式:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exif_imagetype ( string $filename&#x2F;&#x2F;文件位置和名称)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs awk">exif_imagetype ( string <span class="hljs-variable">$filename</span><span class="hljs-regexp">//</span>文件位置和名称)</code></pre>
 
 <p>一样写个测试文件进行测试</p>
 <p><img src="/2021/01/24/upload/19.jpg" srcset="/img/loading.gif" alt="19"></p>
@@ -415,7 +449,7 @@
 <p>但是本关的要求是图片马要<code>.jpg</code>,<code>.png</code>,<code>.gif</code>三种后缀都上传成功才算过关！png就不是这样了，要实现png二次渲染的绕过就需要深入了解png的格式。此部分再另一文章《二次渲染&amp;&amp;png结构分析》说明。</p>
 <h1 id="Pass-18（白名单-条件竞争-时间"><a href="#Pass-18（白名单-条件竞争-时间" class="headerlink" title="Pass-18（白名单-条件竞争-时间)"></a>Pass-18（白名单-条件竞争-时间)</h1><p>提示说要代码审计，查看源码，源码解释得很清楚，先将上传的文件保存，然后将文件的后缀名同白名单对比，符合就将文件进行重命名。不符，unlink()函数就会删除该文件，虽然上传会被删除，但如果我们能在上传的一句话被删除之前访问就可以了。这个方法也叫条件竞争上传绕过。可以利用burp多线程发包，然后不断在浏览器访问代码，会有一瞬间的访问成功，通过burp一直不停的重放，会有一瞬间是还没来得及删除就可以被访问到的，一旦访问到该文件就会在当前目录下生成一句话。</p>
 <p>上传的一句话：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> fputs(fopen(<span class="string">&#x27;shell.php&#x27;</span>,<span class="string">&#x27;w&#x27;</span>),<span class="comment">//若访问到文件则在根目录里生成shell.php文件&#x27;<span class="meta">&lt;?php</span> @eval($_POST[&quot;test&quot;])<span class="meta">?&gt;</span>&#x27;);<span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> fputs(fopen(<span class="hljs-string">&#x27;shell.php&#x27;</span>,<span class="hljs-string">&#x27;w&#x27;</span>),<span class="hljs-comment">//若访问到文件则在根目录里生成shell.php文件&#x27;<span class="hljs-meta">&lt;?php</span> @eval($_POST[&quot;test&quot;])<span class="hljs-meta">?&gt;</span>&#x27;);<span class="hljs-meta">?&gt;</span></span></code></pre>
 
 <p>先上传，抓包，设置Null payloads也就是不设置payload。设置Continue indefinitely无限重放。</p>
 <img src="/2021/01/24/upload/24.jpg" srcset="/img/loading.gif" alt="24" style="zoom:50%;">
@@ -433,7 +467,7 @@
 <p><img src="/2021/01/24/upload/27.jpg" srcset="/img/loading.gif" alt="27"></p>
 <h4 id="法四"><a href="#法四" class="headerlink" title="法四"></a>法四</h4><p>利用<code>pathinfo</code>函数</p>
 <p>格式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pathinfo(path,options)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">pathinfo</span><span class="hljs-params">(path,options)</span></span></code></pre>
 
 <table>
 <thead>
@@ -454,7 +488,7 @@
 <p>和Pass-13类似，不过本关为黑名单，在文件保存的时候，加上<code>.</code>使得<code>pathinfo()</code>获取到的<code>PATHINFO_EXTENSION</code>为空，从而绕过黑名单。</p>
 <h1 id="Pass-21（白名单验证-数组绕过"><a href="#Pass-21（白名单验证-数组绕过" class="headerlink" title="Pass-21（白名单验证-数组绕过)"></a>Pass-21（白名单验证-数组绕过)</h1><p>先检查MIME类型(改<code>Content-Type</code>)，然后判断<code>save_name</code>参数是否为空，为空就把文件名称赋值给<code>$file</code>,否则将<code>save_name</code>参数的值赋给它。然后判断<code>$file</code>是否是数组.不是就用<code>explode()</code>函数通过<code>.</code>号分割成数组,取最后一个后缀名，进行白名单验证。不符合就报错，符合就拼接数组的第一个和最后一个作为文件名，保存。</p>
 <p><code>explode()</code> 函数把字符串打散为数组。详情：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_string_explode.asp">explode()</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reset(array &amp;$array)&#x2F;&#x2F;将数组的内部指针指向第一个单元</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">reset</span><span class="hljs-params">(array &amp;<span class="hljs-variable">$array</span>)</span></span><span class="hljs-comment">//将数组的内部指针指向第一个单元</span></code></pre>
 
 <p>绕过<code>explode()</code>函数：传入数组，绕过白名单，由于取的是数组最后一个，所以传入数组的最后一个要为<code>jpg|png|gif</code>，然后拼接文件名，取<code>reset()</code>第一个，即索引为0，和索引<code>count()-1</code>（数组内元素个数-1）。所以索引0应为<code>.php</code>，索引3为<code>jpg</code>（索引1之后即可），这样数组元素个数为2，拼接的就是索引0和索引1即<code>.php</code>和空，结果还是<code>.php</code></p>
 <img src="/2021/01/24/upload/29.jpg" srcset="/img/loading.gif" alt="29" style="zoom:67%;">

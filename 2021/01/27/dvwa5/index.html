@@ -1,0 +1,550 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>DVWA||File Inclusion&amp;File Upload - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="DVWA||File Inclusion&File Upload">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-27 23:12" pubdate>
+        January 27, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DVWA||File Inclusion&amp;File Upload</h1>
+            
+            <div class="markdown-body">
+              <h1 id="File-Inclusion"><a href="#File-Inclusion" class="headerlink" title="File Inclusion"></a>File Inclusion</h1><h2 id="文件包含与漏洞"><a href="#文件包含与漏洞" class="headerlink" title="文件包含与漏洞"></a>文件包含与漏洞</h2><p>开发人员将相同的函数写入单独的文件中,需要使用某个函数时直接调用此文件,无需再次编写,这种文件调用的过程称文件包含。</p>
+<p>文件包含函数的参数没有经过过滤或者严格的定义，并且参数可以被用户控制，这样就可能包含非预期的文件。如果文件中存在恶惹代码，无论文件是什么类型，文件内的恶意代码都会被解析并执行。<br>文件包含漏洞可能会造成服务器的网页被篡改、网站被挂马、服务器被远程控制，被安装后门等危害。</p>
+<h2 id="文件包含常用函数"><a href="#文件包含常用函数" class="headerlink" title="文件包含常用函数"></a>文件包含常用函数</h2><ul>
+<li>include。包含并运行指定文件，include在出错时产生警告(E_WARNING)，脚本会继续运行。</li>
+<li>include_once。在脚本执行期间包含并运行指定文件。该函数和include函数类似，但使用该函数时，PHP会检查指定文件是否已经被包含过，如果是，则不会再次包含。</li>
+<li>require。包含并运行指定文件。require在出错时产生E_COMPILE_ERROR级别的错误，导致脚本中止运行。</li>
+<li>require_once。它和require函数类似，但使用该函数时，PHP会检查指定文件是否已经被包含过，如果是，则不会再次包含。</li>
+</ul>
+<h2 id="本地文件包含"><a href="#本地文件包含" class="headerlink" title="本地文件包含"></a>本地文件包含</h2><h3 id="无限制本地文件包含"><a href="#无限制本地文件包含" class="headerlink" title="无限制本地文件包含"></a>无限制本地文件包含</h3><p>代码中没有为包含文件指定特定的前缀或者.php、html等扩展名，因此攻击者可以利用文件包含漏洞读取操作系统中的其他文件，获取敏感信息，或者执行其他文件中的代码。</p>
+<h3 id="有限制本地文件包含"><a href="#有限制本地文件包含" class="headerlink" title="有限制本地文件包含"></a>有限制本地文件包含</h3><p>代码中为包含文件指定了特定的前缀或者.php、.html等扩展名，攻击者需要绕过前缀或者扩展名过滤，才能利用文件包含漏洞读取操作系统中的其他文件，获取敏感信息。常见的有限制本地文件包含过滤绕过的方式主要有%00截断文件包含、路径长度截断文件包含、点号截断文件包含这3种。</p>
+<h3 id="常见的敏感信息路径"><a href="#常见的敏感信息路径" class="headerlink" title="常见的敏感信息路径"></a>常见的敏感信息路径</h3><p>利用本地文件包含漏洞可以获取系统本地的其他文件的内容。<br> Windows系统常见敏感文件如下：</p>
+<pre><code class="hljs latex">c:<span class="hljs-tag">\<span class="hljs-name">boot</span></span>.ini系统版本信息
+c:<span class="hljs-tag">\<span class="hljs-name">xxx</span></span><span class="hljs-tag">\<span class="hljs-name">php</span></span>.ini PHP配置信息。
+c:<span class="hljs-tag">\<span class="hljs-name">xxx</span></span><span class="hljs-tag">\<span class="hljs-name">my</span></span>.ini MySQL配置信息。
+c: <span class="hljs-tag">\<span class="hljs-name">xxx</span></span><span class="hljs-tag">\<span class="hljs-name">httpd</span></span>.conf Apache配置信息。</code></pre>
+
+<p>linux:</p>
+<pre><code class="hljs awk"><span class="hljs-regexp">/etc/</span>passwd Linux系统账号信息。
+<span class="hljs-regexp">/etc/</span>httpd<span class="hljs-regexp">/conf/</span>httpd.conf Apache配置信息。
+<span class="hljs-regexp">/etc/my</span>.conf MySQL配置信息。
+<span class="hljs-regexp">/usr/</span>etc/php.ini PHP配置信息。</code></pre>
+
+<h2 id="远程文件包含"><a href="#远程文件包含" class="headerlink" title="远程文件包含"></a>远程文件包含</h2><h3 id="无限制远程文件包含"><a href="#无限制远程文件包含" class="headerlink" title="无限制远程文件包含"></a>无限制远程文件包含</h3><p>无限制远程文件包含是指包含文件的位置并不是本地服务器，而是通过URL.的形式包含其他服务器上的文件，执行文件中的恶意代码<br>漏洞利用条件为<code>allow_url_fopen=on和 allow_url_include=on</code></p>
+<h3 id="有限制远程文件包含"><a href="#有限制远程文件包含" class="headerlink" title="有限制远程文件包含"></a>有限制远程文件包含</h3><p>有限制远程文件包含是指当代码中存在特定的前缀或者，php，htrul等扩展名过滤时，攻击者需要绕过前缀或者扩展名过滤，才能执行远程URL中的恶意代码。</p>
+<h2 id="low"><a href="#low" class="headerlink" title="low"></a>low</h2><p>页面中有3个文件，分别点击url中pag的参数值改变。</p>
+<h3 id="本地文件包含-1"><a href="#本地文件包含-1" class="headerlink" title="本地文件包含"></a>本地文件包含</h3><p>先在可控参数值位置输入一个不存在的文件进行访问</p>
+<p><img src="/2021/01/27/dvwa5/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p>报错信息中含绝对路径，网站根目录为\dvwa\ ，include.php到网站根目录共隔了两个文件夹，我们可以返回到根目录去访问一些敏感信息，比如PHP版本信息</p>
+<p><img src="/2021/01/27/dvwa5/2.jpg" srcset="/img/loading.gif" alt="2"></p>
+<h3 id="远程文件包含-1"><a href="#远程文件包含-1" class="headerlink" title="远程文件包含"></a>远程文件包含</h3><h4 id="包含本地服务器上的文件"><a href="#包含本地服务器上的文件" class="headerlink" title="包含本地服务器上的文件"></a>包含本地服务器上的文件</h4><p>在本地根目录创建一个文件，并访问如：</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;genius&quot;</span> ; <span class="hljs-meta">?&gt;</span></code></pre>
+
+<p>命名为jpg格式（其它格式也可，在HTTP中若文件有包含PHP代码，代码都会被执行)</p>
+<img src="/2021/01/27/dvwa5/3.jpg" srcset="/img/loading.gif" alt="3" style="zoom:67%;">
+
+<p>genius改成其它恶意代码</p>
+<h4 id="包含远程服务器上的文件"><a href="#包含远程服务器上的文件" class="headerlink" title="包含远程服务器上的文件"></a>包含远程服务器上的文件</h4><p>可以包含Linux里的文件，远程连接（不展示辽)</p>
+<h2 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h2><pre><code class="hljs lasso"><span class="hljs-comment">// Input validation</span>
+$file = str_replace( <span class="hljs-built_in">array</span>( <span class="hljs-string">&quot;http://&quot;</span>, <span class="hljs-string">&quot;https://&quot;</span> ), <span class="hljs-string">&quot;&quot;</span>, $file );
+$file = str_replace( <span class="hljs-built_in">array</span>( <span class="hljs-string">&quot;../&quot;</span>, <span class="hljs-string">&quot;..\&quot;&quot;</span> ), <span class="hljs-string">&quot;&quot;</span>, $file );</code></pre>
+
+<p>源码中将输入的url参数中包含的<code>http://</code>，<code>https:// </code>，<code>. . /</code> ，<code>. . \</code>替换成空字符。只过滤了远程文件包含。</p>
+<h3 id="本地包含"><a href="#本地包含" class="headerlink" title="本地包含"></a>本地包含</h3><p>与low一样</p>
+<h3 id="远程包含"><a href="#远程包含" class="headerlink" title="远程包含"></a>远程包含</h3><p>构造:<code>httphttp://://127.0.0.1/1.jpg</code></p>
+<p><img src="/2021/01/27/dvwa5/4.jpg" srcset="/img/loading.gif" alt="4"></p>
+<h2 id="high"><a href="#high" class="headerlink" title="high"></a>high</h2><pre><code class="hljs gams"><span class="hljs-comment">// Input validation</span>
+<span class="hljs-keyword">if</span>( !fnmatch( <span class="hljs-string">&quot;file*&quot;</span>, <span class="hljs-symbol">$</span><span class="hljs-keyword">file</span> ) &amp;&amp; <span class="hljs-symbol">$</span><span class="hljs-keyword">file</span> != <span class="hljs-string">&quot;include.php&quot;</span> ) &#123;
+    <span class="hljs-comment">// This isn&#x27;t the page we want!</span>
+    echo <span class="hljs-string">&quot;ERROR: File not found!&quot;</span>;
+    exit;</code></pre>
+
+<p>fnmatch() 函数根据指定的模式来匹配文件名或字符串。</p>
+<p>语法</p>
+<pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">fnmatch</span><span class="hljs-params">(pattern,string,flags)</span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pattern</td>
+<td>必需。规定要检索的模式。</td>
+</tr>
+<tr>
+<td>string</td>
+<td>必需。规定要检查的字符串或文件。</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>可选。</td>
+</tr>
+</tbody></table>
+<p>本关用fnmatch（）检查file。介绍一个小知识:</p>
+<p><strong>PHP 伪协议</strong></p>
+<p>PHP带有很多内置URL.风格的封装协议，可用于<code>fopen，copy,file_exists和filesize</code>等文件系统函数。除了这些内置封装协议，还能通过stream_wrapper_register注册自题义的封装协议。这些协议都被称为伪协议。<br>常见的PHP伪协议如下：</p>
+<pre><code class="hljs awk">file：<span class="hljs-regexp">//</span> 访问本地文件系统
+http:<span class="hljs-regexp">//</span> 访问HTTP(S)网址
+ftp:<span class="hljs-regexp">//</span> 访问FTP(S) URL
+php：<span class="hljs-regexp">//</span> 访问各个输入输出流
+zlib：<span class="hljs-regexp">//</span> 处理压缩流
+data:<span class="hljs-regexp">//</span> 读取数据
+glob：<span class="hljs-regexp">//</span> 查找匹配的文件路径模式
+phar:<span class="hljs-regexp">//</span> PHP归档
+ssh2:<span class="hljs-regexp">//</span> Secure Shell <span class="hljs-number">2</span>
+rar：<span class="hljs-regexp">//</span> RAR数据压缩
+ogg：<span class="hljs-regexp">//</span> 处理音频流
+expect：<span class="hljs-regexp">//</span> 处理交互式的流</code></pre>
+
+<p>本关构造：<code>file://D:/phpstudy_pro/WWW/1.jpg</code>即可~</p>
+<h2 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h2><p><img src="/2021/01/27/dvwa5/5.jpg" srcset="/img/loading.gif" alt="5"></p>
+<h1 id="File-Upload"><a href="#File-Upload" class="headerlink" title="File Upload"></a>File Upload</h1><p>在upload-labs里详细介绍过了，这里简单讲一下</p>
+<h2 id="low-1"><a href="#low-1" class="headerlink" title="low"></a>low</h2><p>basename() 函数返回路径中的文件名部分</p>
+<p>语法</p>
+<pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">basename</span><span class="hljs-params">(path,suffix)</span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>path</td>
+<td>必需。规定要检查的路径。</td>
+</tr>
+<tr>
+<td>suffix</td>
+<td>可选。规定文件扩展名。如果文件有 suffix，则不会输出这个扩展名</td>
+</tr>
+</tbody></table>
+<p>没什么过滤，不赘述</p>
+<h2 id="medium-1"><a href="#medium-1" class="headerlink" title="medium"></a>medium</h2><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">if</span><span class="hljs-params">( ( <span class="hljs-variable">$uploaded_type</span> == <span class="hljs-string">&quot;image/jpeg&quot;</span> || <span class="hljs-variable">$uploaded_type</span> == <span class="hljs-string">&quot;image/png&quot;</span> )</span></span> &amp;&amp;
+    ( <span class="hljs-variable">$uploaded_size</span> &lt; <span class="hljs-number">100000</span> ) )</code></pre>
+
+<p>限制文件大小和类型，抓包修改或者00截断（<strong>注意PHP版本</strong>）都可以</p>
+<h2 id="high-1"><a href="#high-1" class="headerlink" title="high"></a>high</h2><p>多了一句：</p>
+<pre><code class="hljs perl">$uploaded_ext  = <span class="hljs-keyword">substr</span>( $uploaded_name, strrpos( $uploaded_name, <span class="hljs-string">&#x27;.&#x27;</span> ) + <span class="hljs-number">1</span>);</code></pre>
+
+<p>出现的函数upload-labs都讲过了，本关白名单，构造图片马，00截断都可</p>
+<h2 id="impossible-1"><a href="#impossible-1" class="headerlink" title="impossible"></a>impossible</h2><p><img src="/2021/01/27/dvwa5/6.jpg" srcset="/img/loading.gif" alt="6"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/27/3/">
+                        <span class="hidden-mobile">DVWA||XSS(Reflected&Stored&DOM)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
