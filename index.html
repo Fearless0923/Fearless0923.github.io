@@ -181,6 +181,144 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/02/03/dvwa6/">DVWA||CSRF</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/03/dvwa6/">
+          
+          
+            
+          
+          CSRF，全称Cross-site request forgery，跨站请求伪造，是指利用受害者尚未失效的身份认证信息（cookie、会话等），诱骗其点击恶意链接或者访问包含攻击代码的页面，在受害人不知情的情况下以受害者的身份向（身份认证信息所对应的）服务器发送请求，从而完成非法操作（如转账、改密等）。CSRF与XSS区别在于CSRF并没有盗取cookie而是直接利用。
+举个栗子：
+A要汇八万给B
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-03 00:41" pubdate>
+              2021-02-03
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/02/dvwa9/">DVWA||CSP Bypass</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/02/dvwa9/">
+          
+          
+            
+          
+          Content-Security-Policy（内容安全策略）是指HTTP返回报文头中的标签，浏览器会根据标签中的内容，判断哪些资源可以加载或执行。是为了缓解潜在的跨站脚本问题（XSS）原来应对XSS攻击时，主要采用函数过滤、转义输入中的特殊字符、标签、文本来规避攻击。CSP的实质就是白名单制度，开发人员明确告诉客户端，哪些外部资源可以加载和执行。开发者只需要提供配置，实现和执行全部由浏览器完成。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-02 00:25" pubdate>
+              2021-02-02
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/01/dvwa8/">DVWA||Weak Session IDs</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/01/dvwa8/">
+          
+          
+            
+          
+          用户访问服务器的时候，在服务器端会创建一个会话(Session)，会话中会保存用户的状态和相关信息，用于标识用户。服务器端认证时，浏览器需要把当前用户持有的SessionID告知服务器。用户拿到session id就会加密后保存到 cookies 上，之后只要cookies随着http请求发送服务器，服务器就能识别用户。因此攻击者可以通过窃取用户SessionID，使用该SessionID登录进目
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-01 17:27" pubdate>
+              2021-02-01
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/01/dvwa7/">DVWA||Insecure CAPTCHA</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/01/dvwa7/">
+          
+          
+            
+          
+          Insecure CAPTCHA，不安全的验证码，CAPTCHA全称：Completely Automated Public Turing Test to Tell Computers and Humans Apart。验证码流程一般是:用户向浏览器的服务器发送请求，浏览器的服务器返回验证码给用户，用户将验证码发送给网站服务器，网站服务器会向浏览器的服务器验证这个验证码的正确性，浏览器最终返回验证
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-01 13:10" pubdate>
+              2021-02-01
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/01/27/dvwa5/">DVWA||File Inclusion&amp;File Upload</a>
       </h1>
 
@@ -402,174 +540,6 @@ Pass-08（黑名
             <i class="iconfont icon-date"></i>
             <time datetime="2021-01-22 21:56" pubdate>
               2021-01-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/12/26/dvwa%E4%BA%8C/">DVWA||Brute Force</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/12/26/dvwa%E4%BA%8C/">
-          
-          
-            
-          
-          dvwaBrute Forcelow暴力破解，查看源代码：
-它的select语句没有什么过滤，可以尝试sql注入构造admin&#39;#密码为空：
-
-成功~~但这关标题为暴力破解，所以要按暴力破解做一遍：
-抓包,发到intruder,先clear ，选中要爆破字段,添加：
-
-在payload中选择字典，读取（字典很大读取了好久）：
-
-可设置线程数也可以使用默认：
-
-上图是我设置的线程数（线程数主
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-26 10:47" pubdate>
-              2020-12-26
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/12/17/sqli-labs%E4%B8%83/">sqli-labs(七)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/12/17/sqli-labs%E4%B8%83/">
-          
-          
-            
-          
-          Less-42初看页面,考虑到二次注入，查看update的源码：
-
-数据需经函数处理，故不能进行二次注入，再查看login的代码：
-
-密码无函数处理，在密码进行注入a&#39;;create table hi like users#
-注入前：
-
-注入后:
-
-Less-46在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &lt;表名&gt; [where &lt;查
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-17 23:04" pubdate>
-              2020-12-17
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/12/14/sqli-labs%E5%85%AD/">sqli-labs（六）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/12/14/sqli-labs%E5%85%AD/">
-          
-          
-            
-          
-          Less-27查看源码：
-
-这关额外注释了union,select,字符。
-单引号报错，注释掉回显正常：
-
-法一：联合查询将union和select改为大小写混合就可以:
-?id=0&#39;%0aUnIoN%0aSeLeCt%0a1,database(),2%0a%26%26%0a&#39;1&#39;=&#39;1
-
-不再赘述
-法二：报错注入?id=1&#39;%a0||%a0updatexm
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-14 17:25" pubdate>
-              2020-12-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/12/09/sqli-labs%E4%BA%94/">sqli-labs五</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/12/09/sqli-labs%E4%BA%94/">
-          
-          
-            
-          
-          Less-23本关跟第一关有点像，但是试探过程中发现id=1&#39;和id=&#39;)报错，但注释后仍报错，而id=1&quot;和id=1&quot;)回显正常，看一下源代码
-
-发现本关对–+和#都进行了转义，故不能再用这种方式注释，可以在之后构造出闭合用;%00(一种特殊的注释符)或者and和or语句进行闭合。通过试探得出该处为单引号注入：
-
-其余步骤与第一关相似，在每条语句后面加上and
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-09 23:08" pubdate>
-              2020-12-09
             </time>
           </div>
         

@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="Yu ting">
   <meta name="keywords" content="">
-  <title>Archives - liquor&#39;s blog</title>
+  <title>DVWA||Weak Session IDs - liquor&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,9 +162,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Archive">
+            <span class="h2" id="subtitle" title="DVWA||Weak Session IDs">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-01 17:27" pubdate>
+        February 1, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      482 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -161,70 +214,105 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">30 posts in total.</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/12/26/dvwa%E4%BA%8C/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">DVWA||Brute Force</span>
-      <time style="float: right;">12-26</time>
-    </a>
-  
-    
-    <a href="/2020/12/17/sqli-labs%E4%B8%83/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqli-labs(七)</span>
-      <time style="float: right;">12-17</time>
-    </a>
-  
-    
-    <a href="/2020/12/14/sqli-labs%E5%85%AD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqli-labs（六）</span>
-      <time style="float: right;">12-14</time>
-    </a>
-  
-    
-    <a href="/2020/12/09/sqli-labs%E4%BA%94/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqli-labs五</span>
-      <time style="float: right;">12-09</time>
-    </a>
-  
-    
-    <a href="/2020/12/06/24/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">less-24登录报错解决方法</span>
-      <time style="float: right;">12-06</time>
-    </a>
-  
-    
-    <a href="/2020/12/01/sqlmap/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqlmap</span>
-      <time style="float: right;">12-01</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DVWA||Weak Session IDs</h1>
+            
+            <div class="markdown-body">
+              <p>用户访问服务器的时候，在服务器端会创建一个会话(Session)，会话中会保存用户的状态和相关信息，用于标识用户。服务器端认证时，浏览器需要把当前用户持有的SessionID告知服务器。用户拿到session id就会加密后保存到 cookies 上，之后只要cookies随着http请求发送服务器，服务器就能识别用户。因此攻击者可以通过窃取用户SessionID，使用该SessionID登录进目标账户。</p>
+<h1 id="low"><a href="#low" class="headerlink" title="low"></a>low</h1><p>点击<code>Generate</code>，<code>Burpsuite</code>抓包，每<code>go</code>一次，响应中dvwasession就加一</p>
+<p><img src="/2021/02/01/dvwa8/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p>构造payload:<code>Cookie: dvwaSession=3; PHPSESSID=e34amjsmbj3phlmuk0u17vd1p3; security=low</code></p>
+<p>即可在无密码情况下登录到页面</p>
+<img src="/2021/02/01/dvwa8/2.jpg" srcset="/img/loading.gif" alt="2" style="zoom: 33%;">
 
+<h1 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h1><img src="/2021/02/01/dvwa8/3.jpg" srcset="/img/loading.gif" alt="3" style="zoom:50%;">
 
+<p>执行几次发现dvwasession的变化与时间戳一致，在<a target="_blank" rel="noopener" href="https://tool.lu/timestamp/">转换工具</a>进行转换可知</p>
+<p>构造<code>Cookie: dvwaSession=1612194327; PHPSESSID=e34amjsmbj3phlmuk0u17vd1p3; security=medium</code>登录即可</p>
+<h1 id="high"><a href="#high" class="headerlink" title="high"></a>high</h1><p>使用了PHP setcookie()函数进行设置:</p>
+<p>格式：</p>
+<pre><code class="hljs pgsql">setcookie(<span class="hljs-type">name</span>,<span class="hljs-keyword">value</span>,expire,<span class="hljs-type">path</span>,<span class="hljs-keyword">domain</span>,secure,httponly)</code></pre>
 
+<pre><code class="hljs properties"> <span class="hljs-meta">参数</span> 	             <span class="hljs-string">描述</span>
+<span class="hljs-attr">name</span> 	    <span class="hljs-string">必需。规定cookie的名称。</span>
+<span class="hljs-attr">value</span> 	    <span class="hljs-string">必需。规定cookie的值。</span>
+<span class="hljs-attr">expire</span>   	<span class="hljs-string">可选。规定cookie的有效期。</span>
+<span class="hljs-attr">path</span> 	    <span class="hljs-string">可选。规定cookie的服务器路径。</span>
+<span class="hljs-attr">domain</span> 	    <span class="hljs-string">可选。规定cookie的域名。</span>
+<span class="hljs-attr">secure</span> 	    <span class="hljs-string">可选。规定是否通过安全的HTTPS连接来传输cookie。</span>
+<span class="hljs-attr">httponly</span> 	<span class="hljs-string">可选。规定是否Cookie仅可通过HTTP协议访问。</span></code></pre>
 
-              </div>
+<p><img src="/2021/02/01/dvwa8/4.jpg" srcset="/img/loading.gif" alt="4"></p>
+<p>抓包后，将value值进行逆操作，再解密构造payload即可。</p>
+<h1 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h1><p><img src="/2021/02/01/dvwa8/5.jpg" srcset="/img/loading.gif" alt="5"></p>
+<p>SHA-1是一种数据加密算法，该算法的思想是接收一段明文，然后以一种不可逆的方式将它转换成一段（通常更小）密文，也可以简单的理解为取一串输入码（称为预映射或信息），并把它们转化为长度较短、位数固定的输出序列即散列值（也称为信息摘要或信息认证代码）的过程。</p>
+<p>PS：现实中应该没有这么简单的漏洞存在，这处理方法有点草率</p>
+
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/02/dvwa9/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DVWA||CSP Bypass</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/01/dvwa7/">
+                        <span class="hidden-mobile">DVWA||Insecure CAPTCHA</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -307,9 +395,15 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
 
 
 

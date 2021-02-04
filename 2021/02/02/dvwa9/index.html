@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="Yu ting">
   <meta name="keywords" content="">
-  <title>Archives - liquor&#39;s blog</title>
+  <title>DVWA||CSP Bypass - liquor&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,9 +162,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Archive">
+            <span class="h2" id="subtitle" title="DVWA||CSP Bypass">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-02 00:25" pubdate>
+        February 2, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      467 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -161,70 +214,99 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">30 posts in total.</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/12/26/dvwa%E4%BA%8C/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">DVWA||Brute Force</span>
-      <time style="float: right;">12-26</time>
-    </a>
-  
-    
-    <a href="/2020/12/17/sqli-labs%E4%B8%83/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqli-labs(七)</span>
-      <time style="float: right;">12-17</time>
-    </a>
-  
-    
-    <a href="/2020/12/14/sqli-labs%E5%85%AD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqli-labs（六）</span>
-      <time style="float: right;">12-14</time>
-    </a>
-  
-    
-    <a href="/2020/12/09/sqli-labs%E4%BA%94/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqli-labs五</span>
-      <time style="float: right;">12-09</time>
-    </a>
-  
-    
-    <a href="/2020/12/06/24/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">less-24登录报错解决方法</span>
-      <time style="float: right;">12-06</time>
-    </a>
-  
-    
-    <a href="/2020/12/01/sqlmap/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqlmap</span>
-      <time style="float: right;">12-01</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DVWA||CSP Bypass</h1>
+            
+            <div class="markdown-body">
+              <p>Content-Security-Policy（内容安全策略）是指HTTP返回报文头中的标签，浏览器会根据标签中的内容，判断哪些资源可以加载或执行。是为了缓解潜在的跨站脚本问题（XSS）原来应对XSS攻击时，主要采用函数过滤、转义输入中的特殊字符、标签、文本来规避攻击。CSP的实质就是白名单制度，开发人员明确告诉客户端，哪些外部资源可以加载和执行。开发者只需要提供配置，实现和执行全部由浏览器完成。简而言之就是在前端添加一些标签，告诉浏览器哪些资源可以加载访问。我们今天要做的就是绕过他。</p>
+<h1 id="low"><a href="#low" class="headerlink" title="low"></a>low</h1><p>源码列了几个白名单网站</p>
+<p><img src="/2021/02/02/dvwa9/8.jpg" srcset="/img/loading.gif" alt="8"></p>
+<p>我们可以在白名单网站写js代码如<code>alert(111)</code>得到<code>https://pastebin.com/5WMivnEr</code>，在dvwa页面进行访问，理论上就会达到注入效果，但是现在的火狐好像被修复了</p>
+<p><img src="/2021/02/02/dvwa9/9.jpg" srcset="/img/loading.gif" alt="9"></p>
+<p>其实这关也可以用CSRF实现，还是一样通过做钓鱼网站来实现。</p>
+<h1 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h1><p><img src="/2021/02/02/dvwa9/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p>构造：<code>&lt;script nonce=&quot;TmV2ZXIgZ29pbmcgdG8gZ2l2ZSB5b3UgdXA=&quot; &gt; alert(&#39;xss&#39;)&lt;/script&gt;</code><img src="/2021/02/02/dvwa9/2.jpg" srcset="/img/loading.gif" alt="2" style="zoom: 50%;"></p>
+<h1 id="high"><a href="#high" class="headerlink" title="high"></a>high</h1><p><code>The page makes a call to ../..//vulnerabilities/csp/source/jsonp.php to load some code. Modify that page to run your own code.</code>页面调用了jsonp.php,该页面可执行自己的代码</p>
+<p>在页面源码中看到了</p>
+<p><img src="/2021/02/02/dvwa9/3.jpg" srcset="/img/loading.gif" alt="3"></p>
+<p>打开</p>
+<p><img src="/2021/02/02/dvwa9/4.jpg" srcset="/img/loading.gif" alt="4"></p>
+<p>主要规划了点击按钮后的操作，<code>appendChild（）</code>处理的<code>jsonp.php</code>里倒没有什么特别的处理，故我们可以从这里要传入的<code>callback</code>下手：</p>
+<p>构造：<code>include=&lt;script src=&quot;source/jsonp.php?callback=alert(&#39;lisa&#39;);&quot;&gt;&lt;/script&gt;</code></p>
+<img src="/2021/02/02/dvwa9/5.jpg" srcset="/img/loading.gif" alt="5" style="zoom:50%;">
 
+<h1 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h1><p><code>impossible.php</code>，<code>impossible.js</code>都和high没什么区别，关键在于<code>appendChild（）</code>处理的<code>jsonp.php</code>处理不同：</p>
+<p>这是high的</p>
+<p><img src="/2021/02/02/dvwa9/6.jpg" srcset="/img/loading.gif" alt="6"></p>
+<p>这个是impossible的</p>
+<p><img src="/2021/02/02/dvwa9/7.jpg" srcset="/img/loading.gif" alt="7"></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/linfangnan/p/13714694.html">DVWA 通关指南：CSP Bypass(CSP 绕过)</a></p>
 
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/03/dvwa6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DVWA||CSRF</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/01/dvwa8/">
+                        <span class="hidden-mobile">DVWA||Weak Session IDs</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -307,9 +389,15 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
 
 
 

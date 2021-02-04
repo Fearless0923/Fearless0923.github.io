@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="Yu ting">
   <meta name="keywords" content="">
-  <title>Archives - liquor&#39;s blog</title>
+  <title>DVWA||Insecure CAPTCHA - liquor&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,9 +162,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Archive">
+            <span class="h2" id="subtitle" title="DVWA||Insecure CAPTCHA">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-01 13:10" pubdate>
+        February 1, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      425 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      4
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -161,70 +214,98 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">30 posts in total.</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/12/26/dvwa%E4%BA%8C/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">DVWA||Brute Force</span>
-      <time style="float: right;">12-26</time>
-    </a>
-  
-    
-    <a href="/2020/12/17/sqli-labs%E4%B8%83/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqli-labs(七)</span>
-      <time style="float: right;">12-17</time>
-    </a>
-  
-    
-    <a href="/2020/12/14/sqli-labs%E5%85%AD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqli-labs（六）</span>
-      <time style="float: right;">12-14</time>
-    </a>
-  
-    
-    <a href="/2020/12/09/sqli-labs%E4%BA%94/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqli-labs五</span>
-      <time style="float: right;">12-09</time>
-    </a>
-  
-    
-    <a href="/2020/12/06/24/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">less-24登录报错解决方法</span>
-      <time style="float: right;">12-06</time>
-    </a>
-  
-    
-    <a href="/2020/12/01/sqlmap/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sqlmap</span>
-      <time style="float: right;">12-01</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DVWA||Insecure CAPTCHA</h1>
+            
+            <div class="markdown-body">
+              <p>Insecure CAPTCHA，不安全的验证码，CAPTCHA全称：Completely Automated Public Turing Test to Tell Computers and Humans Apart。验证码流程一般是:用户向浏览器的服务器发送请求，浏览器的服务器返回验证码给用户，用户将验证码发送给网站服务器，网站服务器会向浏览器的服务器验证这个验证码的正确性，浏览器最终返回验证结果给网站服务器。</p>
+<p>服务器通过调用recaptcha_check_answer函数检查用户输入的正确性。</p>
+<pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">recaptcha_check_answer</span><span class="hljs-params">(<span class="hljs-variable">$privkey</span>,<span class="hljs-variable">$remoteip</span>, <span class="hljs-variable">$challenge</span>,<span class="hljs-variable">$response</span>)</span></span></code></pre>
 
+<p>参数$privkey是服务器申请的private key ，$remoteip是用户的ip，$challenge 是recaptcha_challenge_field 字段的值，来自前端页面 ，$response是 recaptcha_response_field 字段的值。函数返回ReCaptchaResponse class的实例，ReCaptchaResponse 类有2个属性 ：</p>
+<blockquote>
+<p>$is_valid是布尔型的，表示校验是否有效，</p>
+<p>$error是返回的错误代码。</p>
+</blockquote>
+<p>我们的绕过简而言之就是当验证不合格时，通过burp抓包工具修改成符合要求的数据包。修改参数标志位、USER-AGENT之类的参数。</p>
+<h1 id="low"><a href="#low" class="headerlink" title="low"></a>low</h1><img src="/2021/02/01/dvwa7/1.jpg" srcset="/img/loading.gif" alt="1" style="zoom:67%;">
 
+<p>源码中第一步检查验证码返回表单，第二步接受用户的表单再来进行修改。服务器仅仅通过检查Change，step参数来判断用户是否已经输入了正确的验证码。故我们抓包将step值修改为2即可绕过验证。也可以用CSRF攻击实现。</p>
+<p><img src="/2021/02/01/dvwa7/2.jpg" srcset="/img/loading.gif" alt="2"></p>
+<h1 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h1><p><img src="/2021/02/01/dvwa7/3.jpg" srcset="/img/loading.gif" alt="3"></p>
+<p>本质上与low无区别，抓包时多修改一个<code>passed_captcha</code>值即可</p>
+<h1 id="high"><a href="#high" class="headerlink" title="high"></a>high</h1><p><img src="/2021/02/01/dvwa7/4.jpg" srcset="/img/loading.gif" alt="4"></p>
+<p>$resp参数有浏览器返回，我们只能改参数<code>recaptcha_response_field、User-Agent</code></p>
+<p><img src="/2021/02/01/dvwa7/5.jpg" srcset="/img/loading.gif" alt="5"></p>
+<h1 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h1><p><img src="/2021/02/01/dvwa7/6.jpg" srcset="/img/loading.gif" alt="6"></p>
+<p>对返回值单独验证，并且本关要输入当前密码，<code>Anti-CSRF token ,PDO</code>也在。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/119692.html">InsecureCAPTCHA</a></p>
 
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/01/dvwa8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DVWA||Weak Session IDs</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/27/dvwa5/">
+                        <span class="hidden-mobile">DVWA||File Inclusion&File Upload</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -307,9 +388,15 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
 
 
 
