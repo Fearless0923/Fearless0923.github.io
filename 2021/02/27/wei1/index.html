@@ -1,0 +1,564 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Metasploit(一)——入门测试 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Metasploit(一)——入门测试">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-27 23:49" pubdate>
+        February 27, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Metasploit(一)——入门测试</h1>
+            
+            <div class="markdown-body">
+              <h2 id="简介"><a class="header-anchor" href="#简介">🍭</a>简介</h2>
+<p>Metasploit框架(Metasploit Framework，MSF)是一个开源工具，由Ruby程序语言编写的模板化框架，具有很好的扩展性，便于渗透测试人员开发、使用定制的工具模板。</p>
+<p>Metasploit可向后端模块提供多种用来控制测试的接口（如控制台、Web、CLI)推荐使用控制台接口，通过控制台接口，你可以访问和使用所有Metasploit的插件，例如Payload、利用模块、Post模块等。Metasploit还有第三方程序的接口，例如Nmap,SQLMap……</p>
+<p>MSF框架由多个模块构成：</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Auxiliaries(辅助模块)</td>
+<td>该模块不会直接在测试者和目标主机之间建立访问，只负责执行扫描、嗅探、指纹识别等相关功能以辅助渗透测试。</td>
+</tr>
+<tr>
+<td>Exploit(漏洞利用模块)</td>
+<td>漏洞利用是指由渗透测试者利用一个系统、应用或者服务中的安全漏洞进行的攻击行为。流行的渗透攻击技术包括缓冲区溢出、Web应用程序攻击，以及利用配置错误等，其中包含攻击者或测试人员针对系统中的漏洞而设计的各种POC验证程序，用于破坏系统安全性的攻击代码，每个漏洞都有相应的攻击代码。</td>
+</tr>
+<tr>
+<td>Payload(攻击载荷模块)</td>
+<td>攻击载荷是我们期望目标系统在被渗透攻击之后完成实际攻击功能的代码，成功渗透目标后，用于在目标系统上运行任意命令或者执行特定代码，在Metasploit框架中可以自由地选择、传送和植入。攻击载荷也可能是简单地在目标操作系统上执行一些命令，如添加用户账号等。</td>
+</tr>
+<tr>
+<td>Post(后期渗透模块)</td>
+<td>模块主要用于在取得目标系统远程控制权后，进行一系列的后渗透攻击动作，如获取敏感信息、实施跳板攻击等。</td>
+</tr>
+<tr>
+<td>Encoders(编码工具模块)</td>
+<td>该模块在渗透测试中负责免杀，以防止被杀毒软件、防火墙、IDS及类似的安全软件检测出来</td>
+</tr>
+</tbody>
+</table>
+<h3 id="常用命令"><a class="header-anchor" href="#常用命令">🍭</a>常用命令</h3>
+<p>直接help可查询</p>
+<p><img src="/2021/02/27/wei1/2.jpg" srcset="/img/loading.gif" alt="2"></p>
+<p>好好学英语😔😔😔</p>
+<h4 id="msfconsole"><a class="header-anchor" href="#msfconsole">🍭</a>msfconsole</h4>
+<pre><code class="hljs properties"><span class="hljs-meta">?</span>             <span class="hljs-string">显示帮助菜单</span>
+<span class="hljs-attr">back</span>          <span class="hljs-string">从当前环境返回到主路径</span>
+<span class="hljs-attr">banner</span>        <span class="hljs-string">显示软件旗标信息</span>
+<span class="hljs-attr">cd</span>            <span class="hljs-string">改变当前工作路径</span>
+<span class="hljs-attr">color</span>         <span class="hljs-string">切换颜色</span>
+<span class="hljs-attr">connect</span>       <span class="hljs-string">连接主机，类似于telnet和nc</span>
+<span class="hljs-attr">exit</span>          <span class="hljs-string">退出</span>
+<span class="hljs-attr">help</span>          <span class="hljs-string">显示帮助菜单，即该页面</span>
+<span class="hljs-attr">info</span>          <span class="hljs-string">显示模块的详细信息</span>
+<span class="hljs-attr">irb</span>           <span class="hljs-string">进入irb脚本模式</span>
+<span class="hljs-attr">jobs</span>          <span class="hljs-string">显示和管理作业</span>
+<span class="hljs-attr">kill</span>          <span class="hljs-string">结束一个作业</span>
+<span class="hljs-attr">load</span>          <span class="hljs-string">加载framework插件</span>
+<span class="hljs-attr">loadpath</span>      <span class="hljs-string">从指定路径加载模块</span>
+<span class="hljs-attr">quit</span>          <span class="hljs-string">退出</span>
+<span class="hljs-attr">resource</span>      <span class="hljs-string">运行文件中的命令</span>
+<span class="hljs-attr">route</span>         <span class="hljs-string">Route traffic through a session</span>
+<span class="hljs-attr">save</span>          <span class="hljs-string">保持数据</span>
+<span class="hljs-attr">search</span>        <span class="hljs-string">搜索模块及名称</span>
+<span class="hljs-attr">sessions</span>      <span class="hljs-string">显示及转存会话列表</span>
+<span class="hljs-attr">set</span>           <span class="hljs-string">设置变量值</span>
+<span class="hljs-attr">setg</span>          <span class="hljs-string">设置全局变量值</span>
+<span class="hljs-attr">show</span>          <span class="hljs-string">显示给定类型的模块或全部模块</span>
+<span class="hljs-attr">sleep</span>         <span class="hljs-string">休眠</span>
+<span class="hljs-attr">unload</span>        <span class="hljs-string">卸载 framework 插件</span>
+<span class="hljs-attr">unset</span>         <span class="hljs-string">取消变量设置</span>
+<span class="hljs-attr">unsetg</span>        <span class="hljs-string">取消全局变量设置</span>
+<span class="hljs-attr">use</span>           <span class="hljs-string">根据名字选择一个模块</span>
+<span class="hljs-attr">version</span>       <span class="hljs-string">显示版本</span>
+<span class="hljs-attr">advanced</span>      <span class="hljs-string">显示一个或多个模块的高级选项</span>
+<span class="hljs-attr">clearm</span>        <span class="hljs-string">清除模块栈</span>
+<span class="hljs-attr">listm</span>         <span class="hljs-string">列出模块堆栈</span>
+<span class="hljs-attr">options</span>       <span class="hljs-string">显示一个或多个模块的全局选项</span>
+<span class="hljs-attr">popm</span>          <span class="hljs-string">从堆栈中弹出最新的模块并使其处于活动状态</span>
+<span class="hljs-attr">previous</span>      <span class="hljs-string">将先前加载的模块设置为当前模块</span>
+<span class="hljs-attr">pushm</span>         <span class="hljs-string">将活动模块或模块列表推入模块堆栈</span>
+<span class="hljs-attr">reload_all</span>    <span class="hljs-string">从所有定义的模块路径中重新加载所有的模块</span>
+<span class="hljs-attr">search</span>        <span class="hljs-string">搜索模块名称和描述</span>
+<span class="hljs-attr">show</span>          <span class="hljs-string">显示给定类型的模块或所有模块</span>
+<span class="hljs-attr">log</span>           <span class="hljs-string">如果可能的话，将显示框架.log页面显示到末尾</span>
+<span class="hljs-attr">pry</span>           <span class="hljs-string">打开当前模块或框架上的撬调试器</span>
+<span class="hljs-attr">reload_lib</span>    <span class="hljs-string">从指定的路径重新加载Ruby库文件</span>
+<span class="hljs-attr">db_add_host</span>   <span class="hljs-string">添加一个或多个主机到数据库</span>
+<span class="hljs-attr">db_add_note</span>   <span class="hljs-string">添加一个注释到主机</span>
+<span class="hljs-attr">db_add_port</span>   <span class="hljs-string">添加一个端口到主机</span>
+<span class="hljs-attr">db_connect</span>    <span class="hljs-string">连接一个存在的数据库</span>
+<span class="hljs-attr">db_create</span>     <span class="hljs-string">创建一个新的数据库实例</span>
+<span class="hljs-attr">db_del_host</span>   <span class="hljs-string">从数据库删除一个或多个主机</span>
+<span class="hljs-attr">db_del_port</span>   <span class="hljs-string">从数据库删除一个端口</span>
+<span class="hljs-attr">db_destroy</span>    <span class="hljs-string">删除一个存在的数据库</span>
+<span class="hljs-attr">db_disconnect</span> <span class="hljs-string">断开与当前数据库实例的连接</span>
+<span class="hljs-attr">db_driver</span>     <span class="hljs-string">指定一个数据库驱动</span>
+<span class="hljs-attr">db_hosts</span>      <span class="hljs-string">列出数据库中的所有主机</span>
+<span class="hljs-attr">db_nmap</span>       <span class="hljs-string">执行Nmap并记录输出</span>
+<span class="hljs-attr">db_notes</span>      <span class="hljs-string">列出数据库中的所有注释</span>
+<span class="hljs-attr">db_services</span>   <span class="hljs-string">列出数据库中的所有服务</span>
+<span class="hljs-attr">db_vulns</span>      <span class="hljs-string">列出数据库中的所有漏洞</span>
+<span class="hljs-attr">db_workspace</span>  <span class="hljs-string">转换数据库工作区</span>
+<span class="hljs-attr">db_import_ip_list</span>     <span class="hljs-string">引入一个IP列表文件</span>
+<span class="hljs-attr">db_import_amap_mlog</span>   <span class="hljs-string">引入一个THC-Amap扫描结果文件(-o -m)</span>
+<span class="hljs-attr">db_import_nessus_nbe</span>  <span class="hljs-string">引入一个Nessus扫描结果文件(NBE)</span>
+<span class="hljs-attr">db_import_nessus_xml</span>  <span class="hljs-string">引入一个Nessus扫描结果文件</span>
+<span class="hljs-attr">db_import_nmap_xml</span>    <span class="hljs-string">引入一个Nmap扫描结果文件(-oX)</span>
+<span class="hljs-attr">db_autopwn</span>            <span class="hljs-string">自动利用</span></code></pre>
+<h3 id="初级测试"><a class="header-anchor" href="#初级测试">🍭</a>初级测试</h3>
+<p>接下来用Metasploitable 2靶机进行测试</p>
+<h4 id="先用nmap查看系统开放端口和相关应用程序"><a class="header-anchor" href="#先用nmap查看系统开放端口和相关应用程序">🍭</a>先用nmap查看系统开放端口和相关应用程序</h4>
+<p>通常使用<code>nmap –sV IP(或者域名)</code>，如果机器设置有防火墙禁ping，可以使用nmap -P0(或者-Pn) –sV IP(或者域名)来查看主机的开放情况</p>
+<p><img src="/2021/02/27/wei1/3.jpg" srcset="/img/loading.gif" alt="3"></p>
+<p>可以看到靶机开放的端口，开放状态，服务类型，和版本号，其中渗透最重要的两个参数是开放状态和版本号。版本号也就是系统扫描中，在开发安全扫描件里经常提及的漏洞指纹，因为大部分漏洞的产生就是某一版本的问题。我们此次要攻击139端口，如图中，可以看到服务的指纹信息，主要就是服务名称和版本号，是samba的服务，处于3.X-4.X版本。</p>
+<h4 id="搜索Samba的exploit"><a class="header-anchor" href="#搜索Samba的exploit">🍭</a>搜索Samba的exploit</h4>
+<p><img src="/2021/02/27/wei1/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p>利用返回的结果中各个漏洞被利用的难易程度选择漏洞，这里我选<code>exploit/multi/samba/usermap_script</code>因为它难度较低。一般有限选择excellent和great两种等级，因为稳定且效果明显，其次就是后面的描述是否和我们攻击的服务有关</p>
+<h4 id="查询漏洞详细信息"><a class="header-anchor" href="#查询漏洞详细信息">🍭</a>查询漏洞详细信息</h4>
+<p><img src="/2021/02/27/wei1/4.jpg" srcset="/img/loading.gif" alt="4"></p>
+<p>使用该exploit，查看exploit下的payloads(如果是知道使用哪个模块，可以输入每个 / 后的前2-4个字母使用table补齐)</p>
+<p><img src="/2021/02/27/wei1/5.jpg" srcset="/img/loading.gif" alt="5"></p>
+<p>选择攻击载荷的时候，建议选用和meterpreter和reverse相关的载荷(由于攻击的目标机可能处在内网里，攻击的时候存在端口映射等方面的问题，使用反弹可以更稳定)这次就用<code>cmd/unix/reverse</code></p>
+<h4 id="接下来查看需要填写的参数"><a class="header-anchor" href="#接下来查看需要填写的参数">🍭</a>接下来查看需要填写的参数</h4>
+<p><img src="/2021/02/27/wei1/7.jpg" srcset="/img/loading.gif" alt="7"></p>
+<blockquote>
+<p><strong>Tips:</strong></p>
+<p>在真实的环境中，RPORT可能并不是默认的参数，由于一个服务是放在内网当中，他通过路由器转发，可能会出现端口的变化（端口映射）<br>
+exploit target也是非常重要的参数，可通过show targets，查看目标系统有哪些.<br>
+查看目标的系统，可以使用：nmap –O IP，然后使用set target ID选择目标类型，主要用于增加成功</p>
+</blockquote>
+<p>其中只有RHOST是空，我们需要自己填上该信息</p>
+<p><img src="/2021/02/27/wei1/6.jpg" srcset="/img/loading.gif" alt="6"></p>
+<p>现在就可以发动攻击，执行任意命令</p>
+<p><img src="/2021/02/27/wei1/8.jpg" srcset="/img/loading.gif" alt="8"></p>
+<p>入门的测试就完成辽❤️❤️❤️</p>
+<h3 id="后记"><a class="header-anchor" href="#后记">🍭</a>后记</h3>
+<p>由于本篇记录入门测试，故选择的靶机也较为基础，实战中目标主机的很多信息都需要收集，无法像本篇文章用到的靶机一样可以直接获取信息，后渗透测试改天再学习👻👻👻</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/05/wei2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">metasploit（二）——后渗透测试</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/24/everything/">
+                        <span class="hidden-mobile">Information Exposure</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

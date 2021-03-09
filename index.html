@@ -181,18 +181,18 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/02/03/dvwa6/">DVWA||CSRF</a>
+        <a href="/2021/03/05/wei2/">metasploit（二）——后渗透测试</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/02/03/dvwa6/">
+        <a href="/2021/03/05/wei2/">
           
           
             
           
-          CSRF，全称Cross-site request forgery，跨站请求伪造，是指利用受害者尚未失效的身份认证信息（cookie、会话等），诱骗其点击恶意链接或者访问包含攻击代码的页面，在受害人不知情的情况下以受害者的身份向（身份认证信息所对应的）服务器发送请求，从而完成非法操作（如转账、改密等）。CSRF与XSS区别在于CSRF并没有盗取cookie而是直接利用。
-举个栗子：
-A要汇八万给B
+          今天来学习一下后渗透测试
+🍭meterpreter
+Meterpreter是Metasploit框架中的一个扩展模块，在溢出成功以后的攻击载荷使用，攻击载荷在溢出攻击成功以后返回一个控制通道（作为攻击载荷获得目标系统的Meterpreter shell的链接）Meterpreter shell有很多功能：添加用户、打开shell、得到用户密码、上传下载远程主机的文件、运行cmd.exe、捕捉屏幕
         </a>
       </p>
 
@@ -200,8 +200,8 @@ A要汇八万给B
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-03 00:41" pubdate>
-              2021-02-03
+            <time datetime="2021-03-05 01:16" pubdate>
+              2021-03-05
             </time>
           </div>
         
@@ -217,16 +217,18 @@ A要汇八万给B
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/02/02/dvwa9/">DVWA||CSP Bypass</a>
+        <a href="/2021/02/27/wei1/">Metasploit(一)——入门测试</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/02/02/dvwa9/">
+        <a href="/2021/02/27/wei1/">
           
           
             
           
-          Content-Security-Policy（内容安全策略）是指HTTP返回报文头中的标签，浏览器会根据标签中的内容，判断哪些资源可以加载或执行。是为了缓解潜在的跨站脚本问题（XSS）原来应对XSS攻击时，主要采用函数过滤、转义输入中的特殊字符、标签、文本来规避攻击。CSP的实质就是白名单制度，开发人员明确告诉客户端，哪些外部资源可以加载和执行。开发者只需要提供配置，实现和执行全部由浏览器完成。
+          🍭简介
+Metasploit框架(Metasploit Framework，MSF)是一个开源工具，由Ruby程序语言编写的模板化框架，具有很好的扩展性，便于渗透测试人员开发、使用定制的工具模板。
+Metasploit可向后端模块提供多种用来控制测试的接口（如控制台、Web、CLI)推荐使用控制台接口，通过控制台接口，你可以访问和使用所有Metasploit的插件，例如Payload、利用模块、
         </a>
       </p>
 
@@ -234,8 +236,8 @@ A要汇八万给B
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-02 00:25" pubdate>
-              2021-02-02
+            <time datetime="2021-02-27 23:49" pubdate>
+              2021-02-27
             </time>
           </div>
         
@@ -251,16 +253,29 @@ A要汇八万给B
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/02/01/dvwa8/">DVWA||Weak Session IDs</a>
+        <a href="/2021/02/24/everything/">Information Exposure</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/02/01/dvwa8/">
+        <a href="/2021/02/24/everything/">
           
           
             
           
-          用户访问服务器的时候，在服务器端会创建一个会话(Session)，会话中会保存用户的状态和相关信息，用于标识用户。服务器端认证时，浏览器需要把当前用户持有的SessionID告知服务器。用户拿到session id就会加密后保存到 cookies 上，之后只要cookies随着http请求发送服务器，服务器就能识别用户。因此攻击者可以通过窃取用户SessionID，使用该SessionID登录进目
+          🍭概述
+由于后台人员的疏忽或者不当的设计，导致不应该被前端用户看到的数据被轻易的访问到：
+
+
+通过访问url下的目录，可以直接列出目录下的文件列表
+
+
+输入错误的url参数后报错信息里面包含操作系统、中间件、开发语言的版本或其他信息
+
+
+前端的源码（html,css,js）里面包含了敏感信息，比如后台登录地址、内网接口信息、甚至账号密码等
+
+
+敏感信息泄露往往给攻击着实施进一步的攻击提供很大的帮
         </a>
       </p>
 
@@ -268,8 +283,8 @@ A要汇八万给B
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-01 17:27" pubdate>
-              2021-02-01
+            <time datetime="2021-02-24 21:30" pubdate>
+              2021-02-24
             </time>
           </div>
         
@@ -285,16 +300,29 @@ A要汇八万给B
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/02/01/dvwa7/">DVWA||Insecure CAPTCHA</a>
+        <a href="/2021/02/24/weakpassword/">未授权访问——Redis</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/02/01/dvwa7/">
+        <a href="/2021/02/24/weakpassword/">
           
           
             
           
-          Insecure CAPTCHA，不安全的验证码，CAPTCHA全称：Completely Automated Public Turing Test to Tell Computers and Humans Apart。验证码流程一般是:用户向浏览器的服务器发送请求，浏览器的服务器返回验证码给用户，用户将验证码发送给网站服务器，网站服务器会向浏览器的服务器验证这个验证码的正确性，浏览器最终返回验证
+          概述
+需要安全配置或权限认证的地址、授权页面存在缺陷，导致其他用户可以直接访问，从而引发重要权限可被操作、数据库、网站目录等敏感信息泄露。
+常见：
+
+Redis未授权访问
+Jenkins未授权访问
+MongoDB未授权访问
+ZooKeeper未授权访问
+Elasticsearch未授权访问
+Memcache未授权访问
+Hadoop未授权访问
+CouchDB未授权访问
+Docker未授权访问
+LDA
         </a>
       </p>
 
@@ -302,8 +330,8 @@ A要汇八万给B
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-01 13:10" pubdate>
-              2021-02-01
+            <time datetime="2021-02-24 21:26" pubdate>
+              2021-02-24
             </time>
           </div>
         
@@ -319,17 +347,20 @@ A要汇八万给B
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/27/dvwa5/">DVWA||File Inclusion&amp;File Upload</a>
+        <a href="/2021/02/24/filedownload/">File Download</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/27/dvwa5/">
+        <a href="/2021/02/24/filedownload/">
           
           
             
           
-          File Inclusion文件包含与漏洞开发人员将相同的函数写入单独的文件中,需要使用某个函数时直接调用此文件,无需再次编写,这种文件调用的过程称文件包含。
-文件包含函数的参数没有经过过滤或者严格的定义，并且参数可以被用户控制，这样就可能包含非预期的文件。如果文件中存在恶惹代码，无论文件是什么类型，文件内的恶意代码都会被解析并执行。文件包含漏洞可能会造成服务器的网页被篡改、网站被挂马、服务器被远
+          🍭概述
+网站对用户下载或查看的文件不做限制，使恶意用户能够下载或查看任意敏感文件。
+🍭成因
+常规文件下载流程：使用一个动态页面（php、jsp、aspx、asp等）将待下载文件作为参数一般参数名称为filename，如.php?filename/.jsp?filename等。根据参数filename的值，获得该文件在网站上的绝对路径，读取文件，然后直接发送给客户端下载。
+如果后台在收到请求的文
         </a>
       </p>
 
@@ -337,8 +368,8 @@ A要汇八万给B
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-27 23:12" pubdate>
-              2021-01-27
+            <time datetime="2021-02-24 21:18" pubdate>
+              2021-02-24
             </time>
           </div>
         
@@ -354,16 +385,26 @@ A要汇八万给B
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/27/3/">DVWA||XSS(Reflected&amp;Stored&amp;DOM)</a>
+        <a href="/2021/02/19/1/">逻辑漏洞||越权</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/27/3/">
+        <a href="/2021/02/19/1/">
           
           
             
           
-          XSS原理XSS是跨站脚本攻击(Cross Site Scripting)恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。XSS的实质其实是HTML代码与Javscript代码的注入。但由于XSS的攻击对象是与客户对等的Browser端，因此常常不被开发者所重视。但xss漏洞危害很大，一旦被攻击成功，私密
+          🍭概述
+逻辑错误漏洞是指由于程序逻辑不严或逻辑太复杂，导致一些逻辑分支不能够正常处理或处理错误，一般出现在任意密码修改、越权访问、密码找回、交易支付金额。
+🍭本质
+设计者或开发者在思考过程中做出的特殊假设存在明显或隐含的错误
+🍭特点
+
+普遍存在：普遍存在于各类应用程序
+不固定：应用中不同功能逻辑不同，无法用一般工具发现
+隐蔽性
+逻辑漏洞是目前WAF的盲区（故当前较易挖掘，下文详讲挖掘思路）
+
         </a>
       </p>
 
@@ -371,8 +412,8 @@ A要汇八万给B
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-27 22:57" pubdate>
-              2021-01-27
+            <time datetime="2021-02-19 23:25" pubdate>
+              2021-02-19
             </time>
           </div>
         
@@ -388,17 +429,22 @@ A要汇八万给B
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/26/dvwa4/">DVWA||Command Injection</a>
+        <a href="/2021/02/19/Soup4/">Python Library——bs4&amp;requests</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/26/dvwa4/">
+        <a href="/2021/02/19/Soup4/">
           
           
             
           
-          命令注入攻击的常见场景为：仅仅需要输入数据的场合，攻击者构造数据同时输入了恶意命令代码，而系统对此并未过滤，恶意命令代码一并执行，最终导致信息泄露或者正常数据的破坏；PHP命令注入攻击漏洞是PHP应用程序中常见的脚本漏洞之一。命令注入和代码注入不同，代码注入的目的在于将外部代码注入应用程序本身，并随程序执行；命令攻击的对象是服务器的宿主机。因此用户可以通过构造特殊的输入来达到入侵目的。
-先介绍一下
+          🌞requests库
+🌞导入 Requests 模块：
+import requests
+🌞获取某个网页
+r = requests.get(&#x27;url&#x27;)//get请求
+r = requests.post(&#x27;url&#x27;, data = &#123;&#x27;key&#x27;:&#x27;value&#x27;&#125;)//post请求
+PUT与pos
         </a>
       </p>
 
@@ -406,8 +452,8 @@ A要汇八万给B
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-26 21:49" pubdate>
-              2021-01-26
+            <time datetime="2021-02-19 14:20" pubdate>
+              2021-02-19
             </time>
           </div>
         
@@ -423,33 +469,24 @@ A要汇八万给B
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/24/png/">二次渲染&amp;&amp;png结构分析</a>
+        <a href="/2021/02/19/jsonp/">json &amp; jsonp注入</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/24/png/">
+        <a href="/2021/02/19/jsonp/">
           
           
             
           
-          一.PNG的文件结构数据块构成结构png定义了两种类型的数据块
+          先来介绍一下json
+json
 
-关键数据块(critical chunk)//关键数据块定义了4个标准数据块，每个PNG文件都必须包含它们，PNG读写软件也都必须要支持这些数据块。
+ JavaScript Object Notation,JavaScript 对象表示法
 
-
-
-
-PNG标识符
-PNG数据块(IHDR)
-PNG数据块(其他类型数据块)
-PNG结尾数据块(IEND)
-
-
-
-
-辅助数据块(ancillary chunks)
-
-PNG文件格式中
+JSON 是存储和交换文本信息的语法，类似 XML
+JSON 使用 Javascript语法来描述数据对象，但它独立于语言和平台。
+JSON 解析器和 JSON 库支持许多不同的编程语言
+JavaScript 程序能够使用内建的 eval() 函数，用 JSON 数据来生成
         </a>
       </p>
 
@@ -457,8 +494,8 @@ PNG文件格式中
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-24 20:43" pubdate>
-              2021-01-24
+            <time datetime="2021-02-19 14:16" pubdate>
+              2021-02-19
             </time>
           </div>
         
@@ -474,29 +511,30 @@ PNG文件格式中
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/24/upload/">upload-labs</a>
+        <a href="/2021/02/18/python2/">python(二)</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/24/upload/">
+        <a href="/2021/02/18/python2/">
           
           
             
           
-          
-Pass-01(前端js绕过)
-删除js校验代码
-更改js校验中的白名单
-先改文件后缀名通过js校验再抓包更改后缀上传至服务器
+          之前在sqli-labs的SQL盲注说有时间要学习一下编写python脚本来跑盲注关卡，但是python基础语法还没学完，今天来填坑👻👻👻
+🌞列表
 
 
-Pass-02(MIME验证)
-Pass-03(黑名单绕过)
-Pass-04(黑名单绕过-.htaccess)
-Pass-05（黑名单验证，.user.ini.）
-Pass-06(黑名单验证-大小写绕过)
-Pass-07(黑名单验证–空格绕过)
-Pass-08（黑名
+列表可以索引，切片，加，乘，检查成员
+
+
+列表可以作为一个方括号内的逗号分隔值出现
+
+
+列表的数据项不需要具有相同的类型
+
+
+创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可
+list = [&#x27;genius&#x27
         </a>
       </p>
 
@@ -504,8 +542,8 @@ Pass-08（黑名
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-24 20:40" pubdate>
-              2021-01-24
+            <time datetime="2021-02-18 23:39" pubdate>
+              2021-02-18
             </time>
           </div>
         
@@ -521,16 +559,22 @@ Pass-08（黑名
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/22/dvwa/">DVWA||SQL注入andSQL盲注</a>
+        <a href="/2021/02/14/re/">PHP反序列化漏洞</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/22/dvwa/">
+        <a href="/2021/02/14/re/">
           
           
             
           
-          dvwaSQL Injectionlow先挑熟悉的sql注入下手，单引号注入,报错：You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;&#39;admin&#39;&#39
+          ¶php面向对象编程：
+
+对象：可以对其做事情的一些东西。一个对象有状态、行为和标识三种属性。
+类：一个共享相同结构和行为的对象的集合。每个类的定义都以关键字class开头，后面跟着类的名字。一个类可以包含有属于自己的变量，变量（称为“属性”）以及函数（“称为方法”）类定义了一件事物的抽象特点。
+
+¶序列化
+将一个对象、数组、字符串等转化为字节流便于传输。序列化的目的是方便数据的传输和存储,但序列
         </a>
       </p>
 
@@ -538,8 +582,8 @@ Pass-08（黑名
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-22 21:56" pubdate>
-              2021-01-22
+            <time datetime="2021-02-14 01:05" pubdate>
+              2021-02-14
             </time>
           </div>
         
@@ -553,7 +597,7 @@ Pass-08（黑名
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

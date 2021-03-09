@@ -181,26 +181,19 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/12/26/dvwa%E4%BA%8C/">DVWA||Brute Force</a>
+        <a href="/2021/02/13/TLS/">TLS</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/12/26/dvwa%E4%BA%8C/">
+        <a href="/2021/02/13/TLS/">
           
           
             
           
-          dvwaBrute Forcelow暴力破解，查看源代码：
-它的select语句没有什么过滤，可以尝试sql注入构造admin&#39;#密码为空：
-
-成功~~但这关标题为暴力破解，所以要按暴力破解做一遍：
-抓包,发到intruder,先clear ，选中要爆破字段,添加：
-
-在payload中选择字典，读取（字典很大读取了好久）：
-
-可设置线程数也可以使用默认：
-
-上图是我设置的线程数（线程数主
+          ¶三次握手
+对每次发送的数据量进行跟踪与协商，确保数据段的发送和接收同步，根据所接收到的数据量而确认数据发送、接收完毕后何时撤消联系，并建立虚连接。
+TCP是一种面向连接的单播协议，在发送数据前，通信双方必须在彼此间建立一条连接。所谓的“连接”，其实是客户端和服务器的内存里保存的一份关于对方的信息，如ip地址、端口号等。
+第一次：建立连接时，客户端发送syn包（seq=j）到服务器，并进入SYN_
         </a>
       </p>
 
@@ -208,8 +201,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-26 10:47" pubdate>
-              2020-12-26
+            <time datetime="2021-02-13 01:19" pubdate>
+              2021-02-13
             </time>
           </div>
         
@@ -225,25 +218,22 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/12/17/sqli-labs%E4%B8%83/">sqli-labs(七)</a>
+        <a href="/2021/02/13/RCE/">RCE</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/12/17/sqli-labs%E4%B8%83/">
+        <a href="/2021/02/13/RCE/">
           
           
             
           
-          Less-42初看页面,考虑到二次注入，查看update的源码：
+          RCE
+远程连接命令/代码执行漏洞，能够让攻击者直接向后台服务器远程写入服务器系统命令或者代码，从而控制后台系统。
+¶产生原因
 
-数据需经函数处理，故不能进行二次注入，再查看login的代码：
 
-密码无函数处理，在密码进行注入a&#39;;create table hi like users#
-注入前：
-
-注入后:
-
-Less-46在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &lt;表名&gt; [where &lt;查
+远程连接命令执行ping
+应用系统从设计上需要给用户提供指定的远程命令操作的接口比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并
         </a>
       </p>
 
@@ -251,8 +241,8 @@ Less-46在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &l
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-17 23:04" pubdate>
-              2020-12-17
+            <time datetime="2021-02-13 01:19" pubdate>
+              2021-02-13
             </time>
           </div>
         
@@ -268,25 +258,20 @@ Less-46在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &l
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/12/14/sqli-labs%E5%85%AD/">sqli-labs（六）</a>
+        <a href="/2021/02/10/XXE/">XXE</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/12/14/sqli-labs%E5%85%AD/">
+        <a href="/2021/02/10/XXE/">
           
           
             
           
-          Less-27查看源码：
-
-这关额外注释了union,select,字符。
-单引号报错，注释掉回显正常：
-
-法一：联合查询将union和select改为大小写混合就可以:
-?id=0&#39;%0aUnIoN%0aSeLeCt%0a1,database(),2%0a%26%26%0a&#39;1&#39;=&#39;1
-
-不再赘述
-法二：报错注入?id=1&#39;%a0||%a0updatexm
+          在BWAPP里做SSRF结果任务里出现了XXE，又是一个知识盲区👿 👿 👿 ，故又跑来XXE辽👻👻👻
+XXE
+XML External Entity，XML 外部实体注入：应用程序在解析XML时没有过滤外部实体的加载，导致加载了恶意的外部文件，造成执行命令、读取文件、扫描内网、攻击内网应用等危害。
+¶XML
+XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型
         </a>
       </p>
 
@@ -294,8 +279,8 @@ Less-46在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &l
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-14 17:25" pubdate>
-              2020-12-14
+            <time datetime="2021-02-10 21:35" pubdate>
+              2021-02-10
             </time>
           </div>
         
@@ -311,20 +296,22 @@ Less-46在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &l
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/12/09/sqli-labs%E4%BA%94/">sqli-labs五</a>
+        <a href="/2021/02/10/BWAPP/">BWAPP||SSRF</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/12/09/sqli-labs%E4%BA%94/">
+        <a href="/2021/02/10/BWAPP/">
           
           
             
           
-          Less-23本关跟第一关有点像，但是试探过程中发现id=1&#39;和id=&#39;)报错，但注释后仍报错，而id=1&quot;和id=1&quot;)回显正常，看一下源代码
+          系统学习SSRF后，我们可以搭个BWAPP练习一下，BWAPP集成了各种常见漏洞和最新漏洞的开源Web应用程序，集成了超过100种漏洞，今天我们要练习一下SSRF部分（找了好久才找到SSRF板块😡😡😡）
 
-发现本关对–+和#都进行了转义，故不能再用这种方式注释，可以在之后构造出闭合用;%00(一种特殊的注释符)或者and和or语句进行闭合。通过试探得出该处为单引号注入：
+有三个任务：
 
-其余步骤与第一关相似，在每条语句后面加上and
+¶Task One:用远程文件包含进行端口扫描
+RFI,Remote File Inclusion远程文件包含(文件包含在dvwa那介绍过了)
+从Port scan获得一份
         </a>
       </p>
 
@@ -332,8 +319,8 @@ Less-46在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &l
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-09 23:08" pubdate>
-              2020-12-09
+            <time datetime="2021-02-10 01:57" pubdate>
+              2021-02-10
             </time>
           </div>
         
@@ -349,21 +336,20 @@ Less-46在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &l
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/12/06/24/">less-24登录报错解决方法</a>
+        <a href="/2021/02/08/shell/">Reverse Shell</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/12/06/24/">
+        <a href="/2021/02/08/shell/">
           
           
             
           
-          十二月一号的时候打靶场打到第24关，按正常步骤先进行注册后页面如下：
-
-无法跳转到初始登录页面，且出现警告，然后我以为这只是正常警告就手动点击home键返回
-用刚注册的账号登录出现如下页面:
-
-无法正常登录，然后我根据警告内容查看了login.php文件，查不出什么错误。之后就去百度，搜到两种解法，第一种是logged-in文件有错误，我重新下了sqli-labs的压缩包替换，结果一样……第二种是
+          最近在学习SSRF，遇到了反弹shell，又发现了知识盲区💢💢💢，故来恶补一下🎃🎃🎃
+定义
+reverse shell，控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。简而言之就是控制端可以通过执行被控端上的命令并返回到控制端上。
+用途
+当控制端通过攻击打开了被控端的一个端口，控制端在自己主机去连接被控端本机叫做正向连接。但是出现以下几种情况
         </a>
       </p>
 
@@ -371,8 +357,8 @@ Less-46在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &l
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-06 23:26" pubdate>
-              2020-12-06
+            <time datetime="2021-02-08 15:53" pubdate>
+              2021-02-08
             </time>
           </div>
         
@@ -388,18 +374,18 @@ Less-46在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &l
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/12/01/sqlmap/">sqlmap</a>
+        <a href="/2021/02/08/SSRF/">SSRF</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/12/01/sqlmap/">
+        <a href="/2021/02/08/SSRF/">
           
           
             
           
-          前言sqlmap终于终于搭好了，之前的python环境没搭好，下了好多次换过2.X和3.X，设置环境变量的时候还不小心将path变量删了导致博客崩了……之后sqlmap解压错根目录了…终于把sqlmap搭好了想打靶场，发现还需要有抓包工具，于是又去搭java环境,下Burp Suite。现在终于可以了!!!
-Sqlmap简介五种注入模式：布尔盲注，时间盲注，报错注入，联合查询，堆查询
-支持的数据库
+          SSRF(Server-Side Request Forgery:服务器端请求伪造) 由攻击者构造请求，由服务端发起请求的安全漏洞。一般情况下，SSRF攻击的目标是外网无法访问的内部系统。（请求由服务端发起，故服务端能请到与自身相连而与外网隔离的内部系统）
+漏洞原理
+服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。常见的有服务端从指定URL地址获取网页文本内容，加载指定地址
         </a>
       </p>
 
@@ -407,8 +393,8 @@ Sqlmap简介五种注入模式：布尔盲注，时间盲注，报错注入，�
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-01 22:24" pubdate>
-              2020-12-01
+            <time datetime="2021-02-08 14:38" pubdate>
+              2021-02-08
             </time>
           </div>
         
@@ -424,23 +410,18 @@ Sqlmap简介五种注入模式：布尔盲注，时间盲注，报错注入，�
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/11/26/sqli-labs%E5%9B%9B/">sqli-labs（四）</a>
+        <a href="/2021/02/03/dvwa6/">DVWA||CSRF</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/11/26/sqli-labs%E5%9B%9B/">
+        <a href="/2021/02/03/dvwa6/">
           
           
             
           
-          Less-18基于错误的用户代理，头部POST注入.
-补充几个请求头：
-
-
-Host Host请求报头域主要用于指定被请求资源的Internet主机和端口号。
-User-Agent User-Agent请求报头域允许客户端将它的操作系统、浏览器和其他属性告诉服务器。
-Referer Referer包含一个URL，代表当前访问URL的上一个URL。
-Cookie Cookie是非常重要的请求头，它是
+          CSRF，全称Cross-site request forgery，跨站请求伪造，是指利用受害者尚未失效的身份认证信息（cookie、会话等），诱骗其点击恶意链接或者访问包含攻击代码的页面，在受害人不知情的情况下以受害者的身份向（身份认证信息所对应的）服务器发送请求，从而完成非法操作（如转账、改密等）。CSRF与XSS区别在于CSRF并没有盗取cookie而是直接利用。
+举个栗子🌞🌞🌞：
+A
         </a>
       </p>
 
@@ -448,8 +429,8 @@ Cookie Cookie是非常重要的请求头，它是
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-26 12:46" pubdate>
-              2020-11-26
+            <time datetime="2021-02-03 00:41" pubdate>
+              2021-02-03
             </time>
           </div>
         
@@ -465,19 +446,16 @@ Cookie Cookie是非常重要的请求头，它是
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/11/22/sqli-labs%E4%B8%89/">sqli-labs(三)</a>
+        <a href="/2021/02/02/dvwa9/">DVWA||CSP Bypass</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/11/22/sqli-labs%E4%B8%89/">
+        <a href="/2021/02/02/dvwa9/">
           
           
             
           
-          sqli-labs(三)Less-11less-11为post注入，post就是数据从客户端提交到服务器端,输入用户名和密码会以表单的形式提交到服务器进行验证。
-1.试探用之前的1无反应，试着使用常用的管理员密码账户 admin(Dumb也行)，成功登录；加单引号注入，密码随意，报错。
-
-根据报错可以判断出该处为单引号注入，使用万能密码admin&#39;or&#39;1&#39;=&#39;1#
+          Content-Security-Policy（内容安全策略）是指HTTP返回报文头中的标签，浏览器会根据标签中的内容，判断哪些资源可以加载或执行。是为了缓解潜在的跨站脚本问题（XSS）原来应对XSS攻击时，主要采用函数过滤、转义输入中的特殊字符、标签、文本来规避攻击。CSP的实质就是白名单制度，开发人员明确告诉客户端，哪些外部资源可以加载和执行。开发者只需要提供配置，实现和执行全部由浏览器完成。
         </a>
       </p>
 
@@ -485,8 +463,8 @@ Cookie Cookie是非常重要的请求头，它是
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-22 22:59" pubdate>
-              2020-11-22
+            <time datetime="2021-02-02 00:25" pubdate>
+              2021-02-02
             </time>
           </div>
         
@@ -502,55 +480,16 @@ Cookie Cookie是非常重要的请求头，它是
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/11/09/sqli-labs/">sqli-labs（二）</a>
+        <a href="/2021/02/01/dvwa8/">DVWA||Weak Session IDs</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/11/09/sqli-labs/">
+        <a href="/2021/02/01/dvwa8/">
           
           
             
           
-          Sqli-labs–2
-Sqli-labs–2
-法一:联合注入
-盲注猜解Less-5
-1.试探:
-2.猜数据库名长度:
-3.猜库名：
-4.爆表：
-5.爆列：
-6.爆值：
-
-
-
-
-法二：报错注入
-Less-6
-1.试探
-2.爆库名
-3.爆表
-4.爆列
-5.爆值
-
-
-Less-7
-1.试探
-2.获取文件路径
-法一：
-法二：
-
-
-
-
-
-
-法三：时间盲注
-Less-8
-1.试探
-2.爆库长
-3.爆库
-4.
+          用户访问服务器的时候，在服务器端会创建一个会话(Session)，会话中会保存用户的状态和相关信息，用于标识用户。服务器端认证时，浏览器需要把当前用户持有的SessionID告知服务器。用户拿到session id就会加密后保存到 cookies 上，之后只要cookies随着http请求发送服务器，服务器就能识别用户。因此攻击者可以通过窃取用户SessionID，使用该SessionID登录进目
         </a>
       </p>
 
@@ -558,8 +497,8 @@ Less-8
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-09 16:14" pubdate>
-              2020-11-09
+            <time datetime="2021-02-01 17:27" pubdate>
+              2021-02-01
             </time>
           </div>
         
@@ -575,22 +514,16 @@ Less-8
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/11/08/sqli/">sqli-labs（一）</a>
+        <a href="/2021/02/01/dvwa7/">DVWA||Insecure CAPTCHA</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/11/08/sqli/">
+        <a href="/2021/02/01/dvwa7/">
           
           
             
           
-          Sqli-labs本篇文章运用的注入语句已在sqli基础中说明，故运用时不再解释原因。
-类型判断
-?id=1 and 1=2 --+若返回结果正常，说明不是数字类型；
-?id=1&#39; --+ 显示不正常,?id=1&#39;) --+ 显示正常时，该类型为字符注入，且以(‘’)的方式闭合字符串，还有(“”)类似。
-
-Less-1法一：UNION联合查询注入
-用and 1=2测试 ，页面回显正
+          Insecure CAPTCHA，不安全的验证码，CAPTCHA全称：Completely Automated Public Turing Test to Tell Computers and Humans Apart。验证码流程一般是:用户向浏览器的服务器发送请求，浏览器的服务器返回验证码给用户，用户将验证码发送给网站服务器，网站服务器会向浏览器的服务器验证这个验证码的正确性，浏览器最终返回验证
         </a>
       </p>
 
@@ -598,8 +531,8 @@ Less-1法一：UNION联合查询注入
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-08 17:22" pubdate>
-              2020-11-08
+            <time datetime="2021-02-01 13:10" pubdate>
+              2021-02-01
             </time>
           </div>
         
@@ -613,7 +546,7 @@ Less-1法一：UNION联合查询注入
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

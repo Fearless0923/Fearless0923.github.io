@@ -1,0 +1,597 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Information Exposure - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Information Exposure">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-24 21:30" pubdate>
+        February 24, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Information Exposure</h1>
+            
+            <div class="markdown-body">
+              <h2 id="概述"><a class="header-anchor" href="#概述">🍭</a>概述</h2>
+<p>由于后台人员的疏忽或者不当的设计，导致不应该被前端用户看到的数据被轻易的访问到：</p>
+<ul>
+<li>
+<p>通过访问url下的目录，可以直接列出目录下的文件列表</p>
+</li>
+<li>
+<p>输入错误的url参数后报错信息里面包含操作系统、中间件、开发语言的版本或其他信息</p>
+</li>
+<li>
+<p>前端的源码（<code>html,css,js</code>）里面包含了敏感信息，比如后台登录地址、内网接口信息、甚至账号密码等</p>
+</li>
+</ul>
+<p>敏感信息泄露往往给攻击着实施进一步的攻击提供很大的帮助，漏洞出现的位置、造成的危害有很大的差异性。</p>
+<h2 id="类型"><a class="header-anchor" href="#类型">🍭</a>类型</h2>
+<h4 id="网络信息泄露"><a class="header-anchor" href="#网络信息泄露">🍭</a>网络信息泄露</h4>
+<ul>
+<li>
+<p>DNS域传送漏洞</p>
+</li>
+<li>
+<p>运维监控系统弱口令、网络拓扑泄露</p>
+<p>zabbix弱口令、zabbix sql注入……</p>
+</li>
+</ul>
+<h4 id="WEB敏感信息"><a class="header-anchor" href="#WEB敏感信息">🍭</a>WEB敏感信息</h4>
+<ul>
+<li>
+<p>phpinfo()信息泄露</p>
+</li>
+<li>
+<p>测试页面泄露在外网</p>
+</li>
+</ul>
+<p><code> test.cgi、phpinfo.php、info.php</code>等</p>
+<ul>
+<li>编辑器备份文件泄露在外网</li>
+</ul>
+<p><code>http://[ip]/.test.php.swp</code></p>
+<p><code> http://[ip]/test.php.bak</code></p>
+<p><code> http://[ip]/test.jsp.old</code></p>
+<p><code> http://[ip]/cgi~</code></p>
+<p>常见编辑器备份后缀</p>
+<ul>
+<li>版本管理工具(如git)文件信息泄露</li>
+</ul>
+<p><code>http://[ip]/.git/config</code></p>
+<p><code> http://[ip]/CVS/Entriesp</code></p>
+<p><code>http://[ip]/.svn/entriesp</code></p>
+<p><code>http://[ip]/.svn/wc.db</code></p>
+<ul>
+<li>HTTP认证泄露漏洞</li>
+</ul>
+<p><code>http://[ip]/basic/index.php</code></p>
+<p>Web目录开启了HTTP Basic认证，但未限制IP，导致可暴力破解账号、密码</p>
+<ul>
+<li>管理后台地址泄露</li>
+</ul>
+<p><code> http://[ip]/login.php</code></p>
+<p><code> http://[ip]/admin.php</code></p>
+<ul>
+<li>
+<p>错误页面暴露信息</p>
+<p>错误页面由服务器产生403、404、500等错误时，返回详细错误信息。报错信息中可能会包含服务器代码信息、数据库连接信息、SQL语句或者敏感文件的路径</p>
+<p><strong>检测</strong>：</p>
+<p>1.通过目录扫描或手工输入不存在的文件或路径，触发服务器产生404错误并返回404页面</p>
+<p>2.通过目录扫描或手工输入一个无权限查看的文件或路径，触发服务器产生403错误并返回403页面</p>
+<p>3.手工输入不存在的参数或特殊构造的字符串，如单引号，尖括号等，触发服务器产生500错误并返回500页面或异常信息。</p>
+</li>
+<li>
+<p>服务器探针文件</p>
+</li>
+<li>
+<p>存在可访问的管理控制台入口</p>
+<p>Web 控制台是一种基于 Web 的用户界面，  其常常被用于网站后台或者web容器。控制台中，其不仅仅局限于容器或者网站管理后台，还包括一些数据库默认地址等。在web安全中，网站系统在泄漏其web容器（中间件）或者数据库的控制台后，存在增加被入侵的风险。常见的web控制台：<code>tomcat、aria2、weblogic、websphere、oracle、jboss……</code>web的容器控制台常见访问形式：<code>http://host:port/load/</code></p>
+<p><strong>检测</strong>：</p>
+<p>思路为首先需识别网站容器的指纹，判断其所采用的中间件，然后去扫描其所开放的端口，根据开放端口信息和常见固定的路径，去判断其控制台地址。</p>
+</li>
+<li>
+<p>存在可访问的管理后台入口(应该比较少见)</p>
+<p>应用存在未限制访问的后台，或者能直接登录管理后台,或利用上传功能上传webshell，导致服务器被控制</p>
+<p><strong>检测</strong>：</p>
+<ol>
+<li>
+<p>可以利用web漏洞扫描器或目录扫描器扫描web应用进行检测</p>
+</li>
+<li>
+<p>识别网站使用的cms框架，判断其默认的管理后台地址。</p>
+</li>
+<li>
+<p>在网站中寻找管理后台超链接</p>
+</li>
+</ol>
+</li>
+<li>
+<p>默认页面泄漏</p>
+<p>存在默认安装中间件、插件、框架等会携带示例页面及说明文档</p>
+</li>
+<li>
+<p>入侵痕迹残留</p>
+<p>在渗透过程中发现应用中存在曾经的入侵痕迹，如存在的webshell文件。残留的入侵痕迹可被其他攻击者用于二次攻击.</p>
+<p><strong>检测</strong>：</p>
+<p>通常使用Web应用安全漏洞扫描工具或目录扫描工具发现入侵痕迹</p>
+</li>
+<li>
+<p>HTTP头信息泄漏</p>
+<p>在服务器返回的HTTP头中泄露服务器信息</p>
+<p><strong>检测</strong>:</p>
+<ol>
+<li>
+<p>在浏览器的调试窗口中查看HTTP响应头</p>
+</li>
+<li>
+<p>使用代理软件如burpsuite、fiddler，拦截HTTP响应头</p>
+</li>
+</ol>
+</li>
+<li>
+<p>物理路径泄漏</p>
+<p>应用中泄露出应用在主机中的绝对地址路径。</p>
+<p><strong>检测</strong>：</p>
+<ol>
+<li>
+<p>打开网页源代码，查看图片等媒体的链接及超链接；</p>
+</li>
+<li>
+<p>通过报错信息获取</p>
+</li>
+</ol>
+</li>
+<li>
+<p>历史文件残留</p>
+<p>应用遗留的过时文件、备份页面、渗透测试遗留文件、开发文件残留的测试文件</p>
+</li>
+<li>
+<p><code>robots.txt</code></p>
+<p>搜索引擎可以通过robots文件可以获知哪些页面可以爬取，哪些页面不可以爬取。</p>
+<p>Robots协议是网站国际互联网界通行的道德规范，其目的是保护网站数据和敏感信息、确保用户个人信息和隐私不被侵犯，如果robots.txt文件编辑的太过详细，反而会泄露网站的敏感目录或者文件，比如网站后台路径，从而得知其使用的系统类型，从而有针对性地进行利用</p>
+</li>
+<li>
+<p>网站源码备份文件</p>
+<p>管理员备份网站文件后错误地将备份放在web目录下，常见的后缀名：<code>.rar、.zip、.7z、.tar、.tar.gz、.bak、.txt</code></p>
+</li>
+</ul>
+<h4 id="tips-目录遍历"><a class="header-anchor" href="#tips-目录遍历">🍭</a>tips:目录遍历</h4>
+<p>在web功能设计中,很多时候要将需要访问的文件定义成变量从而让前端的功能更加灵活。 当用户发起一个前端的请求时，便会将请求的这个文件的值(比如文件名称)传递到后台，后台再执行其对应的文件。如果后台没有对前端传进来的值进行严格过滤，攻击者可能会通过“…/”让后台打开或者执行一些其他的文件，导致后台服务器上其他目录的文件结果被遍历出来（跟之前讲的文件下载有点像）</p>
+<p><em>如果通过不带参数的url（如：<code>http://xxxx/doc</code>）列出了doc文件夹里面所有的文件也称为为敏感信息泄露而不归为目录遍历漏洞</em></p>
+<h4 id="实例"><a class="header-anchor" href="#实例">🍭</a>实例</h4>
+<p><strong>Referer泄露token</strong></p>
+<p>如:在论坛回复处通过包含<code>&lt;img&gt;</code>标签，向攻击者的服务器发送请求，用户一旦访问将泄露Oauth token。或存在跳转链接，可将token泄露给第三方站点.</p>
+<p><strong>异常操作泄露日志文件</strong></p>
+<p>使用超长参数值多线程访问发起长请求导致access.log过大，将一些部分转储到响应中，泄露用户的ip地址，请求时间和url路径。</p>
+<p>测试方法:增删参数值、构造畸形数据、超长数据等使服务器报错，报错信息可能泄露服务器绝对路径、版本号、代码层信息、数据库信息……</p>
+<h2 id="敏感信息搜集工具"><a class="header-anchor" href="#敏感信息搜集工具">🍭</a>敏感信息搜集工具</h2>
+<ul>
+<li>weaplescan</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lijiejie/BBScan">BBScan</a></li>
+<li>whatweb</li>
+<li>dnsenum</li>
+</ul>
+<h2 id="后记"><a class="header-anchor" href="#后记">🍭</a>后记</h2>
+<p>原理很简单，就是缺实战挖掘漏洞，本来想在pikachu演示一下，结果查看源码就可以看出信息泄露。。。</p>
+<p>参考:<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1516484">信息泄露（Information Exposure）挖掘及实战案例全汇总</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.secpulse.com/archives/134923.html">信息泄露篇</a></p>
+<p><a target="_blank" rel="noopener" href="http://wyb0.com/posts/sensitive-information-leakage/">敏感信息泄露总结</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/27/wei1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Metasploit(一)——入门测试</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/24/weakpassword/">
+                        <span class="hidden-mobile">未授权访问——Redis</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
