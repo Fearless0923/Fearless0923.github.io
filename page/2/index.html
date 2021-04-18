@@ -181,6 +181,138 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/02/24/everything/">Information Exposure</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/24/everything/">
+          
+          
+            
+          
+          🍭概述
+由于后台人员的疏忽或者不当的设计，导致不应该被前端用户看到的数据被轻易的访问到：
+
+
+通过访问url下的目录，可以直接列出目录下的文件列表
+
+
+输入错误的url参数后报错信息里面包含操作系统、中间件、开发语言的版本或其他信息
+
+
+前端的源码（html,css,js）里面包含了敏感信息，比如后台登录地址、内网接口信息、甚至账号密码等
+
+
+敏感信息泄露往往给攻击着实施进一步的攻击提供很大的帮
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-24 21:30" pubdate>
+              2021-02-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/24/weakpassword/">未授权访问——Redis</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/24/weakpassword/">
+          
+          
+            
+          
+          概述
+需要安全配置或权限认证的地址、授权页面存在缺陷，导致其他用户可以直接访问，从而引发重要权限可被操作、数据库、网站目录等敏感信息泄露。
+常见：
+
+Redis未授权访问
+Jenkins未授权访问
+MongoDB未授权访问
+ZooKeeper未授权访问
+Elasticsearch未授权访问
+Memcache未授权访问
+Hadoop未授权访问
+CouchDB未授权访问
+Docker未授权访问
+LDA
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-24 21:26" pubdate>
+              2021-02-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/24/filedownload/">File Download</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/24/filedownload/">
+          
+          
+            
+          
+          🍭概述
+网站对用户下载或查看的文件不做限制，使恶意用户能够下载或查看任意敏感文件。
+🍭成因
+常规文件下载流程：使用一个动态页面（php、jsp、aspx、asp等）将待下载文件作为参数一般参数名称为filename，如.php?filename/.jsp?filename等。根据参数filename的值，获得该文件在网站上的绝对路径，读取文件，然后直接发送给客户端下载。
+如果后台在收到请求的文
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-24 21:18" pubdate>
+              2021-02-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/02/19/1/">逻辑漏洞||越权</a>
       </h1>
 
@@ -457,122 +589,6 @@ TCP是一种面向连接的单播协议，在发送数据前，通信双方必�
             <i class="iconfont icon-date"></i>
             <time datetime="2021-02-13 01:19" pubdate>
               2021-02-13
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/10/XXE/">XXE</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/10/XXE/">
-          
-          
-            
-          
-          在BWAPP里做SSRF结果任务里出现了XXE，又是一个知识盲区👿 👿 👿 ，故又跑来XXE辽👻👻👻
-XXE
-XML External Entity，XML 外部实体注入：应用程序在解析XML时没有过滤外部实体的加载，导致加载了恶意的外部文件，造成执行命令、读取文件、扫描内网、攻击内网应用等危害。
-¶XML
-XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-10 21:35" pubdate>
-              2021-02-10
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/10/BWAPP/">BWAPP||SSRF</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/10/BWAPP/">
-          
-          
-            
-          
-          系统学习SSRF后，我们可以搭个BWAPP练习一下，BWAPP集成了各种常见漏洞和最新漏洞的开源Web应用程序，集成了超过100种漏洞，今天我们要练习一下SSRF部分（找了好久才找到SSRF板块😡😡😡）
-
-有三个任务：
-
-¶Task One:用远程文件包含进行端口扫描
-RFI,Remote File Inclusion远程文件包含(文件包含在dvwa那介绍过了)
-从Port scan获得一份
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-10 01:57" pubdate>
-              2021-02-10
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/08/shell/">Reverse Shell</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/08/shell/">
-          
-          
-            
-          
-          最近在学习SSRF，遇到了反弹shell，又发现了知识盲区💢💢💢，故来恶补一下🎃🎃🎃
-定义
-reverse shell，控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。简而言之就是控制端可以通过执行被控端上的命令并返回到控制端上。
-用途
-当控制端通过攻击打开了被控端的一个端口，控制端在自己主机去连接被控端本机叫做正向连接。但是出现以下几种情况
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-08 15:53" pubdate>
-              2021-02-08
             </time>
           </div>
         

