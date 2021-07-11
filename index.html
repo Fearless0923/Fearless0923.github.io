@@ -181,6 +181,130 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/07/11/web/">BJDCTF2020||EasySearch</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/11/web/">
+          
+          
+            
+          
+          这题涉及一个新漏洞——Apache SSI 远程命令执行漏洞
+🍭SSI
+SSI（服务器端包含）是放置在HTML页面中的指令，并在服务页面时在服务器上对其进行评估，它提供了一种对现有HTML文档增加动态内容的方法，不需要编写复杂的JSP/PHP/ASP等程序或者调用CGI程序。默认扩展名是 .stm、.shtm 和 .shtml。
+例如，您可以将指令放置到现有的HTML页面中：
+&lt;!--#e
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-11 17:00" pubdate>
+              2021-07-11
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/11/upload-1/">CISCN2021||upload</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/11/upload-1/">
+          
+          
+            
+          
+          🍭分析
+题目给了源码index.php做出了如下限制。这题跟之前upload靶场的二次渲染很像。
+
+上传需要绕过getimagesize
+图片的长宽必须为1.
+文件名不能有c、i、h.这样平常普通的绕过手段，.htaccess 的h被过滤，.use.ini 的i被过滤，就算抓包修改他的后缀，也会一起被检测。
+
+🍭getimagesize()
+getimagesize() 函数用于获取图像大小及
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-11 14:36" pubdate>
+              2021-07-11
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/18/dropbox/">dropbox</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/18/dropbox/">
+          
+          
+            
+          
+          这道题涉及了phar反序列化，__call魔术方法等多个知识点。
+登录页面后随意上传图片，发现任意下载
+
+将文件都下载，进行审计
+class.php:
+&lt;?php
+error_reporting(0);
+$dbaddr = &quot;127.0.0.1&quot;;
+$dbuser = &quot;root&quot;;
+$dbpass = &quot;root&quot;;
+$dbnam
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-18 22:45" pubdate>
+              2021-05-18
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/05/05/hash/">Hash Length Extension Attack</a>
       </h1>
 
@@ -488,132 +612,6 @@ PHP需要将所有参数转换为有效的变量名，因此在解析查询字�
             <i class="iconfont icon-date"></i>
             <time datetime="2021-04-13 21:18" pubdate>
               2021-04-13
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/10/wei6/">sprintf格式化字符串漏洞</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/10/wei6/">
-          
-          
-            
-          
-          🍭sprintf()
-把格式化的字符串写入变量中。
-sprintf(format,arg1,arg2,arg++)
-
-
-
-参数
-描述
-
-
-
-
-format
-规定字符串以及如何格式化其中的变量。                                                                            可能的格式值：                    
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-10 14:12" pubdate>
-              2021-04-10
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/06/wei4/">SSTI(二)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/06/wei4/">
-          
-          
-            
-          
-          🍭命令执行
-命令执行，其实就是沙盒溢出的操作。
-🍭tips1
-
-from_pyfile
-def from_pyfile(self, filename, silent=False):
-
- filename = os.path.join(self.root_path, filename)
- d = types.ModuleType(&#x27;config&#x27;)
- d.__file__ =
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-06 19:58" pubdate>
-              2021-04-06
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/05/wei/">SSTI(一)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/05/wei/">
-          
-          
-            
-          
-          Server-Side-Template-Injection，服务端模版注入攻击。
-服务端模版引擎将用户的输入直接渲染进模版，而未做过滤或者对象关系映射(ORM)。导致攻击者可以控制渲染进模版的内容。通过直接输入模版渲染的关键词例如{ { } }，即可将恶意代码注入模版中执行。
-现在最常见的模版渲染引擎是基于Python的Flask框架，但是模板注入还存在于许多地方。与 XSS 不同，模板注入可用
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-05 14:49" pubdate>
-              2021-04-05
             </time>
           </div>
         
