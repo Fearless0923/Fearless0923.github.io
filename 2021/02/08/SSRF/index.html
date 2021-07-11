@@ -239,9 +239,9 @@
 <li>利用file协议读取本地文件等。</li>
 </ul>
 <p>简而言之就是通过外网网站，访问内部网站，达到攻击内部网站的目的。</p>
-<h2 id="相关危险函数"><a class="header-anchor" href="#相关危险函数">¶</a>相关危险函数</h2>
+<h2 id="相关危险函数"><a class="header-anchor" href="#相关危险函数">🍭</a>相关危险函数</h2>
 <pre><code class="hljs autohotkey">file_get_contents()` / `fsockopen()` / `curl_exec()</code></pre>
-<h4 id="curl-exec"><a class="header-anchor" href="#curl-exec">¶</a>curl_exec()</h4>
+<h4 id="curl-exec"><a class="header-anchor" href="#curl-exec">🍭</a>curl_exec()</h4>
 <pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">curl</span>(<span class="hljs-params">$url</span>)</span>&#123;  
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -252,10 +252,10 @@
 
 $url = $_GET[<span class="hljs-string">&#x27;url&#x27;</span>];
 curl($url);</code></pre>
-<h4 id="file-get-contents"><a class="header-anchor" href="#file-get-contents">¶</a>file_get_contents()</h4>
+<h4 id="file-get-contents"><a class="header-anchor" href="#file-get-contents">🍭</a>file_get_contents()</h4>
 <pre><code class="hljs bash"><span class="hljs-variable">$url</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;url&#x27;</span>];
 <span class="hljs-built_in">echo</span> file_get_contents(<span class="hljs-variable">$url</span>);</code></pre>
-<h4 id="fsockopen"><a class="header-anchor" href="#fsockopen">¶</a>fsockopen()</h4>
+<h4 id="fsockopen"><a class="header-anchor" href="#fsockopen">🍭</a>fsockopen()</h4>
 <pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Getfile</span>(<span class="hljs-params">$host, $port, $link</span>)</span>&#123;
     $fp = fsockopen($host, intval($port), $errno, $errstr, <span class="hljs-number">30</span>);
     <span class="hljs-keyword">if</span>(!$fp)&#123;
@@ -274,23 +274,23 @@ curl($url);</code></pre>
         <span class="hljs-keyword">return</span> $contents;
     &#125;
 &#125;</code></pre>
-<h2 id="漏洞利用"><a class="header-anchor" href="#漏洞利用">¶</a>漏洞利用</h2>
-<h3 id="curl支持"><a class="header-anchor" href="#curl支持">¶</a>curl支持</h3>
+<h2 id="漏洞利用"><a class="header-anchor" href="#漏洞利用">🍭</a>漏洞利用</h2>
+<h3 id="curl支持"><a class="header-anchor" href="#curl支持">🍭</a>curl支持</h3>
 <p><img src="/2021/02/08/SSRF/1.jpg" srcset="/img/loading.gif" alt="1"></p>
-<h3 id="本地利用"><a class="header-anchor" href="#本地利用">¶</a>本地利用</h3>
-<h4 id="file-protocol（任意文件读取）"><a class="header-anchor" href="#file-protocol（任意文件读取）">¶</a>file protocol（任意文件读取）</h4>
+<h3 id="本地利用"><a class="header-anchor" href="#本地利用">🍭</a>本地利用</h3>
+<h4 id="file-protocol（任意文件读取）"><a class="header-anchor" href="#file-protocol（任意文件读取）">🍭</a>file protocol（任意文件读取）</h4>
 <p>file协议可以避免服务端程序对IP进行过滤</p>
 <pre><code class="hljs nginx"><span class="hljs-attribute">curl</span> -vvv <span class="hljs-string">&#x27;file:///etc/passwd&#x27;</span></code></pre>
-<h4 id="gopher-protocol（一键反弹bash）"><a class="header-anchor" href="#gopher-protocol（一键反弹bash）">¶</a>gopher protocol（一键反弹bash）</h4>
+<h4 id="gopher-protocol（一键反弹bash）"><a class="header-anchor" href="#gopher-protocol（一键反弹bash）">🍭</a>gopher protocol（一键反弹bash）</h4>
 <p>gopher可以发送各种请求包（故又称万金油），格式:</p>
 <pre><code class="hljs vbnet">curl -vvv <span class="hljs-comment">&#x27;gopher://<span class="hljs-doctag">&lt;host&gt;</span>:<span class="hljs-doctag">&lt;port&gt;</span>/<span class="hljs-doctag">&lt;gopher-path&gt;</span>&#x27;</span></code></pre>
 <p>详见：<a target="_blank" rel="noopener" href="https://blog.chaitin.cn/gopher-attack-surfaces/">利用 Gopher协议拓展攻击面</a></p>
-<h4 id="dict-protocol-操作redis"><a class="header-anchor" href="#dict-protocol-操作redis">¶</a>dict protocol(操作redis)</h4>
+<h4 id="dict-protocol-操作redis"><a class="header-anchor" href="#dict-protocol-操作redis">🍭</a>dict protocol(操作redis)</h4>
 <p>dict协议是一个字典服务器协议，通常用于让客户端使用过程中能够访问更多的字典源，在SSRF中使用dict协议可以轻易获取目标服务器端口上运行的服务版本等信息。</p>
 <p>格式：</p>
 <pre><code class="hljs vbnet">curl -vvv <span class="hljs-comment">&#x27;dict://<span class="hljs-doctag">&lt;host&gt;</span>:<span class="hljs-doctag">&lt;port&gt;</span>/info&#x27;</span></code></pre>
-<h3 id="远程利用"><a class="header-anchor" href="#远程利用">¶</a>远程利用</h3>
-<h4 id="未作SSRF防御的代码"><a class="header-anchor" href="#未作SSRF防御的代码">¶</a>未作SSRF防御的代码</h4>
+<h3 id="远程利用"><a class="header-anchor" href="#远程利用">🍭</a>远程利用</h3>
+<h4 id="未作SSRF防御的代码"><a class="header-anchor" href="#未作SSRF防御的代码">🍭</a>未作SSRF防御的代码</h4>
 <pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">curl</span>(<span class="hljs-params">$url</span>)</span>&#123;
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
@@ -305,10 +305,10 @@ curl($url);</code></pre>
 <p><strong>利用dict查看端口</strong></p>
 <p><img src="/2021/02/08/SSRF/3.jpg" srcset="/img/loading.gif" alt="3"></p>
 <p>端口未开放时就需要用到gopher协议反弹shell，在reverse shell讲了。</p>
-<h4 id="限制协议的代码"><a class="header-anchor" href="#限制协议的代码">¶</a>限制协议的代码</h4>
+<h4 id="限制协议的代码"><a class="header-anchor" href="#限制协议的代码">🍭</a>限制协议的代码</h4>
 <p><img src="/2021/02/08/SSRF/4.png" srcset="/img/loading.gif" alt="4"></p>
-<h2 id="SSRF绕过"><a class="header-anchor" href="#SSRF绕过">¶</a>SSRF绕过</h2>
-<h4 id="更改ip"><a class="header-anchor" href="#更改ip">¶</a>更改ip</h4>
+<h2 id="SSRF绕过"><a class="header-anchor" href="#SSRF绕过">🍭</a>SSRF绕过</h2>
+<h4 id="更改ip"><a class="header-anchor" href="#更改ip">🍭</a>更改ip</h4>
 <p>开发者对URL参数进行正则匹配过滤内网IP时，我们可以采用改编IP的写法的方式进行绕过，将ip改写：</p>
 <ul>
 <li>8进制格式</li>
@@ -319,11 +319,11 @@ curl($url);</code></pre>
 <li>合并后三位</li>
 </ul>
 <p>改写时各个进制可以混用，访问改写后的IP地址时，Apache会报错，但Nginx、MySQL仍正常工作。</p>
-<h4 id="利用解析URL出现的问题"><a class="header-anchor" href="#利用解析URL出现的问题">¶</a>利用解析URL出现的问题</h4>
+<h4 id="利用解析URL出现的问题"><a class="header-anchor" href="#利用解析URL出现的问题">🍭</a>利用解析URL出现的问题</h4>
 <p>当后端程序对访问的URL进行解析，并将解析出来的地址进行过滤。这时候可能会出现对URL参数解析不当，比如 <code>http://www.baidu.com@192.168.67.129</code>  当后端程序通过不正确的正则表达式，比如解析到http之后到com为止的字符内容时，<a target="_blank" rel="noopener" href="http://xn--URLhostwww-xx2pha710ae15suhwcnmaj19l.baidu.com">会认为访问URL的host为www.baidu.com</a>，但实际上这个URL所请求的内容是192.168.67.129上的</p>
-<h4 id="利用跳转"><a class="header-anchor" href="#利用跳转">¶</a>利用跳转</h4>
+<h4 id="利用跳转"><a class="header-anchor" href="#利用跳转">🍭</a>利用跳转</h4>
 <p>URL的host被正确解析并过滤时，可使用跳转进行绕过，如 <a target="_blank" rel="noopener" href="http://xxx/redirect-to?url=http://192.168.67.129">http://xxx/redirect-to?url=http://192.168.67.129</a> ，但是192.168.67.129可能会被正则表达式过滤，可以通过短地址绕过。常用302跳转和307跳转（reverse shell讲过）</p>
-<h4 id="协议绕过"><a class="header-anchor" href="#协议绕过">¶</a>协议绕过</h4>
+<h4 id="协议绕过"><a class="header-anchor" href="#协议绕过">🍭</a>协议绕过</h4>
 <p>除了上面讲到的file,gopher，dict协议还有以下几种：</p>
 <pre><code class="hljs awk">SFTP:<span class="hljs-regexp">//</span>
 <span class="hljs-number">1</span>.php?url=sftp:<span class="hljs-regexp">//</span>&lt;host&gt;:&lt;port&gt;/
@@ -331,12 +331,12 @@ TFTP:<span class="hljs-regexp">//</span>
 <span class="hljs-number">1</span>.php?url=tftp:<span class="hljs-regexp">//</span>&lt;host&gt;:&lt;port&gt;/TESTUDPPACKET
 LDAP:<span class="hljs-regexp">//</span>
 <span class="hljs-number">1</span>.php?url=ldap:<span class="hljs-regexp">//</span>&lt;host&gt;:&lt;port&gt;/%<span class="hljs-number">0</span>astats%<span class="hljs-number">0</span>aquit</code></pre>
-<h4 id="利用特殊域名"><a class="header-anchor" href="#利用特殊域名">¶</a>利用特殊域名</h4>
+<h4 id="利用特殊域名"><a class="header-anchor" href="#利用特殊域名">🍭</a>利用特殊域名</h4>
 <p>原理是DNS解析</p>
 <pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">67.129</span>.xip.io<span class="hljs-regexp">/   /</span><span class="hljs-regexp">/自动重定向到192.168.67.129</span></code></pre>
-<h4 id="IPv6"><a class="header-anchor" href="#IPv6">¶</a>IPv6</h4>
+<h4 id="IPv6"><a class="header-anchor" href="#IPv6">🍭</a>IPv6</h4>
 <p>有些服务没有考虑IPv6的情况，但是内网又支持IPv6，则可以使用IPv6的本地IP如 <code>[::]</code> <code>0000::1</code> 或IPv6的内网域名来绕过过滤</p>
-<h4 id="IDN"><a class="header-anchor" href="#IDN">¶</a>IDN</h4>
+<h4 id="IDN"><a class="header-anchor" href="#IDN">🍭</a>IDN</h4>
 <p>一些网络访问工具支持国际化域名(特殊字符域名)，指部分或完全使用特殊的文字或字母组成的互联网域名。部分字符会在访问时做一个等价转换</p>
 <pre><code class="hljs avrasm">ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ  &gt;&gt;&gt;  example.com
 <span class="hljs-symbol">such:</span>
@@ -348,9 +348,9 @@ LDAP:<span class="hljs-regexp">//</span>
 ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ 
 ⓪ ⓫ ⓬ ⓭ ⓮ ⓯ ⓰ ⓱ ⓲ ⓳ ⓴ 
 ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾ ⓿</code></pre>
-<h4 id="利用句号"><a class="header-anchor" href="#利用句号">¶</a>利用句号</h4>
+<h4 id="利用句号"><a class="header-anchor" href="#利用句号">🍭</a>利用句号</h4>
 <pre><code class="hljs angelscript"><span class="hljs-number">127</span>。<span class="hljs-number">0</span>。<span class="hljs-number">0</span>。<span class="hljs-number">1</span>  &gt;&gt;&gt;  <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span></code></pre>
-<h4 id="DNS-重绑"><a class="header-anchor" href="#DNS-重绑">¶</a>DNS 重绑</h4>
+<h4 id="DNS-重绑"><a class="header-anchor" href="#DNS-重绑">🍭</a>DNS 重绑</h4>
 <p>用户请求的URL参数时，服务器端会先对其进行DNS解析，再对DNS Server返回的IP地址进行判断，如果在黑名单中，就禁止该次请求。请求DNS服务进行域名解析到服务端请求URL之间存在一个时间差，利用这个时间差，进行DNS重绑定攻击。流程如下:</p>
 <ul>
 <li>服务器端获得URL参数，进行第一次DNS解析，获得了一个非内网的IP</li>
@@ -358,10 +358,10 @@ LDAP:<span class="hljs-regexp">//</span>
 <li>服务器端对于URL进行访问，由于DNS服务器设置的TTL为0，所以再次进行DNS解析，这一次DNS服务器返回的是内网地址。</li>
 <li>由于已经绕过验证，所以服务器端返回访问内网资源的结果。</li>
 </ul>
-<h4 id="利用特殊地址"><a class="header-anchor" href="#利用特殊地址">¶</a>利用特殊地址</h4>
+<h4 id="利用特殊地址"><a class="header-anchor" href="#利用特殊地址">🍭</a>利用特殊地址</h4>
 <pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">0</span>/</code></pre>
 <p><strong>以上绕过方式也可以组合进行绕过</strong></p>
-<h2 id="防御方式"><a class="header-anchor" href="#防御方式">¶</a>防御方式</h2>
+<h2 id="防御方式"><a class="header-anchor" href="#防御方式">🍭</a>防御方式</h2>
 <ul>
 <li>过滤返回的信息</li>
 <li>限制协议为HTTP，HTTPS</li>

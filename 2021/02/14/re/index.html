@@ -227,12 +227,12 @@
             <h1 style="display: none">PHP反序列化漏洞</h1>
             
             <div class="markdown-body">
-              <h2 id="php面向对象编程："><a class="header-anchor" href="#php面向对象编程：">¶</a>php面向对象编程：</h2>
+              <h2 id="php面向对象编程："><a class="header-anchor" href="#php面向对象编程：">🍭</a>php面向对象编程：</h2>
 <ul>
 <li>对象：可以对其做事情的一些东西。一个对象有<strong>状态、行为和标识</strong>三种属性。</li>
 <li>类：一个共享相同结构和行为的对象的集合。每个类的定义都以关键字class开头，后面跟着类的名字。一个类可以包含有属于自己的变量，变量（称为“属性”）以及函数（“称为方法”）类定义了一件事物的抽象特点。</li>
 </ul>
-<h2 id="序列化"><a class="header-anchor" href="#序列化">¶</a>序列化</h2>
+<h2 id="序列化"><a class="header-anchor" href="#序列化">🍭</a>序列化</h2>
 <p>将一个对象、数组、字符串等转化为字节流便于传输。序列化的目的是方便数据的传输和存储,但序列化不保存方法。</p>
 <p><strong>serialize()</strong></p>
 <p>把一个对象变成可以传输的字符串，该函数会先检查类中是否存在一个魔术方法 <code>__sleep()</code>,如果存在，<code>__sleep()</code>方法会先被调用，然后才执行序列化操作,可以在<code>__sleep()</code>方法里可以决定哪些属性被序列化。先写个代码测试一下</p>
@@ -258,11 +258,11 @@
 <li><code>protected</code>,被序列化的时候属性值会变成%00*%00属性名</li>
 <li><code>private</code>,被序列化的时候属性值会变成%00类名%00属性名</li>
 </ul>
-<h2 id="反序列化"><a class="header-anchor" href="#反序列化">¶</a>反序列化</h2>
+<h2 id="反序列化"><a class="header-anchor" href="#反序列化">🍭</a>反序列化</h2>
 <p>将序列化之后的字节流还原成对象、字符、数组等.</p>
 <p><strong>unserialize ()</strong></p>
 <p>unserialize() 会检查是否存在一个<code> __wakeup()</code>魔术方法，如果存在则会先调用<code>__wakeup()</code>方法在进行反序列化可以再__wakeup()方法中对属性进行初始化或者改变。</p>
-<h2 id="PHP反序列化漏洞"><a class="header-anchor" href="#PHP反序列化漏洞">¶</a>PHP反序列化漏洞</h2>
+<h2 id="PHP反序列化漏洞"><a class="header-anchor" href="#PHP反序列化漏洞">🍭</a>PHP反序列化漏洞</h2>
 <p>PHP反序列化漏洞又称PHP对象注入。在反序列化时，如果反序列化对象中存在魔法函数，使用unserialize()函数同时也会触发。一旦我们能够控制unserialize()入口，就可能引发对象注入漏洞。</p>
 <p><strong>魔术方法：</strong></p>
 <ul>
@@ -290,8 +290,8 @@
 <p>测试结果</p>
 <img src="/2021/02/14/re/4.jpg" srcset="/img/loading.gif" alt="4" style="zoom:67%;">
 <p>由结果可以看出各函数的执行顺序。</p>
-<h2 id="漏洞利用"><a class="header-anchor" href="#漏洞利用">¶</a>漏洞利用</h2>
-<h4 id="wakeup-直接利用"><a class="header-anchor" href="#wakeup-直接利用">¶</a>__wakeup()直接利用</h4>
+<h2 id="漏洞利用"><a class="header-anchor" href="#漏洞利用">🍭</a>漏洞利用</h2>
+<h4 id="wakeup-直接利用"><a class="header-anchor" href="#wakeup-直接利用">🍭</a>__wakeup()直接利用</h4>
 <p>当一些漏洞/危害代码在<code>__wakeup() </code>中时，我们可以通过控制序列化字符串直接触发它们。</p>
 <p><img src="/2021/02/14/re/5.png" srcset="/img/loading.gif" alt="5"></p>
 <p>测试：</p>
@@ -301,7 +301,7 @@
 <p><img src="/2021/02/14/re/7.png" srcset="/img/loading.gif" alt="7"></p>
 <p>执行结果：</p>
 <img src="/2021/02/14/re/8.jpg" srcset="/img/loading.gif" alt="8" style="zoom:67%;">
-<h4 id="wakeup-绕过"><a class="header-anchor" href="#wakeup-绕过">¶</a>__wakeup( )绕过</h4>
+<h4 id="wakeup-绕过"><a class="header-anchor" href="#wakeup-绕过">🍭</a>__wakeup( )绕过</h4>
 <p>多数情况下代码无法放入wakeup利用，这时候就要考虑绕过它。反序列化时，<strong>如果表示对象属性个数的值大于真实的属性个数时就会跳过__wakeup( )的执行。</strong></p>
 <p>举个简单的例子</p>
 <pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
@@ -316,7 +316,7 @@
 <span class="hljs-comment">//?code=</span>
 <span class="hljs-meta">?&gt;</span></code></pre>
 <p>序列化得到<code>O:4:&quot;xctf&quot;:1:&#123;s:4:&quot;flag&quot;;s:3:&quot;111&quot;;&#125;</code>,直接输入显然不行，需将1改为2（大于一的数皆可）从而绕过wakeup.</p>
-<h4 id="构造-POP-链（同名方法利用）"><a class="header-anchor" href="#构造-POP-链（同名方法利用）">¶</a>构造 POP 链（同名方法利用）</h4>
+<h4 id="构造-POP-链（同名方法利用）"><a class="header-anchor" href="#构造-POP-链（同名方法利用）">🍭</a>构造 POP 链（同名方法利用）</h4>
 <p>PHP 反序列化条件：</p>
 <ul>
 <li><strong>unserialize()</strong> 参数值可控（还可以是 phar 协议）</li>
@@ -341,7 +341,7 @@
 <p>执行结果：</p>
 <img src="/2021/02/14/re/10.jpg" srcset="/img/loading.gif" alt="10" style="zoom: 50%;">
 <p>参考：<a target="_blank" rel="noopener" href="http://aiyuanzhen.com/index.php/archives/346/#menu_index_15">浅析 PHP 反序列化漏洞的利用与审计</a></p>
-<h4 id="Session反序列化漏洞"><a class="header-anchor" href="#Session反序列化漏洞">¶</a>Session反序列化漏洞</h4>
+<h4 id="Session反序列化漏洞"><a class="header-anchor" href="#Session反序列化漏洞">🍭</a>Session反序列化漏洞</h4>
 <p>相关配置:</p>
 <p>PHP中的Session经序列化后存储，读取时再进行反序列化</p>
 <ul>
@@ -371,7 +371,7 @@ $_SESSION[<span class="hljs-string">&#x27;test&#x27;</span>]=$_GET[<span class="
 </ul>
 <p>不同处理器的格式不同，当不同页面使用了不同的处理器时，由于处理的Session序列化格式不同，就可能产生反序列化漏洞。</p>
 <p>思路：我们可以分别写两个代码，两个代码运用不同的序列化处理器处理相同的类来误导”处理器。</p>
-<h2 id="PHAR利用"><a class="header-anchor" href="#PHAR利用">¶</a>PHAR利用</h2>
+<h2 id="PHAR利用"><a class="header-anchor" href="#PHAR利用">🍭</a>PHAR利用</h2>
 <p>PHAR (“<code>Php ARchive</code>”) 是PHP里类似于JAR的一种打包文件，这个特性使得  PHP也可以像 Java 一样方便地实现应用程序打包和组件化。一个应用程序可以打成一个 Phar 包，直接放到 PHP-FPM 中运行</p>
 <p>phar详见:<a target="_blank" rel="noopener" href="https://www.webhek.com/post/packaging-your-php-apps-with-phar.html">PHP开发常识：什么是Phar?</a>这里简单介绍一下。</p>
 <p><strong>PHAR文件结构</strong></p>
@@ -388,7 +388,7 @@ $_SESSION[<span class="hljs-string">&#x27;test&#x27;</span>]=$_GET[<span class="
 <p>2.访问phar.php，在同目录下生成phar.phar文件</p>
 <p>3.编写代码利用phar://解析<code>Meta-data</code></p>
 <p>4.添加文件头、修改后缀的方式绕过上传检测(PHP仅通过stub部分判断文件是否为PHAR文件)</p>
-<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
+<h2 id="总结"><a class="header-anchor" href="#总结">🍭</a>总结</h2>
 <p>多实战，本文还是偏理论，还要多思考如何编写可以骗过安全检测软件的🐎~</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2202">PHP反序列化漏洞与Webshell</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ichunqiu/p/10484832.html">实战经验丨PHP反序列化漏洞总结</a></p>

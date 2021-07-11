@@ -276,23 +276,23 @@
 </ul>
 </li>
 </ul>
-<h2 id="Python解释器"><a class="header-anchor" href="#Python解释器">¶</a>Python解释器</h2>
-<h4 id="交互式编程"><a class="header-anchor" href="#交互式编程">¶</a>交互式编程</h4>
+<h2 id="Python解释器"><a class="header-anchor" href="#Python解释器">🍭</a>Python解释器</h2>
+<h4 id="交互式编程"><a class="header-anchor" href="#交互式编程">🍭</a>交互式编程</h4>
 <p>需要打开 cmd 窗口（命令提示符窗口），在窗口中键入<code>python</code>,回车，进入了交互式编程，此时我们直接输入 python 语句，就可以得到运行的结果。</p>
-<h4 id="脚本式编程"><a class="header-anchor" href="#脚本式编程">¶</a>脚本式编程</h4>
+<h4 id="脚本式编程"><a class="header-anchor" href="#脚本式编程">🍭</a>脚本式编程</h4>
 <p>先把 python 语句写好，保存在后缀为 .py 的文件里，然后从外部调用这个文件。它也可以使用 cmd 窗口进行调用，<strong>与交互式编程不同的是，不能在cmd窗口内输入python加回车来进入交互模式</strong>。</p>
-<h2 id="基本数据类型"><a class="header-anchor" href="#基本数据类型">¶</a>基本数据类型</h2>
-<h4 id="多个变量赋值"><a class="header-anchor" href="#多个变量赋值">¶</a>多个变量赋值</h4>
+<h2 id="基本数据类型"><a class="header-anchor" href="#基本数据类型">🍭</a>基本数据类型</h2>
+<h4 id="多个变量赋值"><a class="header-anchor" href="#多个变量赋值">🍭</a>多个变量赋值</h4>
 <p>python可实现多个变量赋值</p>
 <pre><code class="hljs nix"><span class="hljs-attr">a</span> = <span class="hljs-attr">b</span> = <span class="hljs-attr">c</span> = <span class="hljs-number">1</span></code></pre>
 <p>or</p>
 <pre><code class="hljs apache"><span class="hljs-attribute">a</span>, b, c = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&quot;blackpink&quot;</span></code></pre>
-<h2 id="标准数据类型"><a class="header-anchor" href="#标准数据类型">¶</a>标准数据类型</h2>
+<h2 id="标准数据类型"><a class="header-anchor" href="#标准数据类型">🍭</a>标准数据类型</h2>
 <ul>
 <li>**不可变数据（3 个）：**Number（数字）、String（字符串）、Tuple（元组）；</li>
 <li>**可变数据（3 个）：**List（列表）、Dictionary（字典）、Set（集合）。</li>
 </ul>
-<h4 id="Number"><a class="header-anchor" href="#Number">¶</a>Number</h4>
+<h4 id="Number"><a class="header-anchor" href="#Number">🍭</a>Number</h4>
 <p>有int、float、bool、complex</p>
 <p>type() 函数可以用来查询变量所指的对象类型。</p>
 <pre><code class="hljs haskell">&gt;&gt;&gt; a, b, c, d = <span class="hljs-number">20</span>, <span class="hljs-number">9.5</span>, <span class="hljs-type">True</span>, <span class="hljs-number">5</span>+<span class="hljs-number">6</span>j
@@ -304,7 +304,7 @@
 Flase
 <span class="hljs-meta">&gt;&gt;</span>&gt;</code></pre>
 <p>数值的除法包含两个运算符：<strong>/</strong> 返回一个浮点数，<strong>//</strong> 返回一个整数。在混合计算时，Python会把整型转换成为浮点数。</p>
-<h4 id="String"><a class="header-anchor" href="#String">¶</a>String</h4>
+<h4 id="String"><a class="header-anchor" href="#String">🍭</a>String</h4>
 <p>字符串用单引号 <strong>’</strong> 或双引号 <strong>&quot;</strong> 括起来，同时使用反斜杠 \转义特殊字符。</p>
 <p>字符串截取的语法格式如下：</p>
 <pre><code class="hljs css">变量<span class="hljs-selector-attr">[头下标:尾下标]</span></code></pre>
@@ -327,7 +327,7 @@ Flase
 <span class="hljs-keyword">blackpinkblackpink</span>
 <span class="hljs-keyword">blackpinkTEST</span></code></pre>
 <p>Python 使用反斜杠<code> \</code> 转义特殊字符，如不让反斜杠发生转义，可在字符串前面添加一个 <code>r</code>，表示原始字符串,反斜杠<code>\</code>可以作为续行符，表示下一行是上一行的延续;也可以使用 <strong>“”“…”“”</strong> 或者 <strong>‘’‘…’‘’</strong> 跨越多行。</p>
-<h4 id="List"><a class="header-anchor" href="#List">¶</a>List</h4>
+<h4 id="List"><a class="header-anchor" href="#List">🍭</a>List</h4>
 <p>列表是写在方括号 <strong>[]</strong> 之间用逗号分隔开的元素列表。列表同样可以被索引和截取，列表被截取后返回一个包含所需元素的新列表，语法与string相同。</p>
 <pre><code class="hljs livescript"><span class="hljs-keyword">list</span> = [ <span class="hljs-string">&#x27;abcd&#x27;</span>, <span class="hljs-number">365</span> , <span class="hljs-number">2.83</span>, <span class="hljs-string">&#x27;blackpink&#x27;</span>, <span class="hljs-number">89.2</span> ]
 tinylist = [<span class="hljs-number">123</span>, <span class="hljs-string">&#x27;blackpink&#x27;</span>]
@@ -355,7 +355,7 @@ abcd
 [<span class="hljs-string">&#x27;h&#x27;</span>,<span class="hljs-string">&#x27;c&#x27;</span>]</code></pre>
 <p>如果第三个参数为负数表示逆向读取</p>
 <p>inputWords[-1::-1] 有三个参数， 第一个参数 -1 表示最后一个元素， 第二个参数为空，表示移动到列表末尾，第三个参数为步长，-1 表示逆向。</p>
-<h4 id="Tuple"><a class="header-anchor" href="#Tuple">¶</a>Tuple</h4>
+<h4 id="Tuple"><a class="header-anchor" href="#Tuple">🍭</a>Tuple</h4>
 <p>tuple的元素不能修改,但可以对元组进行连接组合，</p>
 <pre><code class="hljs smali">tup3 = tup1 + tup2</code></pre>
 <p>元组应写在小括号 <strong>()</strong> 里，元素之间用逗号隔开,元组中的元素类型也可以不相同。</p>
@@ -364,7 +364,7 @@ abcd
 <p>特殊情况:</p>
 <pre><code class="hljs ini"><span class="hljs-attr">tup1</span> = ()    <span class="hljs-comment"># 空元组</span>
 <span class="hljs-attr">tup2</span> = (<span class="hljs-number">20</span>,) <span class="hljs-comment"># 一个元素，需要在元素后添加逗号</span></code></pre>
-<h4 id="Set"><a class="header-anchor" href="#Set">¶</a>Set</h4>
+<h4 id="Set"><a class="header-anchor" href="#Set">🍭</a>Set</h4>
 <p>使用大括号 <strong>{ }</strong> 或者 <strong>set()</strong> 函数创建集合,<strong>创建一个空集合必须用 <code>set()</code>而不是 <code>&#123; &#125;</code>，因<code>&#123; &#125;</code> 是用来创建一个空字典。</strong></p>
 <pre><code class="hljs bash">b = <span class="hljs-built_in">set</span>(<span class="hljs-string">&#x27;blackpink&#x27;</span>)
 a = <span class="hljs-built_in">set</span>(<span class="hljs-string">&#x27;blackpink in your area&#x27;</span>)
@@ -384,13 +384,13 @@ a = <span class="hljs-built_in">set</span>(<span class="hljs-string">&#x27;black
 &#123;&#x27;e&#x27;, &#x27;u&#x27;, &#x27;l&#x27;, &#x27;o&#x27;, &#x27;y&#x27;, &#x27;p&#x27;, &#x27;i&#x27;, &#x27;n&#x27;, &#x27;k&#x27;, &#x27;a&#x27;, &#x27;r&#x27;, &#x27;b&#x27;, &#x27; &#x27;, &#x27;c&#x27;&#125;
 &#123;&#x27;n&#x27;, &#x27;k&#x27;, &#x27;a&#x27;, &#x27;b&#x27;, &#x27;l&#x27;, &#x27;c&#x27;, &#x27;p&#x27;, &#x27;i&#x27;&#125;
 &#123;&#x27;y&#x27;, &#x27;e&#x27;, &#x27;r&#x27;, &#x27;u&#x27;, &#x27;o&#x27;, &#x27; &#x27;&#125;</code></pre>
-<h4 id="添加元素"><a class="header-anchor" href="#添加元素">¶</a>添加元素</h4>
+<h4 id="添加元素"><a class="header-anchor" href="#添加元素">🍭</a>添加元素</h4>
 <p>语法:</p>
 <pre><code class="hljs sas">s.<span class="hljs-meta">add</span>( <span class="hljs-meta">x</span> ) <span class="hljs-meta">or</span> s.u<span class="hljs-meta">pdate(</span> <span class="hljs-meta">x</span> )</code></pre>
-<h4 id="移除元素"><a class="header-anchor" href="#移除元素">¶</a>移除元素</h4>
+<h4 id="移除元素"><a class="header-anchor" href="#移除元素">🍭</a>移除元素</h4>
 <p>语法:</p>
 <pre><code class="hljs sas">s.<span class="hljs-meta">remove</span>( <span class="hljs-meta">x</span> ) <span class="hljs-meta">or</span> s.discard( <span class="hljs-meta">x</span> )</code></pre>
-<h4 id="清空集合"><a class="header-anchor" href="#清空集合">¶</a>清空集合</h4>
+<h4 id="清空集合"><a class="header-anchor" href="#清空集合">🍭</a>清空集合</h4>
 <p>语法:</p>
 <pre><code class="hljs arduino">s.<span class="hljs-built_in">clear</span>()</code></pre>
 <p>字典是一种映射类型，字典用 <strong>{ }</strong> 标识，它是一个无序的 <strong>键(key) : 值(value)</strong> 的集合。键(key)必须使用不可变类型。在同一个字典中，键(key)必须是唯一的，值则不用。</p>
@@ -399,12 +399,12 @@ a = <span class="hljs-built_in">set</span>(<span class="hljs-string">&#x27;black
 <span class="hljs-keyword">dict.clear() </span>    <span class="hljs-comment"># 清空字典</span>
 del <span class="hljs-keyword">dict </span>        <span class="hljs-comment"># 删除字典</span></code></pre>
 <p><strong>不允许同一个键出现两次。创建时如果同一个键被赋值两次，后一个值会被记住</strong></p>
-<h4 id="无限极嵌套"><a class="header-anchor" href="#无限极嵌套">¶</a>无限极嵌套</h4>
+<h4 id="无限极嵌套"><a class="header-anchor" href="#无限极嵌套">🍭</a>无限极嵌套</h4>
 <p>查询语法：</p>
 <pre><code class="hljs isbl"><span class="hljs-variable">for</span> <span class="hljs-variable">i</span> <span class="hljs-variable"><span class="hljs-keyword">in</span></span> 类别[<span class="hljs-string">&#x27;&#x27;</span>]:
     <span class="hljs-function"><span class="hljs-title">print</span>(<span class="hljs-variable">i</span>)</span></code></pre>
-<h2 id="Python-运算符"><a class="header-anchor" href="#Python-运算符">¶</a>Python 运算符</h2>
-<h4 id="成员运算符"><a class="header-anchor" href="#成员运算符">¶</a>成员运算符</h4>
+<h2 id="Python-运算符"><a class="header-anchor" href="#Python-运算符">🍭</a>Python 运算符</h2>
+<h4 id="成员运算符"><a class="header-anchor" href="#成员运算符">🍭</a>成员运算符</h4>
 <table>
 <thead>
 <tr>
@@ -426,7 +426,7 @@ del <span class="hljs-keyword">dict </span>        <span class="hljs-comment"># 
 </tr>
 </tbody>
 </table>
-<h4 id="身份运算符"><a class="header-anchor" href="#身份运算符">¶</a>身份运算符</h4>
+<h4 id="身份运算符"><a class="header-anchor" href="#身份运算符">🍭</a>身份运算符</h4>
 <table>
 <thead>
 <tr>
@@ -448,7 +448,7 @@ del <span class="hljs-keyword">dict </span>        <span class="hljs-comment"># 
 </tr>
 </tbody>
 </table>
-<h4 id="运算符优先级"><a class="header-anchor" href="#运算符优先级">¶</a>运算符优先级</h4>
+<h4 id="运算符优先级"><a class="header-anchor" href="#运算符优先级">🍭</a>运算符优先级</h4>
 <table>
 <thead>
 <tr>
@@ -511,8 +511,8 @@ del <span class="hljs-keyword">dict </span>        <span class="hljs-comment"># 
 </tr>
 </tbody>
 </table>
-<h2 id="数字"><a class="header-anchor" href="#数字">¶</a>数字</h2>
-<h4 id="数字类型转换"><a class="header-anchor" href="#数字类型转换">¶</a>数字类型转换</h4>
+<h2 id="数字"><a class="header-anchor" href="#数字">🍭</a>数字</h2>
+<h4 id="数字类型转换"><a class="header-anchor" href="#数字类型转换">🍭</a>数字类型转换</h4>
 <ul>
 <li><strong>int(x)</strong> 将x转换为一个整数。</li>
 <li><strong>float(x)</strong> 将x转换到一个浮点数。</li>
@@ -520,26 +520,26 @@ del <span class="hljs-keyword">dict </span>        <span class="hljs-comment"># 
 <li><strong>complex(x, y)</strong> 将 x 和 y 转换到一个复数，实数部分为 x，虚数部分为 y。x 和 y 是数字表达式。</li>
 </ul>
 <p>在整数除法中，除法 <strong>/</strong> 总是返回一个浮点数，如果只想得到整数的结果，丢弃可能的分数部分，可以使用运算符 <strong>//</strong> 。但**//** 得到的并不一定是整数类型的数，它与分母分子的数据类型有关系。</p>
-<h4 id="round（浮点数存储有点奇怪）"><a class="header-anchor" href="#round（浮点数存储有点奇怪）">¶</a>round（浮点数存储有点奇怪）</h4>
+<h4 id="round（浮点数存储有点奇怪）"><a class="header-anchor" href="#round（浮点数存储有点奇怪）">🍭</a>round（浮点数存储有点奇怪）</h4>
 <pre><code class="hljs gauss"><span class="hljs-keyword">print</span>(<span class="hljs-built_in">round</span>(<span class="hljs-number">10.4</span>)) <span class="hljs-meta">#10</span>
 <span class="hljs-keyword">print</span>(<span class="hljs-built_in">round</span>(<span class="hljs-number">10.5</span>)) <span class="hljs-meta">#10</span>
 <span class="hljs-keyword">print</span>(<span class="hljs-built_in">round</span>(<span class="hljs-number">10.6</span>)) <span class="hljs-meta">#11</span></code></pre>
 <p>当个位为奇数，小数部分&gt;=0.5入，其余为舍;当个位为偶数，小数部分&gt;0.5入，其余为舍。</p>
-<h4 id="和-的不同"><a class="header-anchor" href="#和-的不同">¶</a><strong>+=</strong> 和 <strong>=+</strong> 的不同</h4>
+<h4 id="和-的不同"><a class="header-anchor" href="#和-的不同">🍭</a><strong>+=</strong> 和 <strong>=+</strong> 的不同</h4>
 <pre><code class="hljs ruby"><span class="hljs-meta">&gt;&gt;</span>&gt; a = <span class="hljs-number">5</span>
 <span class="hljs-meta">&gt;&gt;</span>&gt; a += <span class="hljs-number">6</span> <span class="hljs-comment">#与a=a+6效果相同</span>
 <span class="hljs-meta">&gt;&gt;</span>&gt; a
 <span class="hljs-number">11</span></code></pre>
 <p>对比</p>
 <pre><code class="hljs angelscript">&gt;&gt;&gt; b = +<span class="hljs-number">6</span>  # 其实就是正数，是一个赋值操作，+ <span class="hljs-number">6</span> 即为 +<span class="hljs-number">6</span>，+<span class="hljs-number">6</span> 为 <span class="hljs-number">6</span></code></pre>
-<h2 id="Python-字符串"><a class="header-anchor" href="#Python-字符串">¶</a>Python 字符串</h2>
-<h4 id="字符串更新"><a class="header-anchor" href="#字符串更新">¶</a>字符串更新</h4>
+<h2 id="Python-字符串"><a class="header-anchor" href="#Python-字符串">🍭</a>Python 字符串</h2>
+<h4 id="字符串更新"><a class="header-anchor" href="#字符串更新">🍭</a>字符串更新</h4>
 <pre><code class="hljs routeros">var1 = <span class="hljs-string">&#x27;Hello world!&#x27;</span>
  
 <span class="hljs-builtin-name">print</span> (<span class="hljs-string">&quot;已更新字符串 : &quot;</span>, var1[:6] + <span class="hljs-string">&#x27;blackpink!&#x27;</span>)</code></pre>
 <p>输出如下：</p>
 <pre><code class="hljs ada">已更新字符串 :  <span class="hljs-type">Hello</span> blackpink!</code></pre>
-<h4 id="三引号"><a class="header-anchor" href="#三引号">¶</a>三引号</h4>
+<h4 id="三引号"><a class="header-anchor" href="#三引号">🍭</a>三引号</h4>
 <p>允许一个字符串跨多行，字符串中可以包含换行符、制表符以及其他特殊字符。</p>
 <pre><code class="hljs python">para_str = <span class="hljs-string">&quot;&quot;&quot;心如花木</span>
 <span class="hljs-string">向阳而生</span>

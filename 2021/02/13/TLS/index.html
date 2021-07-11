@@ -227,7 +227,7 @@
             <h1 style="display: none">TLS</h1>
             
             <div class="markdown-body">
-              <h2 id="三次握手"><a class="header-anchor" href="#三次握手">¶</a>三次握手</h2>
+              <h2 id="三次握手"><a class="header-anchor" href="#三次握手">🍭</a>三次握手</h2>
 <p>对每次发送的数据量进行跟踪与协商，确保数据段的发送和接收同步，根据所接收到的数据量而确认数据发送、接收完毕后何时撤消联系，并建立虚连接。</p>
 <p>TCP是一种面向连接的单播协议，在发送数据前，通信双方必须在彼此间建立一条连接。所谓的“连接”，其实是客户端和服务器的内存里保存的一份关于对方的信息，如ip地址、端口号等。</p>
 <p>第一次：建立连接时，客户端发送syn包（seq=j）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）</p>
@@ -244,7 +244,7 @@
 <p><img src="/2021/02/13/TLS/1.jpg" srcset="/img/loading.gif" alt="1"></p>
 <p><code>14.215.177.39</code>是百度的服务器</p>
 <img src="/2021/02/13/TLS/2.jpg" srcset="/img/loading.gif" alt="2" style="zoom:67%;">
-<h2 id="四次挥手"><a class="header-anchor" href="#四次挥手">¶</a>四次挥手</h2>
+<h2 id="四次挥手"><a class="header-anchor" href="#四次挥手">🍭</a>四次挥手</h2>
 <p>连接终止协议。TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个  FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭</p>
 <ol>
 <li>

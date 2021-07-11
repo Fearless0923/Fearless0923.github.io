@@ -227,8 +227,12 @@
             <h1 style="display: none">DVWA||Brute Force</h1>
             
             <div class="markdown-body">
-              <h1 id="dvwa"><a href="#dvwa" class="headerlink" title="dvwa"></a>dvwa</h1><h2 id="Brute-Force"><a href="#Brute-Force" class="headerlink" title="Brute Force"></a>Brute Force</h2><h4 id="low"><a href="#low" class="headerlink" title="low"></a>low</h4><h3 id="暴力破解，查看源代码："><a href="#暴力破解，查看源代码：" class="headerlink" title="暴力破解，查看源代码："></a>暴力破解，查看源代码：</h3><p><img src="/2020/12/26/dvwa%E4%BA%8C/2.jpg" srcset="/img/loading.gif" alt="2"></p>
-<p>它的select语句没有什么过滤，可以尝试sql注入构造<code>admin&#39;#</code>密码为空：</p>
+              <h1>dvwa</h1>
+<h2 id="Brute-Force"><a class="header-anchor" href="#Brute-Force">🍭</a>Brute Force</h2>
+<h4 id="low"><a class="header-anchor" href="#low">🍭</a>low</h4>
+<h3 id="暴力破解，查看源代码："><a class="header-anchor" href="#暴力破解，查看源代码：">🍭</a>暴力破解，查看源代码：</h3>
+<p><img src="/2020/12/26/dvwa%E4%BA%8C/2.jpg" srcset="/img/loading.gif" alt="2"></p>
+<p>它的select语句没有什么过滤，可以尝试sql注入构造<code>admin'#</code>密码为空：</p>
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/3.jpg" srcset="/img/loading.gif" alt="3"></p>
 <p>成功~~但这关标题为暴力破解，所以要按暴力破解做一遍：</p>
 <p>抓包,发到intruder,先clear ，选中要爆破字段,添加：</p>
@@ -241,46 +245,51 @@
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/4.jpg" srcset="/img/loading.gif" alt="4"></p>
 <p>length可以对响应包的长度进行排序，找最大或最小的值（<strong>响应报文不一样，密码正确和错误返回的不是同一个响应报文，其长度一般都不同，故找出不同的一项，就可以找出正确的一项</strong>)然后看这个HTTP请求的响应报文：</p>
 <img src="/2020/12/26/dvwa%E4%BA%8C/8.jpg" srcset="/img/loading.gif" alt="8" style="zoom:50%;">
-
 <p>报文中<code>welcome to the password protected area admin</code>表示成功登录。</p>
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/9.jpg" srcset="/img/loading.gif" alt="9"></p>
-<h3 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h3><p>查看源码:</p>
+<h3 id="medium"><a class="header-anchor" href="#medium">🍭</a>medium</h3>
+<p>查看源码:</p>
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/10.jpg" srcset="/img/loading.gif" alt="10"></p>
 <p>对传过来的值，使用了 <code>mysql_real_escape_string()</code> 函数，转义了以下字符：</p>
 <pre><code class="hljs text">\x00 \n \r \ &#x27; &quot; \x1a</code></pre>
-
 <p>还使用了sleep(2)在密码错误的时候延时两秒：</p>
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/11.jpg" srcset="/img/loading.gif" alt="11"></p>
 <p>与low等级类似，但转义了很多字符不能再用SQL注入，暴力破解与前面操作一样。</p>
-<h3 id="high"><a href="#high" class="headerlink" title="high"></a>high</h3><p>查看源码：</p>
+<h3 id="high"><a class="header-anchor" href="#high">🍭</a>high</h3>
+<p>查看源码：</p>
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/22.jpg" srcset="/img/loading.gif" alt="22"></p>
 <p>发现登录验证时提交了username、password、login、user_token参数，服务器返回登陆页面时包含一个随机的user_token的值，每次登录时都要将user_token一起提交。服务器收到请求后，会先验证token，再进行sql查询。本关还使用了<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_string_stripslashes.asp">stripslashes</a>函数（去除字符串中的反斜线字符,如果有两个连续的反斜线,则只去掉一个），<code> mysql_real_escape_string</code>对参数username、password进行过滤、转义,抵御sql注入。还是使用抓包，等学会python再用脚本做一遍。</p>
-<h4 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h4><p>burp suite 有四种攻击模式，之前讲到的抓包中都使用狙击手模式，因为只需爆破一个位置，本关需要两个爆破位置故选择草叉模式（草叉模式允许使用多组payload组合，在每个标记位置上遍历所有payload组合)关于攻击模式详细看教程：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/diligenceday/p/12316899.html">攻击模式</a></p>
-<h4 id="设置变量"><a href="#设置变量" class="headerlink" title="设置变量"></a>设置变量</h4><h4 id><a href="#" class="headerlink" title></a><img src="/2020/12/26/dvwa%E4%BA%8C/12.jpg" srcset="/img/loading.gif" alt="12"></h4><h4 id="设置线程"><a href="#设置线程" class="headerlink" title="设置线程"></a>设置线程</h4><p>因为草叉模式只允许单线程，故线程要设为一。</p>
-<h4 id="设置options"><a href="#设置options" class="headerlink" title="设置options"></a>设置options</h4><p>Grep-Extract提取响应消息中的有用信息，添加设置：</p>
+<h4 id="抓包"><a class="header-anchor" href="#抓包">🍭</a>抓包</h4>
+<p>burp suite 有四种攻击模式，之前讲到的抓包中都使用狙击手模式，因为只需爆破一个位置，本关需要两个爆破位置故选择草叉模式（草叉模式允许使用多组payload组合，在每个标记位置上遍历所有payload组合)关于攻击模式详细看教程：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/diligenceday/p/12316899.html">攻击模式</a></p>
+<h4 id="设置变量"><a class="header-anchor" href="#设置变量">🍭</a>设置变量</h4>
+<h4 id="12"><a class="header-anchor" href="#12">🍭</a><img src="/2020/12/26/dvwa%E4%BA%8C/12.jpg" srcset="/img/loading.gif" alt="12"></h4>
+<h4 id="设置线程"><a class="header-anchor" href="#设置线程">🍭</a>设置线程</h4>
+<p>因为草叉模式只允许单线程，故线程要设为一。</p>
+<h4 id="设置options"><a class="header-anchor" href="#设置options">🍭</a>设置options</h4>
+<p>Grep-Extract提取响应消息中的有用信息，添加设置：</p>
 <img src="/2020/12/26/dvwa%E4%BA%8C/15.jpg" srcset="/img/loading.gif" alt="15" style="zoom:50%;">
-
 <p>选中value值表示每次从响应中获得该值，将Redirections设置为Always。</p>
-<h4 id="设置payloads"><a href="#设置payloads" class="headerlink" title="设置payloads"></a>设置payloads</h4><p>第一个参数不再赘述</p>
+<h4 id="设置payloads"><a class="header-anchor" href="#设置payloads">🍭</a>设置payloads</h4>
+<p>第一个参数不再赘述</p>
 <img src="/2020/12/26/dvwa%E4%BA%8C/5-1610728925860.jpg" srcset="/img/loading.gif" alt="5" style="zoom:50%;">
-
 <p>第二个参数</p>
 <img src="/2020/12/26/dvwa%E4%BA%8C/14.jpg" srcset="/img/loading.gif" alt="14" style="zoom:50%;">
-
 <p>红线部分为options中复制的token值。</p>
-<h4 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h4><p><img src="/2020/12/26/dvwa%E4%BA%8C/13.jpg" srcset="/img/loading.gif" alt="13"></p>
-<h3 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h3><p>这个源代码有点复杂：</p>
+<h4 id="爆破"><a class="header-anchor" href="#爆破">🍭</a>爆破</h4>
+<p><img src="/2020/12/26/dvwa%E4%BA%8C/13.jpg" srcset="/img/loading.gif" alt="13"></p>
+<h3 id="impossible"><a class="header-anchor" href="#impossible">🍭</a>impossible</h3>
+<p>这个源代码有点复杂：</p>
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/16.jpg" srcset="/img/loading.gif" alt="16"></p>
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/17.jpg" srcset="/img/loading.gif" alt="17"><img src="/2020/12/26/dvwa%E4%BA%8C/18.jpg" srcset="/img/loading.gif" alt="18"></p>
-<p>本关一样有token值，但是两个级别最外层的爆破在通过字典尝试不同口令的时候，high只要发POST请求报文，就能从对应的响应报文拿到下次再发POST请求报文时需要用到的user_token。<strong>但impossible只有先发送GET方式的请求报文，才能获取到服务器发回来的一次性user_token。</strong>而GET方式的请求报文，无法提交爆破参数，只能通过POST方式的请求报文来提交爆破所用到的参数，所以需要在BurpSuite里建立一个宏来反复进行操作。</p>
-<h4 id="建立宏"><a href="#建立宏" class="headerlink" title="建立宏"></a>建立宏</h4><p>直接对dvwa靶机的登录界面进行破解，在project options的sessions中添加Macros。</p>
+<p>本关一样有token值，但是两个级别最外层的爆破在通过字典尝试不同口令的时候，high只要发POST请求报文，就能从对应的响应报文拿到下次再发POST请求报文时需要用到的user_token。**但impossible只有先发送GET方式的请求报文，才能获取到服务器发回来的一次性user_token。**而GET方式的请求报文，无法提交爆破参数，只能通过POST方式的请求报文来提交爆破所用到的参数，所以需要在BurpSuite里建立一个宏来反复进行操作。</p>
+<h4 id="建立宏"><a class="header-anchor" href="#建立宏">🍭</a>建立宏</h4>
+<p>直接对dvwa靶机的登录界面进行破解，在project options的sessions中添加Macros。</p>
 <p>选择登录页面</p>
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/19.jpg" srcset="/img/loading.gif" alt="19"></p>
 <p>选择token后定义参数</p>
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/20.jpg" srcset="/img/loading.gif" alt="20"></p>
 <p>在configure item中添加</p>
 <img src="/2020/12/26/dvwa%E4%BA%8C/21.jpg" srcset="/img/loading.gif" alt="21" style="zoom:67%;">
-
 <p>添加规则时注意描述规则时要将其参数范围定义到所有网址，全局宏定义就结束了</p>
 <p><img src="/2020/12/26/dvwa%E4%BA%8C/23.jpg" srcset="/img/loading.gif" alt="23"></p>
 <p>接下来把提交的登录信息的包发送到入侵模块<strong>此时要选择post模式</strong></p>

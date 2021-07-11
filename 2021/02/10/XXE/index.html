@@ -230,7 +230,7 @@
               <p>在BWAPP里做SSRF结果任务里出现了XXE，又是一个知识盲区👿 👿 👿 ，故又跑来XXE辽👻👻👻</p>
 <h1>XXE</h1>
 <p><code>XML External Entity</code>，XML 外部实体注入：应用程序在解析XML时没有过滤外部实体的加载，导致加载了恶意的外部文件，造成执行命令、读取文件、扫描内网、攻击内网应用等危害。</p>
-<h2 id="XML"><a class="header-anchor" href="#XML">¶</a>XML</h2>
+<h2 id="XML"><a class="header-anchor" href="#XML">🍭</a>XML</h2>
 <p>XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。XML文档结构包括XML声明、DTD文档类型定义(可选)、文档元素。例:</p>
 <p><img src="/2021/02/10/XXE/1.png" srcset="/img/loading.gif" alt="1"></p>
 <p>实际上XML还包括<code>PCDATA</code>,<code>CDATA</code>模块:</p>
@@ -277,7 +277,7 @@ XXXXXXXXXXXXXXXXX
 <p>参数实体也可以外部引用</p>
 </li>
 </ul>
-<h2 id="XXE漏洞利用"><a class="header-anchor" href="#XXE漏洞利用">¶</a>XXE漏洞利用</h2>
+<h2 id="XXE漏洞利用"><a class="header-anchor" href="#XXE漏洞利用">🍭</a>XXE漏洞利用</h2>
 <p>xxe利用分为两大场景：有回显和无回显。有回显的情况可以直接在页面中看到Payload的执行结果或现象，无回显的情况又称为blind xxe，可以使用外带数据通道提取数据。</p>
 <p>利用方式：</p>
 <ul>
@@ -306,7 +306,7 @@ XXXXXXXXXXXXXXXXX
 <p>利用XXE进行内网探测，如果端口开启，响应时间会很短，反之，如果关闭，响应时间就长，</p>
 </li>
 </ul>
-<h3 id="Normal-XXE-读本地敏感文件"><a class="header-anchor" href="#Normal-XXE-读本地敏感文件">¶</a>Normal XXE 读本地敏感文件</h3>
+<h3 id="Normal-XXE-读本地敏感文件"><a class="header-anchor" href="#Normal-XXE-读本地敏感文件">🍭</a>Normal XXE 读本地敏感文件</h3>
 <p><strong>引用外部实体</strong></p>
 <p>本来想在本地测试，结果一堆语法报错，php版本换了几次还是不行，就搭了一个测试平台来测试</p>
 <p>payload:</p>
@@ -328,12 +328,12 @@ XXXXXXXXXXXXXXXXX
 <p><img src="/2021/02/10/XXE/3.png" srcset="/img/loading.gif" alt="3"></p>
 <p><strong>内网站点的入侵</strong></p>
 <p>在SSRF中介绍。</p>
-<h3 id="Blind-OOB-XXE"><a class="header-anchor" href="#Blind-OOB-XXE">¶</a>Blind  OOB XXE</h3>
+<h3 id="Blind-OOB-XXE"><a class="header-anchor" href="#Blind-OOB-XXE">🍭</a>Blind  OOB XXE</h3>
 <p>当服务器不向攻击者的浏览器或代理返回任何响应时，我们就需要构建一条外带数据(OOB)通道来读取数据。虽然我们无法直接查看文件内容，但我们仍然可以使用易受攻击的服务器作为代理，在外部网络上执行扫描以及代码。</p>
 <p>原理如下：</p>
 <p><img src="/2021/02/10/XXE/5.png" srcset="/img/loading.gif" alt="5"></p>
 <p>没有vps就不演示辽，XXE的BWAPP在SSRF里演示过了，不再赘述</p>
-<h2 id="拓展"><a class="header-anchor" href="#拓展">¶</a>拓展</h2>
+<h2 id="拓展"><a class="header-anchor" href="#拓展">🍭</a>拓展</h2>
 <p><strong>XML Schema</strong>：</p>
 <p>可扩展标记语言架构，定义 XML 文档的合法构建模块，类似 DTD，</p>
 <p><strong>xmlns:</strong></p>
@@ -349,7 +349,7 @@ XXXXXXXXXXXXXXXXX
 <li>XSLT 攻击</li>
 </ul>
 <p>详见：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU1ODg3NTMyMQ==&amp;mid=2247489349&amp;idx=1&amp;sn=ab435be65bc6c35a21ea4bd040693d8c&amp;source=41#wechat_redirect">我想要一个XXE</a></p>
-<h2 id="漏洞防御"><a class="header-anchor" href="#漏洞防御">¶</a>漏洞防御</h2>
+<h2 id="漏洞防御"><a class="header-anchor" href="#漏洞防御">🍭</a>漏洞防御</h2>
 <ul>
 <li>禁用外部实体。在代码中设置<code>libxml_disable_entity_loader(true)</code></li>
 <li>过滤用户提交的XML数据。过滤关键词为<code>&lt;!DOCTYPE、&lt;!ENTITY、 SYSTEM和PUBLIC</code></li>

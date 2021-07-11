@@ -227,19 +227,27 @@
             <h1 style="display: none">php(一)</h1>
             
             <div class="markdown-body">
-              <h1 id="PHP（一）"><a href="#PHP（一）" class="headerlink" title="PHP（一）"></a>PHP（一）</h1><ul>
-<li><p>PHP（全称：PHP：Hypertext Preprocessor，即”PHP：超文本预处理器”）是一种通用开源脚本语言。</p>
-</li>
-<li><p>PHP 文件可包含文本、HTML、JavaScript代码和 PHP 代码</p>
-</li>
-<li><p>PHP 代码在服务器上执行，结果以纯 HTML 形式返回给浏览器</p>
-</li>
-<li><p>PHP 文件的默认文件扩展名是 “.php”</p>
-</li>
-<li><p><a href="#php%E4%B8%80">PHP（一）</a></p>
+              <h1>PHP（一）</h1>
 <ul>
-<li><a href="#%E5%8F%98%E9%87%8F">变量</a><ul>
-<li><a href="#php-%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F">PHP 变量作用域</a><ul>
+<li>
+<p>PHP（全称：PHP：Hypertext Preprocessor，即&quot;PHP：超文本预处理器&quot;）是一种通用开源脚本语言。</p>
+</li>
+<li>
+<p>PHP 文件可包含文本、HTML、JavaScript代码和 PHP 代码</p>
+</li>
+<li>
+<p>PHP 代码在服务器上执行，结果以纯 HTML 形式返回给浏览器</p>
+</li>
+<li>
+<p>PHP 文件的默认文件扩展名是 “.php”</p>
+</li>
+<li>
+<p><a href="#php%E4%B8%80">PHP（一）</a></p>
+<ul>
+<li><a href="#%E5%8F%98%E9%87%8F">变量</a>
+<ul>
+<li><a href="#php-%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F">PHP 变量作用域</a>
+<ul>
 <li><a href="#global%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F"><strong>Global:全局变量作用域</strong></a></li>
 <li><a href="#static-%E9%9D%99%E6%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F"><strong>Static :静态作用域</strong></a></li>
 <li><a href="#local%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><strong>local:局部变量的作用域</strong></a></li>
@@ -249,7 +257,8 @@
 </ul>
 </li>
 <li><a href="#php-echo-%E5%92%8C-print-%E8%AF%AD%E5%8F%A5">PHP echo 和 print 语句</a></li>
-<li><a href="#php-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">PHP  数据类型</a><ul>
+<li><a href="#php-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">PHP  数据类型</a>
+<ul>
 <li><a href="#php-%E5%AD%97%E7%AC%A6%E4%B8%B2string">PHP 字符串(string)</a></li>
 <li><a href="#php-%E5%B9%B6%E7%BD%AE%E8%BF%90%E7%AE%97%E7%AC%A6">PHP 并置运算符</a></li>
 <li><a href="#php-%E6%95%B4%E5%9E%8Binteger">PHP 整型(Integer)</a></li>
@@ -260,7 +269,8 @@
 <li><a href="#php-null-%E5%80%BC">PHP NULL 值</a></li>
 </ul>
 </li>
-<li><a href="#php-%E5%B8%B8%E9%87%8F">PHP 常量</a><ul>
+<li><a href="#php-%E5%B8%B8%E9%87%8F">PHP 常量</a>
+<ul>
 <li><a href="#%E8%AE%BE%E7%BD%AE-php-%E5%B8%B8%E9%87%8F">设置 PHP 常量</a></li>
 <li><a href="#php-strlen-%E5%87%BD%E6%95%B0">PHP strlen() 函数</a></li>
 <li><a href="#php-strpos-%E5%87%BD%E6%95%B0">PHP strpos() 函数</a></li>
@@ -269,7 +279,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>变量是用于存储信息的”容器”。（php与C语言比较类似）</p>
+<h2 id="变量"><a class="header-anchor" href="#变量">🍭</a>变量</h2>
+<p>变量是用于存储信息的&quot;容器&quot;。（php与C语言比较类似）</p>
 <ul>
 <li>变量以 $ 符号开始，后面跟着变量的名称</li>
 <li><strong>变量名必须以字母或者下划线字符开始</strong></li>
@@ -278,54 +289,77 @@
 <li>变量名和语句都是区分大小写的（$y 和 $Y 是两个不同的变量）</li>
 <li>赋一个文本值给变量时，需在文本值两侧加上引号。</li>
 </ul>
-<h3 id="PHP-变量作用域"><a href="#PHP-变量作用域" class="headerlink" title="PHP 变量作用域"></a>PHP 变量作用域</h3><p>变量的作用域是脚本中变量可被引用/使用的部分。</p>
-<h5 id="Global-全局变量作用域"><a href="#Global-全局变量作用域" class="headerlink" title="Global:全局变量作用域"></a><strong>Global:全局变量作用域</strong></h5><p>除了函数外，全局变量(即在函数外声明，无法在函数内声明的变量。同理:在函数内声明,无法在函数外声明的变量为局部变量。<strong>因此可以在不同函数中使用相同的变量名称，因为这些函数内定义的变量名是局部变量，只作用于该函数内。</strong>关于局部变量和全局变量的优先级，因为在PHP中函数都有自己单独的作用域，所以在局部变量的优先级要大于全局变量（在你不声明这个变量之前），声明之后此变量就变成了局部变量如果修改值那么全局变量的值也会改变。)可以被脚本中的任何部分访问，要在一个函数中访问一个全局变量，需要使用 global 关键字。</p>
+<h3 id="PHP-变量作用域"><a class="header-anchor" href="#PHP-变量作用域">🍭</a>PHP 变量作用域</h3>
+<p>变量的作用域是脚本中变量可被引用/使用的部分。</p>
+<h5 id="Global-全局变量作用域"><a class="header-anchor" href="#Global-全局变量作用域">🍭</a><strong>Global:全局变量作用域</strong></h5>
+<p>除了函数外，全局变量(即在函数外声明，无法在函数内声明的变量。同理:在函数内声明,无法在函数外声明的变量为局部变量。**因此可以在不同函数中使用相同的变量名称，因为这些函数内定义的变量名是局部变量，只作用于该函数内。**关于局部变量和全局变量的优先级，因为在PHP中函数都有自己单独的作用域，所以在局部变量的优先级要大于全局变量（在你不声明这个变量之前），声明之后此变量就变成了局部变量如果修改值那么全局变量的值也会改变。)可以被脚本中的任何部分访问，要在一个函数中访问一个全局变量，需要使用 global 关键字。</p>
 <p>在源代码中，global $x,$y;    $y=$x+$y; 和 $GLOBALS[‘y’]=$GLOBALS[‘x’]+$GLOBALS[‘y’]; 是等效的。</p>
-<h5 id="Static-静态作用域"><a href="#Static-静态作用域" class="headerlink" title="Static :静态作用域"></a><strong>Static :静态作用域</strong></h5><p>当一个函数完成时，它的所有变量通常都会被删除。但有时候您希望某个局部变量不要被删除可以在您第一次声明变量时使用 <strong>static</strong> 关键字。每次调用该函数时，该变量将会保留着函数前一次被调用时的值。</p>
-<h5 id="local-局部变量的作用域"><a href="#local-局部变量的作用域" class="headerlink" title="local:局部变量的作用域"></a><strong>local:局部变量的作用域</strong></h5><p>在 PHP 函数内部声明的变量是局部变量，仅能在函数内部访问。</p>
-<h5 id="parameter：参数作用域"><a href="#parameter：参数作用域" class="headerlink" title="parameter：参数作用域"></a><strong>parameter：参数作用域</strong></h5><p>参数是通过调用代码将值传递给函数的局部变量。</p>
-<h2 id="PHP-echo-和-print-语句"><a href="#PHP-echo-和-print-语句" class="headerlink" title="PHP echo 和 print 语句"></a>PHP echo 和 print 语句</h2><ul>
+<h5 id="Static-静态作用域"><a class="header-anchor" href="#Static-静态作用域">🍭</a><strong>Static :静态作用域</strong></h5>
+<p>当一个函数完成时，它的所有变量通常都会被删除。但有时候您希望某个局部变量不要被删除可以在您第一次声明变量时使用 <strong>static</strong> 关键字。每次调用该函数时，该变量将会保留着函数前一次被调用时的值。</p>
+<h5 id="local-局部变量的作用域"><a class="header-anchor" href="#local-局部变量的作用域">🍭</a><strong>local:局部变量的作用域</strong></h5>
+<p>在 PHP 函数内部声明的变量是局部变量，仅能在函数内部访问。</p>
+<h5 id="parameter：参数作用域"><a class="header-anchor" href="#parameter：参数作用域">🍭</a><strong>parameter：参数作用域</strong></h5>
+<p>参数是通过调用代码将值传递给函数的局部变量。</p>
+<h2 id="PHP-echo-和-print-语句"><a class="header-anchor" href="#PHP-echo-和-print-语句">🍭</a>PHP echo 和 print 语句</h2>
+<ul>
 <li>echo - 可以输出一个或多个字符串(字符串可以包含 HTML 标签)</li>
 <li>print - 只允许输出一个字符串，返回值总为 1</li>
 <li>echo 输出的速度比 print 快， echo 没有返回值，print有返回值1。</li>
 </ul>
-<h2 id="PHP-数据类型"><a href="#PHP-数据类型" class="headerlink" title="PHP  数据类型"></a>PHP  数据类型</h2><h4 id="PHP-字符串-string"><a href="#PHP-字符串-string" class="headerlink" title="PHP 字符串(string)"></a>PHP 字符串(string)</h4><p>一个字符串是一串字符的序列,可以将任何文本放在单引号和双引号中。字符串变量用于包含有字符的值。</p>
-<h4 id="PHP-并置运算符"><a href="#PHP-并置运算符" class="headerlink" title="PHP 并置运算符"></a>PHP 并置运算符</h4><p>并置运算符 (.) 用于把两个字符串值连接起来。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$txt1&#x3D;&quot;What a handsome boy!&quot;;</span><br><span class="line">$txt2&#x3D;&quot;I want to pursue him!&quot;;</span><br><span class="line">echo $txt1 . &quot; &quot; . $txt2;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
+<h2 id="PHP-数据类型"><a class="header-anchor" href="#PHP-数据类型">🍭</a>PHP  数据类型</h2>
+<h4 id="PHP-字符串-string"><a class="header-anchor" href="#PHP-字符串-string">🍭</a>PHP 字符串(string)</h4>
+<p>一个字符串是一串字符的序列,可以将任何文本放在单引号和双引号中。字符串变量用于包含有字符的值。</p>
+<h4 id="PHP-并置运算符"><a class="header-anchor" href="#PHP-并置运算符">🍭</a>PHP 并置运算符</h4>
+<p>并置运算符 (.) 用于把两个字符串值连接起来。</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+$txt1=<span class="hljs-string">&quot;What a handsome boy!&quot;</span>;
+$txt2=<span class="hljs-string">&quot;I want to pursue him!&quot;</span>;
+<span class="hljs-keyword">echo</span> $txt1 . <span class="hljs-string">&quot; &quot;</span> . $txt2;
+<span class="hljs-meta">?&gt;</span></code></pre>
 <p>上面的代码将输出：What a handsome boy!I want to pursue him!</p>
-<h4 id="PHP-整型-Integer"><a href="#PHP-整型-Integer" class="headerlink" title="PHP 整型(Integer)"></a>PHP 整型(Integer)</h4><ul>
+<h4 id="PHP-整型-Integer"><a class="header-anchor" href="#PHP-整型-Integer">🍭</a>PHP 整型(Integer)</h4>
+<ul>
 <li>整数必须至少有一个数字 (0-9)</li>
 <li>整数不能包含逗号或空格</li>
 <li>整数是没有小数点的</li>
 <li>整数可以是正数或负数</li>
 <li>整型可以用三种格式来指定：十进制， 十六进制（ 以 0x 为前缀）或八进制（前缀为 0）.</li>
 </ul>
-<h4 id="PHP-浮点型（float）"><a href="#PHP-浮点型（float）" class="headerlink" title="PHP 浮点型（float）"></a>PHP 浮点型（float）</h4><p>浮点数是带小数部分的数字，或是指数形式。</p>
-<h4 id="PHP-布尔型-Boolean"><a href="#PHP-布尔型-Boolean" class="headerlink" title="PHP 布尔型( Boolean)"></a>PHP 布尔型( Boolean)</h4><p>布尔型可以是 TRUE 或 FALSE，通常用于条件判断。</p>
-<h4 id="PHP-数组-array"><a href="#PHP-数组-array" class="headerlink" title="PHP 数组(array)"></a>PHP 数组(array)</h4><p>数组可以在一个变量中存储多个值。</p>
-<h4 id="PHP-对象"><a href="#PHP-对象" class="headerlink" title="PHP 对象"></a>PHP 对象</h4><p>对象数据类型也可以用于存储数据.在 PHP 中，必须使用class关键字声明类对象,类是可以包含属性和方法的结构。PHP关键字this指向当前对象实例的指针，不指向任何其他对象或类。</p>
-<h4 id="PHP-NULL-值"><a href="#PHP-NULL-值" class="headerlink" title="PHP NULL 值"></a>PHP NULL 值</h4><p>NULL 值表示变量没有值。NULL 是数据类型为 NULL 的值。</p>
+<h4 id="PHP-浮点型（float）"><a class="header-anchor" href="#PHP-浮点型（float）">🍭</a>PHP 浮点型（float）</h4>
+<p>浮点数是带小数部分的数字，或是指数形式。</p>
+<h4 id="PHP-布尔型-Boolean"><a class="header-anchor" href="#PHP-布尔型-Boolean">🍭</a>PHP 布尔型( Boolean)</h4>
+<p>布尔型可以是 TRUE 或 FALSE，通常用于条件判断。</p>
+<h4 id="PHP-数组-array"><a class="header-anchor" href="#PHP-数组-array">🍭</a>PHP 数组(array)</h4>
+<p>数组可以在一个变量中存储多个值。</p>
+<h4 id="PHP-对象"><a class="header-anchor" href="#PHP-对象">🍭</a>PHP 对象</h4>
+<p>对象数据类型也可以用于存储数据.在 PHP 中，必须使用class关键字声明类对象,类是可以包含属性和方法的结构。PHP关键字this指向当前对象实例的指针，不指向任何其他对象或类。</p>
+<h4 id="PHP-NULL-值"><a class="header-anchor" href="#PHP-NULL-值">🍭</a>PHP NULL 值</h4>
+<p>NULL 值表示变量没有值。NULL 是数据类型为 NULL 的值。</p>
 <p>NULL 值指明一个变量是否为空值。 同样可用于数据空值和NULL值的区别。</p>
-<h2 id="PHP-常量"><a href="#PHP-常量" class="headerlink" title="PHP 常量"></a>PHP 常量</h2><p>常量是一个简单值的标识符。该值在脚本的其它任何地方都不能改变。一个常量由英文字母、下划线、和数字组成,但数字不能作为首字母出现。 (常量名不需要加 $ 修饰符,不然会将常量转换成新的未定义变量使用，会导致报错)。<strong>常量在定义后，默认是全局变量，可以在整个运行的脚本的任何地方使用。</strong></p>
-<h4 id="设置-PHP-常量"><a href="#设置-PHP-常量" class="headerlink" title="设置 PHP 常量"></a>设置 PHP 常量</h4><p> define() 函数:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool define ( string $name , mixed $value [, bool $case_insensitive &#x3D; false ] )</span><br></pre></td></tr></table></figure>
-
+<h2 id="PHP-常量"><a class="header-anchor" href="#PHP-常量">🍭</a>PHP 常量</h2>
+<p>常量是一个简单值的标识符。该值在脚本的其它任何地方都不能改变。一个常量由英文字母、下划线、和数字组成,但数字不能作为首字母出现。 (常量名不需要加 $ 修饰符,不然会将常量转换成新的未定义变量使用，会导致报错)。<strong>常量在定义后，默认是全局变量，可以在整个运行的脚本的任何地方使用。</strong></p>
+<h4 id="设置-PHP-常量"><a class="header-anchor" href="#设置-PHP-常量">🍭</a>设置 PHP 常量</h4>
+<p>define() 函数:</p>
+<pre><code class="hljs lasso">bool <span class="hljs-class"><span class="hljs-keyword">define</span> </span>( <span class="hljs-built_in">string</span> $name , mixed $value <span class="hljs-meta">[</span>, bool $case_insensitive = <span class="hljs-literal">false</span> <span class="hljs-meta">]</span> )</code></pre>
 <ul>
-<li><strong>name：</strong>必选参数，常量名称，即标志符。</li>
-<li><strong>value：</strong>必选参数，常量的值。</li>
+<li>**name：**必选参数，常量名称，即标志符。</li>
+<li>**value：**必选参数，常量的值。</li>
 <li><strong>case_insensitive</strong> ：可选参数，如果设置为 TRUE，该常量则大小写不敏感。默认是大小写敏感的。</li>
 </ul>
-<h4 id="PHP-strlen-函数"><a href="#PHP-strlen-函数" class="headerlink" title="PHP strlen() 函数"></a>PHP strlen() 函数</h4><p> 常常用在循环和其他函数中</p>
+<h4 id="PHP-strlen-函数"><a class="header-anchor" href="#PHP-strlen-函数">🍭</a>PHP strlen() 函数</h4>
+<p>常常用在循环和其他函数中</p>
 <p>strlen() 函数返回字符串的长度（字节数）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">echo strlen(&quot;功夫熊猫&quot;);   &#x2F;&#x2F; 输出 12</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">echo</span> strlen(<span class="hljs-string">&quot;功夫熊猫&quot;</span>);   <span class="hljs-comment">// 输出 12</span>
+<span class="hljs-meta">?&gt;</span></code></pre>
 <p>输出结果为 12，因为一个中文占 3 个字符数。</p>
 <p>可以使用 mb_strlen 设置指定编码输出中文字符个数(中文下的字符在 UTF-8 下是 3 个字符长度，在 gbk 下是2个字符长度)</p>
-<h4 id="PHP-strpos-函数"><a href="#PHP-strpos-函数" class="headerlink" title="PHP strpos() 函数"></a>PHP strpos() 函数</h4><p>strpos() 函数用于在字符串内查找一个字符或一段指定的文本。(mb_strpos 按字处理，strpos 按字符处理)</p>
+<h4 id="PHP-strpos-函数"><a class="header-anchor" href="#PHP-strpos-函数">🍭</a>PHP strpos() 函数</h4>
+<p>strpos() 函数用于在字符串内查找一个字符或一段指定的文本。(mb_strpos 按字处理，strpos 按字符处理)</p>
 <p>如果在字符串中找到匹配，该函数会返回第一个匹配的字符位置。如果未找到匹配，则返回 FALSE。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">echo strpos(&quot;what a handsome boy!&quot;,&quot;handsome&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">echo</span> strpos(<span class="hljs-string">&quot;what a handsome boy!&quot;</span>,<span class="hljs-string">&quot;handsome&quot;</span>);
+<span class="hljs-meta">?&gt;</span></code></pre>
 <p>上面的代码将输出：7</p>
 <p>在上面的实例中，字符串 “handsome” 的位置是 7。之所以是 7而不是 8 的原因是，字符串中第一个字符的位置是 0，而不是 1。</p>
 

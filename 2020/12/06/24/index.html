@@ -232,14 +232,14 @@
 <p>无法跳转到初始登录页面，且出现警告，然后我以为这只是正常警告就手动点击home键返回</p>
 <p>用刚注册的账号登录出现如下页面:</p>
 <p><img src="/2020/12/06/24/1.jpg" srcset="/img/loading.gif" alt="1"></p>
-<p>无法正常登录，然后我根据警告内容查看了login.php文件，查不出什么错误。之后就去百度，搜到两种解法，第一种是logged-in文件有错误，我重新下了sqli-labs的压缩包替换，结果一样……第二种是修改php.ini文件里的output_buffering = Off，将Off改为On；将session.auto_start = 0 改为session.auto_start = 1 。改完后需要重启apache，我按照这个方法改了如下文件里的配置</p>
+<p>无法正常登录，然后我根据警告内容查看了login.php文件，查不出什么错误。之后就去百度，搜到两种解法，第一种是logged-in文件有错误，我重新下了sqli-labs的压缩包替换，结果一样…第二种是修改php.ini文件里的output_buffering = Off，将Off改为On；将session.auto_start = 0 改为session.auto_start = 1 。改完后需要重启apache，我按照这个方法改了如下文件里的配置</p>
 <p><img src="/2020/12/06/24/3.jpg" srcset="/img/loading.gif" alt="3"></p>
-<p>发现还是不行，依旧是那个页面，然后我就卡在24关到今天，卡了快一周…….</p>
+<p>发现还是不行，依旧是那个页面，然后我就卡在24关到今天，卡了快一周…</p>
 <p>就在今天，我发现了另一个文件:</p>
 <p><img src="/2020/12/06/24/4.jpg" srcset="/img/loading.gif" alt="4"></p>
 <p>这个文件的类型为设置配置！！！我改了这个文件的相关参数，再次登录发现成功登录了!!</p>
 <p><img src="/2020/12/06/24/17.jpg" srcset="/img/loading.gif" alt="17"></p>
-<p>所以只需在此文件里改信息…….因为登录问题卡了快一周的东西就这么解决了。。</p>
+<p>所以只需在此文件里改信息…因为登录问题卡了快一周的东西就这么解决了。。</p>
 <p>至于为什么这么做查到的解释是：用txt文件编辑过function.php、wp-login.php、pluggable.php 这三个PHP文件导致UTF8编码和BOM冲突，UTF8文件的BOM（Byte Order Mark)标志，在保存的时候会自动存入！</p>
 <p>然后问题就解决了~~</p>
 

@@ -229,7 +229,7 @@
             <div class="markdown-body">
               <h1>RCE</h1>
 <p>远程连接命令/代码执行漏洞，能够让攻击者直接向后台服务器远程写入服务器系统命令或者代码，从而控制后台系统。</p>
-<h2 id="产生原因"><a class="header-anchor" href="#产生原因">¶</a>产生原因</h2>
+<h2 id="产生原因"><a class="header-anchor" href="#产生原因">🍭</a>产生原因</h2>
 <ul>
 <li>
 <p>远程连接命令执行ping</p>
@@ -240,7 +240,7 @@
 <p>后台有时候会把用户的输入作为代码的一部分没有做过滤直接执行从而造成了远程代码执行漏洞。</p>
 </li>
 </ul>
-<h2 id="危险函数"><a class="header-anchor" href="#危险函数">¶</a>危险函数</h2>
+<h2 id="危险函数"><a class="header-anchor" href="#危险函数">🍭</a>危险函数</h2>
 <ul>
 <li>
 <p><code>eval（)</code></p>
@@ -328,7 +328,7 @@
 <p><code>pcntl_exec</code></p>
 </li>
 </ul>
-<h2 id="漏洞危害"><a class="header-anchor" href="#漏洞危害">¶</a>漏洞危害</h2>
+<h2 id="漏洞危害"><a class="header-anchor" href="#漏洞危害">🍭</a>漏洞危害</h2>
 <ul>
 <li>远程连接命令</li>
 <li>代码执行提权</li>
@@ -336,7 +336,7 @@
 <li>任意文件上传</li>
 <li>写入木马后门文件webshell</li>
 </ul>
-<h2 id="漏洞实践"><a class="header-anchor" href="#漏洞实践">¶</a>漏洞实践</h2>
+<h2 id="漏洞实践"><a class="header-anchor" href="#漏洞实践">🍭</a>漏洞实践</h2>
 <ul>
 <li>
 <p>远程连接命令执行ping</p>
@@ -356,7 +356,7 @@
 <p>​      后台代码：</p>
 <p><img src="/2021/02/13/RCE/2.jpg" srcset="/img/loading.gif" alt="2"></p>
 <p>输入代码无过滤，直接执行。</p>
-<h2 id="RCE防御"><a class="header-anchor" href="#RCE防御">¶</a>RCE防御</h2>
+<h2 id="RCE防御"><a class="header-anchor" href="#RCE防御">🍭</a>RCE防御</h2>
 <ul>
 <li>针对危险函数，应该在危险函数代码前写好黑名单过滤特殊符号，或使用 disable_function 等手段</li>
 <li>针对命令注入，尽量不使用命令执行函数，如果必须使用则对用户输入部分加上引号，转义输入后再渲染</li>

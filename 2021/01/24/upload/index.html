@@ -228,7 +228,8 @@
             
             <div class="markdown-body">
               <ul>
-<li><a href="#pass-01%E5%89%8D%E7%AB%AFjs%E7%BB%95%E8%BF%87">Pass-01(前端js绕过)</a><ul>
+<li><a href="#pass-01%E5%89%8D%E7%AB%AFjs%E7%BB%95%E8%BF%87">Pass-01(前端js绕过)</a>
+<ul>
 <li><a href="#%E5%88%A0%E9%99%A4js%E6%A0%A1%E9%AA%8C%E4%BB%A3%E7%A0%81">删除js校验代码</a></li>
 <li><a href="#%E6%9B%B4%E6%94%B9js%E6%A0%A1%E9%AA%8C%E4%B8%AD%E7%9A%84%E7%99%BD%E5%90%8D%E5%8D%95">更改js校验中的白名单</a></li>
 <li><a href="#%E5%85%88%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%90%8D%E9%80%9A%E8%BF%87js%E6%A0%A1%E9%AA%8C%E5%86%8D%E6%8A%93%E5%8C%85%E6%9B%B4%E6%94%B9%E5%90%8E%E7%BC%80%E4%B8%8A%E4%BC%A0%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8">先改文件后缀名通过js校验再抓包更改后缀上传至服务器</a></li>
@@ -254,28 +255,33 @@
 <li><a href="#pass-19%E7%99%BD%E5%90%8D%E5%8D%95-%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89-%E5%9B%BE%E7%89%87%E9%A9%AC">Pass-19（白名单-条件竞争-图片马)</a></li>
 <li><a href="#pass-20%E9%BB%91%E5%90%8D%E5%8D%95%E9%AA%8C%E8%AF%81-%E7%82%B9%E5%8F%B7%E7%BB%95%E8%BF%87">Pass-20（黑名单验证-点号绕过……)</a></li>
 <li><a href="#pass-21%E7%99%BD%E5%90%8D%E5%8D%95%E9%AA%8C%E8%AF%81-%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87">Pass-21（白名单验证-数组绕过)</a></li>
-<li><a href="#%E6%80%BB%E7%BB%93">总结</a><h2 id="文件上传漏洞介绍"><a href="#文件上传漏洞介绍" class="headerlink" title="文件上传漏洞介绍"></a>文件上传漏洞介绍</h2></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
 </ul>
+<h2 id="文件上传漏洞介绍"><a class="header-anchor" href="#文件上传漏洞介绍">🍭</a>文件上传漏洞介绍</h2>
 <p>web应用程序通常带有文件上传的功能，比如在博客发表文章需要上传图片等行为就可能存在文件上传漏洞。文件上传漏洞就是利用网页代码中的文件上传路径变量过滤不严将可执行的文件上传到一个到服务器中，再通过URL去访问以执行恶意代码。攻击者可以直接上传WebShell（以asp、php或者jsp等网页文件形式存在的一种命令执行环境，也可以将其称做为一种网页后门）到服务器上。详情：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016012608">文件上传漏洞</a></p>
 <p>共有以下几种类型：</p>
 <p><img src="/2021/01/24/upload/2.jpg" srcset="/img/loading.gif" alt="2"></p>
-<p>（做了m久的思维导图………)</p>
-<h1 id="Pass-01-前端js绕过"><a href="#Pass-01-前端js绕过" class="headerlink" title="Pass-01(前端js绕过)"></a>Pass-01(前端js绕过)</h1><p>页面要求上传webshell，随意写一个php上传(一句话木马在本地端不直观)后：</p>
+<p>（做了m久的思维导图…)</p>
+<h1>Pass-01(前端js绕过)</h1>
+<p>页面要求上传webshell，随意写一个php上传(一句话木马在本地端不直观)后：</p>
 <img src="/2021/01/24/upload/1.jpg" srcset="/img/loading.gif" alt="1" style="zoom:67%;">
-
 <p>查看源码发现为js前端验证，且定义了一个白名单，只让图示几种格式通过。js前端验证有以下几种思路：</p>
 <p>1、删除js校验代码</p>
 <p>2、更改js校验中的白名单</p>
 <p>3、先改文件后缀名通过js校验再抓包更改后缀上传至服务器</p>
-<h3 id="删除js校验代码"><a href="#删除js校验代码" class="headerlink" title="删除js校验代码"></a>删除js校验代码</h3><p>本来可以在firebug进行删改，新版火狐没有这个插件了，只能通过源代码或者抓包进行删改了。将验证函数删除即可：</p>
+<h3 id="删除js校验代码"><a class="header-anchor" href="#删除js校验代码">🍭</a>删除js校验代码</h3>
+<p>本来可以在firebug进行删改，新版火狐没有这个插件了，只能通过源代码或者抓包进行删改了。将验证函数删除即可：</p>
 <p><img src="/2021/01/24/upload/4.jpg" srcset="/img/loading.gif" alt="4"></p>
-<h3 id="更改js校验中的白名单"><a href="#更改js校验中的白名单" class="headerlink" title="更改js校验中的白名单"></a>更改js校验中的白名单</h3><p>将PHP格式加上：</p>
+<h3 id="更改js校验中的白名单"><a class="header-anchor" href="#更改js校验中的白名单">🍭</a>更改js校验中的白名单</h3>
+<p>将PHP格式加上：</p>
 <p><img src="/2021/01/24/upload/3.jpg" srcset="/img/loading.gif" alt="3"></p>
-<h3 id="先改文件后缀名通过js校验再抓包更改后缀上传至服务器"><a href="#先改文件后缀名通过js校验再抓包更改后缀上传至服务器" class="headerlink" title="先改文件后缀名通过js校验再抓包更改后缀上传至服务器"></a>先改文件后缀名通过js校验再抓包更改后缀上传至服务器</h3><p>先将PHP后缀改为jpg格式的图片，上传时进行抓包拦截，再修改后缀:</p>
+<h3 id="先改文件后缀名通过js校验再抓包更改后缀上传至服务器"><a class="header-anchor" href="#先改文件后缀名通过js校验再抓包更改后缀上传至服务器">🍭</a>先改文件后缀名通过js校验再抓包更改后缀上传至服务器</h3>
+<p>先将PHP后缀改为jpg格式的图片，上传时进行抓包拦截，再修改后缀:</p>
 <p><img src="/2021/01/24/upload/6.jpg" srcset="/img/loading.gif" alt="6"></p>
 <p>上传成功~~</p>
 <p><img src="/2021/01/24/upload/5.jpg" srcset="/img/loading.gif" alt="5"></p>
-<h1 id="Pass-02-MIME验证"><a href="#Pass-02-MIME验证" class="headerlink" title="Pass-02(MIME验证)"></a>Pass-02(MIME验证)</h1><p>提示显示进行MIME校验：</p>
+<h1>Pass-02(MIME验证)</h1>
+<p>提示显示进行MIME校验：</p>
 <p>MIME(Multipurpose Internet Mail  Extensions)多用途互联网邮件扩展类型。是设定某种扩展名的文件用一种应用程序来打开的方式类型，当该扩展名文件被访问的时候，浏览器会自动使用指定应用程序来打开。多用于指定一些客户端自定义的文件名，以及一些媒体文件打开方式。在HTTP中，MIME类型被定义在Content-Type header中。</p>
 <p>常见类型：</p>
 <pre><code class="hljs xl"><span class="hljs-function"><span class="hljs-title">audio</span>/mpeg -&gt;</span> .mp3
@@ -291,61 +297,67 @@
 <span class="hljs-function"><span class="hljs-title">text</span>/plain -&gt;</span> .txt
 <span class="hljs-function"><span class="hljs-title">text</span>/html -&gt;</span> .html
 <span class="hljs-function"><span class="hljs-title">video</span>/mp4 -&gt;</span> .mp4</code></pre>
-
 <p>查看源码：</p>
 <p><img src="/2021/01/24/upload/7.jpg" srcset="/img/loading.gif" alt="7"></p>
 <p>本关类型是image/jpeg、image/png、image/gif中的任何一种就允许上传，否则就提示文件类型不正确。当上传一个PHP时，MIME类型不符合服务器端的要求，上传就会失败。pass-01中先改文件后缀名通过js校验再抓包更改后缀上传至服务器的方法一样可行。</p>
 <p>另一种方法是改MIME类型：</p>
 <p>上传PHP，抓包将MIME类型改为服务器允许的，原理是绕过了服务器端对MIME的检测并成功将shell上传。</p>
 <p><img src="/2021/01/24/upload/8.jpg" srcset="/img/loading.gif" alt="8"></p>
-<h1 id="Pass-03-黑名单绕过"><a href="#Pass-03-黑名单绕过" class="headerlink" title="Pass-03(黑名单绕过)"></a>Pass-03(黑名单绕过)</h1><p>查看提示：</p>
+<h1>Pass-03(黑名单绕过)</h1>
+<p>查看提示：</p>
 <img src="/2021/01/24/upload/9.jpg" srcset="/img/loading.gif" alt="9" style="zoom:50%;">
-
 <p>本关属于黑名单验证</p>
 <pre><code class="hljs jboss-cli">黑名单过滤的缺点：
     攻击者可以从黑名单中找到Web开发者忽略的扩展名
     没有进行大小写转换，诸如<span class="hljs-string">.PHP</span>扩展名不在黑名单里，依旧会被服务器接收
     windows系统下，如果文件名以<span class="hljs-string">&quot;.&quot;</span>或空格结尾会自动取出。asp.转化为asp</code></pre>
-
 <p>本关将常用脚本语言的shell文件后缀全部禁止，Apache解析顺序是从右到左开始解析文件后缀，如果最右侧扩展名不能识别的话，就继续往左判断，直到遇到可以解析的文件后缀为止。而且Apache的httpd.conf中可以进行配置，规定哪些文件后缀是以php格式来解析的。本关的解法就从这得来，尝试用php3,phtml绕过：</p>
 <p>一样先抓包，改后缀名，本关上传一句话木马，因为通过这种方式上传的文件服务器会修改文件名，故蚁剑连接时文件名记得换。</p>
-<h1 id="Pass-04-黑名单绕过-htaccess"><a href="#Pass-04-黑名单绕过-htaccess" class="headerlink" title="Pass-04(黑名单绕过-.htaccess)"></a>Pass-04(黑名单绕过-.htaccess)</h1><p>查看提示黑名单有点多，但是漏掉了Apache服务器的一个配置文件.htaccess。所以这关的思路就是<strong>先上传一个htaccess文件，写入规则让服务器把指定的文件格式按照php的格式解析。然后就上传指定文件格式的文件（不在黑名单中的）进行测试。</strong></p>
+<h1>Pass-04(黑名单绕过-.htaccess)</h1>
+<p>查看提示黑名单有点多，但是漏掉了Apache服务器的一个配置文件.htaccess。所以这关的思路就是<strong>先上传一个htaccess文件，写入规则让服务器把指定的文件格式按照php的格式解析。然后就上传指定文件格式的文件（不在黑名单中的）进行测试。</strong></p>
 <p>文件要写入：SetHandler application/x-httpd-php(让Apache对当前目录中的所有文件都以php的格式进行解析).上传，抓包:</p>
 <p><img src="/2021/01/24/upload/10.jpg" srcset="/img/loading.gif" alt="10"></p>
 <p>再将shell改一下拓展名，上传即可。</p>
-<h1 id="Pass-05（黑名单验证，-user-ini-）"><a href="#Pass-05（黑名单验证，-user-ini-）" class="headerlink" title="Pass-05（黑名单验证，.user.ini.）"></a>Pass-05（黑名单验证，.user.ini.）</h1><p><img src="/2021/01/24/upload/11.jpg" srcset="/img/loading.gif" alt="11"></p>
+<h1>Pass-05（黑名单验证，.user.ini.）</h1>
+<p><img src="/2021/01/24/upload/11.jpg" srcset="/img/loading.gif" alt="11"></p>
 <p>本关可以利用ini配置文件进行上传，先上传以<code>auto_prepend_file=1.jpg</code>为内容的<code>.user.ini</code>文件（<strong>所有的php文件都自动包含1.jpg文件。.user.ini相当于一个用户自定义的php.ini</strong>）然后再上传一句话的脚本，命名为<code>1.jpg</code>。访问即可。</p>
-<h1 id="Pass-06-黑名单验证-大小写绕过"><a href="#Pass-06-黑名单验证-大小写绕过" class="headerlink" title="Pass-06(黑名单验证-大小写绕过)"></a>Pass-06(黑名单验证-大小写绕过)</h1><p>查看源代码可知无大小写转换，将文件名后缀直接改成Php,大小写混合的格式即可。</p>
-<h1 id="Pass-07-黑名单验证–空格绕过"><a href="#Pass-07-黑名单验证–空格绕过" class="headerlink" title="Pass-07(黑名单验证–空格绕过)"></a>Pass-07(<strong>黑名单验证–空格绕过</strong>)</h1><p>从源码中可以看到，服务器端对文件后缀名仅仅是进行了去除末尾的”.”以及小写转换操作。但是并没有进行去除空格的操作,(<strong>windows系统中会将文件扩展名后的空格做空处理，防止文件被当成另一种不可识别的文件类型。故可利用这个特性来绕过这一关的黑名单</strong>)直接上传，抓包，加空格，访问。</p>
-<h1 id="Pass-08（黑名单验证–点号绕过）"><a href="#Pass-08（黑名单验证–点号绕过）" class="headerlink" title="Pass-08（黑名单验证–点号绕过）"></a>Pass-08（黑名单验证–点号绕过）</h1><p>观察代码，没有进行点号去除(<strong>windows系统对于文件后缀名后面跟的”.”会自动去除，不管是添加一个还是多个效果都是一样的</strong>)，利用此点，抓包，加点。</p>
-<h1 id="Pass-09-黑名单验证–特殊字符-DATA绕过"><a href="#Pass-09-黑名单验证–特殊字符-DATA绕过" class="headerlink" title="Pass-09(黑名单验证–特殊字符::$DATA绕过)"></a>Pass-09(黑名单验证–特殊字符::$DATA绕过)</h1><p>代码少了对<code>::$DATA</code>的处理</p>
+<h1>Pass-06(黑名单验证-大小写绕过)</h1>
+<p>查看源代码可知无大小写转换，将文件名后缀直接改成Php,大小写混合的格式即可。</p>
+<h1>Pass-07(<strong>黑名单验证–空格绕过</strong>)</h1>
+<p>从源码中可以看到，服务器端对文件后缀名仅仅是进行了去除末尾的”.”以及小写转换操作。但是并没有进行去除空格的操作,(<strong>windows系统中会将文件扩展名后的空格做空处理，防止文件被当成另一种不可识别的文件类型。故可利用这个特性来绕过这一关的黑名单</strong>)直接上传，抓包，加空格，访问。</p>
+<h1>Pass-08（黑名单验证–点号绕过）</h1>
+<p>观察代码，没有进行点号去除(<strong>windows系统对于文件后缀名后面跟的”.”会自动去除，不管是添加一个还是多个效果都是一样的</strong>)，利用此点，抓包，加点。</p>
+<h1>Pass-09(黑名单验证–特殊字符::$DATA绕过)</h1>
+<p>代码少了对<code>::$DATA</code>的处理</p>
 <pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">DATA</span><span class="hljs-params">(NTFS文件系统的存储数据流的一个属性)</span><span class="hljs-title">NTFS</span></span>文件系统包括对备用数据流的支持,备用数据流允许文件包含多个数据流，每个文件至少有一个数据流。在Windows中，这个默认数据流称为：<span class="hljs-variable">$DATA</span>,当我们访问<span class="hljs-number">1</span><span class="hljs-selector-class">.php</span>::<span class="hljs-variable">$DATA</span> 时，就是请求 <span class="hljs-number">1</span><span class="hljs-selector-class">.php</span> 本身的数据，如果<span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.php</span> 还包含了其他的数据流，比如<span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.php</span>:lake2.php，请求<span class="hljs-number">1</span><span class="hljs-selector-class">.php</span>:lake2<span class="hljs-selector-class">.php</span>::<span class="hljs-variable">$DATA</span>，则是请求<span class="hljs-number">1</span>.php中的流数据lake2.php的流数据内容。</code></pre>
-
 <p>故本关可解：抓包，改后缀(加上::$DATA)，访问(<strong>服务器端会对文件进行重命名,且文件为正常的php文件，故一样可用蚁剑连接</strong>)</p>
-<h1 id="Pass-10（黑名单-单次处理）"><a href="#Pass-10（黑名单-单次处理）" class="headerlink" title="Pass-10（黑名单-单次处理）"></a>Pass-10（黑名单-单次处理）</h1><p>从源代码看，貌似前几关的漏洞都没有了，观察代码：</p>
+<h1>Pass-10（黑名单-单次处理）</h1>
+<p>从源代码看，貌似前几关的漏洞都没有了，观察代码：</p>
 <p><img src="/2021/01/24/upload/12.jpg" srcset="/img/loading.gif" alt="12"></p>
 <p>进行了一次删除<code>.</code>的操作就直接拼接到了上传目录的后面</p>
 <p><img src="/2021/01/24/upload/13.jpg" srcset="/img/loading.gif" alt="13"></p>
 <p>而前面几关都是做完所有的防绕过处理之后得到的文件名进行拼接的。所以我们只需构造一个<strong>经过所有的防绕过操作之后不在黑名单中，并且经过去除末尾”.”号之后拼接还能被解析的后缀</strong>，故本关可在文件后缀加上<code>. .</code>一个点应付一次去点，一个空格应付一个去空格，这样就可以了</p>
-<h1 id="Pass-11（黑名单-双写绕过"><a href="#Pass-11（黑名单-双写绕过" class="headerlink" title="Pass-11（黑名单-双写绕过)"></a>Pass-11（黑名单-双写绕过)</h1><p>本关的关键在str_ireplace（）函数</p>
+<h1>Pass-11（黑名单-双写绕过)</h1>
+<p>本关的关键在str_ireplace（）函数</p>
 <p>语法:</p>
 <pre><code class="hljs reasonml">str<span class="hljs-constructor">_ireplace(<span class="hljs-params">find</span>,<span class="hljs-params">replace</span>,<span class="hljs-params">string</span>,<span class="hljs-params">count</span>)</span></code></pre>
-
 <p>此函数用于替换字符串中的一些字符（不区分大小写），比如本关源代码中<code>str_ireplace($deny_ext,&quot;&quot;, $file_name)</code>便是将<strong>文件名中含有黑名单字符串的那一部分替换为空</strong>，具体用法：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_string_str_ireplace.asp">str_irplace函数</a></p>
 <p>利用此特性便可构造<code>.pphphp</code>后缀，当匹配到第一个p时不满足，匹配到第二个就能匹配到php且被去除，这里在匹配完成之后就不会对剩下的继续进行匹配了，因此剩下的p和hp自然就组合为了php。完美绕过str_ireplace（）函数的过滤。</p>
-<h1 id="Pass-12（白名单-0x00截断-GET型"><a href="#Pass-12（白名单-0x00截断-GET型" class="headerlink" title="Pass-12（白名单-0x00截断-GET型)"></a>Pass-12（白名单-0x00截断-GET型)</h1><p>提示里说上传路径可控，查看源码，判断为白名单验证，但是路径可控是什么意思?</p>
+<h1>Pass-12（白名单-0x00截断-GET型)</h1>
+<p>提示里说上传路径可控，查看源码，判断为白名单验证，但是路径可控是什么意思?</p>
 <p>截断原理：chr()是一个用来返回参数所对应的字符的函数，故chr（）表示空，<strong>当一个字符串中存在空字符时，会导致空字符后面的字符被丢弃（误把它当成结束符），后面的数据直接忽略，这就导致漏洞产生</strong>，与之相关还有一个知识点：</p>
 <pre><code class="hljs angelscript">%<span class="hljs-number">00</span>是对ascii码中的<span class="hljs-number">0</span>对应的字符编码后的结果，<span class="hljs-number">0x00</span>则是%<span class="hljs-number">00</span>解码成的<span class="hljs-number">16</span>进制。当url中的参数是通过GET方式获取时，%<span class="hljs-number">00</span>会被自动解码。当通过POST方式获取时，不会自动解码，%<span class="hljs-number">00</span>只会原样被当成字符串来输出。所以通过POST方式请求时，我们需要手动将它的十六进制改写为<span class="hljs-number">0x00</span>。</code></pre>
-
-<p>截断还需满足 </p>
+<p>截断还需满足</p>
 <ul>
-<li>php 版本&lt;5.3.4 </li>
+<li>php 版本&lt;5.3.4</li>
 <li>php.ini中的magic_quotes_gpc是off状态(<strong>当magic_quotes_gpc开启时，所有的 单引号，双引号，反斜线和 NULL字符（%00）都会被自动加上一个反斜杠进行转义</strong>)</li>
 </ul>
 <p>上传，抓包，做如下修改：</p>
 <p><img src="/2021/01/24/upload/14.jpg" srcset="/img/loading.gif" alt="14"></p>
-<h1 id="Pass-13（白名单-0x00截断-POST型"><a href="#Pass-13（白名单-0x00截断-POST型" class="headerlink" title="Pass-13（白名单-0x00截断-POST型)"></a>Pass-13（白名单-0x00截断-POST型)</h1><p>本关与上一关相似，上一关为GET方式本关为POST方式，前面讲了POST和GET的区别，故本关只需在上一关的基础上，将hex中空格的值由0d改成00即可</p>
-<h1 id="Pass-14（白名单-图片马"><a href="#Pass-14（白名单-图片马" class="headerlink" title="Pass-14（白名单-图片马)"></a>Pass-14（白名单-图片马)</h1><p>提示说本关检查图标内容开头2个字节，查看源码，源码只检测文件头部2个字节信息，那它怎么知道文件类型？查阅资料发现，一般的文件前两个字节信息都能表明自己文件类型（用winhex察看图片的文件头）例如：</p>
+<h1>Pass-13（白名单-0x00截断-POST型)</h1>
+<p>本关与上一关相似，上一关为GET方式本关为POST方式，前面讲了POST和GET的区别，故本关只需在上一关的基础上，将hex中空格的值由0d改成00即可</p>
+<h1>Pass-14（白名单-图片马)</h1>
+<p>提示说本关检查图标内容开头2个字节，查看源码，源码只检测文件头部2个字节信息，那它怎么知道文件类型？查阅资料发现，一般的文件前两个字节信息都能表明自己文件类型（用winhex察看图片的文件头）例如：</p>
 <table>
 <thead>
 <tr>
@@ -353,7 +365,8 @@
 <th>ExtensionsHeader</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>jpeg</td>
 <td>0xFFD8FF</td>
 </tr>
@@ -381,23 +394,23 @@
 <td>AOL ART</td>
 <td>0x4A47040E000000 or 0x4A47030E000000</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>本关所说的图片马就是把一张正常的图片和一个shell文件合在一起形成一个新的文件，可以把新的文件定义成图片。</p>
 <p><img src="/2021/01/24/upload/15.jpg" srcset="/img/loading.gif" alt="15"></p>
 <p>上图为cmd方法制图片马。格式：<code>copy 1.jpg/b+1.php 2.jpg </code>（参数/b指定以二进制格式复制、合并文件(图片)，参数/a指定以ASCI1格式复制、合并文件( php文件)）.</p>
 <p>但是一张图片不能被解析成php执行，故图片马不能直接上传。但是本关任务中第二点提到了使用<a target="_blank" rel="noopener" href="http://127.0.0.1/upload-labs/include.php">文件包含漏洞</a>能运行图片马中的恶意代码。故我们可以新建一个文件包含漏洞页面来模拟真实环境。</p>
-<p>在上传目录中新建一个include.php文件，写入如下代码 </p>
+<p>在上传目录中新建一个include.php文件，写入如下代码</p>
 <pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
 $file = $_GET[ <span class="hljs-string">&#x27;page&#x27;</span> ] ;
 <span class="hljs-keyword">include</span> ($file);
 <span class="hljs-meta">?&gt;</span></code></pre>
-
 <p>再用蚁剑连接(<strong>jpg格式的文件无法直接与蚁剑连接，要借助文件包含获取已知的PHP，asp，aspx……文件来连接蚁剑</strong>)</p>
 <p><img src="/2021/01/24/upload/16.jpg" srcset="/img/loading.gif" alt="16"></p>
-<h1 id="Pass-15-白名单-图片马-getimagesize"><a href="#Pass-15-白名单-图片马-getimagesize" class="headerlink" title="Pass-15(白名单-图片马-getimagesize())"></a>Pass-15(白名单-图片马-getimagesize())</h1><p>了解一下提示中提到的<code>getimagesize()</code>函数:</p>
+<h1>Pass-15(白名单-图片马-getimagesize())</h1>
+<p>了解一下提示中提到的<code>getimagesize()</code>函数:</p>
 <p>获取图像大小及相关信息，成功返回一个数组，失败则返回 FALSE 并产生一条 E_WARNING 级的错误信息。语法格式：</p>
 <pre><code class="hljs smali">array getimagesize ( string $filename [,<span class="hljs-built_in"> array </span>&amp;$imageinfo ] )</code></pre>
-
 <p><code>getimagesize() </code>函数将测定任何 <code>GIF，JPG，PNG，SWF，SWC，PSD，TIFF，BMP，IFF，JP2，JPX，JB2，JPC，XBM 或 WBMP</code> 图像文件的大小并返回图像的尺寸以及文件类型及图片高度与宽度。详情：<a target="_blank" rel="noopener" href="https://www.runoob.com/php/php-getimagesize.html">getimagesize()函数</a></p>
 <p>接下来在目录里创建一个php文件来测试该函数返回数组的各个值的含义。代码:</p>
 <pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
@@ -405,7 +418,6 @@ $local_jpg =<span class="hljs-string">&#x27;./00.jpg&#x27;</span>;
 $img_data = getimagesize($local_jpg);<span class="hljs-comment">//getimagesize()函数对本地图片00.jpg进行检查</span>
 var_dump($img_data );<span class="hljs-comment">//打印检查结果的数组</span>
 <span class="hljs-meta">?&gt;</span></code></pre>
-
 <p>运行：</p>
 <p><img src="/2021/01/24/upload/17.jpg" srcset="/img/loading.gif" alt="17"></p>
 <p>索引的含义：</p>
@@ -422,81 +434,83 @@ var_dump($img_data );<span class="hljs-comment">//打印检查结果的数组</s
 索引 channels &gt;&gt;图像的通道值<span class="hljs-comment">//本次测试没有</span>
 
 索引 mime &gt;&gt;图像的 MIME 信息，此信息可以用来在 HTTP Content-type 头信息中发送正确的信息</code></pre>
-
 <p>源代码:</p>
 <p><img src="/2021/01/24/upload/18.jpg" srcset="/img/loading.gif" alt="18"></p>
 <p>并未做其它更多的过滤操作，所以上一关的图片马依然可用。</p>
-<h1 id="Pass-16-白名单-图片马-exif-imagetype"><a href="#Pass-16-白名单-图片马-exif-imagetype" class="headerlink" title="Pass-16(白名单-图片马-exif_imagetype())"></a>Pass-16(白名单-图片马-exif_imagetype())</h1><p>提示中换了一个函数：exif_imagetype()</p>
+<h1>Pass-16(白名单-图片马-exif_imagetype())</h1>
+<p>提示中换了一个函数：exif_imagetype()</p>
 <pre><code class="hljs isbl">读取一个图像的第一个字节并检查其签名，恰当的签名则返回一个对应的常量，否则返回 <span class="hljs-variable"><span class="hljs-literal">FALSE</span></span>。返回值跟<span class="hljs-function"><span class="hljs-title">getimagesize</span>() 返回的数组中的索引 <span class="hljs-number">2</span> 的值是一样的(<span class="hljs-variable">pass</span>-<span class="hljs-number">15</span>中讲的)</span></code></pre>
-
 <p>语法格式:</p>
 <pre><code class="hljs awk">exif_imagetype ( string <span class="hljs-variable">$filename</span><span class="hljs-regexp">//</span>文件位置和名称)</code></pre>
-
 <p>一样写个测试文件进行测试</p>
 <p><img src="/2021/01/24/upload/19.jpg" srcset="/img/loading.gif" alt="19"></p>
 <p>函数貌似未定义，查找资料发现面板里的拓张没开</p>
 <p><img src="/2021/01/24/upload/20.jpg" srcset="/img/loading.gif" alt="20"></p>
 <p>php.ini中extension=php_exif.dll前面的分号要去掉。在测试返回值为3，只检查了签名，图片马依旧可以。</p>
-<h1 id="Pass-17-白名单-图片马-二次渲染"><a href="#Pass-17-白名单-图片马-二次渲染" class="headerlink" title="Pass-17(白名单-图片马-二次渲染)"></a>Pass-17(白名单-图片马-二次渲染)</h1><p>提示说渲染了图片？查看源码，使用了imagecreatefrom 系列函数来获取原文件的数据并创建一个新的图像文件，再重命名。 </p>
+<h1>Pass-17(白名单-图片马-二次渲染)</h1>
+<p>提示说渲染了图片？查看源码，使用了imagecreatefrom 系列函数来获取原文件的数据并创建一个新的图像文件，再重命名。</p>
 <p><code>imagecreatefromgif()</code>：创建一块画布，并从 GIF 文件或 URL 地址载入一副图像 <code>imagecreatefromjpeg()</code>，<code>imagecreatefrompng()</code>等同理，这样看来图片渲染好像只是换了一个名字而已.</p>
 <p>先用GIF试，先合成一个GIF的图片马，上传，访问</p>
 <img src="/2021/01/24/upload/21.jpg" srcset="/img/loading.gif" alt="21" style="zoom: 50%;">
-
-<p>额…小场面..不慌。上传成功却不能访问??需要去对比两个gif</p>
+<p>额…小场面…不慌。上传成功却不能访问??需要去对比两个gif</p>
 <p><img src="/2021/01/24/upload/22.jpg" srcset="/img/loading.gif" alt="22"></p>
 <p><img src="/2021/01/24/upload/23.jpg" srcset="/img/loading.gif" alt="23"></p>
 <p>发现服务器上文件末尾的php代码不见了，这应该就是渲染的作用。我们的目的是让服务器中的文件依然保存我们想要执行的代码，就需要去找渲染前后没有变化的位置，然后将php代码写进去(注意要将代码转化为对应进制编译器的进制数再写入),再上传就可以啦，不截图了。</p>
 <p>但是本关的要求是图片马要<code>.jpg</code>,<code>.png</code>,<code>.gif</code>三种后缀都上传成功才算过关！png就不是这样了，要实现png二次渲染的绕过就需要深入了解png的格式。此部分再另一文章《二次渲染&amp;&amp;png结构分析》说明。</p>
-<h1 id="Pass-18（白名单-条件竞争-时间"><a href="#Pass-18（白名单-条件竞争-时间" class="headerlink" title="Pass-18（白名单-条件竞争-时间)"></a>Pass-18（白名单-条件竞争-时间)</h1><p>提示说要代码审计，查看源码，源码解释得很清楚，先将上传的文件保存，然后将文件的后缀名同白名单对比，符合就将文件进行重命名。不符，unlink()函数就会删除该文件，虽然上传会被删除，但如果我们能在上传的一句话被删除之前访问就可以了。这个方法也叫条件竞争上传绕过。可以利用burp多线程发包，然后不断在浏览器访问代码，会有一瞬间的访问成功，通过burp一直不停的重放，会有一瞬间是还没来得及删除就可以被访问到的，一旦访问到该文件就会在当前目录下生成一句话。</p>
+<h1>Pass-18（白名单-条件竞争-时间)</h1>
+<p>提示说要代码审计，查看源码，源码解释得很清楚，先将上传的文件保存，然后将文件的后缀名同白名单对比，符合就将文件进行重命名。不符，unlink()函数就会删除该文件，虽然上传会被删除，但如果我们能在上传的一句话被删除之前访问就可以了。这个方法也叫条件竞争上传绕过。可以利用burp多线程发包，然后不断在浏览器访问代码，会有一瞬间的访问成功，通过burp一直不停的重放，会有一瞬间是还没来得及删除就可以被访问到的，一旦访问到该文件就会在当前目录下生成一句话。</p>
 <p>上传的一句话：</p>
 <pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> fputs(fopen(<span class="hljs-string">&#x27;shell.php&#x27;</span>,<span class="hljs-string">&#x27;w&#x27;</span>),<span class="hljs-comment">//若访问到文件则在根目录里生成shell.php文件&#x27;<span class="hljs-meta">&lt;?php</span> @eval($_POST[&quot;test&quot;])<span class="hljs-meta">?&gt;</span>&#x27;);<span class="hljs-meta">?&gt;</span></span></code></pre>
-
 <p>先上传，抓包，设置Null payloads也就是不设置payload。设置Continue indefinitely无限重放。</p>
 <img src="/2021/01/24/upload/24.jpg" srcset="/img/loading.gif" alt="24" style="zoom:50%;">
-
 <p>根目录出现shell.php,连接蚁剑</p>
 <img src="/2021/01/24/upload/25.jpg" srcset="/img/loading.gif" alt="25" style="zoom:50%;">
-
 <p>成功~~</p>
-<h1 id="Pass-19（白名单-条件竞争-图片马"><a href="#Pass-19（白名单-条件竞争-图片马" class="headerlink" title="Pass-19（白名单-条件竞争-图片马)"></a>Pass-19（白名单-条件竞争-图片马)</h1><p>一样是代码审计，依次检查文件是否存在、文件名是否可写、检查后缀（白名单）、检查文件大小、检查临时文件存在、保存到临时目录里、然后再重命名。与Pass-18存在同样的条件竞争。不过这里先检查了后缀，所以要上传符合白名单里的文件才可以，只能用图片马了，而且需要在图片马没有被重命名之前访问它。本关可以沿用上一关的一句话木马，再用相同手段进行不断重放，也可以借助脚本进行不断访问。但这里还有一个有趣的解法：也可将php文件后缀名更改为.php.7z，因为白名单中允许上传.7z的文件，但是apache又不能解析这个格式而会把该文件当php的格式解析。</p>
-<h1 id="Pass-20（黑名单验证-点号绕过……"><a href="#Pass-20（黑名单验证-点号绕过……" class="headerlink" title="Pass-20（黑名单验证-点号绕过……)"></a>Pass-20（黑名单验证-点号绕过……)</h1><p>查看代码</p>
+<h1>Pass-19（白名单-条件竞争-图片马)</h1>
+<p>一样是代码审计，依次检查文件是否存在、文件名是否可写、检查后缀（白名单）、检查文件大小、检查临时文件存在、保存到临时目录里、然后再重命名。与Pass-18存在同样的条件竞争。不过这里先检查了后缀，所以要上传符合白名单里的文件才可以，只能用图片马了，而且需要在图片马没有被重命名之前访问它。本关可以沿用上一关的一句话木马，再用相同手段进行不断重放，也可以借助脚本进行不断访问。但这里还有一个有趣的解法：也可将php文件后缀名更改为.php.7z，因为白名单中允许上传.7z的文件，但是apache又不能解析这个格式而会把该文件当php的格式解析。</p>
+<h1>Pass-20（黑名单验证-点号绕过……)</h1>
+<p>查看代码</p>
 <p><img src="/2021/01/24/upload/26.jpg" srcset="/img/loading.gif" alt="26"></p>
-<h4 id="法一"><a href="#法一" class="headerlink" title="法一"></a>法一</h4><p>因为黑名单都是小写的形式，故可上传一个一句话木马然后将其命名为PHP形式后缀即可绕过</p>
-<h4 id="法二"><a href="#法二" class="headerlink" title="法二"></a>法二</h4><p>在<code>save_name</code>参数中文件名称后面加空格绕过</p>
-<h4 id="法三"><a href="#法三" class="headerlink" title="法三"></a>法三</h4><p>还可以通过<code>save_name</code>参数来进行00截断，</p>
+<h4 id="法一"><a class="header-anchor" href="#法一">🍭</a>法一</h4>
+<p>因为黑名单都是小写的形式，故可上传一个一句话木马然后将其命名为PHP形式后缀即可绕过</p>
+<h4 id="法二"><a class="header-anchor" href="#法二">🍭</a>法二</h4>
+<p>在<code>save_name</code>参数中文件名称后面加空格绕过</p>
+<h4 id="法三"><a class="header-anchor" href="#法三">🍭</a>法三</h4>
+<p>还可以通过<code>save_name</code>参数来进行00截断，</p>
 <p><img src="/2021/01/24/upload/27.jpg" srcset="/img/loading.gif" alt="27"></p>
-<h4 id="法四"><a href="#法四" class="headerlink" title="法四"></a>法四</h4><p>利用<code>pathinfo</code>函数</p>
+<h4 id="法四"><a class="header-anchor" href="#法四">🍭</a>法四</h4>
+<p>利用<code>pathinfo</code>函数</p>
 <p>格式：</p>
 <pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">pathinfo</span><span class="hljs-params">(path,options)</span></span></code></pre>
-
 <table>
 <thead>
 <tr>
-<th align="center">参数</th>
+<th style="text-align:center">参数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">path</td>
+<tbody>
+<tr>
+<td style="text-align:center">path</td>
 <td>必需。规定要检查的路径。</td>
 </tr>
 <tr>
-<td align="center">process_sections</td>
+<td style="text-align:center">process_sections</td>
 <td>可选。规定要返回的数组元素。默认是 all。 可能的值：                  <code>PATHINFO_DIRNAME</code> //目录- 只返回<code>dirname   </code>                                                <code>PATHINFO_BASENAME</code> //文件加后缀名- 只返回 <code>basename  </code>                                  <code>PATHINFO_EXTENSION </code>//后缀名- 只返回 <code>extension </code></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>和Pass-13类似，不过本关为黑名单，在文件保存的时候，加上<code>.</code>使得<code>pathinfo()</code>获取到的<code>PATHINFO_EXTENSION</code>为空，从而绕过黑名单。</p>
-<h1 id="Pass-21（白名单验证-数组绕过"><a href="#Pass-21（白名单验证-数组绕过" class="headerlink" title="Pass-21（白名单验证-数组绕过)"></a>Pass-21（白名单验证-数组绕过)</h1><p>先检查MIME类型(改<code>Content-Type</code>)，然后判断<code>save_name</code>参数是否为空，为空就把文件名称赋值给<code>$file</code>,否则将<code>save_name</code>参数的值赋给它。然后判断<code>$file</code>是否是数组.不是就用<code>explode()</code>函数通过<code>.</code>号分割成数组,取最后一个后缀名，进行白名单验证。不符合就报错，符合就拼接数组的第一个和最后一个作为文件名，保存。</p>
+<h1>Pass-21（白名单验证-数组绕过)</h1>
+<p>先检查MIME类型(改<code>Content-Type</code>)，然后判断<code>save_name</code>参数是否为空，为空就把文件名称赋值给<code>$file</code>,否则将<code>save_name</code>参数的值赋给它。然后判断<code>$file</code>是否是数组.不是就用<code>explode()</code>函数通过<code>.</code>号分割成数组,取最后一个后缀名，进行白名单验证。不符合就报错，符合就拼接数组的第一个和最后一个作为文件名，保存。</p>
 <p><code>explode()</code> 函数把字符串打散为数组。详情：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_string_explode.asp">explode()</a></p>
 <pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">reset</span><span class="hljs-params">(array &amp;<span class="hljs-variable">$array</span>)</span></span><span class="hljs-comment">//将数组的内部指针指向第一个单元</span></code></pre>
-
 <p>绕过<code>explode()</code>函数：传入数组，绕过白名单，由于取的是数组最后一个，所以传入数组的最后一个要为<code>jpg|png|gif</code>，然后拼接文件名，取<code>reset()</code>第一个，即索引为0，和索引<code>count()-1</code>（数组内元素个数-1）。所以索引0应为<code>.php</code>，索引3为<code>jpg</code>（索引1之后即可），这样数组元素个数为2，拼接的就是索引0和索引1即<code>.php</code>和空，结果还是<code>.php</code></p>
 <img src="/2021/01/24/upload/29.jpg" srcset="/img/loading.gif" alt="29" style="zoom:67%;">
-
 <p>成功~~</p>
 <img src="/2021/01/24/upload/28.jpg" srcset="/img/loading.gif" alt="28" style="zoom:33%;">
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><strong>upload-labs</strong>靶场提供了许多绕过方式，但都较为简单的，实战中会遇到更复杂的绕过方式，有可能是多种验证并存，故思路不能局限，争取一关多解，其实这个靶场跟sqli-labs有相似之处，都是先逐个介绍各种验证方式，再逐步综合到一个关卡里。但解题过程把提示，源代码看得差不多了.……还过分依赖通关手册……要反思！！靶场还是很好玩的~~</p>
+<h1>总结</h1>
+<p><strong>upload-labs</strong>靶场提供了许多绕过方式，但都较为简单的，实战中会遇到更复杂的绕过方式，有可能是多种验证并存，故思路不能局限，争取一关多解，其实这个靶场跟sqli-labs有相似之处，都是先逐个介绍各种验证方式，再逐步综合到一个关卡里。但解题过程把提示，源代码看得差不多了.……还过分依赖通关手册……要反思！！靶场还是很好玩的~~</p>
 
             </div>
             <hr>

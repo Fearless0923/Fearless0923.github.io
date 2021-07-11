@@ -239,7 +239,8 @@
 <th>分析</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Request timed out</td>
 <td>(1)对方已关机，或者网络上没有这个地址                                                                                    (2)对方与本机不在同一网段内                                                                                                 (3)对方确实存在，但设置了ICMP数据包过滤(比如防火墙设置)，可以用带参数 -a 的Ping命令探测对方，如果能得到对方的<code>NETBIOS</code>名称，则说明对方是存在的，有防火墙设置，如果得不到就如(1),(2)                                                                                          (4)错误设置IP地址(TCP/IP设置中，设置了一个与网卡IP地址处于同一子网的IP地址)</td>
 </tr>
@@ -275,70 +276,77 @@
 <td>unknown host name</td>
 <td>DNS配置不正确</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>详情：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hezeyujiang/article/details/79504038">ping命令详解</a></p>
 <p>输入ip，程序调用系统命令ping这个ip。在ip后面加<code>&amp;&amp;、&amp;、|、||</code>命令拼接符号再跟上自己需要执行的系统命令就构成了命令注入</p>
 <table>
 <thead>
 <tr>
-<th align="center">A&amp;B</th>
-<th align="center">A&amp;&amp;B</th>
-<th align="center">A|B</th>
-<th align="center">A||B</th>
+<th style="text-align:center">A&amp;B</th>
+<th style="text-align:center">A&amp;&amp;B</th>
+<th style="text-align:center">A|B</th>
+<th style="text-align:center">A||B</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">AB之间无制约关系</td>
-<td align="center">A执行成功才执行B</td>
-<td align="center">A的输出作为B的输出</td>
-<td align="center">A执行失败才执行B</td>
+<tbody>
+<tr>
+<td style="text-align:center">AB之间无制约关系</td>
+<td style="text-align:center">A执行成功才执行B</td>
+<td style="text-align:center">A的输出作为B的输出</td>
+<td style="text-align:center">A执行失败才执行B</td>
 </tr>
-</tbody></table>
-<h2 id="low"><a href="#low" class="headerlink" title="low"></a>low</h2><p>源码出现了一个函数：<code>stristr( php_uname( &#39;s&#39; ), &#39;Windows NT&#39; )</code></p>
+</tbody>
+</table>
+<h2 id="low"><a class="header-anchor" href="#low">🍭</a>low</h2>
+<p>源码出现了一个函数：<code>stristr( php_uname( 's' ), 'Windows NT' )</code></p>
 <p><code>stristr() </code>函数搜索字符串在另一字符串中的第一次出现，返回字符串的剩余部分（从匹配点），如果未找到所搜索的字符串，返回 FALSE。</p>
 <p>格式：</p>
 <pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">stristr</span><span class="hljs-params">(string,search,before_search)</span></span></code></pre>
-
 <table>
 <thead>
 <tr>
-<th align="left">参数</th>
-<th align="left">描述</th>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left"><em>string</em></td>
-<td align="left">必需。规定被搜索的字符串。</td>
+<tbody>
+<tr>
+<td style="text-align:left"><em>string</em></td>
+<td style="text-align:left">必需。规定被搜索的字符串。</td>
 </tr>
 <tr>
-<td align="left"><em>search</em></td>
-<td align="left">必需。规定要搜索的字符串。如果该参数是数字，则搜索匹配该数字对应的 ASCII 值的字符。</td>
+<td style="text-align:left"><em>search</em></td>
+<td style="text-align:left">必需。规定要搜索的字符串。如果该参数是数字，则搜索匹配该数字对应的 ASCII 值的字符。</td>
 </tr>
 <tr>
-<td align="left"><em>before_search</em></td>
-<td align="left">可选。默认值为 “false” 的布尔值。如果设置为 “true”，它将返回 <em>search</em> 参数第一次出现之前的字符串部分。</td>
+<td style="text-align:left"><em>before_search</em></td>
+<td style="text-align:left">可选。默认值为 “false” 的布尔值。如果设置为 “true”，它将返回 <em>search</em> 参数第一次出现之前的字符串部分。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><code>php_uname()</code>:</p>
 <p>返回运行php的操作系统的相关描述，本关参数mode可取：<code>a</code>包含所有模式</p>
 <table>
 <thead>
 <tr>
-<th align="center">s</th>
-<th align="center">n</th>
-<th align="center">r</th>
-<th align="center">v</th>
-<th align="center">m</th>
+<th style="text-align:center">s</th>
+<th style="text-align:center">n</th>
+<th style="text-align:center">r</th>
+<th style="text-align:center">v</th>
+<th style="text-align:center">m</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">操作系统名称</td>
-<td align="center">主机名</td>
-<td align="center">版本</td>
-<td align="center">版本信息</td>
-<td align="center">机器类型</td>
+<tbody>
+<tr>
+<td style="text-align:center">操作系统名称</td>
+<td style="text-align:center">主机名</td>
+<td style="text-align:center">版本</td>
+<td style="text-align:center">版本信息</td>
+<td style="text-align:center">机器类型</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>从源码来看，本关对ip参数并未做任何的过滤。</p>
 <p>先测试一下本地端</p>
 <p><img src="/2021/01/26/dvwa4/1.jpg" srcset="/img/loading.gif" alt="1"></p>
@@ -351,15 +359,15 @@
 <p>响应时间<code>Minmum</code> 最小值、<code>MAXimun </code>最大值、<code>Average </code>平均值</p>
 <p>测看看它能不能执行任意命令:<code>127.0.0.1&amp;&amp;echo 小天才</code></p>
 <img src="/2021/01/26/dvwa4/2.jpg" srcset="/img/loading.gif" alt="2" style="zoom:80%;">
-
 <p>看来是可以的。本关并无过滤，执行其他命令皆可</p>
-<h2 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h2><pre><code class="hljs php">$substitutions = <span class="hljs-keyword">array</span>( <span class="hljs-string">&#x27;&amp;&amp;&#x27;</span> =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;;&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, ）；</code></pre>
-
+<h2 id="medium"><a class="header-anchor" href="#medium">🍭</a>medium</h2>
+<pre><code class="hljs php">$substitutions = <span class="hljs-keyword">array</span>( <span class="hljs-string">&#x27;&amp;&amp;&#x27;</span> =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;;&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, ）；</code></pre>
 <p>源码中执行了以上过滤操作，跟黑名单差不多，可使用<code>&amp;</code>,<code>&amp;;&amp;</code>( <code>;</code>会被替换为空字符,故执行后又会变成<code>&amp;&amp;</code>)</p>
-<h2 id="high"><a href="#high" class="headerlink" title="high"></a>high</h2><pre><code class="hljs php">$substitutions = <span class="hljs-keyword">array</span>( <span class="hljs-string">&#x27;&amp;&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;;&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;|  &#x27;</span> =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;$&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;(&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;)&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;`&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;||&#x27;</span> =&gt; <span class="hljs-string">&#x27;&#x27;</span>, );</code></pre>
-
-<p>本关只是把黑名单的范围扩大了。但仔细观察可以发现<code>&#39;|  &#39; =&gt; &#39;&#39;</code>中|后面有一个空格，所以<code>|</code>并没有被过滤。</p>
-<h2 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h2><p>分析源码：</p>
+<h2 id="high"><a class="header-anchor" href="#high">🍭</a>high</h2>
+<pre><code class="hljs php">$substitutions = <span class="hljs-keyword">array</span>( <span class="hljs-string">&#x27;&amp;&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;;&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;|  &#x27;</span> =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;$&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;(&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;)&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;`&#x27;</span>  =&gt; <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;||&#x27;</span> =&gt; <span class="hljs-string">&#x27;&#x27;</span>, );</code></pre>
+<p>本关只是把黑名单的范围扩大了。但仔细观察可以发现<code>'|  ' =&gt; ''</code>中|后面有一个空格，所以<code>|</code>并没有被过滤。</p>
+<h2 id="impossible"><a class="header-anchor" href="#impossible">🍭</a>impossible</h2>
+<p>分析源码：</p>
 <p>熟悉的<code>Anti-CSRF token </code>不再介绍，源码中还进行如下限制</p>
 <pre><code class="hljs arcade"><span class="hljs-comment">// Check IF each octet is an integer </span>
 
@@ -368,12 +376,12 @@
      <span class="hljs-comment">// If all 4 octets are int&#x27;s put the IP back together. </span>
 
      <span class="hljs-symbol">$target</span> = <span class="hljs-symbol">$octet</span>[<span class="hljs-number">0</span>] . <span class="hljs-string">&#x27;.&#x27;</span> . <span class="hljs-symbol">$octet</span>[<span class="hljs-number">1</span>] . <span class="hljs-string">&#x27;.&#x27;</span> . <span class="hljs-symbol">$octet</span>[<span class="hljs-number">2</span>] . <span class="hljs-string">&#x27;.&#x27;</span> . <span class="hljs-symbol">$octet</span>[<span class="hljs-number">3</span>];</code></pre>
-
 <p>只有数字.数字.数字.数字的格式才行。相当于黑名单。</p>
-<p> <code>stripslashes()</code>：删除字符串string中的反斜杠</p>
+<p><code>stripslashes()</code>：删除字符串string中的反斜杠</p>
 <p><code>is_numeric()</code>和<code>explode()</code>在之前的SQL注入模块都讲过了，不再赘述。</p>
 <p>发现每个模块的impossible里似乎都有这几个家伙。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然此漏洞很厉害，可以直接执行系统命令，但这个漏洞应该不常见（毕竟这么明显，又能让用户执行cmd）</p>
+<h2 id="总结"><a class="header-anchor" href="#总结">🍭</a>总结</h2>
+<p>虽然此漏洞很厉害，可以直接执行系统命令，但这个漏洞应该不常见（毕竟这么明显，又能让用户执行cmd）</p>
 
             </div>
             <hr>

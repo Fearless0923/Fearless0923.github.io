@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      467 字
+      465 字
     </span>
   
 
@@ -228,23 +228,26 @@
             
             <div class="markdown-body">
               <p>Content-Security-Policy（内容安全策略）是指HTTP返回报文头中的标签，浏览器会根据标签中的内容，判断哪些资源可以加载或执行。是为了缓解潜在的跨站脚本问题（XSS）原来应对XSS攻击时，主要采用函数过滤、转义输入中的特殊字符、标签、文本来规避攻击。CSP的实质就是白名单制度，开发人员明确告诉客户端，哪些外部资源可以加载和执行。开发者只需要提供配置，实现和执行全部由浏览器完成。简而言之就是在前端添加一些标签，告诉浏览器哪些资源可以加载访问。我们今天要做的就是绕过他。</p>
-<h1 id="low"><a href="#low" class="headerlink" title="low"></a>low</h1><p>源码列了几个白名单网站</p>
+<h1>low</h1>
+<p>源码列了几个白名单网站</p>
 <p><img src="/2021/02/02/dvwa9/8.jpg" srcset="/img/loading.gif" alt="8"></p>
 <p>我们可以在白名单网站写js代码如<code>alert(111)</code>得到<code>https://pastebin.com/5WMivnEr</code>，在dvwa页面进行访问，理论上就会达到注入效果，但是现在的火狐好像被修复了</p>
 <p><img src="/2021/02/02/dvwa9/9.jpg" srcset="/img/loading.gif" alt="9"></p>
 <p>其实这关也可以用CSRF实现，还是一样通过做钓鱼网站来实现。</p>
-<h1 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h1><p><img src="/2021/02/02/dvwa9/1.jpg" srcset="/img/loading.gif" alt="1"></p>
-<p>构造：<code>&lt;script nonce=&quot;TmV2ZXIgZ29pbmcgdG8gZ2l2ZSB5b3UgdXA=&quot; &gt; alert(&#39;xss&#39;)&lt;/script&gt;</code><img src="/2021/02/02/dvwa9/2.jpg" srcset="/img/loading.gif" alt="2" style="zoom: 50%;"></p>
-<h1 id="high"><a href="#high" class="headerlink" title="high"></a>high</h1><p><code>The page makes a call to ../..//vulnerabilities/csp/source/jsonp.php to load some code. Modify that page to run your own code.</code>页面调用了jsonp.php,该页面可执行自己的代码</p>
+<h1>medium</h1>
+<p><img src="/2021/02/02/dvwa9/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<p>构造：<code>&lt;script nonce=&quot;TmV2ZXIgZ29pbmcgdG8gZ2l2ZSB5b3UgdXA=&quot; &gt; alert('xss')&lt;/script&gt;</code><img src="/2021/02/02/dvwa9/2.jpg" srcset="/img/loading.gif" alt="2" style="zoom: 50%;"></p>
+<h1>high</h1>
+<p><code>The page makes a call to ../..//vulnerabilities/csp/source/jsonp.php to load some code. Modify that page to run your own code.</code>页面调用了jsonp.php,该页面可执行自己的代码</p>
 <p>在页面源码中看到了</p>
 <p><img src="/2021/02/02/dvwa9/3.jpg" srcset="/img/loading.gif" alt="3"></p>
 <p>打开</p>
 <p><img src="/2021/02/02/dvwa9/4.jpg" srcset="/img/loading.gif" alt="4"></p>
 <p>主要规划了点击按钮后的操作，<code>appendChild（）</code>处理的<code>jsonp.php</code>里倒没有什么特别的处理，故我们可以从这里要传入的<code>callback</code>下手：</p>
-<p>构造：<code>include=&lt;script src=&quot;source/jsonp.php?callback=alert(&#39;lisa&#39;);&quot;&gt;&lt;/script&gt;</code></p>
+<p>构造：<code>include=&lt;script src=&quot;source/jsonp.php?callback=alert('lisa');&quot;&gt;&lt;/script&gt;</code></p>
 <img src="/2021/02/02/dvwa9/5.jpg" srcset="/img/loading.gif" alt="5" style="zoom:50%;">
-
-<h1 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h1><p><code>impossible.php</code>，<code>impossible.js</code>都和high没什么区别，关键在于<code>appendChild（）</code>处理的<code>jsonp.php</code>处理不同：</p>
+<h1>impossible</h1>
+<p><code>impossible.php</code>，<code>impossible.js</code>都和high没什么区别，关键在于<code>appendChild（）</code>处理的<code>jsonp.php</code>处理不同：</p>
 <p>这是high的</p>
 <p><img src="/2021/02/02/dvwa9/6.jpg" srcset="/img/loading.gif" alt="6"></p>
 <p>这个是impossible的</p>

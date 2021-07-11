@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.1k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      12
        分钟
     </span>
   
@@ -227,12 +227,14 @@
             <h1 style="display: none">sqli-labs五</h1>
             
             <div class="markdown-body">
-              <h1 id="Less-23"><a href="#Less-23" class="headerlink" title="Less-23"></a>Less-23</h1><p>本关跟第一关有点像，但是试探过程中发现<code>id=1&#39;</code>和<code>id=&#39;)</code>报错，但注释后仍报错，而<code>id=1&quot;</code>和<code>id=1&quot;)</code>回显正常，看一下源代码</p>
+              <h1>Less-23</h1>
+<p>本关跟第一关有点像，但是试探过程中发现<code>id=1'</code>和<code>id=')</code>报错，但注释后仍报错，而<code>id=1&quot;</code>和<code>id=1&quot;)</code>回显正常，看一下源代码</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/1.jpg" srcset="/img/loading.gif" alt="1"></p>
 <p>发现本关对–+和#都进行了转义，故不能再用这种方式注释，可以在之后构造出闭合用;%00(一种特殊的注释符)或者and和or语句进行闭合。通过试探得出该处为单引号注入：</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/2.jpg" srcset="/img/loading.gif" alt="2"></p>
-<p>其余步骤与第一关相似，在每条语句后面加上<code>and&#39;1&#39;=&#39;1</code>闭合即可。</p>
-<h1 id="Less-24（二次注入）"><a href="#Less-24（二次注入）" class="headerlink" title="Less-24（二次注入）"></a>Less-24（二次注入）</h1><p>二次注入思路：</p>
+<p>其余步骤与第一关相似，在每条语句后面加上<code>and'1'='1</code>闭合即可。</p>
+<h1>Less-24（二次注入）</h1>
+<p>二次注入思路：</p>
 <ul>
 <li>先构造语句（有被转义字符的语句或SQL语句）提交 HTTP 数据请求到服务 端进行处理</li>
 <li>服务端保存数据，为应用程序提供原始输入数据并响应客户端请求</li>
@@ -240,7 +242,7 @@
 <li>服务端接收到请求，查询数据库中已经存储的数据信息并处理，从而第一次请求中构造的语句在服务端环境中执行</li>
 <li>服务端返回执行的处理结果数据信息，可以通过返回的结果判断二次注入漏洞利用是否成功</li>
 </ul>
-<p>页面中出现Forgot your password?点进去额……去攻击它???只能点New User click here?注册。</p>
+<p>页面中出现Forgot your password?点进去额…去攻击它???只能点New User click here?注册。</p>
 <p>查看login.php源代码:</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/15.jpg" srcset="/img/loading.gif" alt="15"></p>
 <p>登录时用户名和密码都被过滤。</p>
@@ -252,71 +254,84 @@
 <p>更改密码时，用户名没有过滤，sql语句中对用户名加了单引号。</p>
 <p>注册用户名为admin’#密码随意：</p>
 <img src="/2020/12/09/sqli-labs%E4%BA%94/17.jpg" srcset="/img/loading.gif" alt="17" style="zoom: 50%;">
-
 <p>修改密码后使用新密码重新登录，发现无法登录，查看数据库</p>
 <img src="/2020/12/09/sqli-labs%E4%BA%94/18.jpg" srcset="/img/loading.gif" alt="18" style="zoom:80%;">
-
 <p>发现admin的密码变成了新密码，而原本注册的用户密码不变，因为在创建admin‘#之后，这个账号再次检索的时候不用进行转义检测，所以搜索到的数据库名时admin，并不是admin’#，所以修改的密码也是admin的密码，所以登录的时候，username应该是admin，而不是admin‘#。</p>
-<h1 id="Less-25-绕过注入"><a href="#Less-25-绕过注入" class="headerlink" title="Less-25(绕过注入)"></a>Less-25(绕过注入)</h1><p>正常登录后，开始测试，加上单引号，报错，注释掉回显正常，故为单引号注入，接下来<code>orser by 3 --+</code></p>
+<h1>Less-25(绕过注入)</h1>
+<p>正常登录后，开始测试，加上单引号，报错，注释掉回显正常，故为单引号注入，接下来<code>orser by 3 --+</code></p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/4.jpg" srcset="/img/loading.gif" alt="4"></p>
 <p>发现回显不正常，hint提示我们语句中的or两个字母没有了,查一下源代码：</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/5.jpg" srcset="/img/loading.gif" alt="5"></p>
 <p>or 和and被注释掉了。</p>
-<h2 id="法一：双写的联合查询"><a href="#法一：双写的联合查询" class="headerlink" title="法一：双写的联合查询"></a>法一：双写的联合查询</h2><p>使用双写的方法，把or和and的每一个字母之间，使用or或and分隔开即可:</p>
+<h2 id="法一：双写的联合查询"><a class="header-anchor" href="#法一：双写的联合查询">🍭</a>法一：双写的联合查询</h2>
+<p>使用双写的方法，把or和and的每一个字母之间，使用or或and分隔开即可:</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/6.jpg" srcset="/img/loading.gif" alt="6"></p>
-<p>后续和第一关一样，在遇到or和and时要双写。如下需对password进行双写<code>?id=-1&#39; union select 1,(select group_concat(concat_ws(&#39;-&#39;,id,username,passwoorrd)) from users),3-- #</code>:</p>
+<p>后续和第一关一样，在遇到or和and时要双写。如下需对password进行双写<code>?id=-1' union select 1,(select group_concat(concat_ws('-',id,username,passwoorrd)) from users),3-- #</code>:</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/7.jpg" srcset="/img/loading.gif" alt="7"></p>
-<h2 id="法二：报错注入or-gt"><a href="#法二：报错注入or-gt" class="headerlink" title="法二：报错注入or-&gt;||"></a>法二：报错注入<code>or-&gt;||</code></h2><p><code>?id=1&#39; || extractvalue(1,concat(0x7e,database()))--+</code></p>
+<h2 id="法二：报错注入or"><a class="header-anchor" href="#法二：报错注入or">🍭</a>法二：报错注入<code>or-&gt;||</code></h2>
+<p><code>?id=1' || extractvalue(1,concat(0x7e,database()))--+</code></p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/8.jpg" srcset="/img/loading.gif" alt="8"></p>
 <p>发现or可以用||代替而and用&amp;&amp;代替报错。原因是&amp;&amp;进行url编码，变成了%26%26：</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/9.jpg" srcset="/img/loading.gif" alt="9"></p>
-<h1 id="Less-25a"><a href="#Less-25a" class="headerlink" title="Less-25a"></a>Less-25a</h1><p>本关可以正常union注入也可以用Bool或Time盲注，但不能报错注入：<img src="/2020/12/09/sqli-labs%E4%BA%94/10.jpg" srcset="/img/loading.gif" alt="10"></p>
+<h1>Less-25a</h1>
+<p>本关可以正常union注入也可以用Bool或Time盲注，但不能报错注入：<img src="/2020/12/09/sqli-labs%E4%BA%94/10.jpg" srcset="/img/loading.gif" alt="10"></p>
 <p>源代码中将报错注释掉了。</p>
 <p>试探一番发现为数字型输入，其余步骤与25关相似。</p>
-<h1 id="Less-26"><a href="#Less-26" class="headerlink" title="Less-26"></a>Less-26</h1><p>单引号报错，将其注释后仍报错，发现注释符消失</p>
+<h1>Less-26</h1>
+<p>单引号报错，将其注释后仍报错，发现注释符消失</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/11.jpg" srcset="/img/loading.gif" alt="11"></p>
 <p>查看源代码:</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/12.jpg" srcset="/img/loading.gif" alt="12"></p>
 <p>发现一堆符号被注释了，所以要像给or找个替代符号一样，给其他的被转义的符号找个替代：</p>
 <ul>
-<li><p><code>;%00</code>注释符</p>
+<li>
+<p><code>;%00</code>注释符</p>
 </li>
-<li><p><code>%0a</code> 新建一行</p>
+<li>
+<p><code>%0a</code> 新建一行</p>
 </li>
-<li><p><code>%0b</code> TAB 键（垂直）</p>
+<li>
+<p><code>%0b</code> TAB 键（垂直）</p>
 </li>
-<li><p><code>%0c</code> 新的一页</p>
+<li>
+<p><code>%0c</code> 新的一页</p>
 </li>
-<li><p><code>%0d</code> return 功能</p>
+<li>
+<p><code>%0d</code> return 功能</p>
 </li>
-<li><p><code>%a0</code> 空格</p>
+<li>
+<p><code>%a0</code> 空格</p>
 </li>
-<li><p><code>%09</code> TAB 键（水平）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%23(#)&#96;、&#96;%2a(*)&#96;、&#96;%2d(-)&#96;、&#96;%2f(&#x2F;)&#96;、&#96;%5c(\)</span><br></pre></td></tr></table></figure>
-
+<li>
+<p><code>%09</code> TAB 键（水平）</p>
+<pre><code class="hljs gcode"><span class="hljs-meta">%</span><span class="hljs-number">23</span><span class="hljs-comment">(#)</span>`、`<span class="hljs-meta">%</span><span class="hljs-number">2</span>a<span class="hljs-comment">(*)</span>`、`<span class="hljs-meta">%</span><span class="hljs-number">2</span>d<span class="hljs-comment">(-)</span>`、`<span class="hljs-meta">%</span><span class="hljs-number">2</span>f<span class="hljs-comment">(/)</span>`、`<span class="hljs-meta">%</span><span class="hljs-number">5</span>c<span class="hljs-comment">(\)</span></code></pre>
 </li>
 </ul>
 <p>有三种注入方式：</p>
 <ul>
-<li><p>因正确回显非固定字符串，可利用以上特殊 URL 编码代替空格，仍使用<code>union</code>加空格连接<code>select</code>联合注入。</p>
+<li>
+<p>因正确回显非固定字符串，可利用以上特殊 URL 编码代替空格，仍使用<code>union</code>加空格连接<code>select</code>联合注入。</p>
 <p>将单引号注释掉:<code>?id=0%27%a0||%a0%271%27=%271</code></p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/20.jpg" srcset="/img/loading.gif" alt="20"></p>
 <p>回显正常，故为单引号注入</p>
-<p><code>?id=0&#39;%a0union%a0select%a02,database(),4%a0||%a0&#39;1&#39;=&#39;1</code></p>
+<p><code>?id=0'%a0union%a0select%a02,database(),4%a0||%a0'1'='1</code></p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/19.jpg" srcset="/img/loading.gif" alt="19"></p>
 <p>接下去和之前类似，注意字符转换。</p>
 </li>
-<li><p>updatexml()与extractvalue()报错注入</p>
-<p><code>?id=0&#39;||updatexml(1,concat(&#39;$&#39;,(database())),0)||&#39;1&#39;=&#39;1</code></p>
+<li>
+<p>updatexml()与extractvalue()报错注入</p>
+<p><code>?id=0'||updatexml(1,concat('$',(database())),0)||'1'='1</code></p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/21.jpg" srcset="/img/loading.gif" alt="21"></p>
 <p>接下去同理。</p>
 </li>
-<li><p>Bool 盲注，构造注入语句避开空格。</p>
+<li>
+<p>Bool 盲注，构造注入语句避开空格。</p>
 </li>
 </ul>
-<h1 id="Less-26a"><a href="#Less-26a" class="headerlink" title="Less-26a"></a>Less-26a</h1><p><code>?id=1&#39;</code>无回显，双引号回显正常查看源代码：</p>
+<h1>Less-26a</h1>
+<p><code>?id=1'</code>无回显，双引号回显正常查看源代码：</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/22.jpg" srcset="/img/loading.gif" alt="22"></p>
-<p>图中48行将报错注释掉，故此关不能使用报错注入，or,and等符号一样被注释掉了。将单引号注释掉仍无回显，用<code>?id=1&#39;)||&#39;1&#39;=(&#39;1</code>进行注释回显正常故为‘）闭合型注入。</p>
+<p>图中48行将报错注释掉，故此关不能使用报错注入，or,and等符号一样被注释掉了。将单引号注释掉仍无回显，用<code>?id=1')||'1'=('1</code>进行注释回显正常故为‘）闭合型注入。</p>
 <p><img src="/2020/12/09/sqli-labs%E4%BA%94/23.jpg" srcset="/img/loading.gif" alt="23"></p>
 <p>其余步骤与26关类似<strong>但不可用报错注入</strong>。</p>
 

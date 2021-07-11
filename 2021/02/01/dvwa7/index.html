@@ -230,23 +230,25 @@
               <p>Insecure CAPTCHA，不安全的验证码，CAPTCHA全称：Completely Automated Public Turing Test to Tell Computers and Humans Apart。验证码流程一般是:用户向浏览器的服务器发送请求，浏览器的服务器返回验证码给用户，用户将验证码发送给网站服务器，网站服务器会向浏览器的服务器验证这个验证码的正确性，浏览器最终返回验证结果给网站服务器。</p>
 <p>服务器通过调用recaptcha_check_answer函数检查用户输入的正确性。</p>
 <pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">recaptcha_check_answer</span><span class="hljs-params">(<span class="hljs-variable">$privkey</span>,<span class="hljs-variable">$remoteip</span>, <span class="hljs-variable">$challenge</span>,<span class="hljs-variable">$response</span>)</span></span></code></pre>
-
 <p>参数$privkey是服务器申请的private key ，$remoteip是用户的ip，$challenge 是recaptcha_challenge_field 字段的值，来自前端页面 ，$response是 recaptcha_response_field 字段的值。函数返回ReCaptchaResponse class的实例，ReCaptchaResponse 类有2个属性 ：</p>
 <blockquote>
 <p>$is_valid是布尔型的，表示校验是否有效，</p>
 <p>$error是返回的错误代码。</p>
 </blockquote>
 <p>我们的绕过简而言之就是当验证不合格时，通过burp抓包工具修改成符合要求的数据包。修改参数标志位、USER-AGENT之类的参数。</p>
-<h1 id="low"><a href="#low" class="headerlink" title="low"></a>low</h1><img src="/2021/02/01/dvwa7/1.jpg" srcset="/img/loading.gif" alt="1" style="zoom:67%;">
-
+<h1>low</h1>
+<img src="/2021/02/01/dvwa7/1.jpg" srcset="/img/loading.gif" alt="1" style="zoom:67%;">
 <p>源码中第一步检查验证码返回表单，第二步接受用户的表单再来进行修改。服务器仅仅通过检查Change，step参数来判断用户是否已经输入了正确的验证码。故我们抓包将step值修改为2即可绕过验证。也可以用CSRF攻击实现。</p>
 <p><img src="/2021/02/01/dvwa7/2.jpg" srcset="/img/loading.gif" alt="2"></p>
-<h1 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h1><p><img src="/2021/02/01/dvwa7/3.jpg" srcset="/img/loading.gif" alt="3"></p>
+<h1>medium</h1>
+<p><img src="/2021/02/01/dvwa7/3.jpg" srcset="/img/loading.gif" alt="3"></p>
 <p>本质上与low无区别，抓包时多修改一个<code>passed_captcha</code>值即可</p>
-<h1 id="high"><a href="#high" class="headerlink" title="high"></a>high</h1><p><img src="/2021/02/01/dvwa7/4.jpg" srcset="/img/loading.gif" alt="4"></p>
+<h1>high</h1>
+<p><img src="/2021/02/01/dvwa7/4.jpg" srcset="/img/loading.gif" alt="4"></p>
 <p>$resp参数有浏览器返回，我们只能改参数<code>recaptcha_response_field、User-Agent</code></p>
 <p><img src="/2021/02/01/dvwa7/5.jpg" srcset="/img/loading.gif" alt="5"></p>
-<h1 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h1><p><img src="/2021/02/01/dvwa7/6.jpg" srcset="/img/loading.gif" alt="6"></p>
+<h1>impossible</h1>
+<p><img src="/2021/02/01/dvwa7/6.jpg" srcset="/img/loading.gif" alt="6"></p>
 <p>对返回值单独验证，并且本关要输入当前密码，<code>Anti-CSRF token ,PDO</code>也在。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/119692.html">InsecureCAPTCHA</a></p>
 
