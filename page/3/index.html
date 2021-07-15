@@ -181,6 +181,88 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/02/24/filedownload/">File Download</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/24/filedownload/">
+          
+          
+            
+          
+          🍭概述
+网站对用户下载或查看的文件不做限制，使恶意用户能够下载或查看任意敏感文件。
+🍭成因
+常规文件下载流程：使用一个动态页面（php、jsp、aspx、asp等）将待下载文件作为参数一般参数名称为filename，如.php?filename/.jsp?filename等。根据参数filename的值，获得该文件在网站上的绝对路径，读取文件，然后直接发送给客户端下载。
+如果后台在收到请求的文
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-24 21:18" pubdate>
+              2021-02-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/19/1/">逻辑漏洞||越权</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/19/1/">
+          
+          
+            
+          
+          🍭概述
+逻辑错误漏洞是指由于程序逻辑不严或逻辑太复杂，导致一些逻辑分支不能够正常处理或处理错误，一般出现在任意密码修改、越权访问、密码找回、交易支付金额。
+🍭本质
+设计者或开发者在思考过程中做出的特殊假设存在明显或隐含的错误
+🍭特点
+
+普遍存在：普遍存在于各类应用程序
+不固定：应用中不同功能逻辑不同，无法用一般工具发现
+隐蔽性
+逻辑漏洞是目前WAF的盲区（故当前较易挖掘，下文详讲挖掘思路）
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-19 23:25" pubdate>
+              2021-02-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/02/19/Soup4/">Python Library——bs4&amp;requests</a>
       </h1>
 
@@ -500,85 +582,11 @@ RFI,Remote File Inclusion远程文件包含(文件包含在dvwa那介绍过了)
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/08/shell/">Reverse Shell</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/08/shell/">
-          
-          
-            
-          
-          最近在学习SSRF，遇到了反弹shell，又发现了知识盲区💢💢💢，故来恶补一下🎃🎃🎃
-定义
-reverse shell，控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。简而言之就是控制端可以通过执行被控端上的命令并返回到控制端上。
-用途
-当控制端通过攻击打开了被控端的一个端口，控制端在自己主机去连接被控端本机叫做正向连接。但是出现以下几种情况
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-08 15:53" pubdate>
-              2021-02-08
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/08/SSRF/">SSRF</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/08/SSRF/">
-          
-          
-            
-          
-          SSRF(Server-Side Request Forgery:服务器端请求伪造) 由攻击者构造请求，由服务端发起请求的安全漏洞。一般情况下，SSRF攻击的目标是外网无法访问的内部系统。（请求由服务端发起，故服务端能请到与自身相连而与外网隔离的内部系统）
-漏洞原理
-服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。常见的有服务端从指定URL地址获取网页文本内容，加载指定地址
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-08 14:38" pubdate>
-              2021-02-08
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

