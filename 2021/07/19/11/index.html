@@ -1,0 +1,560 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>JSON Web Token - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JSON Web Token">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-19 22:12" pubdate>
+        July 19, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JSON Web Token</h1>
+            
+            <div class="markdown-body">
+              <p>JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案，用于作为JSON对象在各方之间安全地传输信息。</p>
+<h3 id="跨域认证"><a class="header-anchor" href="#跨域认证">🍭</a>跨域认证</h3>
+<p>用户认证流程(之前CSRF就讲过了)</p>
+<blockquote>
+<p>1、用户向服务器发送用户名和密码。</p>
+<p>2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。</p>
+<p>3、服务器向用户返回一个 session_id，写入用户的 Cookie。</p>
+<p>4、用户随后的每一次请求，都会通过 Cookie，将 session_id 传回服务器。</p>
+<p>5、服务器收到 session_id，找到前期保存的数据，由此得知用户的身份。</p>
+</blockquote>
+<p>如果是服务器集群，或者是跨域的服务导向架构，就要求 session 数据共享，每台服务器都能够读取 session。</p>
+<h3 id="原理"><a class="header-anchor" href="#原理">🍭</a>原理</h3>
+<p>服务器认证以后，生成一个 JSON 对象(JSONP注入里讲过)，发回给用户, 如下:</p>
+<pre><code class="hljs json">&#123;
+  <span class="hljs-attr">&quot;姓名&quot;</span>: <span class="hljs-string">&quot;wenwen&quot;</span>,
+  <span class="hljs-attr">&quot;角色&quot;</span>: <span class="hljs-string">&quot;管理员&quot;</span>,
+  <span class="hljs-attr">&quot;到期时间&quot;</span>: <span class="hljs-string">&quot;2100年9月16日0点0分&quot;</span>
+&#125;</code></pre>
+<p>用户与服务端通信的时候，都要发回这个 JSON 对象。服务器完全只靠这个对象认定用户身份。为了防止用户篡改数据，服务器在生成这个对象的时候，会加上签名，JWT通常放在Authorization header中，用Bearer schema。</p>
+<pre><code class="hljs dts"><span class="hljs-symbol">Authorization:</span> Bearer <span class="hljs-params">&lt;token&gt;</span></code></pre>
+<p>流程：</p>
+<p><img src="/2021/07/19/11/1.jpg" srcset="/img/loading.gif" alt="1"></p>
+<h3 id="结构"><a class="header-anchor" href="#结构">🍭</a>结构</h3>
+<ul>
+<li>
+<p>Header（头部）</p>
+<p>token的类型（“JWT”）和算法名称（比如：HMAC SHA256或RSA等）；用Base64对这个JSON编码就得到JWT的第一部分</p>
+<pre><code class="hljs json">&#123;
+  <span class="hljs-attr">&quot;alg&quot;</span>: <span class="hljs-string">&quot;HS256&quot;</span>,
+  <span class="hljs-attr">&quot;typ&quot;</span>: <span class="hljs-string">&quot;JWT&quot;</span>
+&#125;</code></pre>
+</li>
+<li>
+<p>Payload（负载）</p>
+<p>包含关于实体(通常是用户)和其他数据的声明，声明有三种类型：</p>
+<ul>
+<li>
+<p>Registered claims : 这里有一组预定义的声明，不是强制的，但是推荐。比如：iss (issuer), exp (expiration time), sub (subject), aud (audience)等。</p>
+</li>
+<li>
+<p>Public claims : 可以随意定义。</p>
+</li>
+<li>
+<p>Private claims : 用于在同意使用它们的各方之间共享信息，并且不是注册的或公开的声明。</p>
+</li>
+</ul>
+<p>对payload进行Base64编码就得到JWT的第二部分。</p>
+</li>
+<li>
+<p>Signature（签名）</p>
+<p>Signature 部分是对前两部分的签名，防止数据篡改。</p>
+<p>首先，需要指定一个密钥（secret）。这个密钥只有服务器才知道，不能泄露给用户。然后，使用 Header 里面指定的签名算法（默认是 HMAC SHA256），按照下面的公式产生签名。</p>
+ <pre><code class="hljs lisp">HMACSHA256(
+  base64UrlEncode(<span class="hljs-name">header</span>) + <span class="hljs-string">&quot;.&quot;</span> +
+  base64UrlEncode(<span class="hljs-name">payload</span>),
+  secret)</code></pre>
+<p>算出签名以后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用&quot;点&quot;（<code>.</code>）分隔，就可以返回给用户。</p>
+</li>
+</ul>
+<p>格式：</p>
+<pre><code class="hljs stylus">Header<span class="hljs-selector-class">.Payload</span><span class="hljs-selector-class">.Signature</span>  <span class="hljs-comment">//用圆点(.)连接</span></code></pre>
+<p>Header 和 Payload 串型化的算法是 Base64URL。这个算法跟 Base64 算法基本类似，但有一些不同。</p>
+<p>JWT 作为一个令牌（token），有些场合可能会放到 URL，Base64 有三个字符<code>+</code>、<code>/</code>和<code>=</code>，在 URL 里面有特殊含义，所以要被替换掉：<code>=</code>被省略、<code>+</code>替换成<code>-</code>，<code>/</code>替换成<code>_</code> 。</p>
+<p>实例：</p>
+<p><img src="/2021/07/19/11/3.png" srcset="/img/loading.gif" alt="3"></p>
+<h3 id="使用场景"><a class="header-anchor" href="#使用场景">🍭</a>使用场景</h3>
+<ul>
+<li><strong>Authorization</strong> (授权) : 这是使用JWT的最常见场景。一旦用户登录，后续每个请求都将包含JWT，允许用户访问该令牌允许的路由、服务和资源。单点登录是现在广泛使用的JWT的一个特性，因为它的开销很小，并且可以轻松地跨域使用。</li>
+<li><strong>Information Exchange</strong> (信息交换) : 对于安全的在各方之间传输信息而言，JSON Web Tokens无疑是一种很好的方式。因为JWTs可以被签名，例如，用公钥/私钥对，可以确定发送人就是它们所说的那个人。另外，由于签名是使用头和有效负载计算的，还可以验证内容没有被篡改。</li>
+</ul>
+<h3 id="JWT与Session的差异"><a class="header-anchor" href="#JWT与Session的差异">🍭</a>JWT与Session的差异</h3>
+<p>JWT与Session很像，但Session是在服务器端的，而JWT是在客户端的。Session方式存储用户信息的最大问题在于要占用大量服务器内存，增加服务器的开销。而JWT方式将用户状态分散到了客户端中，可以明显减轻服务端的内存压力。</p>
+<h3 id="攻击手段"><a class="header-anchor" href="#攻击手段">🍭</a>攻击手段</h3>
+<h4 id="敏感信息泄露"><a class="header-anchor" href="#敏感信息泄露">🍭</a>敏感信息泄露</h4>
+<p>当服务端的秘钥泄密的时候，JWT的伪造就变得非常简单容易</p>
+<h4 id="将加密方式改为’none’"><a class="header-anchor" href="#将加密方式改为’none’">🍭</a>将加密方式改为’none’</h4>
+<p>签名算法确保恶意用户在传输过程中不会修改JWT。但是标题中的alg字段可以更改为none。一些JWT库支持无算法，即没有签名算法。当alg为none时，后端将不执行签名验证。将alg更改为none后，从JWT中删除签名数据（仅标题+‘.’+ payload +‘.’）并将其提交给服务器</p>
+<h4 id="将算法RS256修改为HS256（非对称密码算法-对称密码算法）"><a class="header-anchor" href="#将算法RS256修改为HS256（非对称密码算法-对称密码算法）">🍭</a>将算法RS256修改为HS256（非对称密码算法=&gt;对称密码算法）</h4>
+<p>HS256使用密钥来签名和验证每个消息。而RS256使用私钥对消息进行签名并使用公钥进行认证。如果将算法从RS256更改为HS256，则后端代码使用公钥作为密钥，然后使用HS256算法验证签名。由于攻击者有时可以获取公钥，因此攻击者可以将标头中的算法修改为HS256，然后使用RSA公钥对数据进行签名。此时，后端代码就会使用RSA公钥+HS256算法进行签名验证，从而让验证通过。</p>
+<h4 id="HS256（对称加密）密钥破解"><a class="header-anchor" href="#HS256（对称加密）密钥破解">🍭</a>HS256（对称加密）密钥破解</h4>
+<p>如果HS256密钥强度较弱，则可以直接强制使用，通过爆破 HS256的秘钥可以完成该操作。难度比较低。解决对策很简单，使用复杂的秘钥即可。</p>
+<h4 id="错误的堆叠加密-签名验证假设"><a class="header-anchor" href="#错误的堆叠加密-签名验证假设">🍭</a>错误的堆叠加密+签名验证假设</h4>
+<p>详见：<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/181261.html">https://www.freebuf.com/articles/web/181261.html</a></p>
+<h4 id="无效椭圆曲线攻击"><a class="header-anchor" href="#无效椭圆曲线攻击">🍭</a>无效椭圆曲线攻击</h4>
+<p>在椭圆曲线加密中，公钥是椭圆曲线上的一个点，而私钥只是一个位于特殊但非常大的范围内的数字。 如果未验证对这些操作的输入，那攻击者就可以进行设计，从而恢复私钥。这类攻击被称为无效曲线攻击。</p>
+<p>详见：<a target="_blank" rel="noopener" href="http://blogs.adobe.com/security/2017/03/critical-vulnerability-uncovered-in-json-encryption.html">critical-vulnerability-uncovered-in-json-encryption</a></p>
+<h4 id="替换攻击"><a class="header-anchor" href="#替换攻击">🍭</a>替换攻击</h4>
+<p>在这种攻击中，攻击者需要至少获得两种不同的JWT，然后攻击者可以将令牌中的一个或者两个用在其他的地方。</p>
+<p>在JWT中，替换攻击有两种方式：相同接收方攻击（跨越式JWT）和不同接收方攻击。</p>
+<p><strong>不同接收方攻击</strong></p>
+<p>设想一个业务逻辑：</p>
+<blockquote>
+<p>Auth 机构，有着自己的私钥，并且给 App1 和 App2 发放了两个公钥，用于验证签名；</p>
+<p>Attacker 利用自己的秘钥登录了 App1。</p>
+</blockquote>
+<p>此时 Auth 机构给 Attacker 下发了一个 附带签名的JWT，其payload内容为：</p>
+<pre><code class="hljs 1c">&#123;
+    &#x27;uname&#x27;:&#x27;Attacker&#x27;
+    &#x27;role&#x27; :&#x27;admin&#x27;
+&#125;</code></pre>
+<p>此时，如果 Attacker 知道 App1 和 App2 的公钥是同一个Auth 签发的话，他可以利用这个JWT去登录 App2，从而获取Admin权限。</p>
+<p><strong>相同接收方攻击/跨越式JWT same recipient/Cross JWT</strong></p>
+<p>设想一个业务逻辑：</p>
+<blockquote>
+<p>在同一站点下，有两个应用程序，wordpress和phpmyadmin，他们都利用了相同的秘钥对和算法来验证JWT签名；</p>
+<p>站点管理员知道 Different Recipient 的问题，所以给 wordpress 的应用增加了 aud 验证，但是 phpmyadmin 的用户人数较少，没有增加 aud 的验证；</p>
+<p>Attacker 利用自己的秘钥登录了 wordpress。</p>
+</blockquote>
+<p>此时 站点 给 Attacker 下发了一个 附带签名的JWT，其payload内容为：</p>
+<pre><code class="hljs sml">&#123;
+    <span class="hljs-symbol">&#x27;uname&#x27;</span>:<span class="hljs-symbol">&#x27;Attacker&#x27;</span>
+    <span class="hljs-symbol">&#x27;role&#x27;</span> :<span class="hljs-symbol">&#x27;writer&#x27;</span>
+    <span class="hljs-symbol">&#x27;aud&#x27;</span> :<span class="hljs-symbol">&#x27;shaobaobaoer</span>.cn/wordpress&#x27;
+    <span class="hljs-symbol">&#x27;iss&#x27;</span> :<span class="hljs-symbol">&#x27;shaobaobaoer</span>.cn&#x27;
+&#125;</code></pre>
+<p>这个JWT看似非常安全，但这仅仅是对于 wordpress 的应用程序而言，。从而Attacker 可以以 writer 的身份登录 phpmyadmin。</p>
+<h3 id="特点"><a class="header-anchor" href="#特点">🍭</a>特点</h3>
+<ul>
+<li>JWT 默认是不加密。</li>
+<li>JWT 不加密的情况下，不能将秘密数据写入 JWT。</li>
+<li>JWT 不仅可以用于认证，也可以用于交换信息。有效使用 JWT，可以降低服务器查询数据库的次数。</li>
+<li>由于服务器不保存 session 状态，因此无法在使用过程中废止某个 token，或者更改 token 的权限。也就是说，一旦 JWT 签发了，在到期之前就会始终有效，除非服务器部署额外的逻辑。</li>
+<li>JWT 本身包含了认证信息，一旦泄露，任何人都可以获得该令牌的所有权限。为了减少盗用，JWT 的有效期应该设置得比较短。对于一些比较重要的权限，使用时应该再次对用户进行认证。</li>
+<li>为了减少盗用，JWT 不应该使用 HTTP 协议明码传输，要使用 HTTPS 协议传输。</li>
+</ul>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html">JSON Web Token 入门教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/181261.html">深入了解Json Web Token之实战篇</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/19/koa/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">koa框架浅析</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/17/lod/">
+                        <span class="hidden-mobile">网鼎杯 2018||Comment</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

@@ -181,6 +181,201 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/02/14/re/">PHP反序列化漏洞</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/14/re/">
+          
+          
+            
+          
+          🍭php面向对象编程：
+
+对象：可以对其做事情的一些东西。一个对象有状态、行为和标识三种属性。
+类：一个共享相同结构和行为的对象的集合。每个类的定义都以关键字class开头，后面跟着类的名字。一个类可以包含有属于自己的变量，变量（称为“属性”）以及函数（“称为方法”）类定义了一件事物的抽象特点。
+
+🍭序列化
+将一个对象、数组、字符串等转化为字节流便于传输。序列化的目的是方便数据的传输和存储,但
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-14 01:05" pubdate>
+              2021-02-14
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/13/TLS/">TLS</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/13/TLS/">
+          
+          
+            
+          
+          🍭三次握手
+对每次发送的数据量进行跟踪与协商，确保数据段的发送和接收同步，根据所接收到的数据量而确认数据发送、接收完毕后何时撤消联系，并建立虚连接。
+TCP是一种面向连接的单播协议，在发送数据前，通信双方必须在彼此间建立一条连接。所谓的“连接”，其实是客户端和服务器的内存里保存的一份关于对方的信息，如ip地址、端口号等。
+第一次：建立连接时，客户端发送syn包（seq=j）到服务器，并进入SYN
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-13 01:19" pubdate>
+              2021-02-13
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/13/RCE/">RCE</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/13/RCE/">
+          
+          
+            
+          
+          RCE
+远程连接命令/代码执行漏洞，能够让攻击者直接向后台服务器远程写入服务器系统命令或者代码，从而控制后台系统。
+🍭产生原因
+
+
+远程连接命令执行ping
+应用系统从设计上需要给用户提供指定的远程命令操作的接口比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-13 01:19" pubdate>
+              2021-02-13
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/10/XXE/">XXE</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/10/XXE/">
+          
+          
+            
+          
+          在BWAPP里做SSRF结果任务里出现了XXE，又是一个知识盲区👿 👿 👿 ，故又跑来XXE辽👻👻👻
+XXE
+XML External Entity，XML 外部实体注入：应用程序在解析XML时没有过滤外部实体的加载，导致加载了恶意的外部文件，造成执行命令、读取文件、扫描内网、攻击内网应用等危害。
+🍭XML
+XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-10 21:35" pubdate>
+              2021-02-10
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/10/BWAPP/">BWAPP||SSRF</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/10/BWAPP/">
+          
+          
+            
+          
+          系统学习SSRF后，我们可以搭个BWAPP练习一下，BWAPP集成了各种常见漏洞和最新漏洞的开源Web应用程序，集成了超过100种漏洞，今天我们要练习一下SSRF部分（找了好久才找到SSRF板块😡😡😡）
+
+有三个任务：
+
+🍭Task One:用远程文件包含进行端口扫描
+RFI,Remote File Inclusion远程文件包含(文件包含在dvwa那介绍过了)
+从Port scan获得一
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-10 01:57" pubdate>
+              2021-02-10
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/02/08/shell/">Reverse Shell</a>
       </h1>
 
@@ -344,201 +539,6 @@ A
             <i class="iconfont icon-date"></i>
             <time datetime="2021-02-01 17:27" pubdate>
               2021-02-01
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/01/dvwa7/">DVWA||Insecure CAPTCHA</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/01/dvwa7/">
-          
-          
-            
-          
-          Insecure CAPTCHA，不安全的验证码，CAPTCHA全称：Completely Automated Public Turing Test to Tell Computers and Humans Apart。验证码流程一般是:用户向浏览器的服务器发送请求，浏览器的服务器返回验证码给用户，用户将验证码发送给网站服务器，网站服务器会向浏览器的服务器验证这个验证码的正确性，浏览器最终返回验证
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-01 13:10" pubdate>
-              2021-02-01
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/27/dvwa5/">DVWA||File Inclusion&amp;File Upload</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/27/dvwa5/">
-          
-          
-            
-          
-          File Inclusion
-🍭文件包含与漏洞
-开发人员将相同的函数写入单独的文件中,需要使用某个函数时直接调用此文件,无需再次编写,这种文件调用的过程称文件包含。
-文件包含函数的参数没有经过过滤或者严格的定义，并且参数可以被用户控制，这样就可能包含非预期的文件。如果文件中存在恶惹代码，无论文件是什么类型，文件内的恶意代码都会被解析并执行。
-文件包含漏洞可能会造成服务器的网页被篡改、网站被挂马、
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-27 23:12" pubdate>
-              2021-01-27
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/27/3/">DVWA||XSS(Reflected&amp;Stored&amp;DOM)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/27/3/">
-          
-          
-            
-          
-          XSS原理
-XSS是跨站脚本攻击(Cross Site Scripting)恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。XSS的实质其实是HTML代码与Javscript代码的注入。但由于XSS的攻击对象是与客户对等的Browser端，因此常常不被开发者所重视。但xss漏洞危害很大，一旦被攻击成功，私
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-27 22:57" pubdate>
-              2021-01-27
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/26/dvwa4/">DVWA||Command Injection</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/26/dvwa4/">
-          
-          
-            
-          
-          命令注入攻击的常见场景为：仅仅需要输入数据的场合，攻击者构造数据同时输入了恶意命令代码，而系统对此并未过滤，恶意命令代码一并执行，最终导致信息泄露或者正常数据的破坏；PHP命令注入攻击漏洞是PHP应用程序中常见的脚本漏洞之一。命令注入和代码注入不同，代码注入的目的在于将外部代码注入应用程序本身，并随程序执行；命令攻击的对象是服务器的宿主机。因此用户可以通过构造特殊的输入来达到入侵目的。
-先介绍一下
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-26 21:49" pubdate>
-              2021-01-26
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/24/png/">二次渲染&amp;&amp;png结构分析</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/24/png/">
-          
-          
-            
-          
-          🍭一.PNG的文件结构
-🍭数据块构成结构
-png定义了两种类型的数据块
-
-关键数据块(critical chunk)//关键数据块定义了4个标准数据块，每个PNG文件都必须包含它们，PNG读写软件也都必须要支持这些数据块。
-
-
-
-
-PNG标识符
-PNG数据块(IHDR)
-PNG数据块(其他类型数据块)
-PNG结尾数据块(IEND)
-
-
-
-
-辅助数据块(ancillary chunks)
-
-🍭
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-24 20:43" pubdate>
-              2021-01-24
             </time>
           </div>
         

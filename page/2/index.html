@@ -181,6 +181,242 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/05/05/hash/">Hash Length Extension Attack</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/05/hash/">
+          
+          
+            
+          
+          新知识点MD5hash长度扩展攻击借[De1CTF 2019]SSRF Me记录一下。
+源码：
+#! /usr/bin/env python
+#encoding=utf-8
+from flask import Flask
+from flask import request
+import socket
+import hashlib
+import urllib
+import sys
+import os
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-05 22:13" pubdate>
+              2021-05-05
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/03/GXYctf/">GXYCTF2019|禁止套娃</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/03/GXYctf/">
+          
+          
+            
+          
+          这题提到了无参RCE，做个总结。
+
+git泄露源码，利用githack扫出源码:
+
+&gt;&gt;&lt;?php
+&gt;&gt;include &quot;flag.php&quot;;
+&gt;&gt;echo &quot;flag在哪里呢？&lt;br&gt;&quot;;
+&gt;&gt;if(isset($_GET[&#x27;exp&#x27;]))&#123;
+   if (!p
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-03 15:05" pubdate>
+              2021-05-03
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/18/js/">js原型链污染</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/18/js/">
+          
+          
+            
+          
+          🍭javascript 回顾
+
+在javascript中，继承的整个过程就称为该类的原型链。
+
+
+每个对象的都有一个指向他的原型(prototype)的内部链接，这个原型对象又有它自己的原型，一直到null为止。
+
+
+在javascript中一切皆对象，因为所有的变量，函数，数组，对象 都始于object的原型即object.prototype，但只有类有对象，对象没有，对象有的是__proto
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-18 15:22" pubdate>
+              2021-04-18
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/17/lowtype/">PHP弱类型及绕过</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/17/lowtype/">
+          
+          
+            
+          
+          🍭前言
+PHP弱类型应用挺多的，来总结一下。
+比较操作符==与===，这两种都可以比较两个数字的大小，但是有很明显的区别。
+
+
+
+操作符
+描述
+
+
+
+
+==
+把两端变量类型转换成相同的，再进行比较
+
+
+===
+先判断两端变量类型是否相同，再进行比较
+
+
+
+注意：在两个相等的符号中，一个字符串与一个数字相比较时，字符串会转换成数值。
+🍭extract变量覆盖
+
+extract() 函数
+
+使用数
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-17 15:16" pubdate>
+              2021-04-17
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/16/fakebook/">BUUCTF[网鼎杯 2018]Fakebook</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/16/fakebook/">
+          
+          
+            
+          
+          这题涉及的知识点比较多。
+查看源码找不到什么有用的信息，扫一下目录
+
+拿到robots.txt,跟进下载user.php.bak
+
+SSRF详见：SSRF
+随便注册一个用户并查看发现网址有点像SQL注入，用sqlmap跑不出来
+
+数据型：
+
+测试列数：
+
+列数为4,继续测试?no=1 union select 1,2,3,4--+显示no hack,判断存在waf，测试了一下应该是空格过滤掉了
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-16 00:32" pubdate>
+              2021-04-16
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/04/15/easytrick/">CISCN2020</a>
       </h1>
 
@@ -378,210 +614,6 @@ def from_pyfile(self, filename, silent=False):
             <i class="iconfont icon-date"></i>
             <time datetime="2021-04-05 14:49" pubdate>
               2021-04-05
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/05/wei2/">metasploit（二）——后渗透测试</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/05/wei2/">
-          
-          
-            
-          
-          今天来学习一下后渗透测试
-🍭meterpreter
-Meterpreter是Metasploit框架中的一个扩展模块，在溢出成功以后的攻击载荷使用，攻击载荷在溢出攻击成功以后返回一个控制通道（作为攻击载荷获得目标系统的Meterpreter shell的链接）Meterpreter shell有很多功能：添加用户、打开shell、得到用户密码、上传下载远程主机的文件、运行cmd.exe、捕捉屏幕
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-05 01:16" pubdate>
-              2021-03-05
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/03/wei3/">PHP反序列化（二）——字符串逃逸</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/03/wei3/">
-          
-          
-            
-          
-          🍭原理
-
-php在反序列化时，底层代码是以 ; 作为字段的分隔，以 &#125; 作为结尾，并且是根据长度判断内容的 ，同时反序列化的过程中必须严格按照序列化规则才能成功实现反序列化 。
-
-超出的部分并不会被反序列化成功，这说明反序列化的过程是有一定识别范围的，在这个范围之外的字符都会被忽略，不影响反序列化的正常进行。而且反序列化字符串都是以&quot;;&#125;结束的，那如果把&quot;
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-03 15:37" pubdate>
-              2021-03-03
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/27/wei1/">Metasploit(一)——入门测试</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/27/wei1/">
-          
-          
-            
-          
-          🍭简介
-Metasploit框架(Metasploit Framework，MSF)是一个开源工具，由Ruby程序语言编写的模板化框架，具有很好的扩展性，便于渗透测试人员开发、使用定制的工具模板。
-Metasploit可向后端模块提供多种用来控制测试的接口（如控制台、Web、CLI)推荐使用控制台接口，通过控制台接口，你可以访问和使用所有Metasploit的插件，例如Payload、利用模块、
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-27 23:49" pubdate>
-              2021-02-27
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/24/everything/">Information Exposure</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/24/everything/">
-          
-          
-            
-          
-          🍭概述
-由于后台人员的疏忽或者不当的设计，导致不应该被前端用户看到的数据被轻易的访问到：
-
-
-通过访问url下的目录，可以直接列出目录下的文件列表
-
-
-输入错误的url参数后报错信息里面包含操作系统、中间件、开发语言的版本或其他信息
-
-
-前端的源码（html,css,js）里面包含了敏感信息，比如后台登录地址、内网接口信息、甚至账号密码等
-
-
-敏感信息泄露往往给攻击着实施进一步的攻击提供很大的帮
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-24 21:30" pubdate>
-              2021-02-24
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/24/weakpassword/">未授权访问——Redis</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/24/weakpassword/">
-          
-          
-            
-          
-          概述
-需要安全配置或权限认证的地址、授权页面存在缺陷，导致其他用户可以直接访问，从而引发重要权限可被操作、数据库、网站目录等敏感信息泄露。
-常见：
-
-Redis未授权访问
-Jenkins未授权访问
-MongoDB未授权访问
-ZooKeeper未授权访问
-Elasticsearch未授权访问
-Memcache未授权访问
-Hadoop未授权访问
-CouchDB未授权访问
-Docker未授权访问
-LDA
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-24 21:26" pubdate>
-              2021-02-24
             </time>
           </div>
         

@@ -1,0 +1,694 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>koa框架浅析 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="koa框架浅析">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-19 23:05" pubdate>
+        July 19, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">koa框架浅析</h1>
+            
+            <div class="markdown-body">
+              <h2 id="koa框架"><a class="header-anchor" href="#koa框架">🍭</a>koa框架</h2>
+<p>Koa 是一个新的 web 框架， 通过利用 async 函数，Koa 丢弃了回调函数，增强错误处理，没有捆绑任何中间件。</p>
+<h3 id="目录结构"><a class="header-anchor" href="#目录结构">🍭</a>目录结构</h3>
+<img src="/2021/07/19/koa/1.png" srcset="/img/loading.gif" alt="1" style="zoom:50%;">
+<h4 id="app-js"><a class="header-anchor" href="#app-js">🍭</a>app.js</h4>
+<pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>
+
+<span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa&#x27;</span>)
+<span class="hljs-keyword">const</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa-bodyparser&#x27;</span>)()
+<span class="hljs-keyword">const</span> staticCache = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa-static-cache&#x27;</span>)
+
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./config&#x27;</span>)
+<span class="hljs-keyword">const</span> publicRouter = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./routes/public&#x27;</span>)
+<span class="hljs-keyword">const</span> privateRouter = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./routes/private&#x27;</span>)
+<span class="hljs-keyword">const</span> &#123; loggerMiddleware &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./middlewares/logger&#x27;</span>)
+<span class="hljs-keyword">const</span> &#123; errorHandler, responseHandler &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./middlewares/response&#x27;</span>)
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Koa()
+
+<span class="hljs-comment">// Logger</span>
+app.use(loggerMiddleware)
+
+<span class="hljs-comment">// Error Handler</span>
+app.use(errorHandler)
+
+<span class="hljs-comment">// Global Middlewares</span>
+app.use(bodyParser)
+app.use(staticCache(config.publicDir))
+
+<span class="hljs-comment">// Routes</span>
+app.use(publicRouter.routes(), publicRouter.allowedMethods())
+app.use(privateRouter.routes(), privateRouter.allowedMethods())
+
+<span class="hljs-comment">// Response</span>
+app.use(responseHandler)
+
+<span class="hljs-built_in">module</span>.exports = app</code></pre>
+<p>文件有较多的中间件，中间件的执行顺序是从外到内，再从内到外，也就是洋葱模式。中间件的执行过程是依靠<code>app.use()</code>进行传递的，可以简单的理解为自己编写的函数，依次去执行即可。每一个中间件会在app调用是传入2个参数，分别为： <code>ctx</code>和<code>next</code></p>
+<blockquote>
+<p>ctx:<br>
+Koa Context 将 node 的 request 和 response 对象封装在一个单独的对象里面，其为编写 web 应用和 API 提供了很多有用的方法。<br>
+这些操作在HTTP服务器开发中经常使用，因此其被添加在上下文这一层，而不是更高层框架中，因此将迫使中间件需要重新实现这些常用方法。</p>
+<p>next：<br>
+下一个中间件函数，也就是每一个中间件如果要往下走必须写上这个，否则无法执行。<br>
+可以理解为前端的vue-Router中的路由守卫中的next(), 执行下一步或者进行传参。</p>
+</blockquote>
+<h4 id="middlewares文件"><a class="header-anchor" href="#middlewares文件">🍭</a>middlewares文件</h4>
+<p>在这个项目主要用到了几个中间件:<code>logger.js</code>,<code>response.js</code>, <code>jwt.js</code>等其他中间件。若在此目录中新建对应中间件后，要在app.js中进行引入，否在无法生效。中间件的执行很像一个洋葱，但并不是一层一层的执行，而是以next为分界，先执行本层中next以前的部分，当下一层中间件执行完后，再执行本层next以后的部分。</p>
+<p><img src="/2021/07/19/koa/2.png" srcset="/img/loading.gif" alt="2"></p>
+<h5 id="logger-js"><a class="header-anchor" href="#logger-js">🍭</a>logger.js</h5>
+<p>这个中间件会在控制台或者日志中打印出固定的格式，http请求方法、返回状态、请求url、IP地址、请求时间等，而且我们也可以很好的利用log4js中的配置，来打印出自定义的日志。可以代替<code>console.log()</code>使用,在使用这个中间件的时候，必须放在第一个中间件，才能保证所以的请求及操作会先经过logger进行记录再到下一个中间件.</p>
+<pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>
+
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>)
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>)
+<span class="hljs-keyword">const</span> log4js = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;log4js&#x27;</span>)
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../config&#x27;</span>)
+
+<span class="hljs-comment">// 这个是判断是否有logs目录，没有就新建，用来存放日志</span>
+<span class="hljs-keyword">const</span> logsDir = path.parse(config.logPath).dir
+<span class="hljs-keyword">if</span> (!fs.existsSync(logsDir)) &#123;
+  fs.mkdirSync(logsDir)
+&#125;
+<span class="hljs-comment">// 配置log4.js</span>
+log4js.configure(&#123;
+  appenders: &#123;
+    <span class="hljs-built_in">console</span>: &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;console&#x27;</span> &#125;,
+    dateFile: &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;dateFile&#x27;</span>, <span class="hljs-attr">filename</span>: config.logPath, <span class="hljs-attr">pattern</span>: <span class="hljs-string">&#x27;-yyyy-MM-dd&#x27;</span> &#125;
+  &#125;,
+  categories: &#123;
+    <span class="hljs-keyword">default</span>: &#123;
+      appenders: [<span class="hljs-string">&#x27;console&#x27;</span>, <span class="hljs-string">&#x27;dateFile&#x27;</span>],
+      level: <span class="hljs-string">&#x27;info&#x27;</span>
+    &#125;
+  &#125;
+&#125;)
+
+<span class="hljs-keyword">const</span> logger = log4js.getLogger(<span class="hljs-string">&#x27;[Default]&#x27;</span>)
+<span class="hljs-comment">// logger中间件</span>
+<span class="hljs-keyword">const</span> loggerMiddleware = <span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;
+<span class="hljs-comment">// 请求开始时间</span>
+  <span class="hljs-keyword">const</span> start = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+  <span class="hljs-keyword">await</span> next()
+  <span class="hljs-comment">// 结束时间</span>
+  <span class="hljs-keyword">const</span> ms = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>() - start
+    <span class="hljs-comment">// 打印出请求相关参数</span>
+  <span class="hljs-keyword">const</span> remoteAddress = ctx.headers[<span class="hljs-string">&#x27;x-forwarded-for&#x27;</span>] || ctx.ip || ctx.ips ||
+    (ctx.socket &amp;&amp; (ctx.socket.remoteAddress || (ctx.socket.socket &amp;&amp; ctx.socket.socket.remoteAddress)))
+  <span class="hljs-keyword">let</span> logText = <span class="hljs-string">`<span class="hljs-subst">$&#123;ctx.method&#125;</span> <span class="hljs-subst">$&#123;ctx.status&#125;</span> <span class="hljs-subst">$&#123;ctx.url&#125;</span> 请求参数： <span class="hljs-subst">$&#123;<span class="hljs-built_in">JSON</span>.stringify(ctx.request.body)&#125;</span> 响应参数： <span class="hljs-subst">$&#123;<span class="hljs-built_in">JSON</span>.stringify(ctx.body)&#125;</span> - <span class="hljs-subst">$&#123;remoteAddress&#125;</span> - <span class="hljs-subst">$&#123;ms&#125;</span>ms`</span>
+  logger.info(logText)
+&#125;
+<span class="hljs-built_in">module</span>.exports = &#123;
+  logger,
+  loggerMiddleware
+&#125;</code></pre>
+<h5 id="response-js"><a class="header-anchor" href="#response-js">🍭</a>response.js</h5>
+<p>这个中间件主要是用来对返回前端的响应进行处理，基础的koa模板中，我们可以用 <code>ctx.body</code>进行返回前端，但是有些东西经常重复写，进行封装较方便。</p>
+<h5 id="cors-js"><a class="header-anchor" href="#cors-js">🍭</a>cors.js</h5>
+<p>在前后端接口请求中，由于浏览器的限制，会出现跨域的情况。常用的跨域方案有：</p>
+<ul>
+<li>JSONP跨域</li>
+<li>nginx反向代理</li>
+<li>服务器端修改heade</li>
+<li>document.domain</li>
+<li><a target="_blank" rel="noopener" href="http://window.name">window.name</a></li>
+<li>postMessage</li>
+<li>后台配置运行跨域</li>
+</ul>
+<p>cors具体实现跨域</p>
+<pre><code class="hljs awk">app.use(async (ctx, <span class="hljs-keyword">next</span>) =&gt; &#123;
+    <span class="hljs-regexp">//</span> 允许来自所有域名请求
+    ctx.set(<span class="hljs-string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="hljs-string">&quot;*&quot;</span>);
+    <span class="hljs-regexp">//</span> 这样就能只允许 http:<span class="hljs-regexp">//</span>localhost:<span class="hljs-number">8080</span> 这个域名的请求了
+    <span class="hljs-regexp">//</span> ctx.set(<span class="hljs-string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="hljs-string">&quot;http://localhost:8080&quot;</span>); 
+
+    <span class="hljs-regexp">//</span> 设置所允许的HTTP请求方法
+    ctx.set(<span class="hljs-string">&quot;Access-Control-Allow-Methods&quot;</span>, <span class="hljs-string">&quot;OPTIONS, GET, PUT, POST, DELETE&quot;</span>);
+
+    <span class="hljs-regexp">//</span> 字段是必需的。它也是一个逗号分隔的字符串，表明服务器支持的所有头信息字段.
+    ctx.set(<span class="hljs-string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="hljs-string">&quot;x-requested-with, accept, origin, content-type&quot;</span>);
+
+    <span class="hljs-regexp">//</span> 服务器收到请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。
+
+    <span class="hljs-regexp">//</span> Content-Type表示具体请求中的媒体类型信息
+    ctx.set(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json;charset=utf-8&quot;</span>);
+
+    <span class="hljs-regexp">//</span> 该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。
+    <span class="hljs-regexp">//</span> 当设置成允许请求携带cookie时，需要保证<span class="hljs-string">&quot;Access-Control-Allow-Origin&quot;</span>是服务器有的域名，而不能是<span class="hljs-string">&quot;*&quot;</span>;
+    ctx.set(<span class="hljs-string">&quot;Access-Control-Allow-Credentials&quot;</span>, true);
+
+    <span class="hljs-regexp">//</span> 该字段可选，用来指定本次预检请求的有效期，单位为秒。
+    <span class="hljs-regexp">//</span> 当请求方法是PUT或DELETE等特殊方法或者Content-Type字段的类型是application/json时，服务器会提前发送一次请求进行验证
+    <span class="hljs-regexp">//</span> 下面的的设置只本次验证的有效时间，即在该时间段内服务端可以不用进行验证
+    ctx.set(<span class="hljs-string">&quot;Access-Control-Max-Age&quot;</span>, <span class="hljs-number">300</span>);
+
+    /*
+    CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到<span class="hljs-number">6</span>个基本字段：
+        Cache-Control、
+        Content-Language、
+        Content-Type、
+        Expires、
+        Last-Modified、
+        Pragma。
+    */
+    <span class="hljs-regexp">//</span> 需要获取其他字段时，使用Access-Control-Expose-Headers，
+    <span class="hljs-regexp">//</span> getResponseHeader(<span class="hljs-string">&#x27;myData&#x27;</span>)可以返回我们所需的值
+    <span class="hljs-regexp">//</span>https:<span class="hljs-regexp">//</span>www.rails365.net<span class="hljs-regexp">/articles/</span>cors-jin-jie-expose-headers-wu
+    ctx.set(<span class="hljs-string">&quot;Access-Control-Expose-Headers&quot;</span>, <span class="hljs-string">&quot;myData&quot;</span>);
+    
+    await <span class="hljs-keyword">next</span>();
+&#125;)</code></pre>
+<h5 id="koa-helmet-中间件"><a class="header-anchor" href="#koa-helmet-中间件">🍭</a>koa-helmet 中间件</h5>
+<p>koa-helmet 可以帮助 app 抵御一些比较常见的安全 web 安全隐患，它将 9 个安全中间件集中到了一起，做了合并,大部分都是对于 http header 的操作。默认开启功能：</p>
+<p><img src="/2021/07/19/koa/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>安装后需在app.js进行引用：</p>
+<pre><code class="hljs isbl"><span class="hljs-variable">const</span> <span class="hljs-variable">helmet</span> = <span class="hljs-function"><span class="hljs-title">require</span>(<span class="hljs-string">&quot;koa-helmet&quot;</span>)</span>
+
+<span class="hljs-comment">// Helmet</span>
+<span class="hljs-variable">app.use</span>(<span class="hljs-function"><span class="hljs-title">helmet</span>())</span></code></pre>
+<h5 id="路由配置"><a class="header-anchor" href="#路由配置">🍭</a>路由配置</h5>
+<ul>
+<li><code>private.js</code>：该文件下的路由是需要通过jwt验证的，才能进行访问。</li>
+<li><code>public.js</code>：该文件与上面相反，主要用来不进行登录的校验，也就是我们常用的登录、注册等不需要验证的接口。</li>
+</ul>
+<h5 id="controllers文件"><a class="header-anchor" href="#controllers文件">🍭</a>controllers文件</h5>
+<p>为了让整个项目更为模块化，该目录下主要是处理对应的路由的回调函数，一般我们不会在router文件中去业务逻辑操作等步骤，这里采用 routes 和 controller 分开，在方便代码的查看同时，也方便代码的维护和开发。</p>
+<p>controller下的index.js文件将其他文件导出统一到index暴露出去：</p>
+<pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>
+
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>)
+
+<span class="hljs-keyword">const</span> files = fs.readdirSync(__dirname).filter(<span class="hljs-function"><span class="hljs-params">file</span> =&gt;</span> file !== <span class="hljs-string">&#x27;index.js&#x27;</span>)
+
+<span class="hljs-keyword">const</span> controllers = &#123;&#125;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> file <span class="hljs-keyword">of</span> files) &#123;
+  <span class="hljs-keyword">if</span> (file.toLowerCase().endsWith(<span class="hljs-string">&#x27;js&#x27;</span>)) &#123;
+    <span class="hljs-keyword">const</span> controller = <span class="hljs-built_in">require</span>(<span class="hljs-string">`./<span class="hljs-subst">$&#123;file&#125;</span>`</span>)
+    controllers[<span class="hljs-string">`<span class="hljs-subst">$&#123;file.replace(<span class="hljs-regexp">/\.js/</span>, <span class="hljs-string">&#x27;&#x27;</span>)&#125;</span>`</span>] = controller
+  &#125;
+&#125;
+
+<span class="hljs-built_in">module</span>.exports = controllers</code></pre>
+<p>controller下的user.js文件是我们处理业务的，可按需添加</p>
+<pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>
+
+<span class="hljs-keyword">const</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;jsonwebtoken&#x27;</span>)
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../config&#x27;</span>)
+<span class="hljs-keyword">const</span> userServices = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../services&#x27;</span>).user
+<span class="hljs-keyword">const</span> &#123; InvalidQueryError &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../lib/error&#x27;</span>)
+<span class="hljs-keyword">const</span> login = &#123;&#125;
+login.login = <span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;
+    <span class="hljs-built_in">console</span>.log(userServices)
+    <span class="hljs-keyword">const</span> &#123;userName, password&#125; = ctx.request.body
+    <span class="hljs-keyword">if</span> (!userName || !password) &#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InvalidQueryError()
+    &#125;
+    <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> userServices.login(&#123;
+        userName: userName,
+        password: password
+    &#125;)
+    <span class="hljs-keyword">if</span> (!user) &#123;
+        ctx.result = <span class="hljs-string">&#x27;&#x27;</span>
+        ctx.msg = <span class="hljs-string">&#x27;用户不存在&#x27;</span>
+    &#125; <span class="hljs-keyword">else</span> &#123;
+        ctx.result = jwt.sign(&#123;
+            data: user._id,
+            <span class="hljs-comment">// 设置 token 过期时间</span>
+            exp: <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Date</span>.now() / <span class="hljs-number">1000</span>) + (<span class="hljs-number">60</span> * <span class="hljs-number">60</span>), <span class="hljs-comment">// 60 seconds * 60 minutes = 1 hour</span>
+        &#125;, config.secret)
+    &#125;
+    <span class="hljs-keyword">return</span> next()
+&#125;
+
+<span class="hljs-built_in">module</span>.exports = login</code></pre>
+<h4 id="models文件"><a class="header-anchor" href="#models文件">🍭</a>models文件</h4>
+<p>该项目中是使用<code>mongoose</code>对<code>mongoDB</code>对数据库进行操作,<code>mongoose</code>的配置包括三大部分：<code>connect</code>、<code>Models</code>和<code>Schema</code></p>
+<p><code>connect</code>：用于创建数据库连接及监听</p>
+<p><code>Schema</code>：Schema主要用于定义MongoDB中集合Collection里文档document的结构,可以理解为mongoose对表结构的定义(不仅仅可以定义文档的结构和属性，还可以定义文档的实例方法、静态模型方法、复合索引等)，每个schema会映射到mongodb中的一个collection，schema不具备操作数据库的能力，简单理解是对字段的定义，操作数据库必须按照这些字段进行，否在会报错。</p>
+<p><code>Models</code>： 　Model是由Schema编译而成的假想（fancy）构造器，具有抽象属性和行为。Model的每一个实例（instance）就是一个document，document可以保存到数据库和对数据库进行操作。简单说就是model是由schema生成的模型，可以对数据库的操作。</p>
+<h4 id="package-json文件"><a class="header-anchor" href="#package-json文件">🍭</a>package.json文件</h4>
+<p>每个Nodejs项目的根目录下面，一般都会有一个package.json文件。该文件可以由npm init生成，定义了项目所需要的各种模块，以及项目的配置信息（比如名称、版本、许可证等元数据)。 package.json文件内部就是一个JSON对象，该对象的每一个成员就是当前项目的一项设置。我们也可在里面配置我们的<code>npm run XXX</code>的命令。</p>
+<p>本项目的package.json：</p>
+<pre><code class="hljs json">&#123;
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;koa-template&quot;</span>,
+  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.1.0&quot;</span>,
+  <span class="hljs-attr">&quot;author&quot;</span>: <span class="hljs-string">&quot;bayi&quot;</span>,
+  <span class="hljs-attr">&quot;private&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;scripts&quot;</span>: &#123;
+    <span class="hljs-attr">&quot;start&quot;</span>: <span class="hljs-string">&quot;node ./bin/www&quot;</span>,
+    <span class="hljs-attr">&quot;dev&quot;</span>: <span class="hljs-string">&quot;pm2 start ecosystem.config.js --env dev&quot;</span>,
+    <span class="hljs-attr">&quot;test&quot;</span>: <span class="hljs-string">&quot;pm2 start ecosystem.config.js --env test&quot;</span>,
+    <span class="hljs-attr">&quot;pro&quot;</span>: <span class="hljs-string">&quot;pm2 start ecosystem.config.js --env pro&quot;</span>,
+    <span class="hljs-attr">&quot;logs&quot;</span>: <span class="hljs-string">&quot;pm2 logs&quot;</span>,
+    <span class="hljs-attr">&quot;stop&quot;</span>: <span class="hljs-string">&quot;pm2 stop ecosystem.config.js&quot;</span>
+  &#125;,
+  <span class="hljs-attr">&quot;dependencies&quot;</span>: &#123;
+    <span class="hljs-attr">&quot;koa&quot;</span>: <span class="hljs-string">&quot;^2.6.2&quot;</span>,
+    <span class="hljs-attr">&quot;koa-bodyparser&quot;</span>: <span class="hljs-string">&quot;^4.2.1&quot;</span>,
+    <span class="hljs-attr">&quot;koa-helmet&quot;</span>: <span class="hljs-string">&quot;^4.1.0&quot;</span>,
+    <span class="hljs-attr">&quot;koa-jwt&quot;</span>: <span class="hljs-string">&quot;^3.5.1&quot;</span>,
+    <span class="hljs-attr">&quot;koa-router&quot;</span>: <span class="hljs-string">&quot;^7.4.0&quot;</span>,
+    <span class="hljs-attr">&quot;koa-static-cache&quot;</span>: <span class="hljs-string">&quot;^5.1.2&quot;</span>,
+    <span class="hljs-attr">&quot;koa2-cors&quot;</span>: <span class="hljs-string">&quot;^2.0.6&quot;</span>,
+    <span class="hljs-attr">&quot;log4js&quot;</span>: <span class="hljs-string">&quot;^3.0.6&quot;</span>,
+    <span class="hljs-attr">&quot;mongoose&quot;</span>: <span class="hljs-string">&quot;^5.5.5&quot;</span>
+  &#125;
+&#125;</code></pre>
+<h4 id="config-js文件"><a class="header-anchor" href="#config-js文件">🍭</a>config.js文件</h4>
+<p>根目录新建该文件主要用来存放全局的配置，如果一个项目中没有全局的配置，那么一个地方改动牵动的其他地方很多，这样工作效率很低，我们一般会把常用的都放在这个文件，例如：数据库参数，端口，密钥，全局变量等。</p>
+<h4 id="services文件"><a class="header-anchor" href="#services文件">🍭</a>services文件</h4>
+<p>这个文件主要是用来处理数据库以及服务等逻辑，该文件夹下index.js文件内容与controllers文件中的用法一致。</p>
+<h4 id="PM2配置"><a class="header-anchor" href="#PM2配置">🍭</a>PM2配置</h4>
+<p>PM2是可以用于生产环境的Nodejs的进程管理工具，并且它内置一个负载均衡。它可以保证服务不会中断一直在线，并且提供0秒reload功能，还有其他一系列进程管理、监控功能。</p>
+<h4 id="lib文件"><a class="header-anchor" href="#lib文件">🍭</a>lib文件</h4>
+<ul>
+<li><code>error.js</code>：主要是在中间件中抛出异常，由于前面我们已经加入了异常捕获的中间件，在中间件操作过程中，如果有错误，我们可以直接抛出异常，这个方法就是为了方便我们配置所用的。</li>
+<li><code>mongoDB.js</code>：对mongoDB的链接配置。</li>
+</ul>
+<h4 id="bin文件"><a class="header-anchor" href="#bin文件">🍭</a>bin文件</h4>
+<p>该文件是用来部署的时候可以启动我们一整个后端程序，也就是前端中的集成的运行环境。我们的运行、关闭、重启都在这文件进行即可。</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/47259f48c153">https://www.jianshu.com/p/47259f48c153</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/20/jwt/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HFCTF2020||EasyLogin</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/19/11/">
+                        <span class="hidden-mobile">JSON Web Token</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
