@@ -181,6 +181,48 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/07/11/upload-1/">CISCN2021||upload</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/11/upload-1/">
+          
+          
+            
+          
+          🍭分析
+题目给了源码index.php做出了如下限制。这题跟之前upload靶场的二次渲染很像。
+
+上传需要绕过getimagesize
+图片的长宽必须为1.
+文件名不能有c、i、h.这样平常普通的绕过手段，.htaccess 的h被过滤，.use.ini 的i被过滤，就算抓包修改他的后缀，也会一起被检测。
+
+🍭getimagesize()
+getimagesize() 函数用于获取图像大小及
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-11 14:36" pubdate>
+              2021-07-11
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/05/18/dropbox/">dropbox</a>
       </h1>
 
@@ -579,49 +621,6 @@ format
             <i class="iconfont icon-date"></i>
             <time datetime="2021-04-10 14:12" pubdate>
               2021-04-10
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/06/wei4/">SSTI(二)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/06/wei4/">
-          
-          
-            
-          
-          🍭命令执行
-命令执行，其实就是沙盒溢出的操作。
-🍭tips1
-
-from_pyfile
-def from_pyfile(self, filename, silent=False):
-
- filename = os.path.join(self.root_path, filename)
- d = types.ModuleType(&#x27;config&#x27;)
- d.__file__ =
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-06 19:58" pubdate>
-              2021-04-06
             </time>
           </div>
         

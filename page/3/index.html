@@ -181,6 +181,49 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/04/06/wei4/">SSTI(二)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/06/wei4/">
+          
+          
+            
+          
+          🍭命令执行
+命令执行，其实就是沙盒溢出的操作。
+🍭tips1
+
+from_pyfile
+def from_pyfile(self, filename, silent=False):
+
+ filename = os.path.join(self.root_path, filename)
+ d = types.ModuleType(&#x27;config&#x27;)
+ d.__file__ =
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-06 19:58" pubdate>
+              2021-04-06
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/04/05/wei/">SSTI(一)</a>
       </h1>
 
@@ -527,48 +570,6 @@ PUT与pos
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2021-02-19 14:20" pubdate>
-              2021-02-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/19/jsonp/">json &amp; jsonp注入</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/19/jsonp/">
-          
-          
-            
-          
-          先来介绍一下json
-json
-
- JavaScript Object Notation,JavaScript 对象表示法
-
-JSON 是存储和交换文本信息的语法，类似 XML
-JSON 使用 Javascript语法来描述数据对象，但它独立于语言和平台。
-JSON 解析器和 JSON 库支持许多不同的编程语言
-JavaScript 程序能够使用内建的 eval() 函数，用 JSON 数据来生成
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-19 14:16" pubdate>
               2021-02-19
             </time>
           </div>
