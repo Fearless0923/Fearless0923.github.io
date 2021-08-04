@@ -181,6 +181,194 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/04/16/fakebook/">BUUCTF[网鼎杯 2018]Fakebook</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/16/fakebook/">
+          
+          
+            
+          
+          这题涉及的知识点比较多。
+查看源码找不到什么有用的信息，扫一下目录
+
+拿到robots.txt,跟进下载user.php.bak
+
+SSRF详见：SSRF
+随便注册一个用户并查看发现网址有点像SQL注入，用sqlmap跑不出来
+
+数据型：
+
+测试列数：
+
+列数为4,继续测试?no=1 union select 1,2,3,4--+显示no hack,判断存在waf，测试了一下应该是空格过滤掉了
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-16 00:32" pubdate>
+              2021-04-16
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/15/easytrick/">CISCN2020</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/15/easytrick/">
+          
+          
+            
+          
+          这题的利用点之前没遇到过，比较有意思。
+🍭easytrick
+代码：
+ &lt;?php
+class trick&#123;
+    public $trick1;
+    public $trick2;
+    public function __destruct()&#123;
+        $this-&gt;trick1 = (string)$this-&gt;trick1;
+    
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-15 00:43" pubdate>
+              2021-04-15
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/13/buu/">BUUCTF | [RoarCTF 2019]Easy Calc</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/13/buu/">
+          
+          
+            
+          
+          感觉这道题目有点意思
+打开网页是个计算机，查源码
+
+🍭法一：利用特性
+提示有waf，先测试一下读目录
+
+被ban了，应该跟waf有关，这里要利用一个之前没注意过的点：
+🍭PHP的字符串解析特性
+PHP需要将所有参数转换为有效的变量名，因此在解析查询字符串时，它会做两件事：1.删除空白符 2.将某些字符转换为下划线（包括空格）
+我们可以在num前加个空格，这样waf就找不到num这个变量了，因为
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-13 21:18" pubdate>
+              2021-04-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%88%B7%E9%A2%98/">刷题</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/10/wei6/">sprintf格式化字符串漏洞</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/10/wei6/">
+          
+          
+            
+          
+          🍭sprintf()
+把格式化的字符串写入变量中。
+sprintf(format,arg1,arg2,arg++)
+
+
+
+参数
+描述
+
+
+
+
+format
+规定字符串以及如何格式化其中的变量。                                                                            可能的格式值：                    
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-10 14:12" pubdate>
+              2021-04-10
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/04/06/wei4/">SSTI(二)</a>
       </h1>
 
@@ -411,180 +599,11 @@ Metasploit可向后端模块提供多种用来控制测试的接口（如控制�
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/24/weakpassword/">未授权访问——Redis</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/24/weakpassword/">
-          
-          
-            
-          
-          概述
-需要安全配置或权限认证的地址、授权页面存在缺陷，导致其他用户可以直接访问，从而引发重要权限可被操作、数据库、网站目录等敏感信息泄露。
-常见：
-
-Redis未授权访问
-Jenkins未授权访问
-MongoDB未授权访问
-ZooKeeper未授权访问
-Elasticsearch未授权访问
-Memcache未授权访问
-Hadoop未授权访问
-CouchDB未授权访问
-Docker未授权访问
-LDA
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-24 21:26" pubdate>
-              2021-02-24
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/24/filedownload/">File Download</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/24/filedownload/">
-          
-          
-            
-          
-          🍭概述
-网站对用户下载或查看的文件不做限制，使恶意用户能够下载或查看任意敏感文件。
-🍭成因
-常规文件下载流程：使用一个动态页面（php、jsp、aspx、asp等）将待下载文件作为参数一般参数名称为filename，如.php?filename/.jsp?filename等。根据参数filename的值，获得该文件在网站上的绝对路径，读取文件，然后直接发送给客户端下载。
-如果后台在收到请求的文
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-24 21:18" pubdate>
-              2021-02-24
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/19/1/">逻辑漏洞||越权</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/19/1/">
-          
-          
-            
-          
-          🍭概述
-逻辑错误漏洞是指由于程序逻辑不严或逻辑太复杂，导致一些逻辑分支不能够正常处理或处理错误，一般出现在任意密码修改、越权访问、密码找回、交易支付金额。
-🍭本质
-设计者或开发者在思考过程中做出的特殊假设存在明显或隐含的错误
-🍭特点
-
-普遍存在：普遍存在于各类应用程序
-不固定：应用中不同功能逻辑不同，无法用一般工具发现
-隐蔽性
-逻辑漏洞是目前WAF的盲区（故当前较易挖掘，下文详讲挖掘思路）
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-19 23:25" pubdate>
-              2021-02-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/19/Soup4/">Python Library——bs4&amp;requests</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/19/Soup4/">
-          
-          
-            
-          
-          🍭requests库
-🍭导入 Requests 模块：
-import requests
-🍭获取某个网页
-r = requests.get(&#x27;url&#x27;)//get请求
-r = requests.post(&#x27;url&#x27;, data = &#123;&#x27;key&#x27;:&#x27;value&#x27;&#125;)//post请求
-PUT与pos
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-19 14:20" pubdate>
-              2021-02-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

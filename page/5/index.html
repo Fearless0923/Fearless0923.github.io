@@ -181,6 +181,156 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/02/10/BWAPP/">BWAPP||SSRF</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/10/BWAPP/">
+          
+          
+            
+          
+          系统学习SSRF后，我们可以搭个BWAPP练习一下，BWAPP集成了各种常见漏洞和最新漏洞的开源Web应用程序，集成了超过100种漏洞，今天我们要练习一下SSRF部分（找了好久才找到SSRF板块😡😡😡）
+
+有三个任务：
+
+🍭Task One:用远程文件包含进行端口扫描
+RFI,Remote File Inclusion远程文件包含(文件包含在dvwa那介绍过了)
+从Port scan获得一
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-10 01:57" pubdate>
+              2021-02-10
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/08/shell/">Reverse Shell</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/08/shell/">
+          
+          
+            
+          
+          最近在学习SSRF，遇到了反弹shell，又发现了知识盲区💢💢💢，故来恶补一下🎃🎃🎃
+定义
+reverse shell，控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。简而言之就是控制端可以通过执行被控端上的命令并返回到控制端上。
+用途
+当控制端通过攻击打开了被控端的一个端口，控制端在自己主机去连接被控端本机叫做正向连接。但是出现以下几种情况
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-08 15:53" pubdate>
+              2021-02-08
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/08/SSRF/">SSRF</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/08/SSRF/">
+          
+          
+            
+          
+          SSRF(Server-Side Request Forgery:服务器端请求伪造) 由攻击者构造请求，由服务端发起请求的安全漏洞。一般情况下，SSRF攻击的目标是外网无法访问的内部系统。（请求由服务端发起，故服务端能请到与自身相连而与外网隔离的内部系统）
+漏洞原理
+服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。常见的有服务端从指定URL地址获取网页文本内容，加载指定地址
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-08 14:38" pubdate>
+              2021-02-08
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/03/dvwa6/">DVWA||CSRF</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/03/dvwa6/">
+          
+          
+            
+          
+          CSRF，全称Cross-site request forgery，跨站请求伪造，是指利用受害者尚未失效的身份认证信息（cookie、会话等），诱骗其点击恶意链接或者访问包含攻击代码的页面，在受害人不知情的情况下以受害者的身份向（身份认证信息所对应的）服务器发送请求，从而完成非法操作（如转账、改密等）。CSRF与XSS区别在于CSRF并没有盗取cookie而是直接利用。
+举个栗子🌞🌞🌞：
+A
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-03 00:41" pubdate>
+              2021-02-03
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/02/02/dvwa9/">DVWA||CSP Bypass</a>
       </h1>
 
@@ -385,197 +535,11 @@ XSS是跨站脚本攻击(Cross Site Scripting)恶意攻击者往Web页面里插�
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/24/png/">二次渲染&amp;&amp;png结构分析</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/24/png/">
-          
-          
-            
-          
-          🍭一.PNG的文件结构
-🍭数据块构成结构
-png定义了两种类型的数据块
-
-关键数据块(critical chunk)//关键数据块定义了4个标准数据块，每个PNG文件都必须包含它们，PNG读写软件也都必须要支持这些数据块。
-
-
-
-
-PNG标识符
-PNG数据块(IHDR)
-PNG数据块(其他类型数据块)
-PNG结尾数据块(IEND)
-
-
-
-
-辅助数据块(ancillary chunks)
-
-🍭
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-24 20:43" pubdate>
-              2021-01-24
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/24/upload/">upload-labs</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/24/upload/">
-          
-          
-            
-          
-          
-Pass-01(前端js绕过)
-
-删除js校验代码
-更改js校验中的白名单
-先改文件后缀名通过js校验再抓包更改后缀上传至服务器
-
-
-Pass-02(MIME验证)
-Pass-03(黑名单绕过)
-Pass-04(黑名单绕过-.htaccess)
-Pass-05（黑名单验证，.user.ini.）
-Pass-06(黑名单验证-大小写绕过)
-Pass-07(黑名单验证–空格绕过)
-Pass-08（黑
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-24 20:40" pubdate>
-              2021-01-24
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/22/dvwa/">DVWA||SQL注入andSQL盲注</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/22/dvwa/">
-          
-          
-            
-          
-          dvwa
-🍭SQL Injection
-🍭low
-先挑熟悉的sql注入下手，单引号注入,报错：You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''admin''' at lin
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-22 21:56" pubdate>
-              2021-01-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/12/26/dvwa%E4%BA%8C/">DVWA||Brute Force</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/12/26/dvwa%E4%BA%8C/">
-          
-          
-            
-          
-          dvwa
-🍭Brute Force
-🍭low
-🍭暴力破解，查看源代码：
-
-它的select语句没有什么过滤，可以尝试sql注入构造admin'#密码为空：
-
-成功~~但这关标题为暴力破解，所以要按暴力破解做一遍：
-抓包,发到intruder,先clear ，选中要爆破字段,添加：
-
-在payload中选择字典，读取（字典很大读取了好久）：
-
-可设置线程数也可以使用默认：
-
-上图是我设置的线程
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-26 10:47" pubdate>
-              2020-12-26
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

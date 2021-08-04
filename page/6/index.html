@@ -181,6 +181,192 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/01/24/png/">二次渲染&amp;&amp;png结构分析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/24/png/">
+          
+          
+            
+          
+          🍭一.PNG的文件结构
+🍭数据块构成结构
+png定义了两种类型的数据块
+
+关键数据块(critical chunk)//关键数据块定义了4个标准数据块，每个PNG文件都必须包含它们，PNG读写软件也都必须要支持这些数据块。
+
+
+
+
+PNG标识符
+PNG数据块(IHDR)
+PNG数据块(其他类型数据块)
+PNG结尾数据块(IEND)
+
+
+
+
+辅助数据块(ancillary chunks)
+
+🍭
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-24 20:43" pubdate>
+              2021-01-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/24/upload/">upload-labs</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/24/upload/">
+          
+          
+            
+          
+          
+Pass-01(前端js绕过)
+
+删除js校验代码
+更改js校验中的白名单
+先改文件后缀名通过js校验再抓包更改后缀上传至服务器
+
+
+Pass-02(MIME验证)
+Pass-03(黑名单绕过)
+Pass-04(黑名单绕过-.htaccess)
+Pass-05（黑名单验证，.user.ini.）
+Pass-06(黑名单验证-大小写绕过)
+Pass-07(黑名单验证–空格绕过)
+Pass-08（黑
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-24 20:40" pubdate>
+              2021-01-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/22/dvwa/">DVWA||SQL注入andSQL盲注</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/22/dvwa/">
+          
+          
+            
+          
+          dvwa
+🍭SQL Injection
+🍭low
+先挑熟悉的sql注入下手，单引号注入,报错：You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''admin''' at lin
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-22 21:56" pubdate>
+              2021-01-22
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/12/26/dvwa%E4%BA%8C/">DVWA||Brute Force</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/12/26/dvwa%E4%BA%8C/">
+          
+          
+            
+          
+          dvwa
+🍭Brute Force
+🍭low
+🍭暴力破解，查看源代码：
+
+它的select语句没有什么过滤，可以尝试sql注入构造admin'#密码为空：
+
+成功~~但这关标题为暴力破解，所以要按暴力破解做一遍：
+抓包,发到intruder,先clear ，选中要爆破字段,添加：
+
+在payload中选择字典，读取（字典很大读取了好久）：
+
+可设置线程数也可以使用默认：
+
+上图是我设置的线程
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-26 10:47" pubdate>
+              2020-12-26
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/12/17/sqli-labs%E4%B8%83/">sqli-labs(七)</a>
       </h1>
 
@@ -428,241 +614,11 @@ Cookie是非常重要的请求头，它
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/11/22/sqli-labs%E4%B8%89/">sqli-labs(三)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/11/22/sqli-labs%E4%B8%89/">
-          
-          
-            
-          
-          sqli-labs(三)
-🍭Less-11
-less-11为post注入，post就是数据从客户端提交到服务器端,输入用户名和密码会以表单的形式提交到服务器进行验证。
-🍭1.试探
-用之前的1无反应，试着使用常用的管理员密码账户 admin(Dumb也行)，成功登录；加单引号注入，密码随意，报错。
-
-根据报错可以判断出该处为单引号注入，使用万能密码admin'or'1'='1#（or ‘1’='
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-22 22:59" pubdate>
-              2020-11-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/11/09/sqli-labs/">sqli-labs（二）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/11/09/sqli-labs/">
-          
-          
-            
-          
-          Sqli-labs–2
-
-Sqli-labs–2
-
-法一:联合注入
-
-盲注猜解Less-5
-
-1.试探:
-2.猜数据库名长度:
-3.猜库名：
-4.爆表：
-5.爆列：
-6.爆值：
-
-
-
-
-法二：报错注入
-
-Less-6
-
-1.试探
-2.爆库名
-3.爆表
-4.爆列
-5.爆值
-
-
-Less-7
-
-1.试探
-2.获取文件路径
-
-法一：
-法二：
-
-
-
-
-
-
-法三：时间盲注
-Less-8
-
-1.试探
-2.爆库
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-09 16:14" pubdate>
-              2020-11-09
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/11/08/sqli/">sqli-labs（一）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/11/08/sqli/">
-          
-          
-            
-          
-          Sqli-labs
-本篇文章运用的注入语句已在sqli基础中说明，故运用时不再解释原因。
-🍭类型判断
-
-?id=1 and 1=2 --+若返回结果正常，说明不是数字类型；
-?id=1' --+ 显示不正常,?id=1') --+ 显示正常时，该类型为字符注入，且以(‘’)的方式闭合字符串，还有(“”)类似。
-
-🍭Less-1
-🍭法一：UNION联合查询注入
-
-用and 1=2测试 ，页面回
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-08 17:22" pubdate>
-              2020-11-08
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/11/08/SQL/">SQL基础</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/11/08/SQL/">
-          
-          
-            
-          
-          SQL
-sql注入就是一种通过操作输入来修改后台操作语句达到执行恶意sql语句来进行攻击的技术。
-
-SQL
-
-分类
-
-变量类型
-HTTP提交方式
-注入方式
-编码问题
-
-
-信息数据库（MySql 5.0以上）
-
-information_schema
-SCHEMATA(所有数据库的基本信息)
-TABLES(存储表信息)
-COLUMNS(储存列信息)
-字符串连接函数
-
-
-基本手工注入流程
-
-获取字段数
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-08 16:33" pubdate>
-              2020-11-08
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/sql/">sql</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
