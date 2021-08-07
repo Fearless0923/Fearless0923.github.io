@@ -181,6 +181,218 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/05/num/">buu（六）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/05/num/">
+          
+          
+            
+          
+          [HITCON 2016]Leaking
+这题有个新知识点：JS通过Buffer 类处理二进制数据的缓冲区
+源码：
+
+vm2就可以看出是node.js了。
+🍭tips：
+在较早一点的 node 版本中 (8.0 之前)，当 Buffer 的构造函数传入数字时, 会得到与数字长度一致的一个 Buffer，并且这个 Buffer 是未清零的。8.0 之后的版本可以通过另一个函数 Buffer.all
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-05 16:43" pubdate>
+              2021-08-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">沙箱逃逸</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/">PHP原生类</a>
+            
+              <a href="/tags/exp%E6%BA%A2%E5%87%BA/">exp溢出</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/04/ez/">BJDCTF2020||EzPHP</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/04/ez/">
+          
+          
+            
+          
+          查看源码，提示GFXEIM3YFZYGQ4A=，base32解码，获取源码
+&lt;?php
+highlight_file(__FILE__);
+error_reporting(0); 
+
+$file = &quot;1nD3x.php&quot;;
+$shana = $_GET[&#x27;shana&#x27;];
+$passwd = $_GET[&#x27;passwd&#x27;];
+$a
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-04 22:52" pubdate>
+              2021-08-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/create-function%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">create_function代码注入</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/bypass/">bypass</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/02/tiny/">buu（五）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/02/tiny/">
+          
+          
+            
+          
+          CISCN2019 总决赛 Day1 Web4]Laravel1
+laravel框架，题目提供源码，还是要找POP链，还是先搜_destruct()去找一个反序列化的点，搜索出的destruct有很多，需要一个个跟进判断可不可以利用，文件太大，我并没有找到，参考大佬的wp，找出TagAwareAdapter类：
+
+__destruct方法调用commit()，commit()又调用invalida
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-02 15:51" pubdate>
+              2021-08-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">phar反序列化</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Laravel%E6%A1%86%E6%9E%B6/">Laravel框架</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/01/regexp/">REGEXP注入与LIKE注入</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/01/regexp/">
+          
+          
+            
+          
+          REGEXP注入与LIKE注入
+🍭REGEXP注入
+REGEXP注入，即regexp正则表达式注入，又叫盲注值正则表达式攻击。
+🍭注入原理
+直接查询自己需要的数据，然后通过正则表达式进行匹配。
+格式：
+select (select语句) regexp &#x27;正则&#x27;
+若匹配则返回1，不匹配返回0
+select (select username from users where i
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-01 17:48" pubdate>
+              2021-08-01
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B3%A8%E5%85%A5/">注入</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/07/30/black/">buu（四）</a>
       </h1>
 
@@ -505,183 +717,6 @@ from sshop.base import B
               <a href="/tags/python/">python</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/20/jwt/">HFCTF2020||EasyLogin</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/20/jwt/">
-          
-          
-            
-          
-          涉及知识点
-
-koa框架(node.js)
-jwt令牌
-
-上一篇文章了解了koa框架和jwt,直接做题：
-访问页面查看源码发现一个js文件
-/**
- *  或许该用 koa-static 来处理静态文件
- *  路径该怎么配置？不管了先填个根目录XD
- */
-
-function login() &#123;
-    const username = $(&quot;#username&quot;)
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-20 15:54" pubdate>
-              2021-07-20
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/19/koa/">koa框架浅析</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/19/koa/">
-          
-          
-            
-          
-          🍭koa框架
-Koa 是一个新的 web 框架， 通过利用 async 函数，Koa 丢弃了回调函数，增强错误处理，没有捆绑任何中间件。
-🍭目录结构
-
-🍭app.js
-&#x27;use strict&#x27;
-
-const Koa = require(&#x27;koa&#x27;)
-const bodyParser = require(&#x27;koa-bodyparser&#x27
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-19 23:05" pubdate>
-              2021-07-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/19/11/">JSON Web Token</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/19/11/">
-          
-          
-            
-          
-          JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案，用于作为JSON对象在各方之间安全地传输信息。
-🍭跨域认证
-用户认证流程(之前CSRF就讲过了)
-
-1、用户向服务器发送用户名和密码。
-2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。
-3、服务器向用户返回一个 session_id，写入用户的 Cookie。
-4、用户随后
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-19 22:12" pubdate>
-              2021-07-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/17/lod/">网鼎杯 2018||Comment</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/17/lod/">
-          
-          
-            
-          
-          涉及知识点
-
-二次注入
-git泄露
-git恢复
-
-进入页面是一个留言板（盲猜二次注入），需要登录，密码后三位未知，bp爆破
-
-没找到注入点，后台扫描，git泄露
-&lt;?php
-include &quot;mysql.php&quot;;
-session_start();
-if($_SESSION[&#x27;login&#x27;] != &#x27;yes&#x27;)&#123;
-    
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-17 15:20" pubdate>
-              2021-07-17
-            </time>
-          </div>
-        
-        
         
       </div>
     </article>

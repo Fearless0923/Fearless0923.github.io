@@ -181,6 +181,163 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/05/wei2/">metasploit（二）——后渗透测试</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/05/wei2/">
+          
+          
+            
+          
+          今天来学习一下后渗透测试
+🍭meterpreter
+Meterpreter是Metasploit框架中的一个扩展模块，在溢出成功以后的攻击载荷使用，攻击载荷在溢出攻击成功以后返回一个控制通道（作为攻击载荷获得目标系统的Meterpreter shell的链接）Meterpreter shell有很多功能：添加用户、打开shell、得到用户密码、上传下载远程主机的文件、运行cmd.exe、捕捉屏幕
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-05 01:16" pubdate>
+              2021-03-05
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/03/wei3/">PHP反序列化（二）——字符串逃逸</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/03/wei3/">
+          
+          
+            
+          
+          🍭原理
+
+php在反序列化时，底层代码是以 ; 作为字段的分隔，以 &#125; 作为结尾，并且是根据长度判断内容的 ，同时反序列化的过程中必须严格按照序列化规则才能成功实现反序列化 。
+
+超出的部分并不会被反序列化成功，这说明反序列化的过程是有一定识别范围的，在这个范围之外的字符都会被忽略，不影响反序列化的正常进行。而且反序列化字符串都是以&quot;;&#125;结束的，那如果把&quot;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-03 15:37" pubdate>
+              2021-03-03
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/27/wei1/">Metasploit(一)——入门测试</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/27/wei1/">
+          
+          
+            
+          
+          🍭简介
+Metasploit框架(Metasploit Framework，MSF)是一个开源工具，由Ruby程序语言编写的模板化框架，具有很好的扩展性，便于渗透测试人员开发、使用定制的工具模板。
+Metasploit可向后端模块提供多种用来控制测试的接口（如控制台、Web、CLI)推荐使用控制台接口，通过控制台接口，你可以访问和使用所有Metasploit的插件，例如Payload、利用模块、
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-27 23:49" pubdate>
+              2021-02-27
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/02/24/everything/">Information Exposure</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/24/everything/">
+          
+          
+            
+          
+          🍭概述
+由于后台人员的疏忽或者不当的设计，导致不应该被前端用户看到的数据被轻易的访问到：
+
+
+通过访问url下的目录，可以直接列出目录下的文件列表
+
+
+输入错误的url参数后报错信息里面包含操作系统、中间件、开发语言的版本或其他信息
+
+
+前端的源码（html,css,js）里面包含了敏感信息，比如后台登录地址、内网接口信息、甚至账号密码等
+
+
+敏感信息泄露往往给攻击着实施进一步的攻击提供很大的帮
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-24 21:30" pubdate>
+              2021-02-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/02/24/weakpassword/">未授权访问——Redis</a>
       </h1>
 
@@ -425,161 +582,6 @@ list = [&#x27;genius&#x27
             <i class="iconfont icon-date"></i>
             <time datetime="2021-02-18 23:39" pubdate>
               2021-02-18
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/14/re/">PHP反序列化漏洞</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/14/re/">
-          
-          
-            
-          
-          🍭php面向对象编程：
-
-对象：可以对其做事情的一些东西。一个对象有状态、行为和标识三种属性。
-类：一个共享相同结构和行为的对象的集合。每个类的定义都以关键字class开头，后面跟着类的名字。一个类可以包含有属于自己的变量，变量（称为“属性”）以及函数（“称为方法”）类定义了一件事物的抽象特点。
-
-🍭序列化
-将一个对象、数组、字符串等转化为字节流便于传输。序列化的目的是方便数据的传输和存储,但
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-14 01:05" pubdate>
-              2021-02-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/13/TLS/">TLS</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/13/TLS/">
-          
-          
-            
-          
-          🍭三次握手
-对每次发送的数据量进行跟踪与协商，确保数据段的发送和接收同步，根据所接收到的数据量而确认数据发送、接收完毕后何时撤消联系，并建立虚连接。
-TCP是一种面向连接的单播协议，在发送数据前，通信双方必须在彼此间建立一条连接。所谓的“连接”，其实是客户端和服务器的内存里保存的一份关于对方的信息，如ip地址、端口号等。
-第一次：建立连接时，客户端发送syn包（seq=j）到服务器，并进入SYN
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-13 01:19" pubdate>
-              2021-02-13
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/13/RCE/">RCE</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/13/RCE/">
-          
-          
-            
-          
-          RCE
-远程连接命令/代码执行漏洞，能够让攻击者直接向后台服务器远程写入服务器系统命令或者代码，从而控制后台系统。
-🍭产生原因
-
-
-远程连接命令执行ping
-应用系统从设计上需要给用户提供指定的远程命令操作的接口比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-13 01:19" pubdate>
-              2021-02-13
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/10/XXE/">XXE</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/10/XXE/">
-          
-          
-            
-          
-          在BWAPP里做SSRF结果任务里出现了XXE，又是一个知识盲区👿 👿 👿 ，故又跑来XXE辽👻👻👻
-XXE
-XML External Entity，XML 外部实体注入：应用程序在解析XML时没有过滤外部实体的加载，导致加载了恶意的外部文件，造成执行命令、读取文件、扫描内网、攻击内网应用等危害。
-🍭XML
-XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-10 21:35" pubdate>
-              2021-02-10
             </time>
           </div>
         

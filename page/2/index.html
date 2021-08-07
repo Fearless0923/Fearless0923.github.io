@@ -181,6 +181,183 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/07/20/jwt/">HFCTF2020||EasyLogin</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/20/jwt/">
+          
+          
+            
+          
+          涉及知识点
+
+koa框架(node.js)
+jwt令牌
+
+上一篇文章了解了koa框架和jwt,直接做题：
+访问页面查看源码发现一个js文件
+/**
+ *  或许该用 koa-static 来处理静态文件
+ *  路径该怎么配置？不管了先填个根目录XD
+ */
+
+function login() &#123;
+    const username = $(&quot;#username&quot;)
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-20 15:54" pubdate>
+              2021-07-20
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/koa/">koa框架浅析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/koa/">
+          
+          
+            
+          
+          🍭koa框架
+Koa 是一个新的 web 框架， 通过利用 async 函数，Koa 丢弃了回调函数，增强错误处理，没有捆绑任何中间件。
+🍭目录结构
+
+🍭app.js
+&#x27;use strict&#x27;
+
+const Koa = require(&#x27;koa&#x27;)
+const bodyParser = require(&#x27;koa-bodyparser&#x27
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 23:05" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/11/">JSON Web Token</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/11/">
+          
+          
+            
+          
+          JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案，用于作为JSON对象在各方之间安全地传输信息。
+🍭跨域认证
+用户认证流程(之前CSRF就讲过了)
+
+1、用户向服务器发送用户名和密码。
+2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。
+3、服务器向用户返回一个 session_id，写入用户的 Cookie。
+4、用户随后
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 22:12" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/17/lod/">网鼎杯 2018||Comment</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/17/lod/">
+          
+          
+            
+          
+          涉及知识点
+
+二次注入
+git泄露
+git恢复
+
+进入页面是一个留言板（盲猜二次注入），需要登录，密码后三位未知，bp爆破
+
+没找到注入点，后台扫描，git泄露
+&lt;?php
+include &quot;mysql.php&quot;;
+session_start();
+if($_SESSION[&#x27;login&#x27;] != &#x27;yes&#x27;)&#123;
+    
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-17 15:20" pubdate>
+              2021-07-17
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/07/15/filter2/">CISCN2021 Quals-filter</a>
       </h1>
 
@@ -407,194 +584,6 @@ $dbnam
             <i class="iconfont icon-date"></i>
             <time datetime="2021-05-18 22:45" pubdate>
               2021-05-18
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/05/hash/">Hash Length Extension Attack</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/05/hash/">
-          
-          
-            
-          
-          新知识点MD5hash长度扩展攻击借[De1CTF 2019]SSRF Me记录一下。
-源码：
-#! /usr/bin/env python
-#encoding=utf-8
-from flask import Flask
-from flask import request
-import socket
-import hashlib
-import urllib
-import sys
-import os
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-05 22:13" pubdate>
-              2021-05-05
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/03/GXYctf/">GXYCTF2019|禁止套娃</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/03/GXYctf/">
-          
-          
-            
-          
-          这题提到了无参RCE，做个总结。
-
-git泄露源码，利用githack扫出源码:
-
-&gt;&gt;&lt;?php
-&gt;&gt;include &quot;flag.php&quot;;
-&gt;&gt;echo &quot;flag在哪里呢？&lt;br&gt;&quot;;
-&gt;&gt;if(isset($_GET[&#x27;exp&#x27;]))&#123;
-   if (!p
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-03 15:05" pubdate>
-              2021-05-03
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/18/js/">js原型链污染</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/18/js/">
-          
-          
-            
-          
-          🍭javascript 回顾
-
-在javascript中，继承的整个过程就称为该类的原型链。
-
-
-每个对象的都有一个指向他的原型(prototype)的内部链接，这个原型对象又有它自己的原型，一直到null为止。
-
-
-在javascript中一切皆对象，因为所有的变量，函数，数组，对象 都始于object的原型即object.prototype，但只有类有对象，对象没有，对象有的是__proto
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-18 15:22" pubdate>
-              2021-04-18
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/17/lowtype/">PHP弱类型及绕过</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/17/lowtype/">
-          
-          
-            
-          
-          🍭前言
-PHP弱类型应用挺多的，来总结一下。
-比较操作符==与===，这两种都可以比较两个数字的大小，但是有很明显的区别。
-
-
-
-操作符
-描述
-
-
-
-
-==
-把两端变量类型转换成相同的，再进行比较
-
-
-===
-先判断两端变量类型是否相同，再进行比较
-
-
-
-注意：在两个相等的符号中，一个字符串与一个数字相比较时，字符串会转换成数值。
-🍭extract变量覆盖
-
-extract() 函数
-
-使用数
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-17 15:16" pubdate>
-              2021-04-17
             </time>
           </div>
         

