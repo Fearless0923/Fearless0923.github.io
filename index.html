@@ -181,6 +181,121 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/08/cmd/">PHP无参数RCE</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/08/cmd/">
+          
+          
+            
+          
+          之前无数字字母shell里只做到了/[A-Za-z0-9_$]+/这样的限制，但是遇到的其他题目做了很多限制，之前的绕过就行不通，比如像这样的：
+/[A-Za-z0-9]|\&#x27;|&quot;|`|\ |,|\.|-|\+|=|\/|\\|&lt;|&gt;|\$|\?|\^|&amp;|\|/，
+就只能无参RCE了。
+🍭demo
+if (&#x27;;&#x27; === preg_r
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-08 22:25" pubdate>
+              2021-08-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%97%A0%E5%8F%82RCE/">无参RCE</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/shell/">shell</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/07/hate/">buu（七）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/07/hate/">
+          
+          
+            
+          
+          [HCTF 2018]Hideandseek
+知识点：
+
+zip 软链接实现任意文件读取
+linux系统目录
+flask session伪造
+
+没有注册功能，直接登录，需要上传zip文件，随便传一个，发现他会直接读取回显：
+
+利用点应该就是用zip去读文件。
+🍭软链接读取文件
+这个利用点来自脸书的一个读取漏洞。软链接又叫符号链接，用ln -s创建。这个链接包含了另一个文件的路径名：它可以是任意文
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-07 17:03" pubdate>
+              2021-08-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/zip-%E8%BD%AF%E9%93%BE%E6%8E%A5/">zip 软链接</a>
+            
+              <a href="/categories/zip-%E8%BD%AF%E9%93%BE%E6%8E%A5/flask-session-%E4%BC%AA%E9%80%A0/">flask-session 伪造</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/zip/">zip://</a>
+            
+              <a href="/tags/phar/">phar://</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/05/num/">buu（六）</a>
       </h1>
 
@@ -600,123 +715,6 @@ if(!preg_match(&#x27;/[a-z0-9]/is&#x27;,$_GET[&#x27;shell&#x27;])) &#123;
             
           </div>
         
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/24/ikun/">buu</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/24/ikun/">
-          
-          
-            
-          
-          🍭[CISCN2019 华北赛区 Day1 Web2]ikun
-题目提示要lv6，翻了几页找不到，用脚本跑
-
-余额不够，抓包改一下折扣，成功购买，需要admin权限，可利用JWT伪造admin身份，JWT解码
-
-需要先爆破密钥
-
-伪造JWT
-
-抓包修改
-
-得到源码,在admin.py里发现python反序列化
-import tornado.web
-from sshop.base import B
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-24 20:19" pubdate>
-              2021-07-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">python反序列化</a>
-            
-              <a href="/categories/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/php%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E/">php伪随机数漏洞</a>
-            
-              <a href="/categories/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/php%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E/%E5%88%B7%E9%A2%98/">刷题</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">python</a>
-            
-              <a href="/tags/php/">php</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/23/pickle/">Python Pickle反序列化漏洞</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/23/pickle/">
-          
-          
-            
-          
-          🍭Python 序列化与反序列化
-🍭Pickle/CPickle模块
-在 Python 中 , 包含序列化/反序列化过程的库有 Json模块 , Pickle/CPickle模块 , Shelve模块 , Marshal模块 等 , 我们主要来看 Pickle/CPickle模块。pickle和cPickle的作用和PHP的serialize与unserialize一样，两者只是实现的语言不同
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-23 15:54" pubdate>
-              2021-07-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">python</a>
-            
-          </div>
         
       </div>
     </article>

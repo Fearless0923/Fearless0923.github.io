@@ -181,6 +181,123 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/07/24/ikun/">buu</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/24/ikun/">
+          
+          
+            
+          
+          🍭[CISCN2019 华北赛区 Day1 Web2]ikun
+题目提示要lv6，翻了几页找不到，用脚本跑
+
+余额不够，抓包改一下折扣，成功购买，需要admin权限，可利用JWT伪造admin身份，JWT解码
+
+需要先爆破密钥
+
+伪造JWT
+
+抓包修改
+
+得到源码,在admin.py里发现python反序列化
+import tornado.web
+from sshop.base import B
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-24 20:19" pubdate>
+              2021-07-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">python反序列化</a>
+            
+              <a href="/categories/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/php%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E/">php伪随机数漏洞</a>
+            
+              <a href="/categories/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/php%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E/%E5%88%B7%E9%A2%98/">刷题</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">python</a>
+            
+              <a href="/tags/php/">php</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/23/pickle/">Python Pickle反序列化漏洞</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/23/pickle/">
+          
+          
+            
+          
+          🍭Python 序列化与反序列化
+🍭Pickle/CPickle模块
+在 Python 中 , 包含序列化/反序列化过程的库有 Json模块 , Pickle/CPickle模块 , Shelve模块 , Marshal模块 等 , 我们主要来看 Pickle/CPickle模块。pickle和cPickle的作用和PHP的serialize与unserialize一样，两者只是实现的语言不同
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-23 15:54" pubdate>
+              2021-07-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">python</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/07/20/jwt/">HFCTF2020||EasyLogin</a>
       </h1>
 
@@ -498,92 +615,6 @@ SSI（服务器端包含）是放置在HTML页面中的指令，并在服务页�
             <i class="iconfont icon-date"></i>
             <time datetime="2021-07-11 17:00" pubdate>
               2021-07-11
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/11/upload-1/">CISCN2021||upload</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/11/upload-1/">
-          
-          
-            
-          
-          🍭分析
-题目给了源码index.php做出了如下限制。这题跟之前upload靶场的二次渲染很像。
-
-上传需要绕过getimagesize
-图片的长宽必须为1.
-文件名不能有c、i、h.这样平常普通的绕过手段，.htaccess 的h被过滤，.use.ini 的i被过滤，就算抓包修改他的后缀，也会一起被检测。
-
-🍭getimagesize()
-getimagesize() 函数用于获取图像大小及
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-11 14:36" pubdate>
-              2021-07-11
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/18/dropbox/">dropbox</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/18/dropbox/">
-          
-          
-            
-          
-          这道题涉及了phar反序列化，__call魔术方法等多个知识点。
-登录页面后随意上传图片，发现任意下载
-
-将文件都下载，进行审计
-class.php:
-&lt;?php
-error_reporting(0);
-$dbaddr = &quot;127.0.0.1&quot;;
-$dbuser = &quot;root&quot;;
-$dbpass = &quot;root&quot;;
-$dbnam
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-18 22:45" pubdate>
-              2021-05-18
             </time>
           </div>
         

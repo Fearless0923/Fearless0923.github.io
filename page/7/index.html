@@ -181,6 +181,97 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/12/17/sqli-labs%E4%B8%83/">sqli-labs(七)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/12/17/sqli-labs%E4%B8%83/">
+          
+          
+            
+          
+          Less-42
+初看页面,考虑到二次注入，查看update的源码：
+
+数据需经函数处理，故不能进行二次注入，再查看login的代码：
+
+密码无函数处理，在密码进行注入a';create table hi like users#
+注入前：
+
+注入后:
+
+Less-46
+在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &lt;表名&gt; [where &lt;查询条
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-17 23:04" pubdate>
+              2020-12-17
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/12/14/sqli-labs%E5%85%AD/">sqli-labs（六）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/12/14/sqli-labs%E5%85%AD/">
+          
+          
+            
+          
+          Less-27
+查看源码：
+
+这关额外注释了union,select,字符。
+单引号报错，注释掉回显正常：
+
+🍭法一：联合查询
+将union和select改为大小写混合就可以:
+?id=0'%0aUnIoN%0aSeLeCt%0a1,database(),2%0a%26%26%0a'1'='1
+
+不再赘述
+🍭法二：报错注入
+?id=1'%a0||%a0updatexml(1,concat(0x
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-14 17:25" pubdate>
+              2020-12-14
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/12/09/sqli-labs%E4%BA%94/">sqli-labs五</a>
       </h1>
 
@@ -562,133 +653,6 @@ COLUMNS(储存列信息)
               <a href="/tags/sql/">sql</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/11/04/php(%E4%B8%89)/">php(三)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/11/04/php(%E4%B8%89)/">
-          
-          
-            
-          
-          PHP（三）
-
-PHP（三）
-
-PHP 命名空间
-
-定义
-
-
-php表单
-
-PHP 下拉菜单单选
-PHP 下拉菜单多选
-
-
-PHP 表单验证
-
-PHP 验证表单数据
-PHP 表单 - 必需字段
-
-
-验证邮件和URL
-
-PHP - 验证名称
-
-
-PHP 多维数组
-date() 函数
-PHP 包含文件
-
-include 和 require 语句:
-
-
-PHP 文件处理
-
-打开文件
-feof() 函数
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-04 00:01" pubdate>
-              2020-11-04
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/10/27/problem/">Markdown上传博客文章的图片显示及目录生成问题</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/10/27/problem/">
-          
-          
-            
-          
-          
-图片
-
-法一：
-
-一、装插件
-二、改设置
-
-1、Typora的图片根目录设置
-2、Typora设置图片的相对路径
-3、Typora自动复制图片到指定目录下
-
-
-
-
-法二：(适用于mac)
-
-
-目录
-尾记
-
-刚发表第一篇博客文章时，发现在typora里写的带有图片及目录的文章更到博客里图片与目录就无法显示；为此找了许多方法，总结如下：
-原因:由于上传的图片使用的是绝对路径或者相对路径，每次插入截图
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-10-27 19:55" pubdate>
-              2020-10-27
-            </time>
-          </div>
-        
-        
         
       </div>
     </article>
