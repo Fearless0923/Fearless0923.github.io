@@ -181,6 +181,384 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/20/hjs/">buu（十）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/20/hjs/">
+          
+          
+            
+          
+          [XNUCA2019Qualifier]HardJS
+🍭后端RCE之opts.outputFunctionName
+题目给了源码，是一个node.js的后端，应该是原型链污染的题目，从server.js开始审计：
+有7个路由，其中/get路由下有一段代码
+if(dataList[0].count == 0 )&#123;
+        res.json(&#123;&#125;)
+
+    &
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-20 23:13" pubdate>
+              2021-08-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/js%E5%8E%9F%E9%93%BE%E6%B1%A1%E6%9F%93/">js原链污染</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/19/me/">buu（九）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/19/me/">
+          
+          
+            
+          
+          [GYCTF2020]Ez_Express
+题目要求admin登录，扫目录得到源码：
+
+在路由里发现了merge()和clone()，典型的原链污染开端，之前学过：js原型链污染主要是利用点：控制并修改一个对象的原型，那么将可以影响所有和这个对象来自同一个类、父祖类的对象。
+往下在/action的路由中找到clone()：
+
+用户身份必须为admin，跟进登录路由
+
+传入的userid经过了saf
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-19 19:44" pubdate>
+              2021-08-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/require-once%E5%8C%85%E5%90%AB/">require_once包含</a>
+            
+              <a href="/categories/require-once%E5%8C%85%E5%90%AB/%E5%9B%BE%E7%89%87%E9%A9%AC/">图片马</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/17/open/">Bypass open_basedir</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/17/open/">
+          
+          
+            
+          
+          🍭原理
+🍭open_basedir
+open_basedir是php的一个配置,它可将用户访问文件的活动范围限制在指定的区域如open_basedir=/var/www/html/:/tmp/，则用户无法获取除了/var/www/html/和/tmp/这两个目录以外的文件。用open_basedir指定的限制实际上是前缀,而不是目录名。若open_basedir = /dir/user, 那么
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-17 23:13" pubdate>
+              2021-08-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/bypass/">bypass</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/16/ff3/">Bypass Disable Functions (三)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/16/ff3/">
+          
+          
+            
+          
+          🍭利用 GC UAF
+🍭条件
+
+Linux 操作系统
+PHP 版本(7.x)
+
+🍭原理
+此漏洞利用PHP垃圾收集器中存在三年的一个 bug ，通过PHP垃圾收集器中堆溢出来绕过 disable_functions 并执行系统命令。利用脚本：https://github.com/mm0r1/exploits/tree/master/php7-gc-bypass
+🍭利用
+利用脚本：https:
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-16 17:04" pubdate>
+              2021-08-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/bypass/">bypass</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/14/ff2/">Bypass Disable Functions（二）—— Fastcgi 协议分析与 PHP-FPM 攻击方法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/14/ff2/">
+          
+          
+            
+          
+          🍭条件
+Linux 操作系统 PHP-FPM 存在可写的目录，需要上传.so文件
+🍭原理
+🍭Fast-CGI
+CGI解决了Web服务器与PHP解释器的通信问题，但是Web服务器每收到一个请求，都会去Fork一个CGI进程，请求结束再kill掉这个进程，很浪费资源。于是，便出现了CGI的改良版本——Fast-CGI。Fast-CGI每次处理完请求后，不会kill掉这个进程，而是保留这个进程，使
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-14 15:43" pubdate>
+              2021-08-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/bypass/">bypass</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/13/ff/">Bypass Disable Function（一）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/13/ff/">
+          
+          
+            
+          
+          🍭Disable Functions
+平常的CTF中经常拿到webshell无法执行命令，原因：
+
+php.ini 中用 disable_functions 指示器禁用了 system()、exec() 等等这类命令执行的相关函数；
+web 进程运行在 rbash 这类受限 shell 环境中；
+WAF 拦劫。
+
+这时候就需要想办法绕过disable_functions。
+常见危险函数：
+
+ph
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-13 20:10" pubdate>
+              2021-08-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/bypass/">bypass</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/11/ffi/">buu（八）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/11/ffi/">
+          
+          
+            
+          
+          [XNUCA2019Qualifier]EasyPHP
+🍭分析源码
+
+题目服务器中间件为 Apache，因此可以传 .htaceess 利用自定义错误文件写Webshell。
+🍭使 .htaccess 生效
+我们写入的内容会被自动在末尾加上“\nJust one chance”，会使上传的.htaccess文件不生效，我们可以采用 \ 的方式将换行符转义成普通字符，然后用 # 来注释单行：
+.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-11 17:03" pubdate>
+              2021-08-11
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/htaccess/">.htaccess</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/10/hta/">.htaccess总结</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/10/hta/">
+          
+          
+            
+          
+          经常碰到一些题目需要借助.htaccess，且用法很多，这里来做一个总结。
+🍭概念
+.htaccess文件(“分布式配置文件”）,全称是Hypertext Access(超文本入口)。提供了针对目录改变配置的方法，  即，在一个特定的文档目录中放置一个包含一个或多个指令的文件，  以作用于此目录及其所有子目录。作为用户，所能使用的命令受到限制。管理员可以通过Apache的AllowOverrid
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-10 00:29" pubdate>
+              2021-08-10
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/htaccess/">.htaccess</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/08/cmd/">PHP无参数RCE</a>
       </h1>
 
@@ -290,441 +668,11 @@ flask session伪造
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/05/num/">buu（六）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/05/num/">
-          
-          
-            
-          
-          [HITCON 2016]Leaking
-这题有个新知识点：JS通过Buffer 类处理二进制数据的缓冲区
-源码：
-
-vm2就可以看出是node.js了。
-🍭tips：
-在较早一点的 node 版本中 (8.0 之前)，当 Buffer 的构造函数传入数字时, 会得到与数字长度一致的一个 Buffer，并且这个 Buffer 是未清零的。8.0 之后的版本可以通过另一个函数 Buffer.all
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-05 16:43" pubdate>
-              2021-08-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">沙箱逃逸</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/">PHP原生类</a>
-            
-              <a href="/tags/exp%E6%BA%A2%E5%87%BA/">exp溢出</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/04/ez/">BJDCTF2020||EzPHP</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/04/ez/">
-          
-          
-            
-          
-          查看源码，提示GFXEIM3YFZYGQ4A=，base32解码，获取源码
-&lt;?php
-highlight_file(__FILE__);
-error_reporting(0); 
-
-$file = &quot;1nD3x.php&quot;;
-$shana = $_GET[&#x27;shana&#x27;];
-$passwd = $_GET[&#x27;passwd&#x27;];
-$a
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-04 22:52" pubdate>
-              2021-08-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/create-function%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">create_function代码注入</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/bypass/">bypass</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/02/tiny/">buu（五）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/02/tiny/">
-          
-          
-            
-          
-          CISCN2019 总决赛 Day1 Web4]Laravel1
-laravel框架，题目提供源码，还是要找POP链，还是先搜_destruct()去找一个反序列化的点，搜索出的destruct有很多，需要一个个跟进判断可不可以利用，文件太大，我并没有找到，参考大佬的wp，找出TagAwareAdapter类：
-
-__destruct方法调用commit()，commit()又调用invalida
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-02 15:51" pubdate>
-              2021-08-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">phar反序列化</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Laravel%E6%A1%86%E6%9E%B6/">Laravel框架</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/01/regexp/">REGEXP注入与LIKE注入</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/01/regexp/">
-          
-          
-            
-          
-          REGEXP注入与LIKE注入
-🍭REGEXP注入
-REGEXP注入，即regexp正则表达式注入，又叫盲注值正则表达式攻击。
-🍭注入原理
-直接查询自己需要的数据，然后通过正则表达式进行匹配。
-格式：
-select (select语句) regexp &#x27;正则&#x27;
-若匹配则返回1，不匹配返回0
-select (select username from users where i
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-01 17:48" pubdate>
-              2021-08-01
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%B3%A8%E5%85%A5/">注入</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/30/black/">buu（四）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/30/black/">
-          
-          
-            
-          
-          [HFCTF 2021 Final]easyflask
-任意文件读取，根据提示读取源码
-#!/usr/bin/python3.6
-import os
-import pickle
-
-from base64 import b64decode
-from flask import Flask, request, render_template, session
-
-app = Flask(__name__)
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-30 00:16" pubdate>
-              2021-07-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Flask-session%E8%BA%AB%E4%BB%BD%E4%BC%AA%E9%80%A0/">Flask-session身份伪造</a>
-            
-              <a href="/categories/Flask-session%E8%BA%AB%E4%BB%BD%E4%BC%AA%E9%80%A0/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">phar反序列化</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/reverse-shell/">reverse shell</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/29/session/">buu（三）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/29/session/">
-          
-          
-            
-          
-          [MRCTF2020]套娃
-源码
-$query = $_SERVER[&#x27;QUERY_STRING&#x27;];
-
- if( substr_count($query, &#x27;_&#x27;) !== 0 || substr_count($query, &#x27;%5f&#x27;) != 0 )&#123;
-    die(&#x27;Y0u are So cutE!&#x27;
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-29 21:34" pubdate>
-              2021-07-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%88%B7%E9%A2%98/">刷题</a>
-            
-              <a href="/categories/%E5%88%B7%E9%A2%98/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/">无列名注入</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/reverse-shell/">reverse shell</a>
-            
-              <a href="/tags/proc/">proc</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/27/ruby/">buu（二）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/27/ruby/">
-          
-          
-            
-          
-          [SCTF2019]Flag Shop
-🍭Ruby ERB模板注入
-Ruby/ERB代码语法中较有特征的就是&lt;%=,&lt;%=语法可以用来执行Ruby语句，并将结果转换为字符串。我们可用ruby &lt;%= 7 * 7 %&gt;来测试是否含有模板注入。若存在模板注入漏洞就可以用ruby &lt;%= File.open(‘/etc/passwd’).read %&gt;试试看能否自带
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-27 23:20" pubdate>
-              2021-07-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%88%B7%E9%A2%98/">刷题</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/php/">php</a>
-            
-              <a href="/tags/Ruby-ERB%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">Ruby ERB模板注入</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/26/shell-1/">无字母数字shell</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/26/shell-1/">
-          
-          
-            
-          
-          🍭初级
-当题目把数字和字母禁掉，常规的shell就用不了；如
-&lt;?php
-if(!preg_match(&#x27;/[a-z0-9]/is&#x27;,$_GET[&#x27;shell&#x27;])) &#123;
-  eval($_GET[&#x27;shell&#x27;]);
-&#125;
-🍭思路
-将非字母、数字的字符经过各种变换构造出a-z中任意一个字符。
-🍭法一：异或
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-26 15:42" pubdate>
-              2021-07-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/shell/">shell</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

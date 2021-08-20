@@ -181,6 +181,345 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/07/20/jwt/">HFCTF2020||EasyLogin</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/20/jwt/">
+          
+          
+            
+          
+          涉及知识点
+
+koa框架(node.js)
+jwt令牌
+
+上一篇文章了解了koa框架和jwt,直接做题：
+访问页面查看源码发现一个js文件
+/**
+ *  或许该用 koa-static 来处理静态文件
+ *  路径该怎么配置？不管了先填个根目录XD
+ */
+
+function login() &#123;
+    const username = $(&quot;#username&quot;)
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-20 15:54" pubdate>
+              2021-07-20
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/koa/">koa框架浅析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/koa/">
+          
+          
+            
+          
+          🍭koa框架
+Koa 是一个新的 web 框架， 通过利用 async 函数，Koa 丢弃了回调函数，增强错误处理，没有捆绑任何中间件。
+🍭目录结构
+
+🍭app.js
+&#x27;use strict&#x27;
+
+const Koa = require(&#x27;koa&#x27;)
+const bodyParser = require(&#x27;koa-bodyparser&#x27
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 23:05" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/11/">JSON Web Token</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/11/">
+          
+          
+            
+          
+          JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案，用于作为JSON对象在各方之间安全地传输信息。
+🍭跨域认证
+用户认证流程(之前CSRF就讲过了)
+
+1、用户向服务器发送用户名和密码。
+2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。
+3、服务器向用户返回一个 session_id，写入用户的 Cookie。
+4、用户随后
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 22:12" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/17/lod/">网鼎杯 2018||Comment</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/17/lod/">
+          
+          
+            
+          
+          涉及知识点
+
+二次注入
+git泄露
+git恢复
+
+进入页面是一个留言板（盲猜二次注入），需要登录，密码后三位未知，bp爆破
+
+没找到注入点，后台扫描，git泄露
+&lt;?php
+include &quot;mysql.php&quot;;
+session_start();
+if($_SESSION[&#x27;login&#x27;] != &#x27;yes&#x27;)&#123;
+    
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-17 15:20" pubdate>
+              2021-07-17
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/15/filter2/">CISCN2021 Quals-filter</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/15/filter2/">
+          
+          
+            
+          
+          了解yii2及lavael后filter的复现就很简单了
+hint：
+
+附件做了如下更改
+
+看一下依赖发现monolog符合
+
+直接打
+🍭清空日志文件
+?file=php://filter/write=convert.iconv.utf-8.utf-16be|convert.quoted-printable-encode|convert.iconv.utf-16be.utf-8|convert.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-15 19:31" pubdate>
+              2021-07-15
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/phar/">phar</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/14/rce-0/">Laravel Debug RCE（CVE-2021-3129）分析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/14/rce-0/">
+          
+          
+            
+          
+          🍭0x00简介
+Laravel是一套简洁、优雅的PHP Web开发框架(PHP Web Framework)。它可以让你从面条一样杂乱的代码中解脱出来；它可以构建一个完美的网络APP，而且每行代码都可以简洁、富于表达力。
+🍭0x01漏洞概述
+当Laravel开启了Debug模式时，由于Laravel自带的Ignition 组件对file_get_contents()和file_put_cont
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-14 13:39" pubdate>
+              2021-07-14
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/12/filter/">Yii2 反序列化（CVE-2020-15148）分析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/12/filter/">
+          
+          
+            
+          
+          Yii是一套基于组件、用于开发大型 Web 应用的高性能 PHP 框架，Yii2 2.0.38 之前的版本存在反序列化漏洞，程序在调用unserialize()时，攻击者可通过构造特定的恶意请求执行任意命令。
+其应用结构如下：
+
+研究前先搭个框架，可以composer安装，不过特别慢。我是直接到github上下载的，需要修改config/web.php文件里cookieValidationKey的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-12 22:42" pubdate>
+              2021-07-12
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/11/web/">BJDCTF2020||EasySearch</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/11/web/">
+          
+          
+            
+          
+          这题涉及一个新漏洞——Apache SSI 远程命令执行漏洞
+🍭SSI
+SSI（服务器端包含）是放置在HTML页面中的指令，并在服务页面时在服务器上对其进行评估，它提供了一种对现有HTML文档增加动态内容的方法，不需要编写复杂的JSP/PHP/ASP等程序或者调用CGI程序。默认扩展名是 .stm、.shtm 和 .shtml。
+例如，您可以将指令放置到现有的HTML页面中：
+&lt;!--#e
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-11 17:00" pubdate>
+              2021-07-11
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/07/11/upload-1/">CISCN2021||upload</a>
       </h1>
 
@@ -261,387 +600,11 @@ $dbnam
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/05/hash/">Hash Length Extension Attack</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/05/hash/">
-          
-          
-            
-          
-          新知识点MD5hash长度扩展攻击借[De1CTF 2019]SSRF Me记录一下。
-源码：
-#! /usr/bin/env python
-#encoding=utf-8
-from flask import Flask
-from flask import request
-import socket
-import hashlib
-import urllib
-import sys
-import os
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-05 22:13" pubdate>
-              2021-05-05
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/03/GXYctf/">GXYCTF2019|禁止套娃</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/03/GXYctf/">
-          
-          
-            
-          
-          这题提到了无参RCE，做个总结。
-
-git泄露源码，利用githack扫出源码:
-
-&gt;&gt;&lt;?php
-&gt;&gt;include &quot;flag.php&quot;;
-&gt;&gt;echo &quot;flag在哪里呢？&lt;br&gt;&quot;;
-&gt;&gt;if(isset($_GET[&#x27;exp&#x27;]))&#123;
-   if (!p
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-03 15:05" pubdate>
-              2021-05-03
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/18/js/">js原型链污染</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/18/js/">
-          
-          
-            
-          
-          🍭javascript 回顾
-
-在javascript中，继承的整个过程就称为该类的原型链。
-
-
-每个对象的都有一个指向他的原型(prototype)的内部链接，这个原型对象又有它自己的原型，一直到null为止。
-
-
-在javascript中一切皆对象，因为所有的变量，函数，数组，对象 都始于object的原型即object.prototype，但只有类有对象，对象没有，对象有的是__proto
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-18 15:22" pubdate>
-              2021-04-18
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/17/lowtype/">PHP弱类型及绕过</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/17/lowtype/">
-          
-          
-            
-          
-          🍭前言
-PHP弱类型应用挺多的，来总结一下。
-比较操作符==与===，这两种都可以比较两个数字的大小，但是有很明显的区别。
-
-
-
-操作符
-描述
-
-
-
-
-==
-把两端变量类型转换成相同的，再进行比较
-
-
-===
-先判断两端变量类型是否相同，再进行比较
-
-
-
-注意：在两个相等的符号中，一个字符串与一个数字相比较时，字符串会转换成数值。
-🍭extract变量覆盖
-
-extract() 函数
-
-使用数
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-17 15:16" pubdate>
-              2021-04-17
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/16/fakebook/">BUUCTF[网鼎杯 2018]Fakebook</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/16/fakebook/">
-          
-          
-            
-          
-          这题涉及的知识点比较多。
-查看源码找不到什么有用的信息，扫一下目录
-
-拿到robots.txt,跟进下载user.php.bak
-
-SSRF详见：SSRF
-随便注册一个用户并查看发现网址有点像SQL注入，用sqlmap跑不出来
-
-数据型：
-
-测试列数：
-
-列数为4,继续测试?no=1 union select 1,2,3,4--+显示no hack,判断存在waf，测试了一下应该是空格过滤掉了
-
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-16 00:32" pubdate>
-              2021-04-16
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/15/easytrick/">CISCN2020</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/15/easytrick/">
-          
-          
-            
-          
-          这题的利用点之前没遇到过，比较有意思。
-🍭easytrick
-代码：
- &lt;?php
-class trick&#123;
-    public $trick1;
-    public $trick2;
-    public function __destruct()&#123;
-        $this-&gt;trick1 = (string)$this-&gt;trick1;
-    
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-15 00:43" pubdate>
-              2021-04-15
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/13/buu/">BUUCTF | [RoarCTF 2019]Easy Calc</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/13/buu/">
-          
-          
-            
-          
-          感觉这道题目有点意思
-打开网页是个计算机，查源码
-
-🍭法一：利用特性
-提示有waf，先测试一下读目录
-
-被ban了，应该跟waf有关，这里要利用一个之前没注意过的点：
-🍭PHP的字符串解析特性
-PHP需要将所有参数转换为有效的变量名，因此在解析查询字符串时，它会做两件事：1.删除空白符 2.将某些字符转换为下划线（包括空格）
-我们可以在num前加个空格，这样waf就找不到num这个变量了，因为
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-13 21:18" pubdate>
-              2021-04-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%88%B7%E9%A2%98/">刷题</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/10/wei6/">sprintf格式化字符串漏洞</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/10/wei6/">
-          
-          
-            
-          
-          🍭sprintf()
-把格式化的字符串写入变量中。
-sprintf(format,arg1,arg2,arg++)
-
-
-
-参数
-描述
-
-
-
-
-format
-规定字符串以及如何格式化其中的变量。                                                                            可能的格式值：                    
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-10 14:12" pubdate>
-              2021-04-10
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

