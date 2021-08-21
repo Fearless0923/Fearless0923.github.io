@@ -181,6 +181,50 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/05/18/dropbox/">dropbox</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/18/dropbox/">
+          
+          
+            
+          
+          这道题涉及了phar反序列化，__call魔术方法等多个知识点。
+登录页面后随意上传图片，发现任意下载
+
+将文件都下载，进行审计
+class.php:
+&lt;?php
+error_reporting(0);
+$dbaddr = &quot;127.0.0.1&quot;;
+$dbuser = &quot;root&quot;;
+$dbpass = &quot;root&quot;;
+$dbnam
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-18 22:45" pubdate>
+              2021-05-18
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/05/05/hash/">Hash Length Extension Attack</a>
       </h1>
 
@@ -585,42 +629,6 @@ def from_pyfile(self, filename, silent=False):
             <i class="iconfont icon-date"></i>
             <time datetime="2021-04-06 19:58" pubdate>
               2021-04-06
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/05/wei/">SSTI(一)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/05/wei/">
-          
-          
-            
-          
-          Server-Side-Template-Injection，服务端模版注入攻击。
-服务端模版引擎将用户的输入直接渲染进模版，而未做过滤或者对象关系映射(ORM)。导致攻击者可以控制渲染进模版的内容。通过直接输入模版渲染的关键词例如{ { } }，即可将恶意代码注入模版中执行。
-现在最常见的模版渲染引擎是基于Python的Flask框架，但是模板注入还存在于许多地方。与 XSS 不同，模板注入可用
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-05 14:49" pubdate>
-              2021-04-05
             </time>
           </div>
         
