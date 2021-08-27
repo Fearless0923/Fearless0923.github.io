@@ -181,6 +181,51 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/12/17/sqli-labs%E4%B8%83/">sqli-labs(七)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/12/17/sqli-labs%E4%B8%83/">
+          
+          
+            
+          
+          Less-42
+初看页面,考虑到二次注入，查看update的源码：
+
+数据需经函数处理，故不能进行二次注入，再查看login的代码：
+
+密码无函数处理，在密码进行注入a';create table hi like users#
+注入前：
+
+注入后:
+
+Less-46
+在之前的MySQL里有介绍查询语句：select &lt;列名&gt; from &lt;表名&gt; [where &lt;查询条
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-17 23:04" pubdate>
+              2020-12-17
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/12/14/sqli-labs%E5%85%AD/">sqli-labs（六）</a>
       </h1>
 
@@ -608,77 +653,6 @@ COLUMNS(储存列信息)
               <a href="/tags/sql/">sql</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/11/04/php(%E4%B8%89)/">php(三)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/11/04/php(%E4%B8%89)/">
-          
-          
-            
-          
-          PHP（三）
-
-PHP（三）
-
-PHP 命名空间
-
-定义
-
-
-php表单
-
-PHP 下拉菜单单选
-PHP 下拉菜单多选
-
-
-PHP 表单验证
-
-PHP 验证表单数据
-PHP 表单 - 必需字段
-
-
-验证邮件和URL
-
-PHP - 验证名称
-
-
-PHP 多维数组
-date() 函数
-PHP 包含文件
-
-include 和 require 语句:
-
-
-PHP 文件处理
-
-打开文件
-feof() 函数
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-04 00:01" pubdate>
-              2020-11-04
-            </time>
-          </div>
-        
-        
         
       </div>
     </article>
