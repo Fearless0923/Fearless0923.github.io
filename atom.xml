@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>liquor&#39;s blog</title>
+  <icon>http://liquor-boop.github.io/icon.png</icon>
+  <subtitle>Little Genius</subtitle>
+  <link href="http://liquor-boop.github.io/atom.xml" rel="self"/>
+  
+  <link href="http://liquor-boop.github.io/"/>
+  <updated>2021-08-25T14:13:08.499Z</updated>
+  <id>http://liquor-boop.github.io/</id>
+  
+  <author>
+    <name>Yu ting</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>buu（十二）</title>
+    <link href="http://liquor-boop.github.io/2021/08/23/un/"/>
+    <id>http://liquor-boop.github.io/2021/08/23/un/</id>
+    <published>2021-08-23T14:15:30.000Z</published>
+    <updated>2021-08-25T14:13:08.499Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;[GKCTF 2021]babycat&lt;/h1&gt;
+&lt;p&gt;题目不允许注册，查看源码，是默认跳出Not Allowed，构造POST请求&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;hljs ini&quot;&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="js马" scheme="http://liquor-boop.github.io/categories/js%E9%A9%AC/"/>
+    
+    
+    <category term="java" scheme="http://liquor-boop.github.io/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>buu（十一）</title>
+    <link href="http://liquor-boop.github.io/2021/08/21/up/"/>
+    <id>http://liquor-boop.github.io/2021/08/21/up/</id>
+    <published>2021-08-21T08:58:43.000Z</published>
+    <updated>2021-08-21T14:56:58.971Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;bestphp’s revenge&lt;/h1&gt;
+&lt;h4 id=&quot;利用PHP原生类来构造POP链&quot;&gt;&lt;a class=&quot;header-anchor&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="CRLF注入" scheme="http://liquor-boop.github.io/categories/CRLF%E6%B3%A8%E5%85%A5/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>buu（十）</title>
+    <link href="http://liquor-boop.github.io/2021/08/20/hjs/"/>
+    <id>http://liquor-boop.github.io/2021/08/20/hjs/</id>
+    <published>2021-08-20T15:13:58.000Z</published>
+    <updated>2021-08-20T14:38:29.854Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;[XNUCA2019Qualifier]HardJS&lt;/h1&gt;
+&lt;h4 id=&quot;后端RCE之opts-outputFunctionName&quot;&gt;&lt;a class=&quot;header-anchor&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="js原链污染" scheme="http://liquor-boop.github.io/categories/js%E5%8E%9F%E9%93%BE%E6%B1%A1%E6%9F%93/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>buu（九）</title>
+    <link href="http://liquor-boop.github.io/2021/08/19/me/"/>
+    <id>http://liquor-boop.github.io/2021/08/19/me/</id>
+    <published>2021-08-19T11:44:07.000Z</published>
+    <updated>2021-08-20T14:22:37.383Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;[GYCTF2020]Ez_Express&lt;/h1&gt;
+&lt;p&gt;题目要求admin登录，扫目录得到源码：&lt;/p&gt;
+&lt;img src=&quot;/2021/08/19/me/1.png&quot; alt=&quot;1&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="require_once包含" scheme="http://liquor-boop.github.io/categories/require-once%E5%8C%85%E5%90%AB/"/>
+    
+    <category term="图片马" scheme="http://liquor-boop.github.io/categories/require-once%E5%8C%85%E5%90%AB/%E5%9B%BE%E7%89%87%E9%A9%AC/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Bypass open_basedir</title>
+    <link href="http://liquor-boop.github.io/2021/08/17/open/"/>
+    <id>http://liquor-boop.github.io/2021/08/17/open/</id>
+    <published>2021-08-17T15:13:27.000Z</published>
+    <updated>2021-08-20T14:21:44.555Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;原理&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#原理&quot;&gt;🍭&lt;/a&gt;原理&lt;/h2&gt;
+&lt;h4 id=&quot;open-basedir&quot;&gt;&lt;a class=&quot;header-anchor&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="bypass" scheme="http://liquor-boop.github.io/categories/bypass/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Bypass Disable Functions (三)</title>
+    <link href="http://liquor-boop.github.io/2021/08/16/ff3/"/>
+    <id>http://liquor-boop.github.io/2021/08/16/ff3/</id>
+    <published>2021-08-16T09:04:15.000Z</published>
+    <updated>2021-08-20T14:20:51.745Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;利用-GC-UAF&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#利用-GC-UAF&quot;&gt;🍭&lt;/a&gt;利用 GC UAF&lt;/h2&gt;
+&lt;h4 id=&quot;条件&quot;&gt;&lt;a class=&quot;header-anchor&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="bypass" scheme="http://liquor-boop.github.io/categories/bypass/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Bypass Disable Functions（二）—— Fastcgi 协议分析与 PHP-FPM 攻击方法</title>
+    <link href="http://liquor-boop.github.io/2021/08/14/ff2/"/>
+    <id>http://liquor-boop.github.io/2021/08/14/ff2/</id>
+    <published>2021-08-14T07:43:21.000Z</published>
+    <updated>2021-08-20T14:36:08.368Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;条件&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#条件&quot;&gt;🍭&lt;/a&gt;条件&lt;/h3&gt;
+&lt;p&gt;Linux 操作系统 PHP-FPM 存在可写的目录，需要上传&lt;code&gt;.so&lt;/code&gt;文件&lt;/p&gt;
+&lt;h3 id=&quot;原理&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="bypass" scheme="http://liquor-boop.github.io/categories/bypass/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Bypass Disable Function（一）</title>
+    <link href="http://liquor-boop.github.io/2021/08/13/ff/"/>
+    <id>http://liquor-boop.github.io/2021/08/13/ff/</id>
+    <published>2021-08-13T12:10:06.000Z</published>
+    <updated>2021-08-20T14:19:02.356Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Disable-Functions&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#Disable-Functions&quot;&gt;🍭&lt;/a&gt;Disable</summary>
+        
+      
+    
+    
+    
+    <category term="bypass" scheme="http://liquor-boop.github.io/categories/bypass/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>buu（八）</title>
+    <link href="http://liquor-boop.github.io/2021/08/11/ffi/"/>
+    <id>http://liquor-boop.github.io/2021/08/11/ffi/</id>
+    <published>2021-08-11T09:03:52.000Z</published>
+    <updated>2021-08-20T14:24:10.903Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;[XNUCA2019Qualifier]EasyPHP&lt;/h1&gt;
+&lt;h4 id=&quot;分析源码&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#分析源码&quot;&gt;🍭&lt;/a&gt;分析源码&lt;/h4&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+    <category term=".htaccess" scheme="http://liquor-boop.github.io/tags/htaccess/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>.htaccess总结</title>
+    <link href="http://liquor-boop.github.io/2021/08/10/hta/"/>
+    <id>http://liquor-boop.github.io/2021/08/10/hta/</id>
+    <published>2021-08-09T16:29:00.000Z</published>
+    <updated>2021-08-20T14:31:12.958Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;经常碰到一些题目需要借助.htaccess，且用法很多，这里来做一个总结。&lt;/p&gt;
+&lt;h4 id=&quot;概念&quot;&gt;&lt;a class=&quot;header-anchor&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term=".htaccess" scheme="http://liquor-boop.github.io/tags/htaccess/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP无参数RCE</title>
+    <link href="http://liquor-boop.github.io/2021/08/08/cmd/"/>
+    <id>http://liquor-boop.github.io/2021/08/08/cmd/</id>
+    <published>2021-08-08T14:25:10.000Z</published>
+    <updated>2021-08-10T17:18:45.774Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前无数字字母shell里只做到了&lt;code&gt;/[A-Za-z0-9_$]+/&lt;/code&gt;这样的限制，但是遇到的其他题目做了很多限制，之前的绕过就行不通，比如像这样的：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;hljs</summary>
+        
+      
+    
+    
+    
+    <category term="无参RCE" scheme="http://liquor-boop.github.io/categories/%E6%97%A0%E5%8F%82RCE/"/>
+    
+    
+    <category term="shell" scheme="http://liquor-boop.github.io/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>buu（七）</title>
+    <link href="http://liquor-boop.github.io/2021/08/07/hate/"/>
+    <id>http://liquor-boop.github.io/2021/08/07/hate/</id>
+    <published>2021-08-07T09:03:05.000Z</published>
+    <updated>2021-08-11T08:58:09.771Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;[HCTF 2018]Hideandseek&lt;/h1&gt;
+&lt;p&gt;知识点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;zip</summary>
+        
+      
+    
+    
+    
+    <category term="zip 软链接" scheme="http://liquor-boop.github.io/categories/zip-%E8%BD%AF%E9%93%BE%E6%8E%A5/"/>
+    
+    <category term="flask-session 伪造" scheme="http://liquor-boop.github.io/categories/zip-%E8%BD%AF%E9%93%BE%E6%8E%A5/flask-session-%E4%BC%AA%E9%80%A0/"/>
+    
+    
+    <category term="zip://" scheme="http://liquor-boop.github.io/tags/zip/"/>
+    
+    <category term="phar://" scheme="http://liquor-boop.github.io/tags/phar/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>buu（六）</title>
+    <link href="http://liquor-boop.github.io/2021/08/05/num/"/>
+    <id>http://liquor-boop.github.io/2021/08/05/num/</id>
+    <published>2021-08-05T08:43:51.000Z</published>
+    <updated>2021-08-07T10:01:49.488Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;[HITCON 2016]Leaking&lt;/h1&gt;
+&lt;p&gt;这题有个新知识点：JS通过&lt;code&gt;Buffer&lt;/code&gt; 类处理二进制数据的缓冲区&lt;/p&gt;
+&lt;p&gt;源码：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2021/08/05/num/3.png&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="沙箱逃逸" scheme="http://liquor-boop.github.io/categories/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/"/>
+    
+    
+    <category term="PHP原生类" scheme="http://liquor-boop.github.io/tags/PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/"/>
+    
+    <category term="exp溢出" scheme="http://liquor-boop.github.io/tags/exp%E6%BA%A2%E5%87%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>BJDCTF2020||EzPHP</title>
+    <link href="http://liquor-boop.github.io/2021/08/04/ez/"/>
+    <id>http://liquor-boop.github.io/2021/08/04/ez/</id>
+    <published>2021-08-04T14:52:17.000Z</published>
+    <updated>2021-08-07T10:01:33.800Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;查看源码，提示GFXEIM3YFZYGQ4A=，base32解码，获取源码&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;hljs coq&quot;&gt;&amp;lt;?php
+highlight_file(__FILE__);
+error_reporting(&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="create_function代码注入" scheme="http://liquor-boop.github.io/categories/create-function%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/"/>
+    
+    
+    <category term="bypass" scheme="http://liquor-boop.github.io/tags/bypass/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>buu（五）</title>
+    <link href="http://liquor-boop.github.io/2021/08/02/tiny/"/>
+    <id>http://liquor-boop.github.io/2021/08/02/tiny/</id>
+    <published>2021-08-02T07:51:45.000Z</published>
+    <updated>2021-08-05T13:43:09.381Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;CISCN2019 总决赛 Day1</summary>
+        
+      
+    
+    
+    
+    <category term="phar反序列化" scheme="http://liquor-boop.github.io/categories/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    
+    
+    <category term="Laravel框架" scheme="http://liquor-boop.github.io/tags/Laravel%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>REGEXP注入与LIKE注入</title>
+    <link href="http://liquor-boop.github.io/2021/08/01/regexp/"/>
+    <id>http://liquor-boop.github.io/2021/08/01/regexp/</id>
+    <published>2021-08-01T09:48:36.000Z</published>
+    <updated>2021-08-05T09:33:27.212Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;REGEXP注入与LIKE注入&lt;/h1&gt;
+&lt;h3 id=&quot;REGEXP注入&quot;&gt;&lt;a class=&quot;header-anchor&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="注入" scheme="http://liquor-boop.github.io/tags/%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>buu（四）</title>
+    <link href="http://liquor-boop.github.io/2021/07/30/black/"/>
+    <id>http://liquor-boop.github.io/2021/07/30/black/</id>
+    <published>2021-07-29T16:16:46.000Z</published>
+    <updated>2021-08-04T09:40:39.736Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;[HFCTF 2021 Final]easyflask&lt;/h1&gt;
+&lt;p&gt;任意文件读取，根据提示读取源码&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;hljs lua&quot;&gt;#!/usr/bin/python3&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="Flask-session身份伪造" scheme="http://liquor-boop.github.io/categories/Flask-session%E8%BA%AB%E4%BB%BD%E4%BC%AA%E9%80%A0/"/>
+    
+    <category term="phar反序列化" scheme="http://liquor-boop.github.io/categories/Flask-session%E8%BA%AB%E4%BB%BD%E4%BC%AA%E9%80%A0/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    
+    
+    <category term="reverse shell" scheme="http://liquor-boop.github.io/tags/reverse-shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>buu（三）</title>
+    <link href="http://liquor-boop.github.io/2021/07/29/session/"/>
+    <id>http://liquor-boop.github.io/2021/07/29/session/</id>
+    <published>2021-07-29T13:34:26.000Z</published>
+    <updated>2021-08-02T14:51:15.071Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;[MRCTF2020]套娃&lt;/h1&gt;
+&lt;p&gt;源码&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;hljs smalltalk&quot;&gt;&lt;span class=&quot;hljs-string&quot;&gt;$q&lt;/span&gt;uery = &lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="刷题" scheme="http://liquor-boop.github.io/categories/%E5%88%B7%E9%A2%98/"/>
+    
+    <category term="无列名注入" scheme="http://liquor-boop.github.io/categories/%E5%88%B7%E9%A2%98/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/"/>
+    
+    
+    <category term="reverse shell" scheme="http://liquor-boop.github.io/tags/reverse-shell/"/>
+    
+    <category term="proc" scheme="http://liquor-boop.github.io/tags/proc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>buu（二）</title>
+    <link href="http://liquor-boop.github.io/2021/07/27/ruby/"/>
+    <id>http://liquor-boop.github.io/2021/07/27/ruby/</id>
+    <published>2021-07-27T15:20:03.000Z</published>
+    <updated>2021-08-01T13:31:24.344Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;[SCTF2019]Flag Shop&lt;/h1&gt;
+&lt;h2 id=&quot;Ruby-ERB模板注入&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#Ruby-ERB模板注入&quot;&gt;🍭&lt;/a&gt;Ruby</summary>
+        
+      
+    
+    
+    
+    <category term="刷题" scheme="http://liquor-boop.github.io/categories/%E5%88%B7%E9%A2%98/"/>
+    
+    
+    <category term="php" scheme="http://liquor-boop.github.io/tags/php/"/>
+    
+    <category term="Ruby ERB模板注入" scheme="http://liquor-boop.github.io/tags/Ruby-ERB%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>无字母数字shell</title>
+    <link href="http://liquor-boop.github.io/2021/07/26/shell-1/"/>
+    <id>http://liquor-boop.github.io/2021/07/26/shell-1/</id>
+    <published>2021-07-26T07:42:57.000Z</published>
+    <updated>2021-08-04T09:41:54.164Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;初级&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#初级&quot;&gt;🍭&lt;/a&gt;初级&lt;/h2&gt;
+&lt;p&gt;当题目把数字和字母禁掉，常规的shell就用不了；如&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;hljs php&quot;&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="shell" scheme="http://liquor-boop.github.io/categories/shell/"/>
+    
+    
+  </entry>
+  
+</feed>
