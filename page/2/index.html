@@ -182,6 +182,49 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/10/hta/">.htaccess总结</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/10/hta/">
+          
+          
+            
+          
+          经常碰到一些题目需要借助.htaccess，且用法很多，这里来做一个总结。
+🍭概念
+.htaccess文件(“分布式配置文件”）,全称是Hypertext Access(超文本入口)。提供了针对目录改变配置的方法，  即，在一个特定的文档目录中放置一个包含一个或多个指令的文件，  以作用于此目录及其所有子目录。作为用户，所能使用的命令受到限制。管理员可以通过Apache的AllowOverrid
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-10 00:29" pubdate>
+              2021-08-10
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/htaccess/">.htaccess</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/08/cmd/">PHP无参数RCE</a>
       </h1>
 
@@ -666,56 +709,6 @@ Ruby/ERB代码语法中较有特征的就是&lt;%=,&lt;%=语法可以用来执�
               <a href="/tags/Ruby-ERB%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">Ruby ERB模板注入</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/26/shell-1/">无字母数字shell</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/26/shell-1/">
-          
-          
-            
-          
-          🍭初级
-当题目把数字和字母禁掉，常规的shell就用不了；如
-&lt;?php
-if(!preg_match(&#x27;/[a-z0-9]/is&#x27;,$_GET[&#x27;shell&#x27;])) &#123;
-  eval($_GET[&#x27;shell&#x27;]);
-&#125;
-🍭思路
-将非字母、数字的字符经过各种变换构造出a-z中任意一个字符。
-🍭法一：异或
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-26 15:42" pubdate>
-              2021-07-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/shell/">shell</a>
-            
-          </div>
-        
         
       </div>
     </article>

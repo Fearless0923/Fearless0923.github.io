@@ -182,6 +182,56 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/07/26/shell-1/">无字母数字shell</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/26/shell-1/">
+          
+          
+            
+          
+          🍭初级
+当题目把数字和字母禁掉，常规的shell就用不了；如
+&lt;?php
+if(!preg_match(&#x27;/[a-z0-9]/is&#x27;,$_GET[&#x27;shell&#x27;])) &#123;
+  eval($_GET[&#x27;shell&#x27;]);
+&#125;
+🍭思路
+将非字母、数字的字符经过各种变换构造出a-z中任意一个字符。
+🍭法一：异或
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-26 15:42" pubdate>
+              2021-07-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/shell/">shell</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/07/24/ikun/">buu</a>
       </h1>
 
@@ -585,44 +635,6 @@ Laravel是一套简洁、优雅的PHP Web开发框架(PHP Web Framework)。它�
             <i class="iconfont icon-date"></i>
             <time datetime="2021-07-12 22:42" pubdate>
               2021-07-12
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/11/web/">BJDCTF2020||EasySearch</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/11/web/">
-          
-          
-            
-          
-          这题涉及一个新漏洞——Apache SSI 远程命令执行漏洞
-🍭SSI
-SSI（服务器端包含）是放置在HTML页面中的指令，并在服务页面时在服务器上对其进行评估，它提供了一种对现有HTML文档增加动态内容的方法，不需要编写复杂的JSP/PHP/ASP等程序或者调用CGI程序。默认扩展名是 .stm、.shtm 和 .shtml。
-例如，您可以将指令放置到现有的HTML页面中：
-&lt;!--#e
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-11 17:00" pubdate>
-              2021-07-11
             </time>
           </div>
         

