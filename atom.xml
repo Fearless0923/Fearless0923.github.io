@@ -6,7 +6,7 @@
   <link href="http://fearless0923.github.io/atom.xml" rel="self"/>
   
   <link href="http://fearless0923.github.io/"/>
-  <updated>2023-09-20T08:04:59.945Z</updated>
+  <updated>2023-11-10T09:18:44.108Z</updated>
   <id>http://fearless0923.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【vulhub】bulldog</title>
+    <link href="http://fearless0923.github.io/2023/09/21/bull/"/>
+    <id>http://fearless0923.github.io/2023/09/21/bull/</id>
+    <published>2023-09-21T13:08:02.000Z</published>
+    <updated>2023-11-10T09:18:44.108Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;0x00-靶机环境&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#0x00-靶机环境&quot;&gt;🍭&lt;/a&gt;0x00 靶机环境&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;靶机：bulldog靶机(192.168.20.136)&lt;/li&gt;
+&lt;li&gt;攻击机：kali</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>【VulHub靶场】之CFS三层靶机内网渗透</title>
@@ -513,34 +537,6 @@ error_reporting(&lt;span</summary>
     <category term="reverse shell" scheme="http://fearless0923.github.io/tags/reverse-shell/"/>
     
     <category term="proc" scheme="http://fearless0923.github.io/tags/proc/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu（二）</title>
-    <link href="http://fearless0923.github.io/2021/07/27/ruby/"/>
-    <id>http://fearless0923.github.io/2021/07/27/ruby/</id>
-    <published>2021-07-27T15:20:03.000Z</published>
-    <updated>2021-08-01T13:31:24.344Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;[SCTF2019]Flag Shop&lt;/h1&gt;
-&lt;h2 id=&quot;Ruby-ERB模板注入&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#Ruby-ERB模板注入&quot;&gt;🍭&lt;/a&gt;Ruby</summary>
-        
-      
-    
-    
-    
-    <category term="刷题" scheme="http://fearless0923.github.io/categories/%E5%88%B7%E9%A2%98/"/>
-    
-    
-    <category term="php" scheme="http://fearless0923.github.io/tags/php/"/>
-    
-    <category term="Ruby ERB模板注入" scheme="http://fearless0923.github.io/tags/Ruby-ERB%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/"/>
     
   </entry>
   
