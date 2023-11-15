@@ -182,6 +182,59 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/01/24/png/">二次渲染&amp;&amp;png结构分析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/24/png/">
+          
+          
+            
+          
+          🍭一.PNG的文件结构
+🍭数据块构成结构
+png定义了两种类型的数据块
+
+关键数据块(critical chunk)//关键数据块定义了4个标准数据块，每个PNG文件都必须包含它们，PNG读写软件也都必须要支持这些数据块。
+
+
+
+
+PNG标识符
+PNG数据块(IHDR)
+PNG数据块(其他类型数据块)
+PNG结尾数据块(IEND)
+
+
+
+
+辅助数据块(ancillary chunks)
+
+🍭
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-24 20:43" pubdate>
+              2021-01-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/01/24/upload/">upload-labs</a>
       </h1>
 
@@ -553,46 +606,6 @@ Cookie是非常重要的请求头，它
             <i class="iconfont icon-date"></i>
             <time datetime="2020-11-26 12:46" pubdate>
               2020-11-26
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/11/22/sqli-labs%E4%B8%89/">sqli-labs(三)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/11/22/sqli-labs%E4%B8%89/">
-          
-          
-            
-          
-          sqli-labs(三)
-🍭Less-11
-less-11为post注入，post就是数据从客户端提交到服务器端,输入用户名和密码会以表单的形式提交到服务器进行验证。
-🍭1.试探
-用之前的1无反应，试着使用常用的管理员密码账户 admin(Dumb也行)，成功登录；加单引号注入，密码随意，报错。
-
-根据报错可以判断出该处为单引号注入，使用万能密码admin'or'1'='1#（or ‘1’='
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-22 22:59" pubdate>
-              2020-11-22
             </time>
           </div>
         

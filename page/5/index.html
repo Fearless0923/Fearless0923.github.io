@@ -182,6 +182,54 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/04/16/fakebook/">BUUCTF[网鼎杯 2018]Fakebook</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/16/fakebook/">
+          
+          
+            
+          
+          这题涉及的知识点比较多。
+查看源码找不到什么有用的信息，扫一下目录
+
+拿到robots.txt,跟进下载user.php.bak
+
+SSRF详见：SSRF
+随便注册一个用户并查看发现网址有点像SQL注入，用sqlmap跑不出来
+
+数据型：
+
+测试列数：
+
+列数为4,继续测试?no=1 union select 1,2,3,4--+显示no hack,判断存在waf，测试了一下应该是空格过滤掉了
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-16 00:32" pubdate>
+              2021-04-16
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/04/15/easytrick/">CISCN2020</a>
       </h1>
 
@@ -542,53 +590,6 @@ Metasploit可向后端模块提供多种用来控制测试的接口（如控制�
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2021-02-24 21:30" pubdate>
-              2021-02-24
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/24/weakpassword/">未授权访问——Redis</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/24/weakpassword/">
-          
-          
-            
-          
-          概述
-需要安全配置或权限认证的地址、授权页面存在缺陷，导致其他用户可以直接访问，从而引发重要权限可被操作、数据库、网站目录等敏感信息泄露。
-常见：
-
-Redis未授权访问
-Jenkins未授权访问
-MongoDB未授权访问
-ZooKeeper未授权访问
-Elasticsearch未授权访问
-Memcache未授权访问
-Hadoop未授权访问
-CouchDB未授权访问
-Docker未授权访问
-LDA
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-24 21:26" pubdate>
               2021-02-24
             </time>
           </div>

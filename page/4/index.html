@@ -182,6 +182,56 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/07/15/filter2/">CISCN2021 Quals-filter</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/15/filter2/">
+          
+          
+            
+          
+          了解yii2及lavael后filter的复现就很简单了
+hint：
+
+附件做了如下更改
+
+看一下依赖发现monolog符合
+
+直接打
+🍭清空日志文件
+?file=php://filter/write=convert.iconv.utf-8.utf-16be|convert.quoted-printable-encode|convert.iconv.utf-16be.utf-8|convert.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-15 19:31" pubdate>
+              2021-07-15
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/phar/">phar</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/07/14/rce-0/">Laravel Debug RCE（CVE-2021-3129）分析</a>
       </h1>
 
@@ -553,54 +603,6 @@ extract() 函数
             <i class="iconfont icon-date"></i>
             <time datetime="2021-04-17 15:16" pubdate>
               2021-04-17
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/16/fakebook/">BUUCTF[网鼎杯 2018]Fakebook</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/16/fakebook/">
-          
-          
-            
-          
-          这题涉及的知识点比较多。
-查看源码找不到什么有用的信息，扫一下目录
-
-拿到robots.txt,跟进下载user.php.bak
-
-SSRF详见：SSRF
-随便注册一个用户并查看发现网址有点像SQL注入，用sqlmap跑不出来
-
-数据型：
-
-测试列数：
-
-列数为4,继续测试?no=1 union select 1,2,3,4--+显示no hack,判断存在waf，测试了一下应该是空格过滤掉了
-
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-16 00:32" pubdate>
-              2021-04-16
             </time>
           </div>
         

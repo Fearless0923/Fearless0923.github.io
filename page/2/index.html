@@ -182,6 +182,51 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/14/ff2/">Bypass Disable Functions（二）—— Fastcgi 协议分析与 PHP-FPM 攻击方法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/14/ff2/">
+          
+          
+            
+          
+          🍭条件
+Linux 操作系统 PHP-FPM 存在可写的目录，需要上传.so文件
+🍭原理
+🍭Fast-CGI
+CGI解决了Web服务器与PHP解释器的通信问题，但是Web服务器每收到一个请求，都会去Fork一个CGI进程，请求结束再kill掉这个进程，很浪费资源。于是，便出现了CGI的改良版本——Fast-CGI。Fast-CGI每次处理完请求后，不会kill掉这个进程，而是保留这个进程，使
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-14 15:43" pubdate>
+              2021-08-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/bypass/">bypass</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/13/ff/">Bypass Disable Function（一）</a>
       </h1>
 
@@ -637,65 +682,6 @@ select (select username from users where i
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E6%B3%A8%E5%85%A5/">注入</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/30/black/">buu（四）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/30/black/">
-          
-          
-            
-          
-          [HFCTF 2021 Final]easyflask
-任意文件读取，根据提示读取源码
-#!/usr/bin/python3.6
-import os
-import pickle
-
-from base64 import b64decode
-from flask import Flask, request, render_template, session
-
-app = Flask(__name__)
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-30 00:16" pubdate>
-              2021-07-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Flask-session%E8%BA%AB%E4%BB%BD%E4%BC%AA%E9%80%A0/">Flask-session身份伪造</a>
-            
-              <a href="/categories/Flask-session%E8%BA%AB%E4%BB%BD%E4%BC%AA%E9%80%A0/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">phar反序列化</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/reverse-shell/">reverse shell</a>
             
           </div>
         
