@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>【vulhub】pluck</title>
+    <link href="/2023/11/15/pluck/"/>
+    <url>/2023/11/15/pluck/</url>
+    
+    <content type="html"><![CDATA[<h3 id="0x00-环境搭建"><a class="header-anchor" href="#0x00-环境搭建">🍭</a>0x00 环境搭建</h3><p>攻击机（kali）：192.168.20.131</p><p>靶机（bulldog2）：192.168.20.139</p><p>靶机ip自动获取</p><h3 id="0x01-信息收集"><a class="header-anchor" href="#0x01-信息收集">🍭</a>0x01 信息收集</h3><p>主机发现</p><pre><code class="hljs angelscript">netdiscover -i eth0 -r <span class="hljs-number">192.168</span><span class="hljs-number">.20</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span></code></pre><p><img src="/2023/11/15/pluck/1.png" alt="1"></p><p>端口扫描</p><pre><code class="hljs angelscript">masscan --rate=<span class="hljs-number">10000</span> -p0<span class="hljs-number">-65535</span> <span class="hljs-number">192.168</span><span class="hljs-number">.20</span><span class="hljs-number">.139</span></code></pre><p><img src="/2023/11/15/pluck/2.png" alt="2"></p><p>开放了33、22、5355、80端口</p><p>网站指纹信息</p><p><img src="/2023/11/15/pluck/3.png" alt="3"></p><p>目录扫描</p><p><img src="/2023/11/15/pluck/4.png" alt="4"></p><h3 id="0x02-信息利用"><a class="header-anchor" href="#0x02-信息利用">🍭</a>0x02 信息利用</h3><p>浏览目录扫描到的网站，管理员页面有登录框，测试一下</p><p><img src="/2023/11/15/pluck/5.png" alt="5"></p><p>有报错，但是没有测出来信息，先放着，访问about us</p><p><img src="/2023/11/15/pluck/6.png" alt="6"></p><p>url可能存在文件包含漏洞，测试一下</p><p><img src="/2023/11/15/pluck/7.png" alt="7"></p><p>发现末端有一个backup.sh可疑，可能是备份文件，访问一下：</p><p><img src="/2023/11/15/pluck/8.png" alt="8"></p><p>提示了备份文件在/backups里面可以通过tftp执行命令获取，并解压</p><p><img src="/2023/11/15/pluck/9.png" alt="9"></p><p>备份文件里找到了管理员页面的源码</p><p><img src="/2023/11/15/pluck/10.png" alt="10"></p><p>发现只要输入中存在单引号，就会固定输出报错的内容，所以这个点没有用。</p><p>/home目录下pual目录下有key文件。因为开了22端口，尝试ssh登录pual账号：</p><pre><code class="hljs angelscript">ssh -i id_key4 <span class="hljs-symbol">paul@</span><span class="hljs-number">192.168</span><span class="hljs-number">.20</span><span class="hljs-number">.139</span></code></pre><p>只有id_key4不用密码成功登录：</p><p><img src="/2023/11/15/pluck/12.png" alt="12"></p><p>获得了一个受限的shell，只能切换目录、编辑文件、Telnet、ping等功能，和之前一样，我们需要得到一个交互式终端。在没有echo,cp,find等命令情况下，可以采用vim逃逸受限shell，我们尝试编辑文件</p><p><img src="/2023/11/15/pluck/13.png" alt="13"></p><p>回车后退出</p><p><img src="/2023/11/15/pluck/14.png" alt="14"></p><h3 id="0x03-提权"><a class="header-anchor" href="#0x03-提权">🍭</a>0x03 提权</h3><p>尝试查找SUID文件</p><p><img src="/2023/11/15/pluck/15.png" alt="15"></p><p>发现了/usr/exim/bin/exim-4.84-7，搜索一下</p><p><img src="/2023/11/15/pluck/16.png" alt="16"></p><p>下载下来尝试，kali开启服务，靶机下载脚本</p><p><img src="/2023/11/15/pluck/17.png" alt="17"></p><p>执行</p><p><img src="/2023/11/15/pluck/18.png" alt="18"></p><p>拿到flag。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【vulhub】raven2</title>
     <link href="/2023/10/10/raven2/"/>
     <url>/2023/10/10/raven2/</url>

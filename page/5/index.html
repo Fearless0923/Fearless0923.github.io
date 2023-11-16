@@ -182,6 +182,66 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/04/17/lowtype/">PHP弱类型及绕过</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/17/lowtype/">
+          
+          
+            
+          
+          🍭前言
+PHP弱类型应用挺多的，来总结一下。
+比较操作符==与===，这两种都可以比较两个数字的大小，但是有很明显的区别。
+
+
+
+操作符
+描述
+
+
+
+
+==
+把两端变量类型转换成相同的，再进行比较
+
+
+===
+先判断两端变量类型是否相同，再进行比较
+
+
+
+注意：在两个相等的符号中，一个字符串与一个数字相比较时，字符串会转换成数值。
+🍭extract变量覆盖
+
+extract() 函数
+
+使用数
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-17 15:16" pubdate>
+              2021-04-17
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/04/16/fakebook/">BUUCTF[网鼎杯 2018]Fakebook</a>
       </h1>
 
@@ -544,53 +604,6 @@ Metasploit可向后端模块提供多种用来控制测试的接口（如控制�
             <i class="iconfont icon-date"></i>
             <time datetime="2021-02-27 23:49" pubdate>
               2021-02-27
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/24/everything/">Information Exposure</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/24/everything/">
-          
-          
-            
-          
-          🍭概述
-由于后台人员的疏忽或者不当的设计，导致不应该被前端用户看到的数据被轻易的访问到：
-
-
-通过访问url下的目录，可以直接列出目录下的文件列表
-
-
-输入错误的url参数后报错信息里面包含操作系统、中间件、开发语言的版本或其他信息
-
-
-前端的源码（html,css,js）里面包含了敏感信息，比如后台登录地址、内网接口信息、甚至账号密码等
-
-
-敏感信息泄露往往给攻击着实施进一步的攻击提供很大的帮
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-24 21:30" pubdate>
-              2021-02-24
             </time>
           </div>
         

@@ -182,6 +182,55 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/01/regexp/">REGEXP注入与LIKE注入</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/01/regexp/">
+          
+          
+            
+          
+          REGEXP注入与LIKE注入
+🍭REGEXP注入
+REGEXP注入，即regexp正则表达式注入，又叫盲注值正则表达式攻击。
+🍭注入原理
+直接查询自己需要的数据，然后通过正则表达式进行匹配。
+格式：
+select (select语句) regexp &#x27;正则&#x27;
+若匹配则返回1，不匹配返回0
+select (select username from users where i
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-01 17:48" pubdate>
+              2021-08-01
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B3%A8%E5%85%A5/">注入</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/07/30/black/">buu（四）</a>
       </h1>
 
@@ -632,53 +681,6 @@ const bodyParser = require(&#x27;koa-bodyparser&#x27
             <i class="iconfont icon-date"></i>
             <time datetime="2021-07-19 22:12" pubdate>
               2021-07-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/17/lod/">网鼎杯 2018||Comment</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/17/lod/">
-          
-          
-            
-          
-          涉及知识点
-
-二次注入
-git泄露
-git恢复
-
-进入页面是一个留言板（盲猜二次注入），需要登录，密码后三位未知，bp爆破
-
-没找到注入点，后台扫描，git泄露
-&lt;?php
-include &quot;mysql.php&quot;;
-session_start();
-if($_SESSION[&#x27;login&#x27;] != &#x27;yes&#x27;)&#123;
-    
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-17 15:20" pubdate>
-              2021-07-17
             </time>
           </div>
         
