@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>lampiao</title>
+    <link href="/2023/11/25/lampiao/"/>
+    <url>/2023/11/25/lampiao/</url>
+    
+    <content type="html"><![CDATA[<h3 id="0x00-环境搭建"><a class="header-anchor" href="#0x00-环境搭建">🍭</a>0x00 环境搭建</h3><p>攻击机（kali）：192.168.20.131</p><p>靶机（bulldog2）：192.168.20.140</p><p>靶机ip自动获取</p><h3 id="0x01-信息收集"><a class="header-anchor" href="#0x01-信息收集">🍭</a>0x01 信息收集</h3><p>主机发现</p><pre><code class="hljs angelscript">netdiscover -i eth0 -r <span class="hljs-number">192.168</span><span class="hljs-number">.20</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span></code></pre><p><img src="/2023/11/25/lampiao/1.png" alt="1"></p><p>端口扫描</p><pre><code class="hljs angelscript">masscan --rate=<span class="hljs-number">10000</span> -p0<span class="hljs-number">-65535</span> <span class="hljs-number">192.168</span><span class="hljs-number">.20</span><span class="hljs-number">.140</span></code></pre><p><img src="/2023/11/25/lampiao/2.png" alt="2"></p><p>开放了22、1898、80端口</p><p>目录扫描</p><p>直接扫描80端口报错，去访问80端口发现没有服务</p><p><img src="/2023/11/25/lampiao/3.png" alt="3"></p><p>访问开启的1898端口</p><p><img src="/2023/11/25/lampiao/4.png" alt="4"></p><p>进行扫描</p><p><img src="/2023/11/25/lampiao/5.png" alt="5"></p><p>网站指纹扫描</p><p><img src="/2023/11/25/lampiao/6.png" alt="6"></p><h3 id="0x02-信息利用"><a class="header-anchor" href="#0x02-信息利用">🍭</a>0x02 信息利用</h3><p>对目录扫描到的网站文件进行访问，没有得到有价值的信息，根据网站指纹扫描可以得知网站由Drupal 7搭建，去找一下有没有相关漏洞</p><p><img src="/2023/11/25/lampiao/7.png" alt="7"></p><p>先试一下序号0：</p><p><img src="/2023/11/25/lampiao/8.png" alt="8"></p><p>不行，试一下序号1：</p><p><img src="/2023/11/25/lampiao/9.png" alt="9"></p><p>成功,生成交互式shell</p><p><img src="/2023/11/25/lampiao/10.png" alt="10"></p><h3 id="0x03-提权"><a class="header-anchor" href="#0x03-提权">🍭</a>0x03 提权</h3><p>查看内核</p><p><img src="/2023/11/25/lampiao/11.png" alt="11"></p><p>可使用脏牛提权</p><p><img src="/2023/11/25/lampiao/12.png" alt="12"></p><p>使用40847（成功率高），看一下说明</p><p><img src="/2023/11/25/lampiao/13.png" alt="13"></p><p>根据说明执行，现将脚本下载</p><p><img src="/2023/11/25/lampiao/14.png" alt="14"></p><pre><code class="hljs angelscript">g++ -Wall -pedantic -O2 -std=c++<span class="hljs-number">11</span> -pthread -o dcow <span class="hljs-number">40847.</span>cpp -lutil./dcow -s</code></pre><p><img src="/2023/11/25/lampiao/15.png" alt="15"></p><p>拿到flag</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【vulhub】pluck</title>
     <link href="/2023/11/15/pluck/"/>
     <url>/2023/11/15/pluck/</url>
