@@ -182,6 +182,57 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/19/me/">buu（九）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/19/me/">
+          
+          
+            
+          
+          [GYCTF2020]Ez_Express
+题目要求admin登录，扫目录得到源码：
+
+在路由里发现了merge()和clone()，典型的原链污染开端，之前学过：js原型链污染主要是利用点：控制并修改一个对象的原型，那么将可以影响所有和这个对象来自同一个类、父祖类的对象。
+往下在/action的路由中找到clone()：
+
+用户身份必须为admin，跟进登录路由
+
+传入的userid经过了saf
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-19 19:44" pubdate>
+              2021-08-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/require-once%E5%8C%85%E5%90%AB/">require_once包含</a>
+            
+              <a href="/categories/require-once%E5%8C%85%E5%90%AB/%E5%9B%BE%E7%89%87%E9%A9%AC/">图片马</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/17/open/">Bypass open_basedir</a>
       </h1>
 
@@ -619,62 +670,6 @@ vm2就可以看出是node.js了。
               <a href="/tags/PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/">PHP原生类</a>
             
               <a href="/tags/exp%E6%BA%A2%E5%87%BA/">exp溢出</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/04/ez/">BJDCTF2020||EzPHP</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/04/ez/">
-          
-          
-            
-          
-          查看源码，提示GFXEIM3YFZYGQ4A=，base32解码，获取源码
-&lt;?php
-highlight_file(__FILE__);
-error_reporting(0); 
-
-$file = &quot;1nD3x.php&quot;;
-$shana = $_GET[&#x27;shana&#x27;];
-$passwd = $_GET[&#x27;passwd&#x27;];
-$a
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-04 22:52" pubdate>
-              2021-08-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/create-function%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">create_function代码注入</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/bypass/">bypass</a>
             
           </div>
         

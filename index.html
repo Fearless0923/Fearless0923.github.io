@@ -182,6 +182,52 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/11/30/bepnk/">【vulhub】DeRPnStiNK</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/11/30/bepnk/">
+          
+          
+            
+          
+          🍭0x00 环境搭建
+攻击机（kali）：192.168.20.131
+靶机（bulldog2）：192.168.20.141
+靶机ip自动获取
+🍭0x01 信息收集
+主机发现
+netdiscover -i eth0 -r 192.168.20.0/24
+
+端口扫描
+masscan --rate=10000 -p0-65535 192.168.20.141
+
+开放了22、21、80端口
+访问得
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-11-30 16:09" pubdate>
+              2023-11-30
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/11/25/lampiao/">lampiao</a>
       </h1>
 
@@ -595,57 +641,6 @@ if(dataList[0].count == 0 )&#123;
             <i class="iconfont icon-category"></i>
             
               <a href="/categories/js%E5%8E%9F%E9%93%BE%E6%B1%A1%E6%9F%93/">js原链污染</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/19/me/">buu（九）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/19/me/">
-          
-          
-            
-          
-          [GYCTF2020]Ez_Express
-题目要求admin登录，扫目录得到源码：
-
-在路由里发现了merge()和clone()，典型的原链污染开端，之前学过：js原型链污染主要是利用点：控制并修改一个对象的原型，那么将可以影响所有和这个对象来自同一个类、父祖类的对象。
-往下在/action的路由中找到clone()：
-
-用户身份必须为admin，跟进登录路由
-
-传入的userid经过了saf
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-19 19:44" pubdate>
-              2021-08-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/require-once%E5%8C%85%E5%90%AB/">require_once包含</a>
-            
-              <a href="/categories/require-once%E5%8C%85%E5%90%AB/%E5%9B%BE%E7%89%87%E9%A9%AC/">图片马</a>
             
           </div>
         

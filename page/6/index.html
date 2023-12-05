@@ -182,6 +182,44 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/03/wei3/">PHP反序列化（二）——字符串逃逸</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/03/wei3/">
+          
+          
+            
+          
+          🍭原理
+
+php在反序列化时，底层代码是以 ; 作为字段的分隔，以 &#125; 作为结尾，并且是根据长度判断内容的 ，同时反序列化的过程中必须严格按照序列化规则才能成功实现反序列化 。
+
+超出的部分并不会被反序列化成功，这说明反序列化的过程是有一定识别范围的，在这个范围之外的字符都会被忽略，不影响反序列化的正常进行。而且反序列化字符串都是以&quot;;&#125;结束的，那如果把&quot;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-03 15:37" pubdate>
+              2021-03-03
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/02/27/wei1/">Metasploit(一)——入门测试</a>
       </h1>
 
@@ -549,43 +587,6 @@ list = [&#x27;genius&#x27
             <i class="iconfont icon-date"></i>
             <time datetime="2021-02-14 01:05" pubdate>
               2021-02-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/13/TLS/">TLS</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/13/TLS/">
-          
-          
-            
-          
-          🍭三次握手
-对每次发送的数据量进行跟踪与协商，确保数据段的发送和接收同步，根据所接收到的数据量而确认数据发送、接收完毕后何时撤消联系，并建立虚连接。
-TCP是一种面向连接的单播协议，在发送数据前，通信双方必须在彼此间建立一条连接。所谓的“连接”，其实是客户端和服务器的内存里保存的一份关于对方的信息，如ip地址、端口号等。
-第一次：建立连接时，客户端发送syn包（seq=j）到服务器，并进入SYN
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-13 01:19" pubdate>
-              2021-02-13
             </time>
           </div>
         
