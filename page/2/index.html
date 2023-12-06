@@ -182,6 +182,54 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/20/hjs/">buu（十）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/20/hjs/">
+          
+          
+            
+          
+          [XNUCA2019Qualifier]HardJS
+🍭后端RCE之opts.outputFunctionName
+题目给了源码，是一个node.js的后端，应该是原型链污染的题目，从server.js开始审计：
+有7个路由，其中/get路由下有一段代码
+if(dataList[0].count == 0 )&#123;
+        res.json(&#123;&#125;)
+
+    &
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-20 23:13" pubdate>
+              2021-08-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/js%E5%8E%9F%E9%93%BE%E6%B1%A1%E6%9F%93/">js原链污染</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/19/me/">buu（九）</a>
       </h1>
 
@@ -614,62 +662,6 @@ flask session伪造
               <a href="/tags/zip/">zip://</a>
             
               <a href="/tags/phar/">phar://</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/05/num/">buu（六）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/05/num/">
-          
-          
-            
-          
-          [HITCON 2016]Leaking
-这题有个新知识点：JS通过Buffer 类处理二进制数据的缓冲区
-源码：
-
-vm2就可以看出是node.js了。
-🍭tips：
-在较早一点的 node 版本中 (8.0 之前)，当 Buffer 的构造函数传入数字时, 会得到与数字长度一致的一个 Buffer，并且这个 Buffer 是未清零的。8.0 之后的版本可以通过另一个函数 Buffer.all
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-05 16:43" pubdate>
-              2021-08-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">沙箱逃逸</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/">PHP原生类</a>
-            
-              <a href="/tags/exp%E6%BA%A2%E5%87%BA/">exp溢出</a>
             
           </div>
         

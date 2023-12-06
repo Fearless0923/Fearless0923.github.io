@@ -182,6 +182,54 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/12/05/sick/">SickOs1.2</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/12/05/sick/">
+          
+          
+            
+          
+          🍭0x00 环境搭建
+攻击机（kali）：192.168.20.131
+靶机（bulldog2）：192.168.20.142
+靶机ip自动获取
+🍭0x01 信息收集
+主机发现
+netdiscover -i eth0 -r 192.168.20.0/24
+
+端口扫描
+masscan --rate=10000 -p0-65535 192.168.20.142
+
+开放了22、80端口
+目录扫描
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-05 16:55" pubdate>
+              2023-12-05
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/11/30/bepnk/">【vulhub】DeRPnStiNK</a>
       </h1>
 
@@ -593,54 +641,6 @@ SOAP（简单对象访问协议）是连接或Web服务或客户端和Web服务�
             <i class="iconfont icon-category"></i>
             
               <a href="/categories/CRLF%E6%B3%A8%E5%85%A5/">CRLF注入</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/20/hjs/">buu（十）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/20/hjs/">
-          
-          
-            
-          
-          [XNUCA2019Qualifier]HardJS
-🍭后端RCE之opts.outputFunctionName
-题目给了源码，是一个node.js的后端，应该是原型链污染的题目，从server.js开始审计：
-有7个路由，其中/get路由下有一段代码
-if(dataList[0].count == 0 )&#123;
-        res.json(&#123;&#125;)
-
-    &
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-20 23:13" pubdate>
-              2021-08-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/js%E5%8E%9F%E9%93%BE%E6%B1%A1%E6%9F%93/">js原链污染</a>
             
           </div>
         

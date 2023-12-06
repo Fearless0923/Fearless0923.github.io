@@ -6,7 +6,7 @@
   <link href="http://fearless0923.github.io/atom.xml" rel="self"/>
   
   <link href="http://fearless0923.github.io/"/>
-  <updated>2023-12-05T05:08:46.817Z</updated>
+  <updated>2023-12-06T03:51:34.853Z</updated>
   <id>http://fearless0923.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SickOs1.2</title>
+    <link href="http://fearless0923.github.io/2023/12/05/sick/"/>
+    <id>http://fearless0923.github.io/2023/12/05/sick/</id>
+    <published>2023-12-05T08:55:52.000Z</published>
+    <updated>2023-12-06T03:51:34.853Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;0x00-环境搭建&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#0x00-环境搭建&quot;&gt;🍭&lt;/a&gt;0x00</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>【vulhub】DeRPnStiNK</title>
@@ -475,36 +496,6 @@
     <category term="zip://" scheme="http://fearless0923.github.io/tags/zip/"/>
     
     <category term="phar://" scheme="http://fearless0923.github.io/tags/phar/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu（六）</title>
-    <link href="http://fearless0923.github.io/2021/08/05/num/"/>
-    <id>http://fearless0923.github.io/2021/08/05/num/</id>
-    <published>2021-08-05T08:43:51.000Z</published>
-    <updated>2021-08-07T10:01:49.488Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;[HITCON 2016]Leaking&lt;/h1&gt;
-&lt;p&gt;这题有个新知识点：JS通过&lt;code&gt;Buffer&lt;/code&gt; 类处理二进制数据的缓冲区&lt;/p&gt;
-&lt;p&gt;源码：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/2021/08/05/num/3.png&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="沙箱逃逸" scheme="http://fearless0923.github.io/categories/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/"/>
-    
-    
-    <category term="PHP原生类" scheme="http://fearless0923.github.io/tags/PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/"/>
-    
-    <category term="exp溢出" scheme="http://fearless0923.github.io/tags/exp%E6%BA%A2%E5%87%BA/"/>
     
   </entry>
   

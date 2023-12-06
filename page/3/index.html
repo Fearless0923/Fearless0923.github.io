@@ -182,6 +182,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/05/num/">buu（六）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/05/num/">
+          
+          
+            
+          
+          [HITCON 2016]Leaking
+这题有个新知识点：JS通过Buffer 类处理二进制数据的缓冲区
+源码：
+
+vm2就可以看出是node.js了。
+🍭tips：
+在较早一点的 node 版本中 (8.0 之前)，当 Buffer 的构造函数传入数字时, 会得到与数字长度一致的一个 Buffer，并且这个 Buffer 是未清零的。8.0 之后的版本可以通过另一个函数 Buffer.all
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-05 16:43" pubdate>
+              2021-08-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">沙箱逃逸</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/">PHP原生类</a>
+            
+              <a href="/tags/exp%E6%BA%A2%E5%87%BA/">exp溢出</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/04/ez/">BJDCTF2020||EzPHP</a>
       </h1>
 
@@ -662,53 +718,6 @@ from sshop.base import B
               <a href="/tags/python/">python</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/20/jwt/">HFCTF2020||EasyLogin</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/20/jwt/">
-          
-          
-            
-          
-          涉及知识点
-
-koa框架(node.js)
-jwt令牌
-
-上一篇文章了解了koa框架和jwt,直接做题：
-访问页面查看源码发现一个js文件
-/**
- *  或许该用 koa-static 来处理静态文件
- *  路径该怎么配置？不管了先填个根目录XD
- */
-
-function login() &#123;
-    const username = $(&quot;#username&quot;)
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-20 15:54" pubdate>
-              2021-07-20
-            </time>
-          </div>
-        
-        
         
       </div>
     </article>
