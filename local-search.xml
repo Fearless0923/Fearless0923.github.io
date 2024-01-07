@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>Lazysysadmin</title>
+    <link href="/2023/12/20/lazy/"/>
+    <url>/2023/12/20/lazy/</url>
+    
+    <content type="html"><![CDATA[<h3 id="0x00-环境搭建"><a class="header-anchor" href="#0x00-环境搭建">🍭</a>0x00 环境搭建</h3><p>攻击机（kali）：192.168.20.131</p><p>靶机（bulldog2）：192.168.20.14</p><p>靶机ip自动获取</p><h3 id="0x01-信息收集"><a class="header-anchor" href="#0x01-信息收集">🍭</a>0x01 信息收集</h3><p>主机发现</p><pre><code class="hljs angelscript">netdiscover -i eth0 -r <span class="hljs-number">192.168</span><span class="hljs-number">.20</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span></code></pre><p><img src="/2023/12/20/lazy/1.png" alt="1"></p><p>端口扫描</p><pre><code class="hljs angelscript">masscan --rate=<span class="hljs-number">10000</span> -p0<span class="hljs-number">-65535</span> <span class="hljs-number">192.168</span><span class="hljs-number">.20</span><span class="hljs-number">.144</span></code></pre><p><img src="/2023/12/20/lazy/2.png" alt="2"></p><p>开放了22、445、3306、139、6667、80端口（139端口：smb端口，网络传输和映射端口；445：端口网络共享端口；6667：端口开启irc服务，网络聊天端口）</p><p>目录扫描</p><p><img src="/2023/12/20/lazy/3.png" alt="3"></p><h3 id="0x02-信息利用"><a class="header-anchor" href="#0x02-信息利用">🍭</a>0x02 信息利用</h3><p>目录扫描发现了wordpress和phpmyadmin，尝试弱口令都登录无果，只发现一个可疑用户名</p><p><img src="/2023/12/20/lazy/4.png" alt="4"></p><p>先换个思路。</p><p>端口扫描到了几个不常见端口，网络搜索139的smb服务有切入点，可以用专用扫描器enum4linux进行扫描（Enum4linux是用于枚举windows和Linux系统上的SMB服务的工具。可以轻松的从与SMB服务有关的目标中快速提取信息。）</p><p><img src="/2023/12/20/lazy/5.png" alt="5"></p><p>扫描可知：139，445共享端口的登录用户名和密码为空及共享路径，挂载共享目录进行查看</p><pre><code class="hljs awk">mount -t cifs -o username=<span class="hljs-string">&#x27; &#x27;</span>,password=<span class="hljs-string">&#x27; &#x27;</span> <span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">20.144</span><span class="hljs-regexp">/share$ /m</span>edia</code></pre><p>发现一个密码</p><p><img src="/2023/12/20/lazy/6.png" alt="6"></p><p>查看一下网站设置文件，发现密码</p><p><img src="/2023/12/20/lazy/9.png" alt="9"></p><p>尝试登录宝塔</p><p><img src="/2023/12/20/lazy/13.png" alt="13"></p><p>权限过低，无法查看表，尝试登录网站后台：</p><p><img src="/2023/12/20/lazy/10.png" alt="10"></p><p>找到一个报错页面可编辑，插入一句话木马。接下来触发报错即可</p><p><img src="/2023/12/20/lazy/11.png" alt="11"></p><p>蚁剑连接</p><p><img src="/2023/12/20/lazy/12.png" alt="12"></p><p>没有其它发现。</p><p>还有22端口未利用，尝试使用收集到的togie:12345进行登录</p><p><img src="/2023/12/20/lazy/7.png" alt="7"></p><p>登录成功，使用togie密码可以直接切换root用户</p><p><img src="/2023/12/20/lazy/8.png" alt="8"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SickOs1.2</title>
     <link href="/2023/12/05/sick/"/>
     <url>/2023/12/05/sick/</url>

@@ -182,6 +182,51 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/12/20/lazy/">Lazysysadmin</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/12/20/lazy/">
+          
+          
+            
+          
+          🍭0x00 环境搭建
+攻击机（kali）：192.168.20.131
+靶机（bulldog2）：192.168.20.14
+靶机ip自动获取
+🍭0x01 信息收集
+主机发现
+netdiscover -i eth0 -r 192.168.20.0/24
+
+端口扫描
+masscan --rate=10000 -p0-65535 192.168.20.144
+
+开放了22、445、3306、139
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-20 16:37" pubdate>
+              2023-12-20
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/12/05/sick/">SickOs1.2</a>
       </h1>
 
@@ -600,50 +645,6 @@ data=&#123;&quot;username&quot;:&quot;1&quot;,&quot;password&quot;:&quot;1&quot;
               <a href="/tags/java/">java</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/21/up/">buu（十一）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/21/up/">
-          
-          
-            
-          
-          bestphp’s revenge
-🍭利用PHP原生类来构造POP链
-在没有可以利用类的情况下，就找不到POP链所以只能考虑PHP原生类，之前运用的都是php的一些魔术方法，但php会使用了zend_class_unserialize_deny来禁止一些类的反序列化，此时就需要原生类。
-SOAP（简单对象访问协议）是连接或Web服务或客户端和Web服务之间的接口。其采用HTTP作为底层通讯协议，
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-21 16:58" pubdate>
-              2021-08-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/CRLF%E6%B3%A8%E5%85%A5/">CRLF注入</a>
-            
-          </div>
-        
         
       </div>
     </article>

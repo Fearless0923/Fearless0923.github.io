@@ -6,7 +6,7 @@
   <link href="http://fearless0923.github.io/atom.xml" rel="self"/>
   
   <link href="http://fearless0923.github.io/"/>
-  <updated>2023-12-06T03:51:34.853Z</updated>
+  <updated>2024-01-07T06:01:20.104Z</updated>
   <id>http://fearless0923.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Lazysysadmin</title>
+    <link href="http://fearless0923.github.io/2023/12/20/lazy/"/>
+    <id>http://fearless0923.github.io/2023/12/20/lazy/</id>
+    <published>2023-12-20T08:37:15.000Z</published>
+    <updated>2024-01-07T06:01:20.104Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;0x00-环境搭建&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#0x00-环境搭建&quot;&gt;🍭&lt;/a&gt;0x00</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>SickOs1.2</title>
@@ -464,38 +485,6 @@
     
     
     <category term="shell" scheme="http://fearless0923.github.io/tags/shell/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu（七）</title>
-    <link href="http://fearless0923.github.io/2021/08/07/hate/"/>
-    <id>http://fearless0923.github.io/2021/08/07/hate/</id>
-    <published>2021-08-07T09:03:05.000Z</published>
-    <updated>2021-08-11T08:58:09.771Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;[HCTF 2018]Hideandseek&lt;/h1&gt;
-&lt;p&gt;知识点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;zip</summary>
-        
-      
-    
-    
-    
-    <category term="zip 软链接" scheme="http://fearless0923.github.io/categories/zip-%E8%BD%AF%E9%93%BE%E6%8E%A5/"/>
-    
-    <category term="flask-session 伪造" scheme="http://fearless0923.github.io/categories/zip-%E8%BD%AF%E9%93%BE%E6%8E%A5/flask-session-%E4%BC%AA%E9%80%A0/"/>
-    
-    
-    <category term="zip://" scheme="http://fearless0923.github.io/tags/zip/"/>
-    
-    <category term="phar://" scheme="http://fearless0923.github.io/tags/phar/"/>
     
   </entry>
   
