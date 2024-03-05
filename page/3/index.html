@@ -182,6 +182,58 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/08/cmd/">PHP无参数RCE</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/08/cmd/">
+          
+          
+            
+          
+          之前无数字字母shell里只做到了/[A-Za-z0-9_$]+/这样的限制，但是遇到的其他题目做了很多限制，之前的绕过就行不通，比如像这样的：
+/[A-Za-z0-9]|\&#x27;|&quot;|`|\ |,|\.|-|\+|=|\/|\\|&lt;|&gt;|\$|\?|\^|&amp;|\|/，
+就只能无参RCE了。
+🍭demo
+if (&#x27;;&#x27; === preg_r
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-08 22:25" pubdate>
+              2021-08-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%97%A0%E5%8F%82RCE/">无参RCE</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/shell/">shell</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/07/hate/">buu（七）</a>
       </h1>
 
@@ -664,73 +716,6 @@ if(!preg_match(&#x27;/[a-z0-9]/is&#x27;,$_GET[&#x27;shell&#x27;])) &#123;
             
           </div>
         
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/24/ikun/">buu</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/24/ikun/">
-          
-          
-            
-          
-          🍭[CISCN2019 华北赛区 Day1 Web2]ikun
-题目提示要lv6，翻了几页找不到，用脚本跑
-
-余额不够，抓包改一下折扣，成功购买，需要admin权限，可利用JWT伪造admin身份，JWT解码
-
-需要先爆破密钥
-
-伪造JWT
-
-抓包修改
-
-得到源码,在admin.py里发现python反序列化
-import tornado.web
-from sshop.base import B
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-24 20:19" pubdate>
-              2021-07-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">python反序列化</a>
-            
-              <a href="/categories/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/php%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E/">php伪随机数漏洞</a>
-            
-              <a href="/categories/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/php%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E/%E5%88%B7%E9%A2%98/">刷题</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">python</a>
-            
-              <a href="/tags/php/">php</a>
-            
-          </div>
         
       </div>
     </article>

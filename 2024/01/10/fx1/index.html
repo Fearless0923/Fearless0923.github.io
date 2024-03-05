@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Frida入门|hook Java方法 - Fearless&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fearless0923.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Fearless's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Frida入门|hook Java方法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-01-10 14:17" pubdate>
+        January 10, 2024 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Frida入门|hook Java方法</h1>
+            
+            <div class="markdown-body">
+              <h3 id="0x00原理"><a class="header-anchor" href="#0x00原理">🍭</a>0x00原理</h3>
+<p>frida就是一种<strong>动态插桩工具</strong>，可以插入一些代码到原生 app 的内存空间去，动态地监视和修改其行为，这些原生平台可以是 Win、Mac、Linux、Android 或者 iOS。</p>
+<p>插桩技术是指将额外的代码注入程序中以收集运行时的信息，可分为两种：<br>
+(1)源代码插桩(SCI)：在程序源代码的基础上注入额外的代码，从而达到预期目的或者功能；<br>
+(2)二进制插桩：额外代码注入到二进制可执行文件中，通过修改汇编地址，改变程序运行内容，运行后再返回到原来程序运行出处，从而实现程序的额外功能。<br>
+●静态二进制插桩：在程序执行前插入额外的代码和数据，生成一个永久改变的可执行文件。<br>
+●动态二进制插桩：在程序运行时实时地插入额外代码和数据，对可执行文件没有任何永久改变。</p>
+<p>frida 分 <strong>客户端环境</strong> 和 <strong>服务端环境</strong>。</p>
+<ul>
+<li>客户端：编写 Python 代码，用于连接远程设备，提交要注入的代码到远程，接受服务端的发来的消息等。<strong>可以把</strong> <strong>客户端</strong> <strong>理解成控制端。</strong></li>
+<li>服务端：需要用 Javascript 代码注入到目标进程，操作内存数据，给客户端发送消息等操作。<strong>可以把</strong> <strong>服务端</strong> <strong>理解成被控端</strong></li>
+</ul>
+<p><strong>frida的两种注入模式</strong><br>
+第一种：直接通过attach方法对已启动的目标应用进行注入，这种一般用在hook时机比较晚的场景。<br>
+第二种：先使用spawn方法以挂起模式重新启动目标应用后再通过attach方法进行注入，一般用在hook时机比较早的场景。</p>
+<h3 id="0x01安装"><a class="header-anchor" href="#0x01安装">🍭</a>0x01安装</h3>
+<p>本地客户端是基于Python，安装第三方包即可：</p>
+<pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> frida
+pip <span class="hljs-keyword">install</span> frida-tools</code></pre>
+<p><img src="/2024/01/10/fx1/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>进入模拟器查看需要frida的版本信息</p>
+<pre><code class="hljs css"><span class="hljs-selector-tag">getprop</span> <span class="hljs-selector-tag">ro</span><span class="hljs-selector-class">.product</span><span class="hljs-selector-class">.cpu</span><span class="hljs-selector-class">.abi</span></code></pre>
+<p><img src="/2024/01/10/fx1/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>去官网下载对应版本fridaserver解压push进模拟器，赋予权限并执行即可使用</p>
+<pre><code class="hljs latex">adb push C:<span class="hljs-tag">\<span class="hljs-name">Users</span></span><span class="hljs-tag">\<span class="hljs-name">xxx</span></span><span class="hljs-tag">\<span class="hljs-name">Desktop</span></span><span class="hljs-tag">\<span class="hljs-name">frida</span></span>-server-16.2.1-android-x86<span class="hljs-tag">\<span class="hljs-name">fs</span></span> /data/local/tmp</code></pre>
+<p><img src="/2024/01/10/fx1/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>设置端口转发</p>
+<pre><code class="hljs angelscript">adb forward tcp:<span class="hljs-number">27042</span> tcp:<span class="hljs-number">27042</span></code></pre>
+<p>列出正在运行的进程测试是否连接成功:</p>
+<p><img src="/2024/01/10/fx1/4.png" srcset="/img/loading.gif" alt="4"></p>
+<h3 id="0x02-hook-java方法"><a class="header-anchor" href="#0x02-hook-java方法">🍭</a>0x02 hook java方法</h3>
+<h4 id="载入类"><a class="header-anchor" href="#载入类">🍭</a>载入类</h4>
+<p>Java.use方法用于加载一个Java类，相当于Java中的<code>Class.forName()</code>。eg：</p>
+<pre><code class="hljs php"><span class="hljs-keyword">var</span> StringClass = Java.<span class="hljs-keyword">use</span>(<span class="hljs-string">&quot;java.lang.String&quot;</span>);</code></pre>
+<p>加载内部类：</p>
+<pre><code class="hljs php"><span class="hljs-keyword">var</span> MyClass_InnerClass = Java.<span class="hljs-keyword">use</span>(<span class="hljs-string">&quot;com.xxx.MyClass<span class="hljs-subst">$InnerClass</span>&quot;</span>);</code></pre>
+<p>其中InnerClass是MyClass的内部类</p>
+<h4 id="普通方法"><a class="header-anchor" href="#普通方法">🍭</a>普通方法</h4>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> act = Java.use(<span class="hljs-string">&quot;com.xxx.cxnppwx.MyJni&quot;</span>); 
+<span class="hljs-built_in">console</span>.log(act.func);  
+act.func.implementation = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a,b</span>) </span>&#123;
+	<span class="hljs-built_in">console</span>.log(a);
+	<span class="hljs-built_in">console</span>.log(b);
+	<span class="hljs-keyword">var</span> result = <span class="hljs-built_in">this</span>.func(a,b);
+	<span class="hljs-built_in">console</span>.log(result);
+	<span class="hljs-keyword">return</span> result;
+&#125;</code></pre>
+<h4 id="构造方法"><a class="header-anchor" href="#构造方法">🍭</a>构造方法</h4>
+<p>我们可以通过<code>$init</code>来获取并修改一个类的构造方法：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> act = Java.use(<span class="hljs-string">&#x27;com.xxx.fridatest.Money&#x27;</span>);
+act.$init.implementation = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>&#123;
+	<span class="hljs-built_in">console</span>.log(a);
+	<span class="hljs-built_in">console</span>.log(b);
+	a = <span class="hljs-number">100</span>;
+	b = <span class="hljs-string">&quot;Frida&quot;</span>;
+	<span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.$init(a, b);
+&#125;</code></pre>
+<h4 id="重载方法"><a class="header-anchor" href="#重载方法">🍭</a>重载方法</h4>
+<p>在方法后面加一个<code>overload</code>属性，参数为函数的类型，类型用字符串传入，用于指定具体要hook的方法。<br>
+注意，要填写类的路径，例如如果是字符串类型，则要用<code>overload(&quot;int&quot;,&quot;java.lang.String&quot;)</code></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> act = Java.use(<span class="hljs-string">&quot;com.xxx.cxnppwx.MyJni&quot;</span>); <span class="hljs-comment">// $:表示类中类</span>
+<span class="hljs-built_in">console</span>.log(act.func);  <span class="hljs-comment">// func表示方法</span>
+act.func.overload(<span class="hljs-string">&#x27;java.lang.String&#x27;</span>).implementation = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>&#123;
+	<span class="hljs-built_in">console</span>.log(a);
+	<span class="hljs-keyword">var</span> result = <span class="hljs-built_in">this</span>.func.overload(<span class="hljs-string">&#x27;java.lang.String&#x27;</span>).call(<span class="hljs-built_in">this</span>,a)
+	<span class="hljs-built_in">console</span>.log(result);
+	<span class="hljs-keyword">return</span> result;
+&#125;</code></pre>
+<h4 id="实例化"><a class="header-anchor" href="#实例化">🍭</a>实例化</h4>
+<p>使用<code>$new</code>来实例化一个类</p>
+<pre><code class="hljs stata">jscode = <span class="hljs-string">&quot;&quot;</span>&quot;
+Java.perform(function()&#123;
+    <span class="hljs-keyword">var</span> utils = Java.<span class="hljs-keyword">use</span>(<span class="hljs-string">&quot;com.XXXX.app.Utils&quot;</span>);
+    <span class="hljs-keyword">var</span> money=Java.<span class="hljs-keyword">use</span>(<span class="hljs-string">&quot;com.XXXX.app.Money&quot;</span>);
+    utils.<span class="hljs-keyword">test</span>.overload(<span class="hljs-string">&quot;com.XXXX.app.Money&quot;</span>).implementation = function(a)
+    &#123;
+        console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;Hook Start...&quot;</span>);
+        <span class="hljs-keyword">var</span> <span class="hljs-keyword">m</span> = money.<span class="hljs-variable">$new</span>(6666,<span class="hljs-string">&quot;DOLLAR&quot;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">m</span>.getInfo();
+    &#125;
+&#125;);</code></pre>
+<h4 id="主动调用"><a class="header-anchor" href="#主动调用">🍭</a>主动调用</h4>
+<p>Java.choose方法：通过完整类名，获取它的实例，从而对实例中的数据进行修改</p>
+<p>通过 key:value 结构定义了两个函数：</p>
+<ul>
+<li>onMatch 对应的函数在命中一个实例的时候被调用，传入函数中的参数 instance 就是被命中的实例</li>
+<li>onComplete 函数会在所有实例遍历完毕之后被调用，可以做一些后续处理操作</li>
+</ul>
+<pre><code class="hljs pgsql"><span class="hljs-keyword">function</span> main()&#123;
+    Java.<span class="hljs-keyword">perform</span>(<span class="hljs-keyword">function</span> () &#123;
+    Java.choose(&quot;com.xxx.xxzl.xxx.FingerPrintSDK&quot;, &#123;
+        onMatch : <span class="hljs-keyword">function</span>(instance) &#123;
+        &#125;, onComplete : <span class="hljs-keyword">function</span>() &#123;
+        &#125;&#125;);
+    &#125;);
+&#125;</code></pre>
+<h4 id="python脚本注入"><a class="header-anchor" href="#python脚本注入">🍭</a>python脚本注入</h4>
+<pre><code class="hljs routeros">import frida, sys
+
+def on_message(message, data):
+    <span class="hljs-keyword">if</span> message[<span class="hljs-string">&#x27;type&#x27;</span>] == <span class="hljs-string">&#x27;send&#x27;</span>:
+        <span class="hljs-builtin-name">print</span>(<span class="hljs-string">&quot;[*] &#123;0&#125;&quot;</span>.format(message[<span class="hljs-string">&#x27;payload&#x27;</span>]))
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-builtin-name">print</span>(message)
+
+jscode = <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span>
+<span class="hljs-string">    xxx</span>
+<span class="hljs-string">    &quot;</span><span class="hljs-string">&quot;&quot;</span>
+process = frida.get_usb_device(1000).attach(<span class="hljs-string">&#x27;com.example.seccon2015.rock_paper_scissors&#x27;</span>)
+script = process.create_script(jscode)
+script.on(<span class="hljs-string">&#x27;message&#x27;</span>, on_message)
+script.load()
+sys.stdin.read()</code></pre>
+<p>或者采用命令行形式注入</p>
+<pre><code class="hljs css"><span class="hljs-selector-tag">frida</span> <span class="hljs-selector-tag">-U</span> <span class="hljs-selector-tag">-l</span> <span class="hljs-selector-tag">myhook</span><span class="hljs-selector-class">.js</span> <span class="hljs-selector-tag">com</span><span class="hljs-selector-class">.xxx</span><span class="hljs-selector-class">.xxxx</span></code></pre>
+<h3 id="0x03实例"><a class="header-anchor" href="#0x03实例">🍭</a>0x03实例</h3>
+<p>rps.apk：石头剪刀布的游戏，先反编译一下看看程序逻辑</p>
+<p><img src="/2024/01/10/fx1/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>与电脑进行石头剪刀布游戏：</p>
+<p><img src="/2024/01/10/fx1/6.png" srcset="/img/loading.gif" alt="6"></p>
+<p>赢一次积一分，1000分即可获胜，编写js代码修改一下cnt变量的值即可</p>
+<pre><code class="hljs ini"><span class="hljs-attr">jscode</span> = <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    Java.perform(function () &#123;</span>
+<span class="hljs-string">        var MainActivity = Java.use(&#x27;com.example.seccon2015.rock_paper_scissors.MainActivity&#x27;);</span>
+<span class="hljs-string">        MainActivity.onClick.implementation = function (v) &#123;</span>
+<span class="hljs-string">            send(&quot;Hook Start...&quot;);</span>
+<span class="hljs-string">            # 不改变参数v的情况下，直接调用原方法onClick(v)，这样不妨碍程序原本的运行</span>
+<span class="hljs-string">            # 如果想要修改参数，也是在此处直接对v进行修改。</span>
+<span class="hljs-string">            this.onClick(v);</span>
+<span class="hljs-string">            this.n.value = 0;</span>
+<span class="hljs-string">            this.m.value = 2;</span>
+<span class="hljs-string">            this.cnt.value = 999;</span>
+<span class="hljs-string">            console.log(&quot;Success!&quot;)</span>
+<span class="hljs-string">        &#125;</span>
+<span class="hljs-string">    &#125;);</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span></code></pre>
+<p>代码将cnt值修改为999，m为2，n为0时用户点击任意键都可获胜。</p>
+<p>运行代码，点击游戏界面任意键：</p>
+<p><img src="/2024/01/10/fx1/7.png" srcset="/img/loading.gif" alt="7"></p>
+<p>代码执行界面：</p>
+<p><img src="/2024/01/10/fx1/8.png" srcset="/img/loading.gif" alt="8"></p>
+<p>hook成功。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/20/lazy/">
+                        <span class="hidden-mobile">Lazysysadmin</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

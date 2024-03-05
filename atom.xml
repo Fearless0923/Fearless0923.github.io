@@ -6,7 +6,7 @@
   <link href="http://fearless0923.github.io/atom.xml" rel="self"/>
   
   <link href="http://fearless0923.github.io/"/>
-  <updated>2024-01-07T06:01:20.104Z</updated>
+  <updated>2024-03-05T01:38:04.381Z</updated>
   <id>http://fearless0923.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Frida入门|hook Java方法</title>
+    <link href="http://fearless0923.github.io/2024/01/10/fx1/"/>
+    <id>http://fearless0923.github.io/2024/01/10/fx1/</id>
+    <published>2024-01-10T06:17:49.000Z</published>
+    <updated>2024-03-05T01:38:04.381Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;0x00原理&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#0x00原理&quot;&gt;🍭&lt;/a&gt;0x00原理&lt;/h3&gt;
+&lt;p&gt;frida就是一种&lt;strong&gt;动态插桩工具&lt;/strong&gt;，可以插入一些代码到原生 app</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Lazysysadmin</title>
@@ -459,32 +481,6 @@
     
     
     <category term=".htaccess" scheme="http://fearless0923.github.io/tags/htaccess/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PHP无参数RCE</title>
-    <link href="http://fearless0923.github.io/2021/08/08/cmd/"/>
-    <id>http://fearless0923.github.io/2021/08/08/cmd/</id>
-    <published>2021-08-08T14:25:10.000Z</published>
-    <updated>2021-08-10T17:18:45.774Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前无数字字母shell里只做到了&lt;code&gt;/[A-Za-z0-9_$]+/&lt;/code&gt;这样的限制，但是遇到的其他题目做了很多限制，之前的绕过就行不通，比如像这样的：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;hljs</summary>
-        
-      
-    
-    
-    
-    <category term="无参RCE" scheme="http://fearless0923.github.io/categories/%E6%97%A0%E5%8F%82RCE/"/>
-    
-    
-    <category term="shell" scheme="http://fearless0923.github.io/tags/shell/"/>
     
   </entry>
   
