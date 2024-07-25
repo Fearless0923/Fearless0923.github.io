@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>Kerberos协议 - Fearless&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fearless0923.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Fearless's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Kerberos协议">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-07-24 09:55" pubdate>
+        July 24, 2024 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Kerberos协议</h1>
+            
+            <div class="markdown-body">
+              <h3 id="0X00前言"><a class="header-anchor" href="#0X00前言">🍭</a>0X00前言</h3>
+<p>Kerberos 是一种网络认证协议，通过密钥系统为客户机、服务器应用程序提供<strong>认证服务</strong>。Kerberos侧重于通信前<strong>双方身份的认定工作</strong>，帮助客户端以及服务端验证对方身份真实性，使得通信两端能够完全信任对方的身份，在一个<strong>不安全的网络</strong>中进行<strong>安全的通信</strong>。</p>
+<p>Kerberos协议中存在三个角色：</p>
+<ul>
+<li>
+<p><code>客户端</code>(Client)</p>
+</li>
+<li>
+<p><code>服务端</code>(Server)</p>
+</li>
+<li>
+<p><code>密钥分发中心</code>，密钥分发中心又分为两个部分：</p>
+<p><code>AS</code>(Authentication Server)：认证服务器，专门用来认证客户端的身份并发放客户用于访问TGS的TGT(票据授予票据)<br>
+<code>TGS</code>(Ticket Granting ticket)：票据授予服务器，用来发放整个认证过程以及客户端访问服务端时所需的服务授予票据(ticket)</p>
+</li>
+</ul>
+<p><code>TGT</code>：票据授予票据，客户端需要使用TGT去KDC中的TGS获取访问网络服务所需的Ticket，TGT包含客户端的<code>Name</code>、<code>IP</code>、<code>当前时间戳</code>、<code>TGS Name</code>、<code>TGT的有效时间</code>以及<code>Session_key(CT_SK,用于client和TGS间进行通信)</code>。TGT使用TGS密钥加密，客户端无法解密且密钥没有在网络中传输过，避免了密钥被劫持破解。</p>
+<h3 id="0X01认证前提"><a class="header-anchor" href="#0X01认证前提">🍭</a>0X01认证前提</h3>
+<ul>
+<li>
+<p>Kerberos自带一个数据库，运维人员会提前在库中添加整个系统中拥有使用Kerberos认证权限的用户和网络服务。在后续的认证中根据数据库中是否存在该用户和服务来判断该对象是否能够通过认证服务。</p>
+</li>
+<li>
+<p>使用Kerberos协议的用户和网络服务在加入Kerberos系统时会根据自己当前的密码生成一把密钥存储在Kerberos数据库中，数据库也会同时保存用户的基本信息(用户名，IP地址等)和网络服务的基本信息(IP，Server Name)。</p>
+</li>
+<li>
+<p>Kerberos中存在的三个角色，只要是发生了两两之间的通信，都需要先进行身份认证。</p>
+</li>
+</ul>
+<h3 id="0X02认证流程"><a class="header-anchor" href="#0X02认证流程">🍭</a>0X02认证流程</h3>
+<img src="/2024/07/24/ker/4.png" srcset="/img/loading.gif" alt="4" style="zoom:50%;">
+<h4 id="step1：AS认证客户端身份"><a class="header-anchor" href="#step1：AS认证客户端身份">🍭</a>step1：AS认证客户端身份</h4>
+<p>1、 客户端用户向KDC的AS以明文的方式发起请求，该次请求中携带了自己的<code>用户名</code>、<code>主机IP</code>、和<code>当前时间戳</code>；</p>
+<p>2、 KDC当中的AS接收请求后去Kerberos认证数据库中根据用户名查找是否存在该用户。 如果没有该用户名，认证失败；如果存在该用户名，则AS认证中心便会返回给客户端TGT和使用客户端密钥加密内容（<code>CT_SK</code>,<code>TGS Name</code>、<code>TGT的有效时间</code>，和<code>当前时间戳</code>）。</p>
+<p>客户端在拿到该部分内容时可以通过自己的密钥解密。如果是一个假的客户端，没有真正的密钥会由于解密失败从而中断认证流程。</p>
+<img src="/2024/07/24/ker/1.png" srcset="/img/loading.gif" alt="1" style="zoom: 67%;">
+<h4 id="step2：TGS授予客户端服务授予票据"><a class="header-anchor" href="#step2：TGS授予客户端服务授予票据">🍭</a>step2：TGS授予客户端服务授予票据</h4>
+<p>客户端收到了来自KDC的AS的响应，并获取到了其中的两部分内容。客户端会用自己的密钥将第二部分内容进行解密，首先它会根据时间戳判断该时间戳与自己发送请求时的时间的差值是否大于5分钟，如果大于5分钟则认为该AS是伪造的，认证至此失败。如果时间戳合理，客户端便准备向TGS发起请求从而获取能够访问目标网络服务的Ticket。<br>
+客户端将携带三部分内容交给KDC中的TGS：</p>
+<ul>
+<li>被CT_SK加密的<code>客户端名</code>、<code>IP</code>、<code>时间戳</code></li>
+<li>要访问的Server服务IP</li>
+<li>用TGS密钥加密的TGT</li>
+</ul>
+<p>TGS收到客户端的请求，<strong>首先</strong>根据Server服务IP查看当前Kerberos系统中是否存在该服务。<strong>接着</strong>使用自己的密钥将TGT中的内容进行解密，根据时间戳判断此次通信是否真是可靠有无超出时延。 <strong>然后</strong>TGS会使用<code>CK_SK</code>对客户端的第一部分内容进行解密，将其中的用户信息和TGT中的进行比对，如果全部相同则认为客户端身份正确。KDC将返回以下信息给客户端：</p>
+<ul>
+<li>使用Server密码加密的ST(Server Ticket)，其中包括客户端的<code>Name</code>，<code>IP</code>，<code>Server IP</code>，<code>ST的有效时间</code>，<code>时间戳</code>以及<code>CS_SK</code>。</li>
+<li>使用CT_SK加密<code>CS_SK</code>、<code>时间戳</code>，还有<code>ST的有效时间</code>。</li>
+</ul>
+<img src="/2024/07/24/ker/2.png" srcset="/img/loading.gif" alt="2" style="zoom:67%;">
+<h4 id="step3：客户端与服务端建立连接"><a class="header-anchor" href="#step3：客户端与服务端建立连接">🍭</a>step3：客户端与服务端建立连接</h4>
+<p>客户端收到了来自KDC(TGS)的响应，通过缓存在本地的<code>CT_SK</code>解密了第二部分内容，检查时间戳无误后，将<strong>ST</strong>和<strong>被CK_SK加密的自己的主机信息和时间戳</strong>发送给服务端。</p>
+<p>服务器收到客户端的请求，使用自己的密钥将<strong>ST</strong>进行解密，核对时间戳之后将其中的<code>CS_SK</code>取出将客户端的<strong>主机信息</strong>进行解密，将获得的经过TGS认证的客户端信息与客户端第二部分内容进行<strong>比对</strong>，最终确认该客户端就是经过KDC认证的具有真实身份的客户端。</p>
+<p>此时服务端返回一段使用CT_SK加密的表示接收请求的响应给客户端，在客户端收到请求之后，使用缓存在本地的CS_ST解密也确定了服务端的身份。</p>
+<img src="/2024/07/24/ker/3.png" srcset="/img/loading.gif" alt="3" style="zoom:67%;">
+<p>至此，认证完成。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/10/fx1/">
+                        <span class="hidden-mobile">Frida入门|hook Java方法</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <link href="http://fearless0923.github.io/atom.xml" rel="self"/>
   
   <link href="http://fearless0923.github.io/"/>
-  <updated>2024-03-05T01:38:04.381Z</updated>
+  <updated>2024-07-25T02:57:12.681Z</updated>
   <id>http://fearless0923.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kerberos协议</title>
+    <link href="http://fearless0923.github.io/2024/07/24/ker/"/>
+    <id>http://fearless0923.github.io/2024/07/24/ker/</id>
+    <published>2024-07-24T01:55:51.000Z</published>
+    <updated>2024-07-25T02:57:12.681Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;0X00前言&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#0X00前言&quot;&gt;🍭&lt;/a&gt;0X00前言&lt;/h3&gt;
+&lt;p&gt;Kerberos</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Frida入门|hook Java方法</title>
@@ -450,30 +472,6 @@
     <summary type="html">&lt;h1&gt;[XNUCA2019Qualifier]EasyPHP&lt;/h1&gt;
 &lt;h4 id=&quot;分析源码&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#分析源码&quot;&gt;🍭&lt;/a&gt;分析源码&lt;/h4&gt;
 &lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    
-    <category term=".htaccess" scheme="http://fearless0923.github.io/tags/htaccess/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>.htaccess总结</title>
-    <link href="http://fearless0923.github.io/2021/08/10/hta/"/>
-    <id>http://fearless0923.github.io/2021/08/10/hta/</id>
-    <published>2021-08-09T16:29:00.000Z</published>
-    <updated>2021-08-20T14:31:12.958Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;经常碰到一些题目需要借助.htaccess，且用法很多，这里来做一个总结。&lt;/p&gt;
-&lt;h4 id=&quot;概念&quot;&gt;&lt;a class=&quot;header-anchor&quot;</summary>
         
       
     

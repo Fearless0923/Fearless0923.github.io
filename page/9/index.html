@@ -182,6 +182,54 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/12/26/dvwa%E4%BA%8C/">DVWA||Brute Force</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/12/26/dvwa%E4%BA%8C/">
+          
+          
+            
+          
+          dvwa
+🍭Brute Force
+🍭low
+🍭暴力破解，查看源代码：
+
+它的select语句没有什么过滤，可以尝试sql注入构造admin'#密码为空：
+
+成功~~但这关标题为暴力破解，所以要按暴力破解做一遍：
+抓包,发到intruder,先clear ，选中要爆破字段,添加：
+
+在payload中选择字典，读取（字典很大读取了好久）：
+
+可设置线程数也可以使用默认：
+
+上图是我设置的线程
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-26 10:47" pubdate>
+              2020-12-26
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/12/17/sqli-labs%E4%B8%83/">sqli-labs(七)</a>
       </h1>
 
@@ -588,72 +636,6 @@ Less-8
           </div>
         
         
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/11/08/SQL/">SQL基础</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/11/08/SQL/">
-          
-          
-            
-          
-          SQL
-sql注入就是一种通过操作输入来修改后台操作语句达到执行恶意sql语句来进行攻击的技术。
-
-SQL
-
-分类
-
-变量类型
-HTTP提交方式
-注入方式
-编码问题
-
-
-信息数据库（MySql 5.0以上）
-
-information_schema
-SCHEMATA(所有数据库的基本信息)
-TABLES(存储表信息)
-COLUMNS(储存列信息)
-字符串连接函数
-
-
-基本手工注入流程
-
-获取字段数
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-08 16:33" pubdate>
-              2020-11-08
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/sql/">sql</a>
-            
-          </div>
         
       </div>
     </article>
