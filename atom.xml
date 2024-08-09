@@ -6,7 +6,7 @@
   <link href="http://fearless0923.github.io/atom.xml" rel="self"/>
   
   <link href="http://fearless0923.github.io/"/>
-  <updated>2024-07-25T02:57:12.681Z</updated>
+  <updated>2024-08-09T09:31:12.791Z</updated>
   <id>http://fearless0923.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kerberos协议攻击方式</title>
+    <link href="http://fearless0923.github.io/2024/07/25/kerr/"/>
+    <id>http://fearless0923.github.io/2024/07/25/kerr/</id>
+    <published>2024-07-25T02:56:19.000Z</published>
+    <updated>2024-08-09T09:31:12.791Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;AS认证客户端身份阶段&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#AS认证客户端身份阶段&quot;&gt;🍭&lt;/a&gt;AS认证客户端身份阶段&lt;/h3&gt;
+&lt;h4 id=&quot;1、哈希传递攻击-Pass-The-Hash&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Kerberos协议</title>
@@ -454,31 +476,6 @@
     
     <category term="bypass" scheme="http://fearless0923.github.io/categories/bypass/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>buu（八）</title>
-    <link href="http://fearless0923.github.io/2021/08/11/ffi/"/>
-    <id>http://fearless0923.github.io/2021/08/11/ffi/</id>
-    <published>2021-08-11T09:03:52.000Z</published>
-    <updated>2021-08-20T14:24:10.903Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;[XNUCA2019Qualifier]EasyPHP&lt;/h1&gt;
-&lt;h4 id=&quot;分析源码&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#分析源码&quot;&gt;🍭&lt;/a&gt;分析源码&lt;/h4&gt;
-&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    
-    <category term=".htaccess" scheme="http://fearless0923.github.io/tags/htaccess/"/>
     
   </entry>
   

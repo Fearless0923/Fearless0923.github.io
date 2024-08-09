@@ -182,6 +182,58 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/07/27/ruby/">buu（二）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/27/ruby/">
+          
+          
+            
+          
+          [SCTF2019]Flag Shop
+🍭Ruby ERB模板注入
+Ruby/ERB代码语法中较有特征的就是&lt;%=,&lt;%=语法可以用来执行Ruby语句，并将结果转换为字符串。我们可用ruby &lt;%= 7 * 7 %&gt;来测试是否含有模板注入。若存在模板注入漏洞就可以用ruby &lt;%= File.open(‘/etc/passwd’).read %&gt;试试看能否自带
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-27 23:20" pubdate>
+              2021-07-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%88%B7%E9%A2%98/">刷题</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/php/">php</a>
+            
+              <a href="/tags/Ruby-ERB%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">Ruby ERB模板注入</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/07/26/shell-1/">无字母数字shell</a>
       </h1>
 
@@ -607,48 +659,11 @@ Laravel是一套简洁、优雅的PHP Web开发框架(PHP Web Framework)。它�
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/12/filter/">Yii2 反序列化（CVE-2020-15148）分析</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/12/filter/">
-          
-          
-            
-          
-          Yii是一套基于组件、用于开发大型 Web 应用的高性能 PHP 框架，Yii2 2.0.38 之前的版本存在反序列化漏洞，程序在调用unserialize()时，攻击者可通过构造特定的恶意请求执行任意命令。
-其应用结构如下：
-
-研究前先搭个框架，可以composer安装，不过特别慢。我是直接到github上下载的，需要修改config/web.php文件里cookieValidationKey的
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-12 22:42" pubdate>
-              2021-07-12
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/3/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/3/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

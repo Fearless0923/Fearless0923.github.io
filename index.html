@@ -182,6 +182,44 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2024/07/25/kerr/">Kerberos协议攻击方式</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/07/25/kerr/">
+          
+          
+            
+          
+          🍭AS认证客户端身份阶段
+🍭1、哈希传递攻击(Pass The Hash)
+Kerberos认证过程中，用户的密码哈希值被用于加密认证过程。攻击者通过捕获这些哈希值，可以绕过密码解密的步骤，直接利用它们进行身份验证。由于哈希值在会话期间是固定的（除非密码被修改），因此攻击者可以在不获取明文密码的情况下，利用这些哈希值进行横向移动，访问内网中的其他计算机或资源。
+🍭2、 域用户名枚举
+客户端向
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-25 10:56" pubdate>
+              2024-07-25
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2024/07/24/ker/">Kerberos协议</a>
       </h1>
 
@@ -576,56 +614,11 @@ masscan --rate=10000 -p0-65535 192.168.20.138
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/09/21/bull/">【vulhub】bulldog</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/09/21/bull/">
-          
-          
-            
-          
-          🍭0x00 靶机环境
-
-靶机：bulldog靶机(192.168.20.136)
-攻击机：kali Linux(192.168.20.131)
-
-打开bulldog发现只有本地网卡
-
-需要设置虚拟网络，输入“mount -o rw,remount / ”命令，使 / 路径文件系统的可读模式能自由修改。接着查看网卡名称：
-
-这里使用的是ens33，接下来修改网络配置文件：
-
-vi /etc/net
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-21 21:08" pubdate>
-              2023-09-21
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

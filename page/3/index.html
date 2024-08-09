@@ -182,6 +182,53 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/11/ffi/">buu（八）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/11/ffi/">
+          
+          
+            
+          
+          [XNUCA2019Qualifier]EasyPHP
+🍭分析源码
+
+题目服务器中间件为 Apache，因此可以传 .htaceess 利用自定义错误文件写Webshell。
+🍭使 .htaccess 生效
+我们写入的内容会被自动在末尾加上“\nJust one chance”，会使上传的.htaccess文件不生效，我们可以采用 \ 的方式将换行符转义成普通字符，然后用 # 来注释单行：
+.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-11 17:03" pubdate>
+              2021-08-11
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/htaccess/">.htaccess</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/10/hta/">.htaccess总结</a>
       </h1>
 
@@ -662,63 +709,11 @@ $query = $_SERVER[&#x27;QUERY_STRING&#x27;];
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/27/ruby/">buu（二）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/27/ruby/">
-          
-          
-            
-          
-          [SCTF2019]Flag Shop
-🍭Ruby ERB模板注入
-Ruby/ERB代码语法中较有特征的就是&lt;%=,&lt;%=语法可以用来执行Ruby语句，并将结果转换为字符串。我们可用ruby &lt;%= 7 * 7 %&gt;来测试是否含有模板注入。若存在模板注入漏洞就可以用ruby &lt;%= File.open(‘/etc/passwd’).read %&gt;试试看能否自带
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-27 23:20" pubdate>
-              2021-07-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%88%B7%E9%A2%98/">刷题</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/php/">php</a>
-            
-              <a href="/tags/Ruby-ERB%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">Ruby ERB模板注入</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
