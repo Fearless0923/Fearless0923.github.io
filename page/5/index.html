@@ -182,6 +182,43 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/07/14/rce-0/">Laravel Debug RCE（CVE-2021-3129）分析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/14/rce-0/">
+          
+          
+            
+          
+          🍭0x00简介
+Laravel是一套简洁、优雅的PHP Web开发框架(PHP Web Framework)。它可以让你从面条一样杂乱的代码中解脱出来；它可以构建一个完美的网络APP，而且每行代码都可以简洁、富于表达力。
+🍭0x01漏洞概述
+当Laravel开启了Debug模式时，由于Laravel自带的Ignition 组件对file_get_contents()和file_put_cont
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-14 13:39" pubdate>
+              2021-07-14
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/07/12/filter/">Yii2 反序列化（CVE-2020-15148）分析</a>
       </h1>
 
@@ -564,49 +601,6 @@ SSRF详见：SSRF
             <i class="iconfont icon-date"></i>
             <time datetime="2021-04-16 00:32" pubdate>
               2021-04-16
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/15/easytrick/">CISCN2020</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/15/easytrick/">
-          
-          
-            
-          
-          这题的利用点之前没遇到过，比较有意思。
-🍭easytrick
-代码：
- &lt;?php
-class trick&#123;
-    public $trick1;
-    public $trick2;
-    public function __destruct()&#123;
-        $this-&gt;trick1 = (string)$this-&gt;trick1;
-    
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-15 00:43" pubdate>
-              2021-04-15
             </time>
           </div>
         

